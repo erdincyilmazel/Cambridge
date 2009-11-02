@@ -1,17 +1,17 @@
 <html>
 <body>
 
-Hello ${user.userName}
+   Hello ${user.userName}
 
-<div a:if="value">Value is true</div>
+   <div a:if="value">Value is true</div>
 
-<div a:foreach="users">${this.userName}
-   <ul>
-      <li a:foreach="this.friends">${super.email} ${this.name}</li>
-   </ul>
-</div>
+   <div a:foreach="users">${this.userName}
+      <ul>
+         <li a:foreach="this.friends">${super.email} ${this.name}</li>
+      </ul>
+   </div>
 
-<div a:from="1990" a:to="2010">${this}</div>
-<div a:while="user.countValid">${user.count1}</div>
+   <div a:from="1990" a:to="2010">${this}</div>
+   <div a:while="user.countValid">${user.count1}</div>
 </body>
 </html>

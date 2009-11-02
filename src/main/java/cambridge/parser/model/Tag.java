@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
 
 /**
  * User: erdincyilmazel
@@ -16,6 +18,7 @@ import java.util.Map;
  * Time: 8:12:49 PM
  */
 public class Tag extends TemplateNode implements ParentNode, Fragment {
+   String indent = "";
    String tagName;
    String nameSpace;
 
@@ -228,9 +231,22 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
 
    private FragmentList fragments;
 
+   static Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
+
    @Override
    public void normalize(FragmentList f) throws RecognitionException, BehaviorInstantiationException {
       if (isDynamic()) {
+
+         if(f.current instanceof StaticFragment) {
+            StaticFragment st = (StaticFragment) f.current;
+            Matcher matcher = indentPattern.matcher(st.contents);
+            if(matcher.find()) {
+               indent = matcher.group(1);
+               int length = st.contents.length();
+               st.contents.delete(length - indent.length(), length);
+            }
+         }
+
          if (children == null) {
             f.addFragment(this);
          } else {
@@ -341,6 +357,7 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
    }
 
    public void dumpTag(Map<String, Object> properties, Appendable out) throws IOException, ExpressionEvaluationException {
+      out.append(indent);
       out.append("<").append(tagName);
       if (tagParts != null) {
          for (TagPart t : tagParts) {

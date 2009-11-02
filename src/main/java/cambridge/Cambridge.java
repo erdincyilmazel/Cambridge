@@ -123,7 +123,7 @@ public class Cambridge {
          Cambridge c = new Cambridge();
          Template t = c.getTemplate("kitchensink.html", "UTF-8");
          t.setProperty("user", new User("erdinc", "erdinc@yilmazel.com"));
-         t.setProperty("value", true);
+         t.setProperty("value", false);
 
          ArrayList<User> users = new ArrayList<User>();
          users.add(new User("bahar", "email@email.com"));
