@@ -58,15 +58,26 @@ public class PropertyUtils {
 
    public Object getBeanProperty(Object bean, String property) throws PropertyAccessException {
       try {
+         Class beanClass = bean.getClass();
+         if (beanClass.equals(Super.class)) {
+            if (property.equals("super")) {
+               return ((Super) bean).getSuper();
+            }
+
+            bean = ((Super) bean).get();
+            beanClass = bean.getClass();
+         }
+
          Method m;
-         Property p = new Property(bean.getClass(), property);
+         Property p = new Property(beanClass, property);
 
          m = accessors.get(p);
          if (m != null) {
             return m.invoke(bean);
          }
 
-         BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
+         BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
+
          PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
          for (PropertyDescriptor d : descriptors) {
             if (property.equals(d.getName())) {
@@ -77,7 +88,7 @@ public class PropertyUtils {
             }
          }
 
-         throw new PropertyAccessException("Unknown property " + property + " on bean " + bean.getClass().getName(), bean, property);
+         throw new PropertyAccessException("Unknown property " + property + " on bean " + beanClass.getName(), bean, property);
       } catch (IntrospectionException e1) {
          throw new PropertyAccessException(e1, bean, property);
       } catch (InvocationTargetException e) {

@@ -50,6 +50,8 @@ public class DynamicTemplate implements Template {
 
    @Override
    public void printTo(Appendable out) throws IOException, ExpressionEvaluationException, RecognitionException, BehaviorInstantiationException {
+      properties.put("this", null);
+      properties.put("super", null);
       for (Fragment f : fragments) {
          f.eval(properties, out);
       }

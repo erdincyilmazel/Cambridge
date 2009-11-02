@@ -24,7 +24,7 @@ public class UntilBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void iterate(Map<String, Object> properties, Tag tag, Appendable out) throws ExpressionEvaluationException, IOException {
+   public void next(Map<String, Object> properties, Tag tag, Appendable out) throws ExpressionEvaluationException, IOException {
       do {
          tag.dumpTag(properties, out);
       } while (!expression.asBoolean(properties));

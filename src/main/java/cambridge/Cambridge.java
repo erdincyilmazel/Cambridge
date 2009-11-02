@@ -10,6 +10,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import org.antlr.runtime.RecognitionException;
 
@@ -92,6 +93,29 @@ public class Cambridge {
       public boolean isCount2Valid() {
          return !(count2++ < 10);
       }
+
+      public List<Friend> getFriends() {
+         ArrayList<Friend> friends = new ArrayList<Friend>();
+         friends.add(new Friend("friend1"));
+         friends.add(new Friend("friend2"));
+         friends.add(new Friend("friend3"));
+         friends.add(new Friend("friend4"));
+         friends.add(new Friend("friend5"));
+
+         return friends;
+      }
+   }
+
+   static class Friend {
+      String name;
+
+      Friend(String name) {
+         this.name = name;
+      }
+
+      public String getName() {
+         return name;
+      }
    }
 
    public static void main(String[] args) {
@@ -99,7 +123,7 @@ public class Cambridge {
          Cambridge c = new Cambridge();
          Template t = c.getTemplate("kitchensink.html", "UTF-8");
          t.setProperty("user", new User("erdinc", "erdinc@yilmazel.com"));
-         t.setProperty("value", false);
+         t.setProperty("value", true);
 
          ArrayList<User> users = new ArrayList<User>();
          users.add(new User("bahar", "email@email.com"));

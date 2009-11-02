@@ -45,14 +45,14 @@ public interface Expression {
       Not,
    }
 
-   public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException;
+   public Type getType(Map<String, Object> globals) throws ExpressionEvaluationException;
 
-   public Object eval(Map<String, Object> properties) throws ExpressionEvaluationException;
+   public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException;
 
-   public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException;
-   public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException;
-   public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException;
-   public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException;
-   public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException;
-   public String asString(Map<String, Object> properties) throws ExpressionEvaluationException;
+   public boolean asBoolean(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public int asInt(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public float asFloat(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public double asDouble(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public long asLong(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public String asString(Map<String, Object> globals) throws ExpressionEvaluationException;
 }

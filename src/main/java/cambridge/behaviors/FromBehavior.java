@@ -18,18 +18,16 @@ import org.antlr.runtime.RecognitionException;
 public class FromBehavior extends IterativeTagBehavior {
    Expression from;
    Expression to;
-   String as;
 
-   public FromBehavior(Expression from, Expression to, String as) {
+   public FromBehavior(Expression from, Expression to) {
       this.from = from;
       this.to = to;
-      this.as = as;
    }
 
    @Override
-   public void iterate(Map<String, Object> properties, Tag tag, Appendable out) throws ExpressionEvaluationException, IOException {
+   public void next(Map<String, Object> properties, Tag tag, Appendable out) throws ExpressionEvaluationException, IOException {
       for(int i = from.asInt(properties); i <= to.asInt(properties); i++) {
-         properties.put(as, i);
+         properties.put("this", i);
          tag.dumpTag(properties, out);
       }
    }
@@ -40,18 +38,16 @@ public class FromBehavior extends IterativeTagBehavior {
          public FromBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws RecognitionException, BehaviorInstantiationException {
             Expression from = keyAttribute.getExpression();
             AttributeKey toKey = new AttributeKey(keyAttribute.getAttributeNameSpace(), "to");
-            AttributeKey asKey = new AttributeKey(keyAttribute.getAttributeNameSpace(), "as");
 
             Attribute toAttribute = attributes.get(toKey);
-            Attribute asAttribute = attributes.get(asKey);
 
-            if(toAttribute == null || asAttribute == null || !(toAttribute instanceof DynamicAttribute)) {
-               throw new BehaviorInstantiationException("Required parameters to and as should be set");
+            if(toAttribute == null || !(toAttribute instanceof DynamicAttribute)) {
+               throw new BehaviorInstantiationException("Required parameters to is not set");
             }
 
             Expression to = ((DynamicAttribute) toAttribute).getExpression();
 
-            return new FromBehavior(from, to, asAttribute.getValue());
+            return new FromBehavior(from, to);
          }
       };
    }

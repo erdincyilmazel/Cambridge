@@ -294,8 +294,6 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
          printFragments(properties, out);
       } else {
          if (conditionsMet(properties)) {
-            
-
             if (iterative == null) {
                dumpTag(properties, out);
             } else {
