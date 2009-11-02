@@ -28,8 +28,6 @@ public class VarExpression implements Expression {
       properties.add(p);
    }
 
-   PropertyUtils utils = PropertyUtils.instance();
-
    @Override
    public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
@@ -56,6 +54,7 @@ public class VarExpression implements Expression {
 
    @Override
    public Object eval(Map<String, Object> p) throws ExpressionEvaluationException {
+      PropertyUtils utils = PropertyUtils.instance();
       if (properties == null) {
          return p.get(varName);
       }
@@ -80,31 +79,49 @@ public class VarExpression implements Expression {
 
    @Override
    public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException {
-      return false;
+      Object o = eval(properties);
+      return o instanceof Boolean && (Boolean) o;
    }
 
    @Override
    public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
+      Object o = eval(properties);
+      if(o instanceof Number) {
+         return ((Number) o).intValue();
+      }
       return 0;
    }
 
    @Override
    public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
+      Object o = eval(properties);
+      if(o instanceof Number) {
+         return ((Number) o).floatValue();
+      }
+
       return 0;
    }
 
    @Override
    public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
+      Object o = eval(properties);
+      if(o instanceof Number) {
+         return ((Number) o).doubleValue();
+      }
       return 0;
    }
 
    @Override
    public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
+      Object o = eval(properties);
+      if(o instanceof Number) {
+         return ((Number) o).longValue();
+      }
       return 0;
    }
 
    @Override
    public String asString(Map<String, Object> properties) throws ExpressionEvaluationException {
-      return null;
+      return eval(properties).toString();
    }
 }
