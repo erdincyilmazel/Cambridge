@@ -22,4 +22,6 @@ public abstract class TagPart {
    public void setTextContent(String textContent) {
       this.textContent = textContent;
    }
+
+   public abstract boolean isWhiteSpace();
 }

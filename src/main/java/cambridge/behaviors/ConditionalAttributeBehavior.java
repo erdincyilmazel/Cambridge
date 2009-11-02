@@ -1,7 +1,6 @@
 package cambridge.behaviors;
 
 import cambridge.TagBehavior;
-import cambridge.parser.expressions.Expression;
 
 /**
  * User: erdinc

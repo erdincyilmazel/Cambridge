@@ -89,12 +89,12 @@ public class PropertyUtils {
          }
 
          throw new PropertyAccessException("Unknown property " + property + " on bean " + beanClass.getName(), bean, property);
-      } catch (IntrospectionException e1) {
-         throw new PropertyAccessException(e1, bean, property);
+      } catch (IntrospectionException e) {
+         throw new PropertyAccessException(e.getMessage(), bean, property);
       } catch (InvocationTargetException e) {
-         throw new PropertyAccessException(e, bean, property);
+         throw new PropertyAccessException(e.getMessage(), bean, property);
       } catch (IllegalAccessException e) {
-         throw new PropertyAccessException(e, bean, property);
+         throw new PropertyAccessException(e.getMessage(), bean, property);
       }
    }
 
@@ -120,8 +120,8 @@ public class PropertyUtils {
          }
 
          return false;
-      } catch (IntrospectionException e1) {
-         throw new PropertyAccessException(e1, bean, property);
+      } catch (IntrospectionException e) {
+         throw new PropertyAccessException(e.getMessage(), bean, property);
       }
    }
 }

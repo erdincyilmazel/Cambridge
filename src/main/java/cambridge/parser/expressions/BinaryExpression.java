@@ -123,40 +123,40 @@ public class BinaryExpression implements Expression {
             return left.asInt(properties) ^ right.asInt(properties);
          case Plus:
             Type t = getType(properties);
-            if(t == Type.String) {
+            if (t == Type.String) {
                return left.asString(properties) + right.asString(properties);
             }
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return left.asDouble(properties) + right.asDouble(properties);
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return left.asFloat(properties) + right.asFloat(properties);
             }
             return left.asInt(properties) + right.asInt(properties);
          case Minus:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return left.asDouble(properties) - right.asDouble(properties);
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return left.asFloat(properties) - right.asFloat(properties);
             }
             return left.asInt(properties) - right.asInt(properties);
          case Divide:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return left.asDouble(properties) / right.asDouble(properties);
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return left.asFloat(properties) / right.asFloat(properties);
             }
             return left.asInt(properties) / right.asInt(properties);
          case Times:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return left.asDouble(properties) * right.asDouble(properties);
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return left.asFloat(properties) * right.asFloat(properties);
             }
             return left.asInt(properties) * right.asInt(properties);
@@ -200,40 +200,40 @@ public class BinaryExpression implements Expression {
             return (left.asInt(properties) ^ right.asInt(properties)) != 0;
          case Plus:
             Type t = getType(properties);
-            if(t == Type.String) {
+            if (t == Type.String) {
                return !(left.asString(properties) + right.asString(properties)).equals("");
             }
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (left.asDouble(properties) + right.asDouble(properties)) != 0;
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) + right.asFloat(properties)) != 0;
             }
             return (left.asInt(properties) + right.asInt(properties)) != 0;
          case Minus:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (left.asDouble(properties) - right.asDouble(properties)) != 0;
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) - right.asFloat(properties)) != 0;
             }
             return (left.asInt(properties) - right.asInt(properties)) != 0;
          case Divide:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (left.asDouble(properties) / right.asDouble(properties)) != 0;
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) / right.asFloat(properties)) != 0;
             }
             return (left.asInt(properties) / right.asInt(properties)) != 0;
          case Times:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (left.asDouble(properties) * right.asDouble(properties)) != 0;
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) * right.asFloat(properties)) != 0;
             }
             return (left.asInt(properties) * right.asInt(properties)) != 0;
@@ -250,7 +250,7 @@ public class BinaryExpression implements Expression {
          case ConditionalAnd:
             return (left.asBoolean(properties) && right.asBoolean(properties)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1: 0;
+            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1 : 0;
          case Equal:
             return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 1 : 0;
          case GT:
@@ -277,45 +277,45 @@ public class BinaryExpression implements Expression {
             return left.asInt(properties) ^ right.asInt(properties);
          case Plus:
             Type t = getType(properties);
-            if(t == Type.String) {
+            if (t == Type.String) {
                return Integer.parseInt(left.asString(properties) + right.asString(properties));
             }
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (int) (left.asDouble(properties) + right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (int) (left.asFloat(properties) + right.asFloat(properties));
             }
             return left.asInt(properties) + right.asInt(properties);
          case Minus:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (int) (left.asDouble(properties) - right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (int) (left.asFloat(properties) - right.asFloat(properties));
             }
             return left.asInt(properties) - right.asInt(properties);
          case Divide:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (int) (left.asDouble(properties) / right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (int) (left.asFloat(properties) / right.asFloat(properties));
             }
             return left.asInt(properties) / right.asInt(properties);
          case Times:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (int) (left.asDouble(properties) * right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (int) (left.asFloat(properties) * right.asFloat(properties));
             }
             return left.asInt(properties) * right.asInt(properties);
       }
-      
+
       return 0;
    }
 
@@ -327,7 +327,7 @@ public class BinaryExpression implements Expression {
          case ConditionalAnd:
             return (left.asBoolean(properties) && right.asBoolean(properties)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1: 0;
+            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1 : 0;
          case Equal:
             return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 1 : 0;
          case GT:
@@ -354,45 +354,45 @@ public class BinaryExpression implements Expression {
             return left.asInt(properties) ^ right.asInt(properties);
          case Plus:
             Type t = getType(properties);
-            if(t == Type.String) {
+            if (t == Type.String) {
                return Integer.parseInt(left.asString(properties) + right.asString(properties));
             }
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (float) (left.asDouble(properties) + right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) + right.asFloat(properties));
             }
             return left.asInt(properties) + right.asInt(properties);
          case Minus:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (float) (left.asDouble(properties) - right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) - right.asFloat(properties));
             }
             return left.asInt(properties) - right.asInt(properties);
          case Divide:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (float) (left.asDouble(properties) / right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) / right.asFloat(properties));
             }
             return left.asInt(properties) / right.asInt(properties);
          case Times:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (float) (left.asDouble(properties) * right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) * right.asFloat(properties));
             }
             return left.asInt(properties) * right.asInt(properties);
       }
-      
+
       return 0;
    }
 
@@ -404,7 +404,7 @@ public class BinaryExpression implements Expression {
          case ConditionalAnd:
             return (left.asBoolean(properties) && right.asBoolean(properties)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1: 0;
+            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1 : 0;
          case Equal:
             return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 1 : 0;
          case GT:
@@ -431,45 +431,45 @@ public class BinaryExpression implements Expression {
             return left.asInt(properties) ^ right.asInt(properties);
          case Plus:
             Type t = getType(properties);
-            if(t == Type.String) {
+            if (t == Type.String) {
                return Integer.parseInt(left.asString(properties) + right.asString(properties));
             }
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (left.asDouble(properties) + right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) + right.asFloat(properties));
             }
             return left.asInt(properties) + right.asInt(properties);
          case Minus:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (left.asDouble(properties) - right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) - right.asFloat(properties));
             }
             return left.asInt(properties) - right.asInt(properties);
          case Divide:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (left.asDouble(properties) / right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) / right.asFloat(properties));
             }
             return left.asInt(properties) / right.asInt(properties);
          case Times:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (left.asDouble(properties) * right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (left.asFloat(properties) * right.asFloat(properties));
             }
             return left.asInt(properties) * right.asInt(properties);
       }
-      
+
       return 0;
    }
 
@@ -481,7 +481,7 @@ public class BinaryExpression implements Expression {
          case ConditionalAnd:
             return (left.asBoolean(properties) && right.asBoolean(properties)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1: 0;
+            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1 : 0;
          case Equal:
             return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 1 : 0;
          case GT:
@@ -508,40 +508,40 @@ public class BinaryExpression implements Expression {
             return left.asInt(properties) ^ right.asInt(properties);
          case Plus:
             Type t = getType(properties);
-            if(t == Type.String) {
+            if (t == Type.String) {
                return Integer.parseInt(left.asString(properties) + right.asString(properties));
             }
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (long) (left.asDouble(properties) + right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (long) (left.asFloat(properties) + right.asFloat(properties));
             }
             return left.asInt(properties) + right.asInt(properties);
          case Minus:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (long) (left.asDouble(properties) - right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (long) (left.asFloat(properties) - right.asFloat(properties));
             }
             return left.asInt(properties) - right.asInt(properties);
          case Divide:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (long) (left.asDouble(properties) / right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (long) (left.asFloat(properties) / right.asFloat(properties));
             }
             return left.asInt(properties) / right.asInt(properties);
          case Times:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return (long) (left.asDouble(properties) * right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return (long) (left.asFloat(properties) * right.asFloat(properties));
             }
             return left.asInt(properties) * right.asInt(properties);
@@ -584,40 +584,40 @@ public class BinaryExpression implements Expression {
             return "" + (left.asInt(properties) ^ right.asInt(properties));
          case Plus:
             Type t = getType(properties);
-            if(t == Type.String) {
+            if (t == Type.String) {
                return left.asString(properties) + right.asString(properties);
             }
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return "" + (left.asDouble(properties) + right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return "" + (left.asFloat(properties) + right.asFloat(properties));
             }
             return "" + (left.asInt(properties) + right.asInt(properties));
          case Minus:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return "" + (left.asDouble(properties) - right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return "" + (left.asFloat(properties) - right.asFloat(properties));
             }
             return "" + (left.asInt(properties) - right.asInt(properties));
          case Divide:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return "" + (left.asDouble(properties) / right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return "" + (left.asFloat(properties) / right.asFloat(properties));
             }
             return "" + (left.asInt(properties) / right.asInt(properties));
          case Times:
             t = getType(properties);
-            if(t == Type.Double) {
+            if (t == Type.Double) {
                return "" + (left.asDouble(properties) * right.asDouble(properties));
             }
-            if(t == Type.Float) {
+            if (t == Type.Float) {
                return "" + (left.asFloat(properties) * right.asFloat(properties));
             }
             return "" + (left.asInt(properties) * right.asInt(properties));

@@ -1,11 +1,11 @@
 package cambridge.parser.model;
 
-import org.antlr.runtime.RecognitionException;
+import cambridge.BehaviorInstantiationException;
+import cambridge.TemplateParsingException;
 
 import java.io.IOException;
 import java.io.PrintStream;
-
-import cambridge.BehaviorInstantiationException;
+import java.util.ArrayList;
 
 /**
  * Every
@@ -70,7 +70,10 @@ public abstract class TemplateNode {
 
    public abstract boolean isDynamic();
 
-   public abstract void normalize(FragmentList f) throws RecognitionException, BehaviorInstantiationException;
+   public abstract void normalize(FragmentList f) throws TemplateParsingException, BehaviorInstantiationException;
 
    public abstract Tag getElementById(String id);
+
+   public void addElementsbyTagName(String tagName, ArrayList<Tag> tags) {
+   }
 }

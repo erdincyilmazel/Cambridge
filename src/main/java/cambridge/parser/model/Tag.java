@@ -1,7 +1,6 @@
 package cambridge.parser.model;
 
 import cambridge.*;
-import org.antlr.runtime.RecognitionException;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -9,8 +8,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Pattern;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User: erdincyilmazel
@@ -30,6 +29,16 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
    HashMap<AttributeKey, Attribute> attributes;
 
    String id;
+
+   private FragmentList fragments;
+
+   static Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
+
+   ArrayList<ModifyingTagBehavior> modifyingBehaviors;
+   ArrayList<ConditionalTagBehavior> conditionalBehaviors;
+   IterativeTagBehavior iterative;
+
+   Boolean dynamic;
 
    public Tag() {
    }
@@ -81,9 +90,15 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
       return null;
    }
 
-   ArrayList<ModifyingTagBehavior> modifyingBehaviors;
-   ArrayList<ConditionalTagBehavior> conditionalBehaviors;
-   IterativeTagBehavior iterative;
+   @Override
+   public ArrayList<Tag> getElementsByTagName(String tagName) {
+      ArrayList<Tag> list = new ArrayList<Tag>();
+      for (TemplateNode t : children) {
+         t.addElementsbyTagName(tagName, list);
+      }
+
+      return list;
+   }
 
    private void addTagPart(TagPart e) {
       if (tagParts == null) tagParts = new ArrayList<TagPart>();
@@ -98,7 +113,7 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
       addTagPart(e);
    }
 
-   public void addAttribute(Attribute a) throws BehaviorInstantiationException, RecognitionException {
+   public void addAttribute(Attribute a) {
       if (attributes == null) {
          attributes = new HashMap<AttributeKey, Attribute>();
       }
@@ -111,11 +126,33 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
          id = a.getValue();
       }
 
+      BehaviorBindings bindings = BehaviorBindings.getInstance();
+
       if (!a.isDynamic()) {
          tagParts.add((SimpleAttribute) a);
       } else {
-         dynamic = true;
+         if (bindings.getStaticBehavior(key) == null) {
+            dynamic = true;
+         }
       }
+   }
+
+   public boolean hasAttribute(String namespace, String attributeName) {
+      AttributeKey key = new AttributeKey(namespace, attributeName);
+      return attributes.containsKey(key);
+   }
+
+   public Attribute getAttribute(String namespace, String attributeName) {
+      return attributes.get(new AttributeKey(namespace, attributeName));
+   }
+
+   public boolean hasAttribute(String attributeName) {
+      AttributeKey key = new AttributeKey(null, attributeName);
+      return attributes.containsKey(key);
+   }
+
+   public Attribute getAttribute(String attributeName) {
+      return attributes.get(new AttributeKey(null, attributeName));
    }
 
    public void removeTagPart(int e) {
@@ -211,7 +248,6 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
       if (closeText != null) out.print(closeText);
    }
 
-   Boolean dynamic;
 
    @Override
    public boolean isDynamic() {
@@ -229,18 +265,25 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
       return false;
    }
 
-   private FragmentList fragments;
-
-   static Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
-
    @Override
-   public void normalize(FragmentList f) throws RecognitionException, BehaviorInstantiationException {
-      if (isDynamic()) {
+   public void normalize(FragmentList f) throws TemplateParsingException, BehaviorInstantiationException {
+      if (attributes != null) {
+         BehaviorBindings bindings = BehaviorBindings.getInstance();
+         for (AttributeKey key : attributes.keySet()) {
+            StaticBehavior sb = bindings.getStaticBehavior(key);
+            if (sb != null) {
+               sb.modify(this);
+            }
+         }
+      }
 
-         if(f.current instanceof StaticFragment) {
+      if (isDynamic()) {
+         assignBehaviors();
+
+         if (f.current instanceof StaticFragment) {
             StaticFragment st = (StaticFragment) f.current;
             Matcher matcher = indentPattern.matcher(st.contents);
-            if(matcher.find()) {
+            if (matcher.find()) {
                indent = matcher.group(1);
                int length = st.contents.length();
                st.contents.delete(length - indent.length(), length);
@@ -259,14 +302,20 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
 
             f.addFragment(this);
          }
-
-         assignBehaviors();
       } else {
          f.append("<").append(tagName);
 
          if (tagParts != null) {
-            f.append(" ");
+            boolean whiteSpace = false;
             for (TagPart t : tagParts) {
+               if (!t.isWhiteSpace()) {
+                  if (!whiteSpace) {
+                     f.append(" ");
+                  }
+                  whiteSpace = false;
+               } else {
+                  whiteSpace = true;
+               }
                f.append(t.getTextContent());
             }
          }
@@ -300,29 +349,44 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
       return null;
    }
 
+   @Override
+   public void addElementsbyTagName(String tagName, ArrayList<Tag> tags) {
+      if (tagName.equals(this.tagName)) {
+         tags.add(this);
+      }
+
+      for (TemplateNode t : children) {
+         t.addElementsbyTagName(tagName, tags);
+      }
+   }
+
    public String toString() {
       return getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn() + " - " + (nameSpace == null ? tagName : nameSpace + ":" + tagName);
    }
 
    @Override
-   public void eval(Map<String, Object> properties, Appendable out) throws IOException, ExpressionEvaluationException {
-      if (!isDynamic()) {
-         printFragments(properties, out);
-      } else {
-         if (conditionsMet(properties)) {
-            if (iterative == null) {
-               dumpTag(properties, out);
-            } else {
-               iterative.iterate(properties, this, out);
+   public void eval(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+      try {
+         if (!isDynamic()) {
+            printFragments(properties, out);
+         } else {
+            if (conditionsMet(properties)) {
+               if (iterative == null) {
+                  dumpTag(properties, out);
+               } else {
+                  iterative.iterate(properties, this, out);
+               }
             }
          }
+      } catch (ExpressionEvaluationException e) {
+         throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), getTagName());
       }
    }
 
    private boolean conditionsMet(Map<String, Object> properties) throws ExpressionEvaluationException {
-      if(conditionalBehaviors == null) return true;
-      for(ConditionalTagBehavior b : conditionalBehaviors) {
-         if(!b.conditionMet(properties)) {
+      if (conditionalBehaviors == null) return true;
+      for (ConditionalTagBehavior b : conditionalBehaviors) {
+         if (!b.conditionMet(properties)) {
             return false;
          }
       }
@@ -330,22 +394,25 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
       return true;
    }
 
-   private void assignBehaviors() throws RecognitionException, BehaviorInstantiationException {
+   private void assignBehaviors() throws TemplateParsingException, BehaviorInstantiationException {
       BehaviorBindings bindings = BehaviorBindings.getInstance();
       for (AttributeKey key : attributes.keySet()) {
-         TagBehavior behavior = bindings.getBehavior(key, attributes);
+         TagBehavior behavior;
+         try {
+            behavior = bindings.getBehavior(key, attributes);
+         } catch (ExpressionParsingException e) {
+            throw new TemplateParsingException("Error in parsing expression", e, getBeginLine(), getBeginColumn());
+         }
          if (behavior != null) {
             if (behavior instanceof ConditionalTagBehavior) {
-               if(conditionalBehaviors == null) {
+               if (conditionalBehaviors == null) {
                   conditionalBehaviors = new ArrayList<ConditionalTagBehavior>();
                }
 
                conditionalBehaviors.add((ConditionalTagBehavior) behavior);
-            }
-            else if (behavior instanceof IterativeTagBehavior) {
+            } else if (behavior instanceof IterativeTagBehavior) {
                iterative = (IterativeTagBehavior) behavior;
-            }
-            else if (behavior instanceof ModifyingTagBehavior) {
+            } else if (behavior instanceof ModifyingTagBehavior) {
                if (modifyingBehaviors == null) {
                   modifyingBehaviors = new ArrayList<ModifyingTagBehavior>();
                }
@@ -356,12 +423,20 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
       }
    }
 
-   public void dumpTag(Map<String, Object> properties, Appendable out) throws IOException, ExpressionEvaluationException {
+   public void dumpTag(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
       out.append(indent);
       out.append("<").append(tagName);
       if (tagParts != null) {
+         boolean whiteSpace = false;
          for (TagPart t : tagParts) {
-            out.append(" ");
+            if (!t.isWhiteSpace()) {
+               if (!whiteSpace) {
+                  out.append(" ");
+               }
+               whiteSpace = false;
+            } else {
+               whiteSpace = true;
+            }
             out.append(t.getTextContent());
          }
       }
@@ -375,9 +450,11 @@ public class Tag extends TemplateNode implements ParentNode, Fragment {
       }
    }
 
-   private void printFragments(Map<String, Object> properties, Appendable out) throws IOException, ExpressionEvaluationException {
-      for (Fragment f : fragments) {
-         f.eval(properties, out);
+   private void printFragments(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+      if (fragments != null) {
+         for (Fragment f : fragments) {
+            f.eval(properties, out);
+         }
       }
    }
 

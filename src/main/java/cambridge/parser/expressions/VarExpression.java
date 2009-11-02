@@ -1,6 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.runtime.PropertyAccessException;
 import cambridge.runtime.PropertyUtils;
 
 import java.util.ArrayList;
@@ -63,7 +64,11 @@ public class VarExpression implements Expression {
       for (VarProperty property : properties) {
          if (property instanceof IdentifierVarProperty) {
             IdentifierVarProperty id = (IdentifierVarProperty) property;
-            object = utils.getBeanProperty(object, id.name);
+            try {
+               object = utils.getBeanProperty(object, id.name);
+            } catch (PropertyAccessException e) {
+               throw new ExpressionEvaluationException(e.getMessage());
+            }
          } else {
             MapVarProperty m = (MapVarProperty) property;
             if (object instanceof Map) {
@@ -86,7 +91,7 @@ public class VarExpression implements Expression {
    @Override
    public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
-      if(o instanceof Number) {
+      if (o instanceof Number) {
          return ((Number) o).intValue();
       }
       return 0;
@@ -95,7 +100,7 @@ public class VarExpression implements Expression {
    @Override
    public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
-      if(o instanceof Number) {
+      if (o instanceof Number) {
          return ((Number) o).floatValue();
       }
 
@@ -105,7 +110,7 @@ public class VarExpression implements Expression {
    @Override
    public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
-      if(o instanceof Number) {
+      if (o instanceof Number) {
          return ((Number) o).doubleValue();
       }
       return 0;
@@ -114,7 +119,7 @@ public class VarExpression implements Expression {
    @Override
    public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
-      if(o instanceof Number) {
+      if (o instanceof Number) {
          return ((Number) o).longValue();
       }
       return 0;

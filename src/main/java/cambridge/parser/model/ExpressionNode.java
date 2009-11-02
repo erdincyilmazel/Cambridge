@@ -1,6 +1,8 @@
 package cambridge.parser.model;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.ExpressionParsingException;
+import cambridge.TemplateRuntimeException;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.ExpressionLexer;
 import cambridge.parser.expressions.ExpressionParser;
@@ -21,13 +23,20 @@ public class ExpressionNode extends TemplateNode implements Fragment {
    String value;
    Expression expression;
 
-   public ExpressionNode(String value) throws RecognitionException {
+   public ExpressionNode(String value) throws ExpressionParsingException {
       this.value = value;
-      ANTLRStringStream stream = new ANTLRStringStream(value);
-      ExpressionLexer lexer = new ExpressionLexer(stream);
-      TokenStream tokenStream = new CommonTokenStream(lexer);
-      ExpressionParser parser = new ExpressionParser(tokenStream);
-      expression = parser.compilationUnit();
+      try {
+         ANTLRStringStream stream = new ANTLRStringStream(value);
+         ExpressionLexer lexer = new ExpressionLexer(stream);
+         TokenStream tokenStream = new CommonTokenStream(lexer);
+         ExpressionParser parser = new ExpressionParser(tokenStream);
+         expression = parser.compilationUnit();
+         if (parser.getErrors() != null) {
+            throw new ExpressionParsingException(parser.getErrors());
+         }
+      } catch (RecognitionException e) {
+         throw new ExpressionParsingException(e);
+      }
    }
 
    public String getSource() {
@@ -56,10 +65,14 @@ public class ExpressionNode extends TemplateNode implements Fragment {
    }
 
    @Override
-   public void eval(Map<String, Object> properties, Appendable out) throws IOException, ExpressionEvaluationException {
-      Object value = expression.eval(properties);
-      if (value != null) {
-         out.append(value.toString());
+   public void eval(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+      try {
+         Object value = expression.eval(properties);
+         if (value != null) {
+            out.append(value.toString());
+         }
+      } catch (ExpressionEvaluationException e) {
+         throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), value);
       }
    }
 

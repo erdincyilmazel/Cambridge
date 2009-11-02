@@ -8,9 +8,10 @@ public class TextTagPart extends TagPart {
       super(textContent);
    }
 
-   public boolean whitespace;
-
-   public boolean isWhitespace() {
+   @Override
+   public boolean isWhiteSpace() {
       return whitespace;
    }
+
+   public boolean whitespace;
 }

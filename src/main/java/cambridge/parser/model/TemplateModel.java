@@ -1,13 +1,12 @@
 package cambridge.parser.model;
 
-import org.antlr.runtime.RecognitionException;
+import cambridge.BehaviorInstantiationException;
+import cambridge.TemplateParsingException;
 
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
-
-import cambridge.BehaviorInstantiationException;
 
 /**
  * User: eyilmazel
@@ -16,7 +15,7 @@ import cambridge.BehaviorInstantiationException;
  */
 
 /**
- * TemplateModel is a list of TempleteNodes
+ * TemplateModel is a tree of TempleteNodes
  * <p/>
  * A TemplateNode is a node in a Template file which can contain
  * other nodes.
@@ -69,6 +68,16 @@ public class TemplateModel implements ParentNode {
       return null;
    }
 
+   public ArrayList<Tag> getElementsByTagName(String tagName) {
+      ArrayList<Tag> tags = new ArrayList<Tag>();
+
+      for (TemplateNode t : children) {
+         t.addElementsbyTagName(tagName, tags);
+      }
+
+      return tags;
+   }
+
    /**
     * Writes the original source of the template to the supplied writer
     *
@@ -99,7 +108,7 @@ public class TemplateModel implements ParentNode {
       return null;
    }
 
-   public FragmentList normalize() throws RecognitionException, BehaviorInstantiationException {
+   public FragmentList normalize() throws TemplateParsingException, BehaviorInstantiationException {
       FragmentList list = new FragmentList();
       for (TemplateNode t : children) {
          t.normalize(list);

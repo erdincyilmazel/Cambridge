@@ -1,5 +1,6 @@
 package cambridge.parser.model;
 
+import cambridge.ExpressionParsingException;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.ExpressionLexer;
 import cambridge.parser.expressions.ExpressionParser;
@@ -51,13 +52,21 @@ public class DynamicAttribute implements Attribute {
 
    private Expression expression;
 
-   public Expression getExpression() throws RecognitionException {
+   public Expression getExpression() throws ExpressionParsingException {
       if (expression == null) {
-         ANTLRStringStream stream = new ANTLRStringStream(value);
-         ExpressionLexer lexer = new ExpressionLexer(stream);
-         TokenStream tokenStream = new CommonTokenStream(lexer);
-         ExpressionParser parser = new ExpressionParser(tokenStream);
-         expression = parser.compilationUnit();
+         try {
+            ANTLRStringStream stream = new ANTLRStringStream(value);
+            ExpressionLexer lexer = new ExpressionLexer(stream);
+            TokenStream tokenStream = new CommonTokenStream(lexer);
+            ExpressionParser parser = new ExpressionParser(tokenStream);
+            expression = parser.compilationUnit();
+
+            if (parser.getErrors() != null) {
+               throw new ExpressionParsingException(parser.getErrors());
+            }
+         } catch (RecognitionException e) {
+            throw new ExpressionParsingException(e);
+         }
       }
       return expression;
    }

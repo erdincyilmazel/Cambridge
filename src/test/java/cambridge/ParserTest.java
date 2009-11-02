@@ -1,18 +1,15 @@
 package cambridge;
 
-import org.junit.Before;
-import org.junit.Test;
+import cambridge.parser.TemplateParser;
+import cambridge.parser.TemplateTokenizer;
+import cambridge.parser.model.FragmentList;
+import cambridge.parser.model.TemplateModel;
 import org.junit.After;
 import static org.junit.Assert.assertNotNull;
-import org.antlr.runtime.RecognitionException;
+import org.junit.Before;
+import org.junit.Test;
 
 import java.io.IOException;
-
-import cambridge.parser.TemplateTokenizer;
-import cambridge.parser.TemplateParser;
-import cambridge.TemplateParsingException;
-import cambridge.parser.model.TemplateModel;
-import cambridge.parser.model.FragmentList;
 
 /**
  * User: erdinc
@@ -45,8 +42,6 @@ public class ParserTest {
       } catch (IOException e) {
          e.printStackTrace();
       } catch (TemplateParsingException e) {
-         e.printStackTrace();
-      } catch (RecognitionException e) {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();

@@ -1,11 +1,10 @@
 package cambridge.parser;
 
 import cambridge.BehaviorBindings;
-import cambridge.BehaviorInstantiationException;
+import cambridge.ExpressionParsingException;
 import cambridge.TemplateParsingException;
 import cambridge.parser.model.*;
 import cambridge.parser.tokens.*;
-import org.antlr.runtime.RecognitionException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -175,8 +174,8 @@ public class TemplateParser {
    private ExpressionNode expression() throws TemplateParsingException {
       try {
          return new ExpressionNode(currentToken.value);
-      } catch (RecognitionException e) {
-         throw new TemplateParsingException("Error parsing expression", e, tokenizer.getLineNo(), tokenizer.getColumn());
+      } catch (ExpressionParsingException e) {
+         throw new TemplateParsingException("Error parsing expression", e, currentToken.getLineNo(), currentToken.getColumn());
       }
    }
 
@@ -255,19 +254,13 @@ public class TemplateParser {
                if (s > 0) {
                   TagPart te = node.getTagParts().get(s - 1);
                   if (te instanceof TextTagPart) {
-                     if (((TextTagPart) te).isWhitespace()) {
+                     if (te.isWhiteSpace()) {
                         node.getTagParts().remove(s - 1);
                      }
                   }
                }
 
-               try {
-                  node.addAttribute(element);
-               } catch (BehaviorInstantiationException e1) {
-                  throw new TemplateParsingException("Could not instantiate behavior", e1, tokenizer.getLineNo(), tokenizer.getColumn());
-               } catch (RecognitionException e1) {
-                  throw new TemplateParsingException("Could not parse expression", e1, tokenizer.getLineNo(), tokenizer.getColumn());
-               }
+               node.addAttribute(element);
                break;
             case EXPRESSION:
                node.addExpression(new ExpressionTagPart(currentToken.value));

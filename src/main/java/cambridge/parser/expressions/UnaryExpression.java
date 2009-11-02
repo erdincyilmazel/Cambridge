@@ -20,7 +20,7 @@ public class UnaryExpression implements Expression {
 
    @Override
    public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException {
-      if(operator == Operator.Not) {
+      if (operator == Operator.Not) {
          return Type.Boolean;
       }
       return Type.Int;
@@ -40,7 +40,7 @@ public class UnaryExpression implements Expression {
 
    @Override
    public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException {
-      if(operator == Operator.Not) {
+      if (operator == Operator.Not) {
          return !expression.asBoolean(properties);
       }
 
@@ -49,7 +49,7 @@ public class UnaryExpression implements Expression {
 
    @Override
    public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
-      if(operator == Operator.Not) {
+      if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? 1 : 0;
       }
 
@@ -58,7 +58,7 @@ public class UnaryExpression implements Expression {
 
    @Override
    public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
-      if(operator == Operator.Not) {
+      if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? 1 : 0;
       }
 
@@ -67,7 +67,7 @@ public class UnaryExpression implements Expression {
 
    @Override
    public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
-      if(operator == Operator.Not) {
+      if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? 1 : 0;
       }
 
@@ -76,7 +76,7 @@ public class UnaryExpression implements Expression {
 
    @Override
    public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
-      if(operator == Operator.Not) {
+      if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? 1 : 0;
       }
 
@@ -85,7 +85,7 @@ public class UnaryExpression implements Expression {
 
    @Override
    public String asString(Map<String, Object> properties) throws ExpressionEvaluationException {
-      if(operator == Operator.Not) {
+      if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? "true" : "false";
       }
 

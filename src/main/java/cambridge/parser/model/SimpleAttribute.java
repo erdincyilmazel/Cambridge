@@ -5,6 +5,20 @@ public class SimpleAttribute extends TagPart implements Attribute {
    String attributeNameSpace;
    String value;
 
+   public SimpleAttribute() {
+   }
+
+   public SimpleAttribute(String attributeName, String attributeNameSpace, String value) {
+      this.attributeName = attributeName;
+      this.attributeNameSpace = attributeNameSpace;
+      this.value = value;
+   }
+
+   public SimpleAttribute(String attributeName, String value) {
+      this.attributeName = attributeName;
+      this.value = value;
+   }
+
    public String getAttributeName() {
       return attributeName;
    }
@@ -31,6 +45,20 @@ public class SimpleAttribute extends TagPart implements Attribute {
 
    @Override
    public boolean isDynamic() {
+      return false;
+   }
+
+   @Override
+   public String getTextContent() {
+      if (textContent != null) {
+         return textContent;
+      }
+
+      return (attributeNameSpace == null ? "" : attributeNameSpace + ":") + attributeName + "=\"" + value.replaceAll("\"", "\\\"") + "\"";
+   }
+
+   @Override
+   public boolean isWhiteSpace() {
       return false;
    }
 }

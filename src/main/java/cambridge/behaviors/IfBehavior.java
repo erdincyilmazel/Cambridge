@@ -1,13 +1,9 @@
 package cambridge.behaviors;
 
-import cambridge.AttributeKey;
-import cambridge.BehaviorProvider;
-import cambridge.ConditionalTagBehavior;
-import cambridge.ExpressionEvaluationException;
+import cambridge.*;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.model.Attribute;
 import cambridge.parser.model.DynamicAttribute;
-import org.antlr.runtime.RecognitionException;
 
 import java.util.Map;
 
@@ -31,7 +27,7 @@ public class IfBehavior extends ConditionalTagBehavior {
    public static BehaviorProvider<IfBehavior> getProvider() {
       return new BehaviorProvider<IfBehavior>() {
          @Override
-         public IfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws RecognitionException {
+         public IfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException {
             return new IfBehavior(keyAttribute.getExpression());
          }
       };

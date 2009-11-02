@@ -1,6 +1,6 @@
 package cambridge.parser.model;
 
-import cambridge.ExpressionEvaluationException;
+import cambridge.TemplateRuntimeException;
 
 import java.io.IOException;
 import java.util.Map;
@@ -11,5 +11,5 @@ import java.util.Map;
  * Time: 1:02:03 PM
  */
 public interface Fragment {
-   public abstract void eval(Map<String, Object> properties, Appendable out) throws IOException, ExpressionEvaluationException;
+   public abstract void eval(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException;
 }

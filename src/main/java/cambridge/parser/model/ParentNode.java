@@ -25,4 +25,6 @@ public interface ParentNode {
    public TemplateNode getPreviousChild(TemplateNode node);
 
    public TemplateNode getNextChild(TemplateNode node);
+
+   public ArrayList<Tag> getElementsByTagName(String tagName);
 }

@@ -1,14 +1,13 @@
 package cambridge.behaviors;
 
 import cambridge.*;
-import cambridge.parser.model.Tag;
-import cambridge.parser.model.DynamicAttribute;
-import cambridge.parser.model.Attribute;
 import cambridge.parser.expressions.Expression;
-import java.util.Map;
-import java.io.IOException;
+import cambridge.parser.model.Attribute;
+import cambridge.parser.model.DynamicAttribute;
+import cambridge.parser.model.Tag;
 
-import org.antlr.runtime.RecognitionException;
+import java.io.IOException;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -25,23 +24,27 @@ public class FromBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void next(Map<String, Object> properties, Tag tag, Appendable out) throws ExpressionEvaluationException, IOException {
-      for(int i = from.asInt(properties); i <= to.asInt(properties); i++) {
-         properties.put("this", i);
-         tag.dumpTag(properties, out);
+   public void next(Map<String, Object> properties, Tag tag, Appendable out) throws TemplateRuntimeException, IOException {
+      try {
+         for (int i = from.asInt(properties); i <= to.asInt(properties); i++) {
+            properties.put("this", i);
+            tag.dumpTag(properties, out);
+         }
+      } catch (ExpressionEvaluationException e) {
+         throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
       }
    }
 
    public static BehaviorProvider<FromBehavior> getProvider() {
       return new BehaviorProvider<FromBehavior>() {
          @Override
-         public FromBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws RecognitionException, BehaviorInstantiationException {
+         public FromBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
             Expression from = keyAttribute.getExpression();
             AttributeKey toKey = new AttributeKey(keyAttribute.getAttributeNameSpace(), "to");
 
             Attribute toAttribute = attributes.get(toKey);
 
-            if(toAttribute == null || !(toAttribute instanceof DynamicAttribute)) {
+            if (toAttribute == null || !(toAttribute instanceof DynamicAttribute)) {
                throw new BehaviorInstantiationException("Required parameters to is not set");
             }
 

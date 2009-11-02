@@ -1,7 +1,5 @@
 package cambridge;
 
-import org.antlr.runtime.RecognitionException;
-
 import java.io.IOException;
 
 /**
@@ -12,7 +10,7 @@ import java.io.IOException;
 public interface Template {
    public void setProperty(String name, Object property);
 
-   public void printTo(Appendable out) throws IOException, ExpressionEvaluationException, RecognitionException, BehaviorInstantiationException;
+   public void printTo(Appendable out) throws IOException, TemplateRuntimeException;
 
-   public String toString();
+   public String asString() throws TemplateRuntimeException;
 }

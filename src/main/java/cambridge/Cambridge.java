@@ -12,23 +12,34 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.antlr.runtime.RecognitionException;
-
 /**
  * User: erdinc
  * Date: Oct 13, 2009
  * Time: 11:48:01 AM
  */
 public class Cambridge {
-   public Template getTemplate(String file, String encoding) throws IOException, TemplateParsingException, RecognitionException, BehaviorInstantiationException {
+   public Template getTemplate(String file, String encoding) throws IOException {
       TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
       TemplateParser parser = new TemplateParser(tokenizer);
 
-      TemplateModel model = parser.parse();
+      TemplateModel model;
+      try {
+         model = parser.parse();
+         FragmentList fragments = model.normalize();
+         return new DynamicTemplate(fragments);
+      } catch (TemplateParsingException e) {
 
-      FragmentList fragments = model.normalize();
+         System.err.println(e.getMessage() + " line: " + e.getLine() + " col: " + e.getCol());
+         if (e.getCause() != null) {
+            System.err.println("Cause: " + e.getCause().getMessage());
+            //e.getCause().printStackTrace();
+         }
+      } catch (BehaviorInstantiationException e) {
+         System.err.println(e.getMessage());
+      }
 
-      return new DynamicTemplate(fragments);
+
+      return null;
    }
 
    static class User {
@@ -122,28 +133,24 @@ public class Cambridge {
       try {
          Cambridge c = new Cambridge();
          Template t = c.getTemplate("kitchensink.html", "UTF-8");
-         t.setProperty("user", new User("erdinc", "erdinc@yilmazel.com"));
-         t.setProperty("value", false);
+         if (t != null) {
+            t.setProperty("user", new User("erdinc", "erdinc@yilmazel.com"));
+            t.setProperty("value", false);
 
-         ArrayList<User> users = new ArrayList<User>();
-         users.add(new User("bahar", "email@email.com"));
-         users.add(new User("melike", "email@email.com"));
-         users.add(new User("ahmet", "email@email.com"));
-         users.add(new User("x", "email@email.com"));
-         users.add(new User("y", "email@email.com"));
+            ArrayList<User> users = new ArrayList<User>();
+            users.add(new User("bahar", "email@email.com"));
+            users.add(new User("melike", "email@email.com"));
+            users.add(new User("ahmet", "email@email.com"));
+            users.add(new User("x", "email@email.com"));
+            users.add(new User("y", "email@email.com"));
 
-         t.setProperty("users", users);
+            t.setProperty("users", users);
 
-         t.printTo(System.out);
+            t.printTo(System.out);
+         }
       } catch (IOException e) {
          e.printStackTrace();
-      } catch (TemplateParsingException e) {
-         e.printStackTrace();
-      } catch (ExpressionEvaluationException e) {
-         e.printStackTrace();
-      } catch (RecognitionException e) {
-         e.printStackTrace();
-      } catch (BehaviorInstantiationException e) {
+      } catch (TemplateRuntimeException e) {
          e.printStackTrace();
       }
    }

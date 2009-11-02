@@ -9,7 +9,31 @@ package cambridge.parser.expressions;
 }
 
 @members {
+   ArrayList<RecognitionException> errors;
 
+   @Override
+   public void reportError(RecognitionException e) {
+      if(errors == null) errors = new ArrayList<RecognitionException>();
+      errors.add(e);
+   }
+
+   public ArrayList<RecognitionException> getErrors() {
+      return errors;
+   }
+}
+
+@lexer::members {
+   ArrayList<RecognitionException> errors;
+
+   @Override
+   public void reportError(RecognitionException e) {
+      if(errors == null) errors = new ArrayList<RecognitionException>();
+      errors.add(e);
+   }
+
+   public ArrayList<RecognitionException> getErrors() {
+      return errors;
+   }
 }
 
 /********************************************************************************************
