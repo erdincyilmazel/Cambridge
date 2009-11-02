@@ -1,0 +1,110 @@
+package cambridge.parser.expressions;
+
+import cambridge.ExpressionEvaluationException;
+import cambridge.runtime.PropertyUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * User: erdinc
+ * Date: Oct 31, 2009
+ * Time: 1:29:09 AM
+ */
+public class VarExpression implements Expression {
+   String varName;
+   ArrayList<VarProperty> properties;
+
+   public VarExpression(String varName) {
+      this.varName = varName;
+   }
+
+   public void addProperty(VarProperty p) {
+      if (properties == null) {
+         properties = new ArrayList<VarProperty>();
+      }
+
+      properties.add(p);
+   }
+
+   PropertyUtils utils = PropertyUtils.instance();
+
+   @Override
+   public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException {
+      Object o = eval(properties);
+      if (o instanceof Boolean) {
+         return Type.Boolean;
+      }
+      if (o instanceof Integer) {
+         return Type.Int;
+      }
+      if (o instanceof Long) {
+         return Type.Long;
+      }
+      if (o instanceof Float) {
+         return Type.Float;
+      }
+      if (o instanceof Double) {
+         return Type.Double;
+      }
+      if (o instanceof String) {
+         return Type.String;
+      }
+      return o == null ? Type.Null : Type.Object;
+   }
+
+   @Override
+   public Object eval(Map<String, Object> p) throws ExpressionEvaluationException {
+      if (properties == null) {
+         return p.get(varName);
+      }
+
+      Object object = p.get(varName);
+      for (VarProperty property : properties) {
+         if (property instanceof IdentifierVarProperty) {
+            IdentifierVarProperty id = (IdentifierVarProperty) property;
+            object = utils.getBeanProperty(object, id.name);
+         } else {
+            MapVarProperty m = (MapVarProperty) property;
+            if (object instanceof Map) {
+               object = ((Map) object).get(m.expression.eval(p));
+            } else if (object instanceof List) {
+               object = ((List) object).get(m.expression.asInt(p));
+            }
+         }
+      }
+
+      return object;
+   }
+
+   @Override
+   public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException {
+      return false;
+   }
+
+   @Override
+   public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
+      return 0;
+   }
+
+   @Override
+   public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
+      return 0;
+   }
+
+   @Override
+   public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
+      return 0;
+   }
+
+   @Override
+   public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
+      return 0;
+   }
+
+   @Override
+   public String asString(Map<String, Object> properties) throws ExpressionEvaluationException {
+      return null;
+   }
+}
