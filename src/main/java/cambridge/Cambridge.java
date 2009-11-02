@@ -73,14 +73,33 @@ public class Cambridge {
       public void setAdmin(boolean admin) {
          this.admin = admin;
       }
+
+      int count1;
+      int count2;
+
+      public int getCount1() {
+         return count1;
+      }
+
+      public int getCount2() {
+         return count2;
+      }
+
+      public boolean isCountValid() {
+         return count1++ < 10;
+      }
+
+      public boolean isCount2Valid() {
+         return !(count2++ < 10);
+      }
    }
 
    public static void main(String[] args) {
       try {
          Cambridge c = new Cambridge();
-         Template t = c.getTemplate("custom.html", "UTF-8");
+         Template t = c.getTemplate("kitchensink.html", "UTF-8");
          t.setProperty("user", new User("erdinc", "erdinc@yilmazel.com"));
-         t.setProperty("erdinc", false);
+         t.setProperty("value", false);
 
          ArrayList<User> users = new ArrayList<User>();
          users.add(new User("bahar", "email@email.com"));
@@ -91,19 +110,6 @@ public class Cambridge {
 
          t.setProperty("users", users);
 
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
-         t.printTo(System.out);
          t.printTo(System.out);
       } catch (IOException e) {
          e.printStackTrace();

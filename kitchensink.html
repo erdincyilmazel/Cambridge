@@ -1,17 +1,13 @@
 <html>
 <body>
-   <div a:if="xxx"></div>
-   <div a:foreach="users" a:as="user">${user.name}</div>
-   <div a:for="5"></div>
+
+   Hello ${user.userName}
+
+   <div a:if="value">Value is true</div>
+
+   <div a:foreach="users" a:as="user">${user.userName}</div>
+
    <div a:from="1990" a:to="2010" a:as="val">${val}</div>
-   <div a:while=""></div>
-   <div a:until=""></div>
-   <div id="sdsfsdf"></div>
-
-   <a:dummy if="xxx">,</a:dummy>
-
-   <select>
-      <option a:from="1990" a:to="2010" a:var="val" a:aif="val == currentYear" selected="selected">${val}</option>
-   </select>
+   <div a:while="user.countValid">${user.count1}</div>
 </body>
 </html>
