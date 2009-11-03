@@ -18,7 +18,7 @@ import java.util.List;
  * Template object represents a tree of nodes in the parsed document that is
  * similar to a DOM tree.
  *
- * @see cambridge.model.TemplateModel
+ * @see cambridge.model.TemplateDocument
  * @see TemplateTokenizer
  */
 public class TemplateParser {
@@ -74,8 +74,8 @@ public class TemplateParser {
    Token currentToken;
    List<TemplateNode> matchedNodes = new ArrayList<TemplateNode>();
 
-   public TemplateModel parse() throws IOException, TemplateParsingException {
-      TemplateModel template = new TemplateModel();
+   public TemplateDocument parse() throws IOException, TemplateParsingException {
+      TemplateDocument template = new TemplateDocument();
       fillBuffer();
       nextToken();
 
@@ -125,12 +125,12 @@ public class TemplateParser {
             break;
          case CLOSE_TAG:
             CloseTagToken token = (CloseTagToken) currentToken;
-            Tag tag = null;
+            TagNode tag = null;
             int openIndex = -1;
             for (int i = matchedNodes.size() - 1; i != -1; i--) {
                TemplateNode n = matchedNodes.get(i);
-               if (n instanceof Tag) {
-                  Tag tn = (Tag) n;
+               if (n instanceof TagNode) {
+                  TagNode tn = (TagNode) n;
                   if (tn.tagNameString.equals(token.getTagName())) {
                      tag = tn;
                      openIndex = i;
@@ -179,9 +179,9 @@ public class TemplateParser {
       }
    }
 
-   private Tag tag() throws IOException, TemplateParsingException {
+   private TagNode tag() throws IOException, TemplateParsingException {
       OpenTagToken token = (OpenTagToken) currentToken;
-      Tag node = new Tag();
+      TagNode node = new TagNode();
       node.setBeginLine(token.getLineNo());
       node.setBeginColumn(token.getColumn());
       node.setTagName(token.getTagName());

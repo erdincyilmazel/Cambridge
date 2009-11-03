@@ -2,7 +2,7 @@ package cambridge.behaviors;
 
 import cambridge.StaticBehavior;
 import cambridge.model.SimpleAttribute;
-import cambridge.model.Tag;
+import cambridge.model.TagNode;
 
 /**
  * User: erdinc
@@ -11,7 +11,7 @@ import cambridge.model.Tag;
  */
 public class AltAdderStaticBehavior implements StaticBehavior {
    @Override
-   public void modify(Tag t) {
+   public void modify(TagNode t) {
       if (t.getTagName().equalsIgnoreCase("img")) {
          if (!t.hasAttribute("alt")) {
             t.addAttribute(new SimpleAttribute("alt", ""));

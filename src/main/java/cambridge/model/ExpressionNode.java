@@ -60,7 +60,7 @@ public class ExpressionNode extends TemplateNode implements Fragment {
    }
 
    @Override
-   public Tag getElementById(String id) {
+   public TagNode getElementById(String id) {
       return null;
    }
 

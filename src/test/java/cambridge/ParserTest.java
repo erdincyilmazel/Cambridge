@@ -1,9 +1,8 @@
 package cambridge;
 
+import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.model.FragmentList;
-import cambridge.model.TemplateModel;
 import org.junit.After;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;
@@ -33,11 +32,10 @@ public class ParserTest {
    @Test
    public void test() {
       try {
-         TemplateModel t = parser.parse();
-         FragmentList f = t.normalize();
-         String source = t.getSource();
+         TemplateDocument t = parser.parse();
+         t.normalize();
+
          assertNotNull(t);
-         t.print(System.out);
 
       } catch (IOException e) {
          e.printStackTrace();

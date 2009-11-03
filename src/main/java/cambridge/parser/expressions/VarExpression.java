@@ -61,6 +61,9 @@ public class VarExpression implements Expression {
       }
 
       Object object = p.get(varName);
+      if(object == null) {
+         return null;
+      }
       for (VarProperty property : properties) {
          if (property instanceof IdentifierVarProperty) {
             IdentifierVarProperty id = (IdentifierVarProperty) property;

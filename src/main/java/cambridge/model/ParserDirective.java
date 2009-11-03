@@ -2,7 +2,7 @@ package cambridge.model;
 
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
-import cambridge.model.Tag;
+import cambridge.model.TagNode;
 import cambridge.model.TemplateNode;
 
 import java.io.IOException;
@@ -38,7 +38,7 @@ public class ParserDirective extends TemplateNode implements Fragment {
    }
 
    @Override
-   public Tag getElementById(String id) {
+   public TagNode getElementById(String id) {
       return null;
    }
 

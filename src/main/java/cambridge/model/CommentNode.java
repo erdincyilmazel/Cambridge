@@ -29,7 +29,7 @@ public class CommentNode extends TextNode {
    }
 
    @Override
-   public Tag getElementById(String id) {
+   public TagNode getElementById(String id) {
       return null;
    }
 }

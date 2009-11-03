@@ -1,8 +1,5 @@
 package cambridge.model;
 
-import java.io.IOException;
-import java.io.PrintStream;
-
 /**
  * Notes to represent arbitrary text within the documents.
  */
@@ -13,20 +10,16 @@ public class TextNode extends TemplateNode {
 
    }
 
+   public TextNode(String contents) {
+      this.contents = contents;
+   }
+
    public String getContents() {
       return contents;
    }
 
    public void setContents(String contents) {
       this.contents = contents;
-   }
-
-   public String getSource() {
-      return contents;
-   }
-
-   public void print(PrintStream out) throws IOException {
-      out.print(contents);
    }
 
    @Override
@@ -40,7 +33,7 @@ public class TextNode extends TemplateNode {
    }
 
    @Override
-   public Tag getElementById(String id) {
+   public TagNode getElementById(String id) {
       return null;
    }
 

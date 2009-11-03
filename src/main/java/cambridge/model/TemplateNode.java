@@ -3,13 +3,8 @@ package cambridge.model;
 import cambridge.BehaviorInstantiationException;
 import cambridge.TemplateParsingException;
 
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 
-/**
- * Every
- */
 public abstract class TemplateNode {
    ParentNode parent;
 
@@ -64,16 +59,12 @@ public abstract class TemplateNode {
       this.endColumn = endColumn;
    }
 
-   public abstract String getSource();
-
-   public abstract void print(PrintStream out) throws IOException;
-
    public abstract boolean isDynamic();
 
    public abstract void normalize(FragmentList f) throws TemplateParsingException, BehaviorInstantiationException;
 
    public abstract Tag getElementById(String id);
 
-   public void addElementsbyTagName(String tagName, ArrayList<Tag> tags) {
+   void addElementsbyTagName(String tagName, ArrayList<Tag> tags) {
    }
 }

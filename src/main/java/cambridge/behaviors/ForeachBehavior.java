@@ -1,10 +1,10 @@
 package cambridge.behaviors;
 
 import cambridge.*;
-import cambridge.parser.expressions.Expression;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
-import cambridge.model.Tag;
+import cambridge.model.TagNode;
+import cambridge.parser.expressions.Expression;
 
 import java.io.IOException;
 import java.util.Map;
@@ -22,11 +22,12 @@ public class ForeachBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void next(Map<String, Object> properties, Tag tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void next(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          Object o = iterable.eval(properties);
          if (o == null) {
-            throw new TemplateRuntimeException("The provided expression value for foreach attribute is null", tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
+            return;
+            //throw new TemplateRuntimeException("The provided expression value for foreach attribute is null", tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
          }
 
          if (!(o instanceof Iterable)) {

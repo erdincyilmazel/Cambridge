@@ -3,8 +3,6 @@ package cambridge.model;
 import cambridge.BehaviorInstantiationException;
 import cambridge.TemplateParsingException;
 
-import java.io.IOException;
-import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,10 +18,10 @@ import java.util.List;
  * A TemplateNode is a node in a Template file which can contain
  * other nodes.
  */
-public class TemplateModel implements ParentNode {
+public class TemplateDocument implements ParentNode {
    ArrayList<TemplateNode> children;
 
-   public TemplateModel() {
+   public TemplateDocument() {
       children = new ArrayList<TemplateNode>();
    }
 
@@ -41,20 +39,6 @@ public class TemplateModel implements ParentNode {
 
    public boolean hasChildren() {
       return children != null;
-   }
-
-   /**
-    * Returns the original source of the template
-    *
-    * @return Source code of the template file
-    */
-   public String getSource() {
-      StringBuilder builder = new StringBuilder();
-      for (TemplateNode t : children) {
-         builder.append(t.getSource());
-      }
-
-      return builder.toString();
    }
 
    public Tag getElementById(String id) {
@@ -76,18 +60,6 @@ public class TemplateModel implements ParentNode {
       }
 
       return tags;
-   }
-
-   /**
-    * Writes the original source of the template to the supplied writer
-    *
-    * @param out Stream that will be used
-    * @throws java.io.IOException Thrown in case of an io error
-    */
-   public void print(PrintStream out) throws IOException {
-      for (TemplateNode t : children) {
-         t.print(out);
-      }
    }
 
    public TemplateNode getPreviousChild(TemplateNode node) {

@@ -1,6 +1,6 @@
 package cambridge;
 
-import cambridge.model.Tag;
+import cambridge.model.TagNode;
 
 /**
  * User: erdinc
@@ -8,5 +8,5 @@ import cambridge.model.Tag;
  * Time: 3:49:35 PM
  */
 public interface StaticBehavior {
-   public void modify(Tag t);
+   public void modify(TagNode t);
 }
