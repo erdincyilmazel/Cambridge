@@ -1,8 +1,8 @@
 package cambridge.behaviors;
 
 import cambridge.StaticBehavior;
-import cambridge.parser.model.SimpleAttribute;
-import cambridge.parser.model.Tag;
+import cambridge.model.SimpleAttribute;
+import cambridge.model.Tag;
 
 /**
  * User: erdinc

@@ -1,4 +1,4 @@
-package cambridge.parser.model;
+package cambridge.model;
 
 import java.io.IOException;
 import java.util.Map;

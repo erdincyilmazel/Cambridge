@@ -1,9 +1,9 @@
-package cambridge.runtime;
+package cambridge;
 
 import cambridge.Template;
 import cambridge.TemplateRuntimeException;
-import cambridge.parser.model.Fragment;
-import cambridge.parser.model.FragmentList;
+import cambridge.model.Fragment;
+import cambridge.model.FragmentList;
 
 import java.io.IOException;
 import java.util.HashMap;

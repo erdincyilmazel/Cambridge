@@ -1,4 +1,4 @@
-package cambridge.parser.model;
+package cambridge.model;
 
 public class SimpleAttribute extends TagPart implements Attribute {
    String attributeName;

@@ -3,7 +3,7 @@ package cambridge.parser;
 import cambridge.BehaviorBindings;
 import cambridge.ExpressionParsingException;
 import cambridge.TemplateParsingException;
-import cambridge.parser.model.*;
+import cambridge.model.*;
 import cambridge.parser.tokens.*;
 
 import java.io.IOException;
@@ -18,7 +18,7 @@ import java.util.List;
  * Template object represents a tree of nodes in the parsed document that is
  * similar to a DOM tree.
  *
- * @see cambridge.parser.model.TemplateModel
+ * @see cambridge.model.TemplateModel
  * @see TemplateTokenizer
  */
 public class TemplateParser {

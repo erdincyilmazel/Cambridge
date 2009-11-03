@@ -2,8 +2,8 @@ package cambridge;
 
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.parser.model.FragmentList;
-import cambridge.parser.model.TemplateModel;
+import cambridge.model.FragmentList;
+import cambridge.model.TemplateModel;
 import org.junit.After;
 import static org.junit.Assert.assertNotNull;
 import org.junit.Before;

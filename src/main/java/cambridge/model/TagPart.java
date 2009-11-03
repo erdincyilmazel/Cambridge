@@ -1,4 +1,4 @@
-package cambridge.parser.model;
+package cambridge.model;
 
 /**
  * TagPart objects represent the elements within an HTML tag.

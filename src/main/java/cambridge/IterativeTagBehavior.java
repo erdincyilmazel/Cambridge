@@ -1,6 +1,6 @@
 package cambridge;
 
-import cambridge.parser.model.Tag;
+import cambridge.model.Tag;
 import cambridge.runtime.Super;
 
 import java.io.IOException;

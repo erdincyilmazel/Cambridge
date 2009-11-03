@@ -1,4 +1,4 @@
-package cambridge.parser.model;
+package cambridge.model;
 
 import cambridge.BehaviorInstantiationException;
 import cambridge.TemplateParsingException;

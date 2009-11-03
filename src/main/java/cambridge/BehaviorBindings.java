@@ -1,8 +1,8 @@
 package cambridge;
 
 import cambridge.behaviors.*;
-import cambridge.parser.model.Attribute;
-import cambridge.parser.model.DynamicAttribute;
+import cambridge.model.Attribute;
+import cambridge.model.DynamicAttribute;
 
 import java.util.HashMap;
 import java.util.HashSet;

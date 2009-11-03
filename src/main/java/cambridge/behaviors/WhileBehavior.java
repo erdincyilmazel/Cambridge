@@ -2,9 +2,9 @@ package cambridge.behaviors;
 
 import cambridge.*;
 import cambridge.parser.expressions.Expression;
-import cambridge.parser.model.Attribute;
-import cambridge.parser.model.DynamicAttribute;
-import cambridge.parser.model.Tag;
+import cambridge.model.Attribute;
+import cambridge.model.DynamicAttribute;
+import cambridge.model.Tag;
 
 import java.io.IOException;
 import java.util.Map;

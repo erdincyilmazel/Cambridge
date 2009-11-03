@@ -2,8 +2,8 @@ package cambridge.behaviors;
 
 import cambridge.*;
 import cambridge.parser.expressions.Expression;
-import cambridge.parser.model.Attribute;
-import cambridge.parser.model.DynamicAttribute;
+import cambridge.model.Attribute;
+import cambridge.model.DynamicAttribute;
 
 import java.util.Map;
 

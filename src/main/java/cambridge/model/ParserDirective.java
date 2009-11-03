@@ -1,9 +1,9 @@
-package cambridge.parser.tokens;
+package cambridge.model;
 
-import cambridge.parser.model.Fragment;
-import cambridge.parser.model.FragmentList;
-import cambridge.parser.model.Tag;
-import cambridge.parser.model.TemplateNode;
+import cambridge.model.Fragment;
+import cambridge.model.FragmentList;
+import cambridge.model.Tag;
+import cambridge.model.TemplateNode;
 
 import java.io.IOException;
 import java.io.PrintStream;

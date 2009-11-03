@@ -2,9 +2,9 @@ package cambridge;
 
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.parser.model.FragmentList;
-import cambridge.parser.model.TemplateModel;
-import cambridge.runtime.DynamicTemplate;
+import cambridge.model.FragmentList;
+import cambridge.model.TemplateModel;
+import cambridge.DynamicTemplate;
 
 import java.io.FileInputStream;
 import java.io.IOException;
