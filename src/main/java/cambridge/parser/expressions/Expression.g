@@ -144,7 +144,9 @@ unaryExpressionNotPlusMinus returns [Expression value]
 
 primary returns [Expression value]
     :   e=parExpression {$value = e;}
-    |   'super' {$value = new VarExpression("super");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
+    |   '#super' {$value = new VarExpression("#super");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
+    |   '#this' {$value = new VarExpression("#this");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
+    |   '#iter' {$value = new VarExpression("#iter");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
     |   IDENTIFIER {$value = new VarExpression($IDENTIFIER.text);} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
     |   l=literal {$value = l;}
     ;

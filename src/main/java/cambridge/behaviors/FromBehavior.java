@@ -1,6 +1,7 @@
 package cambridge.behaviors;
 
 import cambridge.*;
+import cambridge.runtime.Iter;
 import cambridge.parser.expressions.Expression;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
@@ -24,11 +25,14 @@ public class FromBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void next(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void loop(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
+         Iter iter = new Iter();
          for (int i = from.asInt(properties); i <= to.asInt(properties); i++) {
-            properties.put("this", i);
+            properties.put("#this", i);
+            properties.put("#iter", iter);
             tag.dumpTag(properties, out);
+            iter.next();
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());

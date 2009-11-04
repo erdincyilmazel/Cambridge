@@ -22,7 +22,7 @@ public class WhileBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void next(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void loop(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          while (expression.asBoolean(properties)) {
             tag.dumpTag(properties, out);

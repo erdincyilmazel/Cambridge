@@ -1,6 +1,7 @@
 package cambridge.behaviors;
 
 import cambridge.*;
+import cambridge.runtime.Iter;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.TagNode;
@@ -22,7 +23,7 @@ public class ForeachBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void next(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void loop(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          Object o = iterable.eval(properties);
          if (o == null) {
@@ -34,9 +35,12 @@ public class ForeachBehavior extends IterativeTagBehavior {
             throw new TemplateRuntimeException("The provided expression value of class " + o.getClass().getName() + " for foreach attribute is not iterable", tag.getBeginLine(), tag.getBeginColumn());
          }
 
+         Iter iter = new Iter();
          for (Object o1 : ((Iterable) o)) {
-            properties.put("this", o1);
+            properties.put("#this", o1);
+            properties.put("#iter", iter);
             tag.dumpTag(properties, out);
+            iter.next();
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());

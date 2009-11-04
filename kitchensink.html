@@ -1,21 +1,22 @@
 <html>
 <body>
-
    Hello ${user.userName}
 
    <div id="email"></div>
 
    <div a:if="value">Value is true</div>
 
-   <div a:foreach="users">${this.email} has friends:
+   <div a:foreach="users">${#iter.row} ${#this.email} has friends:
       <ul>
-         <li a:foreach="this.friends">${super.userName} : ${this.name}</li>
+         <li a:foreach="#this.friends"><span a:if="#iter.even">Even</span> ${#super.userName} : ${#this.name}</li>
       </ul>
    </div>
 
-   <div a:from="1990" a:to="2010">${this}</div>
+   <div a:from="1990" a:to="2010">${#this}</div>
    <div a:while="user.countValid">${user.count1}</div>
 
    <img a:addAlt="anything" />
+
+   <a:ghost>sdddddddddddd</a:ghost>
 </body>
 </html>
