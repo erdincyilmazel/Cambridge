@@ -26,4 +26,10 @@ public class AttributeNameToken extends Token {
       if (val.length == 1) return null;
       else return val[0];
    }
+
+   public void setNameSpace(String n) {
+      if(getNameSpace() == null) {
+         value = n + ":" + value;
+      }
+   }
 }

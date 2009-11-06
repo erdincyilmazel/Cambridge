@@ -1,27 +1,27 @@
 
 erdinc
 
-<html>
+<html xmlns:a="http://www.w3.org/1999/xhtml">
 <body>
-   Hello ${user.userName}
+Hello ${user.userName}
 
-   <div id="email"></div>
+<div id="email"></div>
 
-   <div a:if="value">Value is true</div>
+<div a:if="value">Value is true</div>
 
-   <div a:foreach="users">${#iter.row} ${#this.email} has friends:
-      <ul>
-         <li a:foreach="#this.friends"><span a:if="#iter.even">Even</span> ${#super.userName} : ${#this.name}</li>
-      </ul>
-   </div>
+<div a:foreach="users">${#iter.row} ${#this.email} has friends:
+   <ul>
+      <li a:foreach="#this.friends"><span a:if="#iter.even">Even</span> ${#super.userName} : ${#this.name}</li>
+   </ul>
+</div>
 
-   <div a:from="1990" a:to="2010">${#this}</div>
-   <div a:while="user.countValid">${user.count1}</div>
+<div a:from="1990" a:to="2010">${#this}</div>
+<div a:while="user.countValid">${user.count1}</div>
 
-   <img a:addAlt="anything" />
+<img a:addAlt="anything"/>
 
-   <span a:hide>sdddddddddddd</span>
+<span a:hide>sdddddddddddd</span>
 
-   <a:dummy>sdfsdfsdfsfsf osdkf sopdkfsdf</a:dummy>
+<a:span if="true" from="5" to="10">${#this} sdfsdfsdfsfsf osdkf sopdkfsdf</a:span>
 </body>
 </html>

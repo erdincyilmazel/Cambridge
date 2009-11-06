@@ -183,8 +183,10 @@ public class TemplateParser {
       DynamicBindings bindings = DynamicBindings.getInstance();
 
       TagNode node = bindings.getDynamicTag(new AttributeKey(token.getNameSpace(), token.getTagName()));
+      boolean dynamicTag = true;
       if(node == null) {
          node = new TagNode();
+         dynamicTag = false;
       }
 
       node.setBeginLine(token.getLineNo());
@@ -210,6 +212,10 @@ public class TemplateParser {
                break;
             case ATTRIBUTE_NAME:
                AttributeNameToken tok = (AttributeNameToken) currentToken;
+
+               if(dynamicTag && tok.getNameSpace() == null) {
+                  tok.setNameSpace(node.getNameSpace());
+               }
 
                Attribute element;
                StringBuilder textContent = new StringBuilder();
@@ -285,7 +291,7 @@ public class TemplateParser {
          }
       }
 
-      if(node instanceof DynamicTag) {
+      if(dynamicTag) {
          ((DynamicTag) node).init();
       }
 
