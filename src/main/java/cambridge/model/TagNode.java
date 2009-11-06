@@ -1,9 +1,10 @@
 package cambridge.model;
 
 import cambridge.*;
-import cambridge.parser.expressions.Expressions;
-import cambridge.behaviors.IfBehavior;
 import cambridge.behaviors.ForeachBehavior;
+import cambridge.behaviors.IfBehavior;
+import cambridge.parser.expressions.Expressions;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -33,13 +34,13 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
 
    private FragmentList fragments;
 
-   static Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
+   static final Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
 
    ArrayList<ModifyingTagBehavior> modifyingBehaviors;
    ArrayList<ConditionalTagBehavior> conditionalBehaviors;
    IterativeTagBehavior iterative;
 
-   Boolean dynamic;
+   boolean dynamic;
 
    public TagNode() {
    }
@@ -127,7 +128,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
          id = a.getValue();
       }
 
-      BehaviorBindings bindings = BehaviorBindings.getInstance();
+      DynamicBindings bindings = DynamicBindings.getInstance();
 
       if (!a.isDynamic()) {
          tagParts.add((SimpleAttribute) a);
@@ -205,26 +206,19 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
       this.tagEndText = tagEndText;
    }
 
+   public void setDynamic(Boolean dynamic) {
+      this.dynamic = dynamic;
+   }
+
    @Override
    public boolean isDynamic() {
-      BehaviorBindings bindings = BehaviorBindings.getInstance();
-
-      if (dynamic != null) {
-         return dynamic;
-      }
-
-      if (nameSpace != null && bindings.isRegisteredNamespace(nameSpace)) {
-         dynamic = true;
-         return true;
-      }
-
-      return false;
+      return dynamic;
    }
 
    @Override
    public void normalize(FragmentList f) throws TemplateParsingException, BehaviorInstantiationException {
       if (attributes != null) {
-         BehaviorBindings bindings = BehaviorBindings.getInstance();
+         DynamicBindings bindings = DynamicBindings.getInstance();
          for (AttributeKey key : attributes.keySet()) {
             StaticBehavior sb = bindings.getStaticBehavior(key);
             if (sb != null) {
@@ -354,33 +348,62 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
       return tagParts;
    }
 
+   boolean hidden;
+
+   public String getIndent() {
+      return indent;
+   }
+
+   public void setIndent(String indent) {
+      this.indent = indent;
+   }
+
+   public String getId() {
+      return id;
+   }
+
+   public void setId(String id) {
+      this.id = id;
+   }
+
+   public boolean isHidden() {
+      return hidden;
+   }
+
+   public void setHidden(boolean hidden) {
+      this.hidden = hidden;
+   }
+
    public void dumpTag(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
       out.append(indent);
-      out.append("<");
-      if (nameSpace != null) {
-         out.append(nameSpace).append(":");
-      }
-      out.append(tagName);
-      if (tagParts != null) {
-         boolean whiteSpace = false;
-         for (TagPart t : tagParts) {
-            if (!t.isWhiteSpace()) {
-               if (!whiteSpace) {
-                  out.append(" ");
-               }
-               whiteSpace = false;
-            } else {
-               whiteSpace = true;
-            }
-            out.append(t.getTextContent());
-         }
-      }
 
-      out.append(tagEndText);
+      if (!hidden) {
+         out.append("<");
+         if (nameSpace != null) {
+            out.append(nameSpace).append(":");
+         }
+         out.append(tagName);
+         if (tagParts != null) {
+            boolean whiteSpace = false;
+            for (TagPart t : tagParts) {
+               if (!t.isWhiteSpace()) {
+                  if (!whiteSpace) {
+                     out.append(" ");
+                  }
+                  whiteSpace = false;
+               } else {
+                  whiteSpace = true;
+               }
+               out.append(t.getTextContent());
+            }
+         }
+
+         out.append(tagEndText);
+      }
 
       printFragments(properties, out);
 
-      if (closeText != null) {
+      if (!hidden && closeText != null) {
          out.append(closeText);
       }
    }
@@ -408,16 +431,18 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
    }
 
    private void assignBehaviors() throws TemplateParsingException, BehaviorInstantiationException {
-      BehaviorBindings bindings = BehaviorBindings.getInstance();
-      for (AttributeKey key : attributes.keySet()) {
-         TagBehavior behavior;
-         try {
-            behavior = bindings.getBehavior(key, attributes);
-         } catch (ExpressionParsingException e) {
-            throw new TemplateParsingException("Error in parsing expression", e, getBeginLine(), getBeginColumn());
-         }
-         if (behavior != null) {
-            addBehavior(behavior);
+      DynamicBindings bindings = DynamicBindings.getInstance();
+      if (attributes != null) {
+         for (AttributeKey key : attributes.keySet()) {
+            TagBehavior behavior;
+            try {
+               behavior = bindings.getBehavior(key, attributes);
+            } catch (ExpressionParsingException e) {
+               throw new TemplateParsingException("Error in parsing expression", e, getBeginLine(), getBeginColumn());
+            }
+            if (behavior != null) {
+               addBehavior(behavior);
+            }
          }
       }
    }

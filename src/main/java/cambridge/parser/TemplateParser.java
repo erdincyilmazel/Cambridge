@@ -1,8 +1,6 @@
 package cambridge.parser;
 
-import cambridge.BehaviorBindings;
-import cambridge.ExpressionParsingException;
-import cambridge.TemplateParsingException;
+import cambridge.*;
 import cambridge.model.*;
 import cambridge.parser.tokens.*;
 
@@ -181,14 +179,20 @@ public class TemplateParser {
 
    private TagNode tag() throws IOException, TemplateParsingException {
       OpenTagToken token = (OpenTagToken) currentToken;
-      TagNode node = new TagNode();
+
+      DynamicBindings bindings = DynamicBindings.getInstance();
+
+      TagNode node = bindings.getDynamicTag(new AttributeKey(token.getNameSpace(), token.getTagName()));
+      if(node == null) {
+         node = new TagNode();
+      }
+
       node.setBeginLine(token.getLineNo());
       node.setBeginColumn(token.getColumn());
       node.setTagName(token.getTagName());
       node.setNameSpace(token.getNameSpace());
       node.setTagNameString(token.value);
 
-      BehaviorBindings bindings = BehaviorBindings.getInstance();
 
       // Match the open tag
       while (peek(1).getType() != TokenType.EOF) {
@@ -279,6 +283,10 @@ public class TemplateParser {
                break;
             }
          }
+      }
+
+      if(node instanceof DynamicTag) {
+         ((DynamicTag) node).init();
       }
 
       return node;
