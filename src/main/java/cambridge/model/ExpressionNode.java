@@ -60,6 +60,19 @@ public class ExpressionNode extends TemplateNode implements Fragment {
    }
 
    @Override
+   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) {
+      if (reference == this) {
+         if (inclusive) {
+            f.addFragment(this);
+         }
+         return true;
+      } else {
+         f.addFragment(this);
+         return false;
+      }
+   }
+
+   @Override
    public TagNode getElementById(String id) {
       return null;
    }

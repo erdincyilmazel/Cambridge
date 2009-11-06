@@ -3,6 +3,8 @@ package cambridge.model;
 import cambridge.ExpressionParsingException;
 import cambridge.TagBehavior;
 
+import java.util.ArrayList;
+
 /**
  * User: erdinc
  * Date: Nov 3, 2009
@@ -25,6 +27,12 @@ public interface Tag extends ParentNode {
 
    public int getEndColumn();
 
+   public String getTagName();
+
+   public String getNameSpace();
+
+   public String getTextContents();
+
    public abstract boolean isDynamic();
 
    public abstract Tag getElementById(String id);
@@ -38,4 +46,12 @@ public interface Tag extends ParentNode {
    public Tag addAttribute(Attribute a);
 
    public Tag addBehavior(TagBehavior behavior);
+
+   public ArrayList<Tag> getChildrenByTagName(String tagName);
+
+   public Tag get(String tagName, int index);
+
+   public Tag getFirst(String tagName);
+
+   public Tag getLast(String tagName);
 }

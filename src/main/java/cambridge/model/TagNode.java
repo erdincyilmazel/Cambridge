@@ -45,7 +45,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
    public TagNode() {
    }
 
-   public String getTextContent() {
+   public String getTextContents() {
       if (children.size() >= 1) {
          TemplateNode n = children.get(0);
          if (n instanceof TextNode) {
@@ -215,8 +215,94 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
       return dynamic;
    }
 
+   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
+      if (reference == this) {
+         if (inclusive) {
+            normalize(f);
+         }
+         return true;
+      } else {
+         if (attributes != null) {
+            DynamicBindings bindings = DynamicBindings.getInstance();
+            for (AttributeKey key : attributes.keySet()) {
+               StaticBehavior sb = bindings.getStaticBehavior(key);
+               if (sb != null) {
+                  sb.modify(this);
+               }
+            }
+         }
+
+         if (isDynamic()) {
+            assignBehaviors();
+
+            if (f.current instanceof StaticFragment) {
+               StaticFragment st = (StaticFragment) f.current;
+               Matcher matcher = indentPattern.matcher(st.contents);
+               if (matcher.find()) {
+                  indent = matcher.group(1);
+                  int length = st.contents.length();
+                  st.contents.delete(length - indent.length(), length);
+               }
+            }
+
+            if (children == null) {
+               f.addFragment(this);
+            } else {
+               fragments = new FragmentList();
+               for (TemplateNode t : children) {
+                  if(t.normalizeUntil(reference, fragments, inclusive)) {
+                     fragments.pack();
+                     f.addFragment(this);
+                     return true;
+                  }
+               }
+
+               fragments.pack();
+
+               f.addFragment(this);
+            }
+         } else {
+            f.append("<");
+            if (nameSpace != null) {
+               f.append(nameSpace).append(":");
+            }
+            f.append(tagName);
+
+            if (tagParts != null) {
+               boolean whiteSpace = false;
+               for (TagPart t : tagParts) {
+                  if (!t.isWhiteSpace()) {
+                     if (!whiteSpace) {
+                        f.append(" ");
+                     }
+                     whiteSpace = false;
+                  } else {
+                     whiteSpace = true;
+                  }
+                  f.append(t.getTextContent());
+               }
+            }
+
+            f.append(tagEndText);
+
+            if (children != null) {
+               for (TemplateNode n : children) {
+                  if(n.normalizeUntil(reference, f, inclusive)) {
+                     return true;
+                  }
+               }
+            }
+
+            if (closeText != null) {
+               f.append(closeText);
+            }
+         }
+         return false;
+      }
+   }
+
    @Override
-   public void normalize(FragmentList f) throws TemplateParsingException, BehaviorInstantiationException {
+   public void normalize(FragmentList f) throws BehaviorInstantiationException {
       if (attributes != null) {
          DynamicBindings bindings = DynamicBindings.getInstance();
          for (AttributeKey key : attributes.keySet()) {
@@ -430,7 +516,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
       return true;
    }
 
-   private void assignBehaviors() throws TemplateParsingException, BehaviorInstantiationException {
+   private void assignBehaviors() throws BehaviorInstantiationException {
       DynamicBindings bindings = DynamicBindings.getInstance();
       if (attributes != null) {
          for (AttributeKey key : attributes.keySet()) {
@@ -438,7 +524,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
             try {
                behavior = bindings.getBehavior(key, attributes);
             } catch (ExpressionParsingException e) {
-               throw new TemplateParsingException("Error in parsing expression", e, getBeginLine(), getBeginColumn());
+               throw new BehaviorInstantiationException("Error in parsing expression", e, getBeginLine(), getBeginColumn());
             }
             if (behavior != null) {
                addBehavior(behavior);
@@ -465,6 +551,53 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
       }
 
       return this;
+   }
+
+   @Override
+   public ArrayList<Tag> getChildrenByTagName(String tagName) {
+      ArrayList<Tag> tags = new ArrayList<Tag>();
+      for (TemplateNode t : children) {
+         if ((t instanceof Tag) && tagName.equals(((Tag) t).getTagName())) {
+            tags.add((Tag) t);
+         }
+      }
+
+      return tags;
+   }
+
+   @Override
+   public Tag get(String tagName, int index) {
+      if (children == null) {
+         return null;
+      }
+      Tag tag = null;
+      int j = 0;
+      for (TemplateNode t : children) {
+         if ((t instanceof Tag) && tagName.equals(((Tag) t).getTagName())) {
+            if (j == index) {
+               return (Tag) t;
+            } else {
+               tag = (Tag) t;
+               j++;
+            }
+         }
+      }
+
+      if (index == -1) {
+         return tag;
+      }
+
+      return null;
+   }
+
+   @Override
+   public Tag getFirst(String tagName) {
+      return get(tagName, 0);
+   }
+
+   @Override
+   public Tag getLast(String tagName) {
+      return get(tagName, -1);
    }
 
    private void printFragments(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {

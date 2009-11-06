@@ -1,10 +1,12 @@
 package cambridge.model;
 
 import cambridge.BehaviorInstantiationException;
-import cambridge.TemplateParsingException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * User: eyilmazel
@@ -62,6 +64,46 @@ public class TemplateDocument implements ParentNode {
       return tags;
    }
 
+   public ArrayList<Tag> getChildrenByTagName(String tagName) {
+      ArrayList<Tag> tags = new ArrayList<Tag>();
+      for (TemplateNode t : children) {
+         if ((t instanceof Tag) && tagName.equals(((Tag) t).getTagName())) {
+            tags.add((Tag) t);
+         }
+      }
+
+      return tags;
+   }
+
+   public Tag get(String tagName, int index) {
+      Tag tag = null;
+      int j = 0;
+      for (TemplateNode t : children) {
+         if ((t instanceof Tag) && tagName.equals(((Tag) t).getTagName())) {
+            if (j == index) {
+               return (Tag) t;
+            } else {
+               tag = (Tag) t;
+               j++;
+            }
+         }
+      }
+
+      if (index == -1) {
+         return tag;
+      }
+
+      return null;
+   }
+
+   public Tag getFirst(String tagName) {
+      return get(tagName, 0);
+   }
+
+   public Tag getLast(String tagName) {
+      return get(tagName, -1);
+   }
+
    public TemplateNode getPreviousChild(TemplateNode node) {
       if (children == null) return null;
       int i = children.indexOf(node);
@@ -80,12 +122,226 @@ public class TemplateDocument implements ParentNode {
       return null;
    }
 
-   public FragmentList normalize() throws TemplateParsingException, BehaviorInstantiationException {
+   public FragmentList normalize() throws BehaviorInstantiationException {
       FragmentList list = new FragmentList();
       for (TemplateNode t : children) {
          t.normalize(list);
       }
       list.pack();
       return list;
+   }
+
+   public FragmentList normalizeUntil(TemplateNode n, boolean inclusive) throws BehaviorInstantiationException {
+      FragmentList list = new FragmentList();
+      for (TemplateNode t : children) {
+         if (t.normalizeUntil(n, list, inclusive)) {
+            break;
+         }
+      }
+      list.pack();
+      return list;
+   }
+
+   static Pattern selectorPattern = Pattern.compile("(<|>|=|(<=)|(>=)|(<>)|(><))?\\s*(((/|#)([^/#\\s]+)(\\[\\d+\\])?)+)");
+   static Pattern indexPattern = Pattern.compile("([^/#\\s]+)\\[(\\d+)\\]");
+
+   public TagNode locateTag(String selector) {
+      StringTokenizer tokenizer = new StringTokenizer(selector, "/#", true);
+
+      boolean idSearch = "#".equals(tokenizer.nextToken());
+      String search = tokenizer.nextToken();
+      Tag tag;
+
+      if (idSearch) {
+         tag = getElementById(search);
+      } else {
+         Matcher m = indexPattern.matcher(search);
+         if (m.find()) {
+            tag = get(m.group(1), Integer.parseInt(m.group(2)));
+         } else {
+            tag = getFirst(search);
+         }
+      }
+
+      if (tag == null) {
+         return null;
+      }
+
+      while (tokenizer.hasMoreElements()) {
+         idSearch = "#".equals(tokenizer.nextToken());
+         search = tokenizer.nextToken();
+
+         if (tag == null) {
+            return null;
+         }
+
+         if (idSearch) {
+            tag = tag.getElementById(search);
+         } else {
+            Matcher m = indexPattern.matcher(search);
+            if (m.find()) {
+               tag = tag.get(m.group(1), Integer.parseInt(m.group(2)));
+            } else {
+               tag = tag.getFirst(search);
+            }
+         }
+      }
+
+      return (TagNode) tag;
+   }
+
+   public enum Selector {
+      Default("="),
+      Before("<"),
+      BeforeInclusive("<="),
+      After(">"),
+      AfterInclusive(">="),
+      Except("<>"),
+      Inside("><");
+
+      String s;
+
+      Selector(String s) {
+         this.s = s;
+      }
+
+      public static Selector get(String s) {
+         for (Selector selector : values()) {
+            if (s.equals(selector.s)) {
+               return selector;
+            }
+         }
+
+         return Default;
+      }
+   }
+
+   public FragmentList select(Selector selector, TemplateNode node) throws BehaviorInstantiationException {
+      if (node == null) {
+         return new FragmentList();
+      }
+
+      switch (selector) {
+         case After:
+            FragmentList ret = new FragmentList();
+
+            while (true) {
+               ParentNode parent = node.getParent();
+               if (parent == null) {
+                  break;
+               }
+               boolean found = false;
+               for (TemplateNode n : parent.getChildren()) {
+                  if (found) {
+                     n.normalize(ret);
+                  }
+
+                  if (n == node) {
+                     found = true;
+                  }
+               }
+
+               if (parent instanceof TagNode) {
+                  ret.append(((TagNode) parent).getCloseText());
+                  node = (TagNode) parent;
+               } else {
+                  break;
+               }
+            }
+
+            ret.pack();
+            return ret;
+         case AfterInclusive:
+            ret = new FragmentList();
+            node.normalize(ret);
+            while (true) {
+               ParentNode parent = node.getParent();
+               if (parent == null) {
+                  break;
+               }
+               boolean found = false;
+               for (TemplateNode n : parent.getChildren()) {
+                  if (found) {
+                     n.normalize(ret);
+                  }
+
+                  if (n == node) {
+                     found = true;
+                  }
+               }
+
+               if (parent instanceof TagNode) {
+                  ret.append(((TagNode) parent).getCloseText());
+                  node = (TagNode) parent;
+               } else {
+                  break;
+               }
+            }
+
+            ret.pack();
+            return ret;
+         case Before:
+            return normalizeUntil(node, false);
+         case BeforeInclusive:
+            return normalizeUntil(node, true);
+         case Default:
+            ret = new FragmentList();
+            node.normalize(ret);
+            ret.pack();
+            return ret;
+         case Except:
+            ret = normalizeUntil(node, false);
+            while (true) {
+               ParentNode parent = node.getParent();
+               if (parent == null) {
+                  break;
+               }
+               boolean found = false;
+               for (TemplateNode n : parent.getChildren()) {
+                  if (found) {
+                     n.normalize(ret);
+                  }
+
+                  if (n == node) {
+                     found = true;
+                  }
+               }
+
+               if (parent instanceof TagNode) {
+                  ret.append(((TagNode) parent).getCloseText());
+                  node = (TagNode) parent;
+               } else {
+                  break;
+               }
+            }
+
+            return ret;
+         case Inside:
+            ret = new FragmentList();
+            if (node instanceof ParentNode) {
+               for (TemplateNode t : ((ParentNode) node).getChildren()) {
+                  t.normalize(ret);
+               }
+            }
+            ret.pack();
+            return ret;
+      }
+
+      return new FragmentList();
+   }
+
+   public FragmentList select(String query) throws SelectorParsingException, BehaviorInstantiationException {
+      Matcher matcher = selectorPattern.matcher(query);
+      if (!matcher.find()) {
+         throw new SelectorParsingException("Could not parse the selector query");
+      }
+
+      String q = matcher.group(6);
+
+      Selector selector = Selector.get(matcher.group(1));
+
+      TemplateNode node = locateTag(q);
+
+      return select(selector, node);
    }
 }

@@ -17,6 +17,7 @@ public class DirectoryTemplateLoaderTest {
    @Test
    public void testLoad() {
       DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
+
       try {
          TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
             @Override

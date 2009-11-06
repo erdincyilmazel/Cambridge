@@ -20,4 +20,13 @@ public class BehaviorInstantiationException extends Exception {
    public BehaviorInstantiationException(Throwable cause) {
       super(cause);
    }
+
+   int line;
+   int col;
+
+   public BehaviorInstantiationException(String message, Throwable cause, int line, int col) {
+      super(message, cause);
+      this.line = line;
+      this.col = col;
+   }
 }

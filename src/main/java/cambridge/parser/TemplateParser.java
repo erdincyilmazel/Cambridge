@@ -129,7 +129,7 @@ public class TemplateParser {
                TemplateNode n = matchedNodes.get(i);
                if (n instanceof TagNode) {
                   TagNode tn = (TagNode) n;
-                  if (tn.tagNameString.equals(token.getTagName())) {
+                  if (tn.getEndLine() == 0 && tn.getEndColumn() == 0 && tn.tagNameString.equals(token.getTagName())) {
                      tag = tn;
                      openIndex = i;
                      break;

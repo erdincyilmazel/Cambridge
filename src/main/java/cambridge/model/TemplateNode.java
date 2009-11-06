@@ -1,7 +1,6 @@
 package cambridge.model;
 
 import cambridge.BehaviorInstantiationException;
-import cambridge.TemplateParsingException;
 
 import java.util.ArrayList;
 
@@ -20,11 +19,11 @@ public abstract class TemplateNode {
    }
 
    public TemplateNode getPreviousSibling() {
-      return null;
+      return parent.getPreviousChild(this);
    }
 
    public TemplateNode getNextSibling() {
-      return null;
+      return parent.getNextChild(this);
    }
 
    public int getBeginLine() {
@@ -61,7 +60,9 @@ public abstract class TemplateNode {
 
    public abstract boolean isDynamic();
 
-   public abstract void normalize(FragmentList f) throws TemplateParsingException, BehaviorInstantiationException;
+   public abstract void normalize(FragmentList f) throws BehaviorInstantiationException;
+
+   public abstract boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException;
 
    public abstract Tag getElementById(String id);
 

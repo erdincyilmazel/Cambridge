@@ -33,6 +33,19 @@ public class TextNode extends TemplateNode {
    }
 
    @Override
+   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) {
+      if(reference == this) {
+         if(inclusive) {
+            f.append(contents);
+         }
+         return true;
+      } else {
+         f.append(contents);
+         return false;
+      }
+   }
+
+   @Override
    public TagNode getElementById(String id) {
       return null;
    }
