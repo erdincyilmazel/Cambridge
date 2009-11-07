@@ -19,11 +19,6 @@ public class CommentNode extends TextNode {
    }
 
    @Override
-   public boolean isDynamic() {
-      return false;
-   }
-
-   @Override
    public void normalize(FragmentList f) {
       f.append(contents);
    }

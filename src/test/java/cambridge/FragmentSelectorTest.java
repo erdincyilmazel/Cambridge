@@ -23,12 +23,11 @@ public class FragmentSelectorTest {
             @Override
             public void modifyTemplate(TemplateDocument doc) {
                try {
-                  FragmentList fragmentList = doc.select(">< #s");
+                  FragmentList fragmentList = doc.select("except #s");
 
                   for (Fragment f : fragmentList) {
                      f.eval(new HashMap<String, Object>(), System.out);
                   }
-
 
                } catch (BehaviorInstantiationException e) {
                   e.printStackTrace();

@@ -7,6 +7,7 @@ import cambridge.parser.tokens.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Matcher;
 
 /**
  * TemplateParser creates a Template Model object by parsing a template document
@@ -25,8 +26,15 @@ public class TemplateParser {
 
    TemplateTokenizer tokenizer;
 
+   TemplateLoader templateLoader;
+
    public TemplateParser(TemplateTokenizer tokenizer) {
       this.tokenizer = tokenizer;
+   }
+
+   public TemplateParser(TemplateTokenizer tokenizer, TemplateLoader loader) {
+      this.tokenizer = tokenizer;
+      this.templateLoader = loader;
    }
 
    final static int BUFFER_SIZE = 5;
@@ -119,7 +127,9 @@ public class TemplateParser {
             break;
          case PARSER_DIRECTIVE:
             node = parserDirective();
-            matchedNodes.add(node);
+            if (node != null) {
+               matchedNodes.add(node);
+            }
             break;
          case CLOSE_TAG:
             CloseTagToken token = (CloseTagToken) currentToken;
@@ -184,7 +194,7 @@ public class TemplateParser {
 
       TagNode node = bindings.getDynamicTag(new AttributeKey(token.getNameSpace(), token.getTagName()));
       boolean dynamicTag = true;
-      if(node == null) {
+      if (node == null) {
          node = new TagNode();
          dynamicTag = false;
       }
@@ -213,7 +223,7 @@ public class TemplateParser {
             case ATTRIBUTE_NAME:
                AttributeNameToken tok = (AttributeNameToken) currentToken;
 
-               if(dynamicTag && tok.getNameSpace() == null) {
+               if (dynamicTag && tok.getNameSpace() == null) {
                   tok.setNameSpace(node.getNameSpace());
                }
 
@@ -291,16 +301,35 @@ public class TemplateParser {
          }
       }
 
-      if(dynamicTag) {
+      if (dynamicTag) {
          ((DynamicTag) node).init();
       }
 
       return node;
    }
 
+   private TemplateNode parserDirective() throws TemplateParsingException {
+      ParserDirectiveToken tok = (ParserDirectiveToken) currentToken;
+      if ("include".equalsIgnoreCase(tok.getDirective()) && templateLoader != null) {
+         Matcher matcher = TemplateDocument.selectorPattern.matcher(tok.getArgs());
 
-   private ParserDirective parserDirective() {
-      return new ParserDirective(currentToken.value);
+         String fileName = matcher.replaceAll("").trim();
+         String selector = null;
+         matcher.reset();
+         if (matcher.find()) {
+            selector = matcher.group(0);
+         }
+
+         try {
+            return new IncludeFragment(templateLoader, fileName, selector);
+         } catch (TemplateLoadingException e) {
+            throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
+         } catch (BehaviorInstantiationException e) {
+            throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
+         }
+      }
+
+      return null;
    }
 
    /**

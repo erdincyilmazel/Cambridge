@@ -57,4 +57,77 @@ public class FileTemplateLoader {
          throw new TemplateLoadingException(e);
       }
    }
+
+   public static TemplateDocument parseTemplate(File file, String encoding) throws TemplateLoadingException {
+      try {
+         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
+         TemplateParser parser = new TemplateParser(tokenizer);
+         return parser.parse();
+      } catch (IOException e) {
+         throw new TemplateLoadingException(e);
+      } catch (TemplateParsingException e) {
+         throw new TemplateLoadingException(e);
+      }
+   }
+
+   public static TemplateDocument parseTemplate(File file) throws TemplateLoadingException {
+      return parseTemplate(file, DefaultEncoding);
+   }
+
+   public static TemplateFactory newTemplateFactory(File file, TemplateLoader loader) throws TemplateLoadingException {
+      return newTemplateFactory(file, DefaultEncoding, loader);
+   }
+
+   public static TemplateFactory newTemplateFactory(File file, String encoding, TemplateLoader loader) throws TemplateLoadingException {
+      try {
+         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
+         TemplateParser parser = new TemplateParser(tokenizer, loader);
+         TemplateDocument document = parser.parse();
+         return new FileTemplateFactory(document.normalize(), file, encoding);
+      } catch (TemplateParsingException e) {
+         throw new TemplateLoadingException(e);
+      } catch (BehaviorInstantiationException e) {
+         throw new TemplateLoadingException(e);
+      } catch (IOException e) {
+         throw new TemplateLoadingException(e);
+      }
+   }
+
+   public static TemplateFactory newTemplateFactory(File file, TemplateLoader loader, TemplateModifier modifier) throws TemplateLoadingException {
+      return newTemplateFactory(file, DefaultEncoding, loader, modifier);
+   }
+
+   public static TemplateFactory newTemplateFactory(File file, String encoding, TemplateLoader loader, TemplateModifier modifier) throws TemplateLoadingException {
+      try {
+         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
+         TemplateParser parser = new TemplateParser(tokenizer, loader);
+         TemplateDocument document = parser.parse();
+
+         modifier.modifyTemplate(document);
+
+         return new FileTemplateFactory(document.normalize(), file, encoding, modifier);
+      } catch (TemplateParsingException e) {
+         throw new TemplateLoadingException(e);
+      } catch (BehaviorInstantiationException e) {
+         throw new TemplateLoadingException(e);
+      } catch (IOException e) {
+         throw new TemplateLoadingException(e);
+      }
+   }
+
+   public static TemplateDocument parseTemplate(File file, String encoding, TemplateLoader loader) throws TemplateLoadingException {
+      try {
+         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
+         TemplateParser parser = new TemplateParser(tokenizer, loader);
+         return parser.parse();
+      } catch (IOException e) {
+         throw new TemplateLoadingException(e);
+      } catch (TemplateParsingException e) {
+         throw new TemplateLoadingException(e);
+      }
+   }
+
+   public static TemplateDocument parseTemplate(File file, TemplateLoader loader) throws TemplateLoadingException {
+      return parseTemplate(file, DefaultEncoding, loader);
+   }
 }

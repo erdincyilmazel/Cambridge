@@ -58,8 +58,6 @@ public abstract class TemplateNode {
       this.endColumn = endColumn;
    }
 
-   public abstract boolean isDynamic();
-
    public abstract void normalize(FragmentList f) throws BehaviorInstantiationException;
 
    public abstract boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException;

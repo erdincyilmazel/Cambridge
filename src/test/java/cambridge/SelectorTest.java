@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.File;
+import java.io.IOException;
 
 import cambridge.model.TemplateDocument;
 import cambridge.model.Tag;
@@ -19,7 +20,7 @@ public class SelectorTest {
    public void testSelect() {
       final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
       try {
-         loader.newTemplateFactory("a.html", new TemplateModifier() {
+         TemplateFactory f = loader.newTemplateFactory("a.html", new TemplateModifier() {
             @Override
             public void modifyTemplate(TemplateDocument doc) {
                Tag t = doc.locateTag("/html/body/div/div/span");
@@ -34,7 +35,14 @@ public class SelectorTest {
                assertEquals("text", t.getTextContents());
             }
          });
+
+         Template t = f.createTemplate();
+         t.printTo(System.out);
       } catch (TemplateLoadingException e) {
+         e.printStackTrace();
+      } catch (IOException e) {
+         e.printStackTrace();
+      } catch (TemplateRuntimeException e) {
          e.printStackTrace();
       }
    }

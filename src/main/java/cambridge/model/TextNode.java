@@ -21,12 +21,7 @@ public class TextNode extends TemplateNode {
    public void setContents(String contents) {
       this.contents = contents;
    }
-
-   @Override
-   public boolean isDynamic() {
-      return false;
-   }
-
+   
    @Override
    public void normalize(FragmentList f) {
       f.append(contents);

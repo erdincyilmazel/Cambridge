@@ -11,6 +11,10 @@ import java.util.Map;
 public class StaticFragment implements Fragment {
    StringBuilder contents;
 
+   public StaticFragment(String text) {
+      contents = new StringBuilder(text);
+   }
+
    public StaticFragment() {
       contents = new StringBuilder();
    }

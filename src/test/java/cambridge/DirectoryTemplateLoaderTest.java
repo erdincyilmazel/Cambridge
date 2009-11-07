@@ -5,8 +5,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 
-import cambridge.model.TemplateDocument;
-import cambridge.model.TextNode;
+import cambridge.model.*;
 
 /**
  * User: erdinc
@@ -16,13 +15,25 @@ import cambridge.model.TextNode;
 public class DirectoryTemplateLoaderTest {
    @Test
    public void testLoad() {
-      DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
+      final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
 
       try {
          TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
             @Override
             public void modifyTemplate(TemplateDocument doc) {
-               doc.getElementById("email").addChild(new TextNode("Erdinc"));
+
+               FragmentList list = new FragmentList();
+               list.add(new StaticFragment("This is a test"));
+
+               try {
+                  doc.getElementById("email").addChild(new IncludeFragment(loader, "a.html", "#s"));
+               } catch (TemplateLoadingException e) {
+                  e.printStackTrace();
+               } catch (BehaviorInstantiationException e) {
+                  e.printStackTrace();
+               }
+
+               //doc.getElementById("email").addChild(new TextNode("Erdinc"));
             }
          });
          Template t = f.createTemplate();

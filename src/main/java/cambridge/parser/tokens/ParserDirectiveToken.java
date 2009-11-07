@@ -2,13 +2,25 @@ package cambridge.parser.tokens;
 
 /**
  * Tokens in the form of <!--$   -->.
- * The parser directives are written in properties file syntax.
  * <p/>
  * They can be used to change the attributes and behavior of the parser and the tokenizer.
  */
 public class ParserDirectiveToken extends Token {
-   public ParserDirectiveToken(int line, int c, String val, int nl, int nc) {
+   public ParserDirectiveToken(int line, int c, String val, int nl, int nc, String directive, String args) {
       super(line, c, val, nl, nc);
+      this.directive = directive;
+      this.args = args;
+   }
+
+   String directive;
+   String args;
+
+   public String getDirective() {
+      return directive;
+   }
+
+   public String getArgs() {
+      return args;
    }
 
    public TokenType getType() {

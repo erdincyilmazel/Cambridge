@@ -142,7 +142,7 @@ public class TemplateDocument implements ParentNode {
       return list;
    }
 
-   static Pattern selectorPattern = Pattern.compile("(<|>|=|(<=)|(>=)|(<>)|(><))?\\s*(((/|#)([^/#\\s]+)(\\[\\d+\\])?)+)");
+   public static Pattern selectorPattern = Pattern.compile("(before|after|endof|from|except|inside)?\\s*(((/|#)([^/#\\s]+)(\\[\\d+\\])?)+)$");
    static Pattern indexPattern = Pattern.compile("([^/#\\s]+)\\[(\\d+)\\]");
 
    public TagNode locateTag(String selector) {
@@ -191,13 +191,13 @@ public class TemplateDocument implements ParentNode {
    }
 
    public enum Selector {
-      Default("="),
-      Before("<"),
-      BeforeInclusive("<="),
-      After(">"),
-      AfterInclusive(">="),
-      Except("<>"),
-      Inside("><");
+      Default(""),
+      Before("before"),
+      EndOf("endof"),
+      After("after"),
+      From("from"),
+      Except("except"),
+      Inside("inside");
 
       String s;
 
@@ -206,8 +206,11 @@ public class TemplateDocument implements ParentNode {
       }
 
       public static Selector get(String s) {
+         if(s == null) {
+            return Default;
+         }
          for (Selector selector : values()) {
-            if (s.equals(selector.s)) {
+            if (s.equalsIgnoreCase(selector.s)) {
                return selector;
             }
          }
@@ -251,7 +254,7 @@ public class TemplateDocument implements ParentNode {
 
             ret.pack();
             return ret;
-         case AfterInclusive:
+         case From:
             ret = new FragmentList();
             node.normalize(ret);
             while (true) {
@@ -282,7 +285,7 @@ public class TemplateDocument implements ParentNode {
             return ret;
          case Before:
             return normalizeUntil(node, false);
-         case BeforeInclusive:
+         case EndOf:
             return normalizeUntil(node, true);
          case Default:
             ret = new FragmentList();
@@ -336,7 +339,7 @@ public class TemplateDocument implements ParentNode {
          throw new SelectorParsingException("Could not parse the selector query");
       }
 
-      String q = matcher.group(6);
+      String q = matcher.group(2);
 
       Selector selector = Selector.get(matcher.group(1));
 

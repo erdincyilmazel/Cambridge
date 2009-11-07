@@ -265,30 +265,29 @@ public class TemplateTokenizer extends Tokenizer {
                // Comment block
                builder.append("!--");
 
+               String directive = null;
+               String args;
+
                while (true) {
                   if (peek(1) == Tokenizer.EOL) {
                      return new CommentToken(line, col, builder.toString(), getLineNo(), getColumn());
                   }
-                  if (peek(1) == '-' && peek(2) == '-' && peek(3) == '>') break;
+
+                  if (directive == null && Character.isWhitespace(peek(1))) {
+                     directive = builder.substring(5);
+                  }
+
+                  if (peek(1) == '-' && peek(2) == '-' && peek(3) == '>') {
+                     args = builder.substring(5 + directive.length() + 1).trim();
+                     break;
+                  }
                   builder.append(nextChar());
                }
                nextChar(3);
-               try {
-                  Properties directives = new Properties();
-                  directives.load(new StringInputStream(builder.substring(5)));
-                  for (Object o : directives.keySet()) {
-                     setDirective((String) o, (String) directives.get(o));
-                  }
-               } catch (Exception e) {
-                  /*
-                  @todo log error
-                   */
-                  e.printStackTrace();
-               }
 
                builder.append("-->");
 
-               ParserDirectiveToken tok = new ParserDirectiveToken(line, col, builder.toString(), getLineNo(), getColumn());
+               ParserDirectiveToken tok = new ParserDirectiveToken(line, col, builder.toString(), getLineNo(), getColumn(), directive, args);
                if (peek(1) == '\r') {
                   if (peek(2) == '\n') {
                      nextChar(2);

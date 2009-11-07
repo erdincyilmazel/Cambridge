@@ -28,11 +28,6 @@ public class ParserDirective extends TemplateNode implements Fragment {
    }
 
    @Override
-   public boolean isDynamic() {
-      return true;
-   }
-
-   @Override
    public void normalize(FragmentList f) {
       f.addFragment(this);
    }
