@@ -1,6 +1,7 @@
 package cambridge;
 
 import cambridge.model.TagNode;
+import cambridge.model.ModifyableTag;
 import cambridge.runtime.Super;
 import cambridge.runtime.Iter;
 

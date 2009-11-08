@@ -10,11 +10,8 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
 
 /**
- * This is a TagPart to represent tag attributes in the Template.
- * If the namespace of the TagPart is the agean namespace then a subclass of
- * this ExpressionAttributeTagPart is created by the parser instead.
- *
- * @see TagPart
+ * DynamicAttributes are attributes which are registered with the {@link cambridge.Behaviors}
+ * class and which carry a dynamic behavior on.
  */
 public class DynamicAttribute implements Attribute {
    String attributeName;

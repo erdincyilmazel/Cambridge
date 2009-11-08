@@ -5,6 +5,7 @@ import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.TagNode;
 import cambridge.parser.expressions.Expression;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class WhileBehavior extends IterativeTagBehavior {
    public void loop(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          while (expression.asBoolean(properties)) {
-            tag.dumpTag(properties, out);
+            tag.executeTag(properties, out);
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());

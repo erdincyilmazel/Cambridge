@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * Date: Aug 17, 2008
  * Time: 8:12:49 PM
  */
-public class TagNode extends TemplateNode implements Fragment, Tag {
+public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTag {
    String indent = "";
    String tagName;
    String nameSpace;
@@ -107,6 +107,10 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
       tagParts.add(e);
    }
 
+   public void setTagParts(ArrayList<TagPart> tagParts) {
+      this.tagParts = tagParts;
+   }
+
    public void addText(TextTagPart t) {
       addTagPart(t);
    }
@@ -128,7 +132,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
          id = a.getValue();
       }
 
-      DynamicBindings bindings = DynamicBindings.getInstance();
+      Behaviors bindings = Behaviors.getInstance();
 
       if (!a.isDynamic()) {
          tagParts.add((SimpleAttribute) a);
@@ -223,7 +227,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
          return true;
       } else {
          if (attributes != null) {
-            DynamicBindings bindings = DynamicBindings.getInstance();
+            Behaviors bindings = Behaviors.getInstance();
             for (AttributeKey key : attributes.keySet()) {
                StaticBehavior sb = bindings.getStaticBehavior(key);
                if (sb != null) {
@@ -250,7 +254,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
             } else {
                fragments = new FragmentList();
                for (TemplateNode t : children) {
-                  if(t.normalizeUntil(reference, fragments, inclusive)) {
+                  if (t.normalizeUntil(reference, fragments, inclusive)) {
                      fragments.pack();
                      f.addFragment(this);
                      return true;
@@ -287,7 +291,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
 
             if (children != null) {
                for (TemplateNode n : children) {
-                  if(n.normalizeUntil(reference, f, inclusive)) {
+                  if (n.normalizeUntil(reference, f, inclusive)) {
                      return true;
                   }
                }
@@ -304,7 +308,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
    @Override
    public void normalize(FragmentList f) throws BehaviorInstantiationException {
       if (attributes != null) {
-         DynamicBindings bindings = DynamicBindings.getInstance();
+         Behaviors bindings = Behaviors.getInstance();
          for (AttributeKey key : attributes.keySet()) {
             StaticBehavior sb = bindings.getStaticBehavior(key);
             if (sb != null) {
@@ -412,6 +416,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
    }
 
    @Override
+   @SuppressWarnings("unchecked")
    public void eval(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
       try {
          if (!isDynamic()) {
@@ -419,7 +424,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
          } else {
             if (conditionsMet(properties)) {
                if (iterative == null) {
-                  dumpTag(properties, out);
+                  executeTag(properties, out);
                } else {
                   iterative.iterate(properties, this, out);
                }
@@ -460,7 +465,49 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
       this.hidden = hidden;
    }
 
-   public void dumpTag(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+   class ModifyableCopy implements ModifyableTag {
+      ArrayList<TagPart> tagParts;
+      FragmentList fragments;
+
+      ModifyableCopy(ArrayList<TagPart> tagParts, FragmentList fragments) {
+         this.tagParts = tagParts;
+         this.fragments = fragments;
+      }
+
+      public ArrayList<TagPart> getTagParts() {
+         return tagParts;
+      }
+
+      public void setTagParts(ArrayList<TagPart> tagParts) {
+         this.tagParts = tagParts;
+      }
+
+      public FragmentList getFragments() {
+         return fragments;
+      }
+
+      public void setFragments(FragmentList fragments) {
+         this.fragments = fragments;
+      }
+   }
+
+   @SuppressWarnings("unchecked")
+   public void executeTag(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+      ModifyableTag tag;
+      if (modifyingBehaviors != null) {
+         tag = new ModifyableCopy((ArrayList) tagParts.clone(), (FragmentList) fragments.clone());
+
+         for (ModifyingTagBehavior b : modifyingBehaviors) {
+            try {
+               b.modify(properties, tag);
+            } catch (ExpressionEvaluationException e) {
+               throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), getTagName());
+            }
+         }
+      } else {
+         tag = this;
+      }
+
       out.append(indent);
 
       if (!hidden) {
@@ -469,9 +516,9 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
             out.append(nameSpace).append(":");
          }
          out.append(tagName);
-         if (tagParts != null) {
+         if (tag.getTagParts() != null) {
             boolean whiteSpace = false;
-            for (TagPart t : tagParts) {
+            for (TagPart t : tag.getTagParts()) {
                if (!t.isWhiteSpace()) {
                   if (!whiteSpace) {
                      out.append(" ");
@@ -487,7 +534,11 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
          out.append(tagEndText);
       }
 
-      printFragments(properties, out);
+      if (tag.getFragments() != null) {
+         for (Fragment f : tag.getFragments()) {
+            f.eval(properties, out);
+         }
+      }
 
       if (!hidden && closeText != null) {
          out.append(closeText);
@@ -517,7 +568,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
    }
 
    private void assignBehaviors() throws BehaviorInstantiationException {
-      DynamicBindings bindings = DynamicBindings.getInstance();
+      Behaviors bindings = Behaviors.getInstance();
       if (attributes != null) {
          for (AttributeKey key : attributes.keySet()) {
             TagBehavior behavior;
@@ -606,5 +657,13 @@ public class TagNode extends TemplateNode implements Fragment, Tag {
             f.eval(properties, out);
          }
       }
+   }
+
+   public FragmentList getFragments() {
+      return fragments;
+   }
+
+   public void setFragments(FragmentList fragments) {
+      this.fragments = fragments;
    }
 }

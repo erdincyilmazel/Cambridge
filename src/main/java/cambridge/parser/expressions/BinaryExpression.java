@@ -175,7 +175,8 @@ public class BinaryExpression implements Expression {
          case ConditionalOr:
             return left.asBoolean(properties) || right.asBoolean(properties);
          case Equal:
-            return left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties));
+            return areEqual(properties);
+
          case GT:
             return left.asDouble(properties) > right.asDouble(properties);
          case GTE:
@@ -187,7 +188,7 @@ public class BinaryExpression implements Expression {
          case Mod:
             return (left.asInt(properties) % right.asInt(properties)) != 0;
          case NotEqual:
-            return !(left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties)));
+            return !areEqual(properties);
          case Or:
             return (left.asInt(properties) | right.asInt(properties)) != 0;
          case SHIFT_LEFT:
@@ -240,6 +241,13 @@ public class BinaryExpression implements Expression {
       }
 
       return false;
+   }
+
+   private boolean areEqual(Map<String, Object> properties) throws ExpressionEvaluationException {
+      Object l = left.eval(properties);
+      Object r = right.eval(properties);
+
+      return l == null && r == null || !(l == null || r == null) && l.equals(r);
    }
 
    @Override

@@ -5,9 +5,9 @@ import java.io.PrintStream;
 
 /**
  * CommentNode class represents nodes within the documents which are valid
- * Html or Cambridge template comments.
+ * Html comments.
  * <p/>
- * Comment blocks start with <!-- characters and end with --> characters.
+ * Comment blocks start with "&lt;!--" characters and end with "--&gt;" characters.
  */
 public class CommentNode extends TextNode {
    public String getSource() {

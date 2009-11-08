@@ -4,6 +4,7 @@ erdinc
 <body>
 Hello ${user.userName}
 
+<!--$ this is a dynamic comment -->
 <div id="email"></div>
 
 <div a:if="value">Value is true</div>
@@ -22,5 +23,11 @@ Hello ${user.userName}
 <span a:hide>sdddddddddddd</span>
 
 <a:span if="true" from="5" to="10">${#this} sdfsdfsdfsfsf osdkf sopdkfsdf</a:span>
+
+<form action="test">
+   <select>
+      <option a:from="2009" a:to="2020" a:selectedIf="#this == 2010">${#this}</option>
+   </select>
+</form>
 </body>
 </html>

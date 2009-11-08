@@ -190,7 +190,7 @@ public class TemplateParser {
    private TagNode tag() throws IOException, TemplateParsingException {
       OpenTagToken token = (OpenTagToken) currentToken;
 
-      DynamicBindings bindings = DynamicBindings.getInstance();
+      Behaviors bindings = Behaviors.getInstance();
 
       TagNode node = bindings.getDynamicTag(new AttributeKey(token.getNameSpace(), token.getTagName()));
       boolean dynamicTag = true;

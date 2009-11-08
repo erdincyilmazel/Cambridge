@@ -15,7 +15,7 @@ import java.util.Map;
  * Time: 7:24:15 PM
  */
 @SuppressWarnings("unchecked")
-public class DynamicBindings {
+public class Behaviors {
    public static String DefaultNamespace = "a";
 
    class Bind {
@@ -63,6 +63,7 @@ public class DynamicBindings {
       bind(DefaultNamespace, "foreach").to(ForeachBehavior.getProvider());
       bind(DefaultNamespace, "while").to(WhileBehavior.getProvider());
       bind(DefaultNamespace, "from").to(FromBehavior.getProvider());
+      bind(DefaultNamespace, "selectedIf").to(SelectedBehavior.getProvider());
       bindStatic(DefaultNamespace, "addAlt").to(AltAdderStaticBehavior.class);
       bindStatic(DefaultNamespace, "hide").to(HideBehavior.class);
       bindTag(DefaultNamespace, "dummy", "span").to(DummyTag.class);
@@ -154,21 +155,21 @@ public class DynamicBindings {
       }
    }
 
-   static DynamicBindings instance;
+   static Behaviors instance;
 
-   public static DynamicBindings getInstance() {
+   public static Behaviors getInstance() {
       if (instance == null) {
-         instance = new DynamicBindings();
+         instance = new Behaviors();
       }
 
       return instance;
    }
 
-   public static void registerInstance(DynamicBindings b) {
+   public static void registerInstance(Behaviors b) {
       instance = b;
    }
 
-   private DynamicBindings() {
+   private Behaviors() {
       namespaces = new HashSet<String>();
       providers = new HashMap<AttributeKey, BehaviorProvider>();
       staticBehaviorClasses = new HashMap<AttributeKey, Class<? extends StaticBehavior>>();
