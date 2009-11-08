@@ -79,9 +79,10 @@ public class TemplateParser {
 
    Token currentToken;
    List<TemplateNode> matchedNodes = new ArrayList<TemplateNode>();
+   TemplateDocument template;
 
    public TemplateDocument parse() throws IOException, TemplateParsingException {
-      TemplateDocument template = new TemplateDocument();
+      template = new TemplateDocument();
       fillBuffer();
       nextToken();
 
@@ -321,6 +322,7 @@ public class TemplateParser {
          }
 
          try {
+            template.addInclude(fileName);
             return new IncludeFragment(templateLoader, fileName, selector);
          } catch (TemplateLoadingException e) {
             throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());

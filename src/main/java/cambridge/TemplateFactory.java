@@ -9,8 +9,10 @@ import cambridge.model.FragmentList;
  */
 public class TemplateFactory {
    protected FragmentList fragments;
+   protected TemplateLoader loader;
 
-   public TemplateFactory(FragmentList fragments) {
+   public TemplateFactory(TemplateLoader loader, FragmentList fragments) {
+      this.loader = loader;
       this.fragments = fragments;
    }
 

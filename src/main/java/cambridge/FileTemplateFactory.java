@@ -2,13 +2,8 @@ package cambridge;
 
 import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
-import cambridge.parser.TemplateParser;
-import cambridge.parser.TemplateTokenizer;
-
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.util.HashSet;
 
 /**
  * User: erdinc
@@ -22,42 +17,71 @@ public class FileTemplateFactory extends TemplateFactory {
 
    long lastCheck;
 
-   public FileTemplateFactory(FragmentList fragments, File templateFile, String encoding) {
-      super(fragments);
-      this.templateFile = templateFile;
-      this.encoding = encoding;
-      lastCheck = System.currentTimeMillis();
+   HashSet<File> includes;
+
+   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding) {
+      this(loader, fragments, templateFile, encoding, null, null);
    }
 
-   public FileTemplateFactory(FragmentList fragments, File templateFile, String encoding, TemplateModifier modifier) {
-      super(fragments);
+   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding, TemplateModifier modifier) {
+      this(loader, fragments, templateFile, encoding, modifier, null);
+   }
+
+   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding, HashSet<File> includes) {
+      this(loader, fragments, templateFile, encoding, null, includes);
+   }
+
+   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding, TemplateModifier modifier, HashSet<File> includes) {
+      super(loader, fragments);
       this.templateFile = templateFile;
       this.encoding = encoding;
       this.modifier = modifier;
+      this.includes = includes;
       lastCheck = System.currentTimeMillis();
    }
 
    @Override
    public Template createTemplate() {
-      if (lastCheck + 10000 < System.currentTimeMillis() && templateFile.lastModified() > lastCheck) {
-         try {
-            TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(templateFile), encoding));
-            TemplateParser parser = new TemplateParser(tokenizer);
-            TemplateDocument doc = parser.parse();
-            if (modifier != null) {
-               modifier.modifyTemplate(doc);
+      if (!reloading && lastCheck + 10000 < System.currentTimeMillis()) {
+         if (templateFile.lastModified() > lastCheck) {
+            reload();
+         } else if (includes != null) {
+            for (File f : includes) {
+               if (f.exists() && f.lastModified() > lastCheck) {
+                  reload();
+                  break;
+               }
             }
-            fragments = doc.normalize();
-            lastCheck = System.currentTimeMillis();
-         } catch (IOException e) {
-            throw new TemplateReloadingException(e);
-         } catch (TemplateParsingException e) {
-            throw new TemplateReloadingException(e);
-         } catch (BehaviorInstantiationException e) {
-            e.printStackTrace();
          }
+
+         lastCheck = System.currentTimeMillis();
       }
 
       return new DynamicTemplate(fragments);
+   }
+
+   private boolean reloading;
+
+   private synchronized void reload() {
+      reloading = true;
+      try {
+         TemplateDocument doc = loader.parseTemplate(templateFile, encoding);
+         if (modifier != null) {
+            modifier.modifyTemplate(doc);
+         }
+
+         if (doc.getIncludes() != null) {
+            includes = loader.getFiles(doc.getIncludes());
+         }
+
+         fragments = doc.normalize();
+
+      } catch (TemplateLoadingException e) {
+         throw new TemplateReloadingException(e);
+      } catch (BehaviorInstantiationException e) {
+         e.printStackTrace();
+         throw new TemplateReloadingException(e);
+      }
+      reloading = false;
    }
 }

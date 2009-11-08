@@ -3,9 +3,9 @@ package cambridge;
 import cambridge.model.TemplateDocument;
 import cambridge.model.TextNode;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
-import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
@@ -18,7 +18,9 @@ public class Cambridge {
 
    public static void main(String[] args) {
       try {
-         final TemplateFactory f = FileTemplateLoader.newTemplateFactory(new File("kitchensink.html"), new TemplateModifier() {
+
+         DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
+         final TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
             @Override
             public void modifyTemplate(TemplateDocument doc) {
                doc.getElementById("email").addChild(new TextNode("cambridge rocks"));

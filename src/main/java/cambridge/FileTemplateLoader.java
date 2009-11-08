@@ -8,117 +8,69 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashSet;
 
 /**
  * User: erdinc
  * Date: Nov 3, 2009
  * Time: 3:20:20 PM
  */
-public class FileTemplateLoader {
+public class FileTemplateLoader implements TemplateLoader {
    public static final String DefaultEncoding = "UTF-8";
 
-   public static TemplateFactory newTemplateFactory(File file) throws TemplateLoadingException {
-      return newTemplateFactory(file, DefaultEncoding);
+   public TemplateFactory newTemplateFactory(File file) throws TemplateLoadingException {
+      return newTemplateFactory(file, DefaultEncoding, null);
    }
 
-   public static TemplateFactory newTemplateFactory(File file, String encoding) throws TemplateLoadingException {
-      try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
-         TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateDocument document = parser.parse();
-         return new FileTemplateFactory(document.normalize(), file, encoding);
-      } catch (TemplateParsingException e) {
-         throw new TemplateLoadingException(e);
-      } catch (BehaviorInstantiationException e) {
-         throw new TemplateLoadingException(e);
-      } catch (IOException e) {
-         throw new TemplateLoadingException(e);
-      }
+   public TemplateFactory newTemplateFactory(File file, String encoding) throws TemplateLoadingException {
+      return newTemplateFactory(file, encoding, null);
    }
 
-   public static TemplateFactory newTemplateFactory(File file, TemplateModifier modifier) throws TemplateLoadingException {
+   public TemplateFactory newTemplateFactory(File file, TemplateModifier modifier) throws TemplateLoadingException {
       return newTemplateFactory(file, DefaultEncoding, modifier);
    }
 
-   public static TemplateFactory newTemplateFactory(File file, String encoding, TemplateModifier modifier) throws TemplateLoadingException {
-      try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
-         TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateDocument document = parser.parse();
-
+   public TemplateFactory newTemplateFactory(File file, String encoding, TemplateModifier modifier) throws TemplateLoadingException {
+      TemplateDocument document = parseTemplate(file, encoding);
+      if (modifier != null) {
          modifier.modifyTemplate(document);
+      }
 
-         return new FileTemplateFactory(document.normalize(), file, encoding, modifier);
-      } catch (TemplateParsingException e) {
-         throw new TemplateLoadingException(e);
+      try {
+         if (document.getIncludes() != null) {
+            return new FileTemplateFactory(this, document.normalize(), file, encoding, modifier, getFiles(document.getIncludes()));
+         }
+
+         return new FileTemplateFactory(this, document.normalize(), file, encoding, modifier);
       } catch (BehaviorInstantiationException e) {
          throw new TemplateLoadingException(e);
-      } catch (IOException e) {
-         throw new TemplateLoadingException(e);
       }
    }
 
-   public static TemplateDocument parseTemplate(File file, String encoding) throws TemplateLoadingException {
-      try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
-         TemplateParser parser = new TemplateParser(tokenizer);
-         return parser.parse();
-      } catch (IOException e) {
-         throw new TemplateLoadingException(e);
-      } catch (TemplateParsingException e) {
-         throw new TemplateLoadingException(e);
+   public HashSet<File> getFiles(HashSet<String> fileNames) {
+      HashSet<File> files = new HashSet<File>();
+      for(String s : fileNames) {
+         File f = new File(s);
+         if(f.exists()) {
+            files.add(f);
+         }
       }
+
+      if(files.size() != 0) {
+         return files;
+      }
+
+      return null;
    }
 
-   public static TemplateDocument parseTemplate(File file) throws TemplateLoadingException {
+   public TemplateDocument parseTemplate(File file) throws TemplateLoadingException {
       return parseTemplate(file, DefaultEncoding);
    }
 
-   public static TemplateFactory newTemplateFactory(File file, TemplateLoader loader) throws TemplateLoadingException {
-      return newTemplateFactory(file, DefaultEncoding, loader);
-   }
-
-   public static TemplateFactory newTemplateFactory(File file, String encoding, TemplateLoader loader) throws TemplateLoadingException {
+   public TemplateDocument parseTemplate(File file, String encoding) throws TemplateLoadingException {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
-         TemplateParser parser = new TemplateParser(tokenizer, loader);
-         TemplateDocument document = parser.parse();
-         return new FileTemplateFactory(document.normalize(), file, encoding);
-      } catch (TemplateParsingException e) {
-         throw new TemplateLoadingException(e);
-      } catch (BehaviorInstantiationException e) {
-         throw new TemplateLoadingException(e);
-      } catch (IOException e) {
-         throw new TemplateLoadingException(e);
-      }
-   }
-
-   public static TemplateFactory newTemplateFactory(File file, TemplateLoader loader, TemplateModifier modifier) throws TemplateLoadingException {
-      return newTemplateFactory(file, DefaultEncoding, loader, modifier);
-   }
-
-   public static TemplateFactory newTemplateFactory(File file, String encoding, TemplateLoader loader, TemplateModifier modifier) throws TemplateLoadingException {
-      try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
-         TemplateParser parser = new TemplateParser(tokenizer, loader);
-         TemplateDocument document = parser.parse();
-
-         modifier.modifyTemplate(document);
-
-         return new FileTemplateFactory(document.normalize(), file, encoding, modifier);
-      } catch (TemplateParsingException e) {
-         throw new TemplateLoadingException(e);
-      } catch (BehaviorInstantiationException e) {
-         throw new TemplateLoadingException(e);
-      } catch (IOException e) {
-         throw new TemplateLoadingException(e);
-      }
-   }
-
-   public static TemplateDocument parseTemplate(File file, String encoding, TemplateLoader loader) throws TemplateLoadingException {
-      try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
-         TemplateParser parser = new TemplateParser(tokenizer, loader);
+         TemplateParser parser = new TemplateParser(tokenizer, this);
          return parser.parse();
       } catch (IOException e) {
          throw new TemplateLoadingException(e);
@@ -127,7 +79,33 @@ public class FileTemplateLoader {
       }
    }
 
-   public static TemplateDocument parseTemplate(File file, TemplateLoader loader) throws TemplateLoadingException {
-      return parseTemplate(file, DefaultEncoding, loader);
+   @Override
+   public TemplateFactory newTemplateFactory(String template) throws TemplateLoadingException {
+      return newTemplateFactory(new File(template));
+   }
+
+   @Override
+   public TemplateFactory newTemplateFactory(String template, String encoding) throws TemplateLoadingException {
+      return newTemplateFactory(new File(template), encoding);
+   }
+
+   @Override
+   public TemplateFactory newTemplateFactory(String template, TemplateModifier modifier) throws TemplateLoadingException {
+      return newTemplateFactory(new File(template), modifier);
+   }
+
+   @Override
+   public TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier) throws TemplateLoadingException {
+      return newTemplateFactory(new File(template), encoding, modifier);
+   }
+
+   @Override
+   public TemplateDocument parseTemplate(String template) throws TemplateLoadingException {
+      return parseTemplate(new File(template));
+   }
+
+   @Override
+   public TemplateDocument parseTemplate(String template, String encoding) throws TemplateLoadingException {
+      return parseTemplate(new File(template), encoding);
    }
 }

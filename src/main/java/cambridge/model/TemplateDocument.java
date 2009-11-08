@@ -5,6 +5,7 @@ import cambridge.BehaviorInstantiationException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
+import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -22,6 +23,19 @@ import java.util.regex.Pattern;
  */
 public class TemplateDocument implements ParentNode {
    ArrayList<TemplateNode> children;
+   private HashSet<String> includes;
+
+   public void addInclude(String include) {
+      if(includes == null) {
+         includes = new HashSet<String>();
+      }
+
+      includes.add(include);
+   }
+
+   public HashSet<String> getIncludes() {
+      return includes;
+   }
 
    public TemplateDocument() {
       children = new ArrayList<TemplateNode>();
