@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.TemplateProperties;
 
 /**
  * User: erdinc
@@ -45,19 +44,19 @@ public interface Expression {
       Not,
    }
 
-   public Type getType(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public Type getType(TemplateProperties globals) throws ExpressionEvaluationException;
 
-   public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public Object eval(TemplateProperties globals) throws ExpressionEvaluationException;
 
-   public boolean asBoolean(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public boolean asBoolean(TemplateProperties globals) throws ExpressionEvaluationException;
 
-   public int asInt(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public int asInt(TemplateProperties globals) throws ExpressionEvaluationException;
 
-   public float asFloat(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public float asFloat(TemplateProperties globals) throws ExpressionEvaluationException;
 
-   public double asDouble(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public double asDouble(TemplateProperties globals) throws ExpressionEvaluationException;
 
-   public long asLong(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public long asLong(TemplateProperties globals) throws ExpressionEvaluationException;
 
-   public String asString(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public String asString(TemplateProperties globals) throws ExpressionEvaluationException;
 }

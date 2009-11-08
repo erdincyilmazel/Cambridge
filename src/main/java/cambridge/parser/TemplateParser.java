@@ -182,7 +182,13 @@ public class TemplateParser {
 
    private ExpressionNode expression() throws TemplateParsingException {
       try {
-         return new ExpressionNode(currentToken.value);
+         ExpressionToken tok = (ExpressionToken) currentToken;
+         ExpressionNode node = new ExpressionNode(currentToken.value);
+         if(tok.getFilters() != null) {
+            node.setFilters(tok.getFilters());
+         }
+
+         return node;
       } catch (ExpressionParsingException e) {
          throw new TemplateParsingException("Error parsing expression", e, currentToken.getLineNo(), currentToken.getColumn());
       }
@@ -205,7 +211,6 @@ public class TemplateParser {
       node.setTagName(token.getTagName());
       node.setNameSpace(token.getNameSpace());
       node.setTagNameString(token.value);
-
 
       // Match the open tag
       while (peek(1).getType() != TokenType.EOF) {

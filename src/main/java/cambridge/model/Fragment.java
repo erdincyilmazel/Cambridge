@@ -1,9 +1,9 @@
 package cambridge.model;
 
 import cambridge.TemplateRuntimeException;
+import cambridge.runtime.TemplateProperties;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * User: erdinc
@@ -11,5 +11,5 @@ import java.util.Map;
  * Time: 1:02:03 PM
  */
 public interface Fragment {
-   public abstract void eval(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException;
+   public abstract void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException;
 }

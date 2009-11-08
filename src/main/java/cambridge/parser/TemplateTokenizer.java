@@ -5,7 +5,7 @@ import cambridge.parser.tokens.*;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
-import java.util.Properties;
+import java.util.ArrayList;
 
 
 /**
@@ -396,6 +396,31 @@ public class TemplateTokenizer extends Tokenizer {
             builder.append(c);
             c = nextChar();
          }
+
+         if (peek(1) == '(') {
+            nextChar();
+            c = nextChar();
+            ArrayList<String> filters = new ArrayList<String>();
+            StringBuilder filter = new StringBuilder();
+            while (c != ')') {
+               if(c == '|') {
+                  if(filter.length() != 0) {
+                     filters.add(filter.toString());
+                  }
+                  filter.setLength(0);
+               } else {
+                  filter.append(c);
+               }
+               c = nextChar();
+            }
+
+            if(filter.length() != 0 && filters.size() == 0) {
+               filters.add(filter.toString());
+            }
+
+            return new ExpressionToken(line, col, builder.toString(), getLineNo(), getColumn(), filters);
+         }
+
          return new ExpressionToken(line, col, builder.toString(), getLineNo(), getColumn());
       } else {
          StringBuilder builder = new StringBuilder();

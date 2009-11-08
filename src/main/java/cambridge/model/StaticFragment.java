@@ -1,7 +1,8 @@
 package cambridge.model;
 
+import cambridge.runtime.TemplateProperties;
+
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * User: erdinc
@@ -30,7 +31,7 @@ public class StaticFragment implements Fragment {
    }
 
    @Override
-   public void eval(Map<String, Object> properties, Appendable out) throws IOException {
+   public void eval(TemplateProperties properties, Appendable out) throws IOException {
       out.append(contents);
    }
 }

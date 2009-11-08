@@ -1,8 +1,7 @@
 package cambridge;
 
 import cambridge.model.ModifyableTag;
-
-import java.util.Map;
+import cambridge.runtime.TemplateProperties;
 
 /**
  * User: erdinc
@@ -10,5 +9,5 @@ import java.util.Map;
  * Time: 3:29:42 PM
  */
 public interface ModifyingTagBehavior extends TagBehavior {
-   public void modify(Map<String, Object> properties, ModifyableTag tag) throws ExpressionEvaluationException;
+   public void modify(TemplateProperties properties, ModifyableTag tag) throws ExpressionEvaluationException;
 }

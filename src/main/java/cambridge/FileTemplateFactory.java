@@ -4,6 +4,7 @@ import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
 import java.io.File;
 import java.util.HashSet;
+import java.util.Locale;
 
 /**
  * User: erdinc
@@ -14,10 +15,10 @@ public class FileTemplateFactory extends TemplateFactory {
    File templateFile;
    String encoding;
    TemplateModifier modifier;
-
    long lastCheck;
-
    HashSet<File> includes;
+
+   public static long ChangeDetectionInterval = 5000L;
 
    public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding) {
       this(loader, fragments, templateFile, encoding, null, null);
@@ -42,7 +43,20 @@ public class FileTemplateFactory extends TemplateFactory {
 
    @Override
    public Template createTemplate() {
-      if (!reloading && lastCheck + 10000 < System.currentTimeMillis()) {
+      checkForChanges();
+
+      return new DynamicTemplate(fragments);
+   }
+
+   @Override
+   public Template createTemplate(Locale locale) {
+      checkForChanges();
+
+      return new DynamicTemplate(fragments, locale);
+   }
+
+   private void checkForChanges() {
+      if (ChangeDetectionInterval != -1 && !reloading && lastCheck + ChangeDetectionInterval < System.currentTimeMillis()) {
          if (templateFile.lastModified() > lastCheck) {
             reload();
          } else if (includes != null) {
@@ -56,8 +70,6 @@ public class FileTemplateFactory extends TemplateFactory {
 
          lastCheck = System.currentTimeMillis();
       }
-
-      return new DynamicTemplate(fragments);
    }
 
    private boolean reloading;

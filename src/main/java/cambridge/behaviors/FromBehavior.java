@@ -6,6 +6,7 @@ import cambridge.model.DynamicAttribute;
 import cambridge.model.TagNode;
 import cambridge.parser.expressions.Expression;
 import cambridge.runtime.Iter;
+import cambridge.runtime.TemplateProperties;
 
 import java.io.IOException;
 import java.util.Map;
@@ -25,7 +26,7 @@ public class FromBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void loop(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void loop(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          Iter iter = new Iter();
          for (int i = from.asInt(properties); i <= to.asInt(properties); i++) {

@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * User: erdinc
@@ -43,6 +44,8 @@ public class Cambridge {
                   users.add(new User("x", "email@email.com"));
                   users.add(new User("y", "email@email.com"));
                   t.setProperty("users", users);
+                  t.setProperty("date", new Date());
+
                   try {
                      t.printTo(System.out);
                   } catch (IOException e) {

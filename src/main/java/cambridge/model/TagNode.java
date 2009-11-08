@@ -4,12 +4,12 @@ import cambridge.*;
 import cambridge.behaviors.ForeachBehavior;
 import cambridge.behaviors.IfBehavior;
 import cambridge.parser.expressions.Expressions;
+import cambridge.runtime.TemplateProperties;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -417,7 +417,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
    @Override
    @SuppressWarnings("unchecked")
-   public void eval(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
       try {
          if (!isDynamic()) {
             printFragments(properties, out);
@@ -492,7 +492,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @SuppressWarnings("unchecked")
-   public void executeTag(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+   public void executeTag(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
       ModifyableTag tag;
       if (modifyingBehaviors != null) {
          tag = new ModifyableCopy((ArrayList) tagParts.clone(), (FragmentList) fragments.clone());
@@ -556,7 +556,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
    }
 
-   private boolean conditionsMet(Map<String, Object> properties) throws ExpressionEvaluationException {
+   private boolean conditionsMet(TemplateProperties properties) throws ExpressionEvaluationException {
       if (conditionalBehaviors == null) return true;
       for (ConditionalTagBehavior b : conditionalBehaviors) {
          if (!b.conditionMet(properties)) {
@@ -651,7 +651,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return get(tagName, -1);
    }
 
-   private void printFragments(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+   private void printFragments(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
       if (fragments != null) {
          for (Fragment f : fragments) {
             f.eval(properties, out);

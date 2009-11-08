@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.TemplateProperties;
 
 /**
  * User: erdinc
@@ -17,42 +16,42 @@ public class FloatLiteral implements Expression {
    }
 
    @Override
-   public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       return Type.Float;
    }
 
    @Override
-   public Float eval(Map<String, Object> properties) {
+   public Float eval(TemplateProperties properties) {
       return value;
    }
 
    @Override
-   public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       return 0 != value;
    }
 
    @Override
-   public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       return (int) value;
    }
 
    @Override
-   public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       return value;
    }
 
    @Override
-   public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       return value;
    }
 
    @Override
-   public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       return (long) value;
    }
 
    @Override
-   public String asString(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return "" + value;
    }
 }

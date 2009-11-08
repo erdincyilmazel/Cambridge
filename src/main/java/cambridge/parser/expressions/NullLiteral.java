@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.TemplateProperties;
 
 /**
  * User: erdinc
@@ -16,42 +15,42 @@ public class NullLiteral implements Expression {
    }
 
    @Override
-   public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       return Type.Null;
    }
 
    @Override
-   public Object eval(Map<String, Object> properties) {
+   public Object eval(TemplateProperties properties) {
       return null;
    }
 
    @Override
-   public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       return false;
    }
 
    @Override
-   public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       return 0;
    }
 
    @Override
-   public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       return 0;
    }
 
    @Override
-   public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       return 0;
    }
 
    @Override
-   public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       return 0;
    }
 
    @Override
-   public String asString(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return "null";
    }
 }

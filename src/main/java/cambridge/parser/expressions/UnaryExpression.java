@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.TemplateProperties;
 
 /**
  * User: erdinc
@@ -19,7 +18,7 @@ public class UnaryExpression implements Expression {
    }
 
    @Override
-   public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return Type.Boolean;
       }
@@ -27,7 +26,7 @@ public class UnaryExpression implements Expression {
    }
 
    @Override
-   public Object eval(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public Object eval(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case Not:
             return !expression.asBoolean(properties);
@@ -39,7 +38,7 @@ public class UnaryExpression implements Expression {
    }
 
    @Override
-   public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(properties);
       }
@@ -48,7 +47,7 @@ public class UnaryExpression implements Expression {
    }
 
    @Override
-   public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? 1 : 0;
       }
@@ -57,7 +56,7 @@ public class UnaryExpression implements Expression {
    }
 
    @Override
-   public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? 1 : 0;
       }
@@ -66,7 +65,7 @@ public class UnaryExpression implements Expression {
    }
 
    @Override
-   public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? 1 : 0;
       }
@@ -75,7 +74,7 @@ public class UnaryExpression implements Expression {
    }
 
    @Override
-   public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? 1 : 0;
       }
@@ -84,7 +83,7 @@ public class UnaryExpression implements Expression {
    }
 
    @Override
-   public String asString(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(properties) ? "true" : "false";
       }

@@ -1,6 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.runtime.TemplateProperties;
 
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public class BinaryExpression implements Expression {
    }
 
    @Override
-   public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return Type.Int;
@@ -89,7 +90,7 @@ public class BinaryExpression implements Expression {
    }
 
    @Override
-   public Object eval(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public Object eval(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(properties) & right.asInt(properties);
@@ -166,7 +167,7 @@ public class BinaryExpression implements Expression {
    }
 
    @Override
-   public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return (left.asInt(properties) & right.asInt(properties)) != 0;
@@ -243,7 +244,7 @@ public class BinaryExpression implements Expression {
       return false;
    }
 
-   private boolean areEqual(Map<String, Object> properties) throws ExpressionEvaluationException {
+   private boolean areEqual(TemplateProperties properties) throws ExpressionEvaluationException {
       Object l = left.eval(properties);
       Object r = right.eval(properties);
 
@@ -251,7 +252,7 @@ public class BinaryExpression implements Expression {
    }
 
    @Override
-   public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(properties) & right.asInt(properties);
@@ -328,7 +329,7 @@ public class BinaryExpression implements Expression {
    }
 
    @Override
-   public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(properties) & right.asInt(properties);
@@ -405,7 +406,7 @@ public class BinaryExpression implements Expression {
    }
 
    @Override
-   public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(properties) & right.asInt(properties);
@@ -482,7 +483,7 @@ public class BinaryExpression implements Expression {
    }
 
    @Override
-   public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(properties) & right.asInt(properties);
@@ -558,7 +559,7 @@ public class BinaryExpression implements Expression {
    }
 
    @Override
-   public String asString(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return "" + (left.asInt(properties) & right.asInt(properties));

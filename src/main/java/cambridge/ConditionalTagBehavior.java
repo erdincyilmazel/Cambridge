@@ -1,6 +1,6 @@
 package cambridge;
 
-import java.util.Map;
+import cambridge.runtime.TemplateProperties;
 
 /**
  * User: erdinc
@@ -8,5 +8,5 @@ import java.util.Map;
  * Time: 7:10:31 PM
  */
 public abstract class ConditionalTagBehavior implements TagBehavior {
-   public abstract boolean conditionMet(Map<String, Object> properties) throws ExpressionEvaluationException;
+   public abstract boolean conditionMet(TemplateProperties properties) throws ExpressionEvaluationException;
 }

@@ -3,11 +3,11 @@ package cambridge;
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
+import cambridge.runtime.TemplateProperties;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 /**
  * User: erdinc
@@ -26,7 +26,7 @@ public class FragmentSelectorTest {
                   FragmentList fragmentList = doc.select("except #s");
 
                   for (Fragment f : fragmentList) {
-                     f.eval(new HashMap<String, Object>(), System.out);
+                     f.eval(new TemplateProperties(), System.out);
                   }
 
                } catch (BehaviorInstantiationException e) {

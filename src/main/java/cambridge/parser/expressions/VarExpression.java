@@ -3,6 +3,7 @@ package cambridge.parser.expressions;
 import cambridge.ExpressionEvaluationException;
 import cambridge.runtime.PropertyAccessException;
 import cambridge.runtime.PropertyUtils;
+import cambridge.runtime.TemplateProperties;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +31,7 @@ public class VarExpression implements Expression {
    }
 
    @Override
-   public Type getType(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Boolean) {
          return Type.Boolean;
@@ -54,14 +55,14 @@ public class VarExpression implements Expression {
    }
 
    @Override
-   public Object eval(Map<String, Object> p) throws ExpressionEvaluationException {
+   public Object eval(TemplateProperties p) throws ExpressionEvaluationException {
       PropertyUtils utils = PropertyUtils.instance();
       if (properties == null) {
          return p.get(varName);
       }
 
       Object object = p.get(varName);
-      if(object == null) {
+      if (object == null) {
          return null;
       }
       for (VarProperty property : properties) {
@@ -86,13 +87,13 @@ public class VarExpression implements Expression {
    }
 
    @Override
-   public boolean asBoolean(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       return o instanceof Boolean && (Boolean) o;
    }
 
    @Override
-   public int asInt(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
          return ((Number) o).intValue();
@@ -101,7 +102,7 @@ public class VarExpression implements Expression {
    }
 
    @Override
-   public float asFloat(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
          return ((Number) o).floatValue();
@@ -111,7 +112,7 @@ public class VarExpression implements Expression {
    }
 
    @Override
-   public double asDouble(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
          return ((Number) o).doubleValue();
@@ -120,7 +121,7 @@ public class VarExpression implements Expression {
    }
 
    @Override
-   public long asLong(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
          return ((Number) o).longValue();
@@ -129,7 +130,7 @@ public class VarExpression implements Expression {
    }
 
    @Override
-   public String asString(Map<String, Object> properties) throws ExpressionEvaluationException {
+   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return eval(properties).toString();
    }
 }

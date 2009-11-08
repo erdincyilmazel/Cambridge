@@ -6,6 +6,8 @@ import cambridge.TemplateRuntimeException;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.ExpressionLexer;
 import cambridge.parser.expressions.ExpressionParser;
+import cambridge.runtime.Filter;
+import cambridge.runtime.TemplateProperties;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -13,7 +15,8 @@ import org.antlr.runtime.TokenStream;
 
 import java.io.IOException;
 import java.io.PrintStream;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.Locale;
 
 /**
  * ExpressionNodes are nodes within the documents that are
@@ -22,6 +25,18 @@ import java.util.Map;
 public class ExpressionNode extends TemplateNode implements Fragment {
    String value;
    Expression expression;
+
+   ArrayList<F> filters;
+
+   class F {
+      final Filter filter;
+      final String parameters;
+
+      F(Filter filter, String parameters) {
+         this.filter = filter;
+         this.parameters = parameters;
+      }
+   }
 
    public ExpressionNode(String value) throws ExpressionParsingException {
       this.value = value;
@@ -36,6 +51,32 @@ public class ExpressionNode extends TemplateNode implements Fragment {
          }
       } catch (RecognitionException e) {
          throw new ExpressionParsingException(e);
+      }
+   }
+
+   public void setFilters(ArrayList<String> f) {
+      filters = new ArrayList<F>();
+      for (String s : f) {
+         String name;
+         String params;
+
+         int i = s.indexOf(':');
+         if (i != -1) {
+            name = s.substring(0, i);
+            params = s.substring(i + 1).trim();
+         } else {
+            name = s;
+            params = null;
+         }
+
+         Filter filter = Filter.getInstance(name);
+         if (filter != null) {
+            filters.add(new F(filter, params));
+         }
+      }
+
+      if(filters.size() == 0) {
+         filters = null;
       }
    }
 
@@ -73,11 +114,11 @@ public class ExpressionNode extends TemplateNode implements Fragment {
    }
 
    @Override
-   public void eval(Map<String, Object> properties, Appendable out) throws IOException, TemplateRuntimeException {
+   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
       try {
          Object value = expression.eval(properties);
          if (value != null) {
-            out.append(value.toString());
+            out.append(applyFilters(value, properties.getLocale()));
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), value);
@@ -86,5 +127,20 @@ public class ExpressionNode extends TemplateNode implements Fragment {
 
    public String toString() {
       return getSource();
+   }
+
+   private String applyFilters(Object o, Locale locale) {
+      if (filters == null) return o.toString();
+      String val = "";
+      for (int i = 0; i < filters.size(); i++) {
+         F f = filters.get(i);
+         if (i == 0) {
+            val = f.filter.doFilter(o, f.parameters, locale);
+         } else {
+            val = f.filter.doFilter(val, f.parameters, locale);
+         }
+      }
+
+      return val;
    }
 }

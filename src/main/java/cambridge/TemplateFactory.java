@@ -2,12 +2,14 @@ package cambridge;
 
 import cambridge.model.FragmentList;
 
+import java.util.Locale;
+
 /**
  * User: erdinc
  * Date: Nov 3, 2009
  * Time: 12:37:29 AM
  */
-public class TemplateFactory {
+public abstract class TemplateFactory {
    protected FragmentList fragments;
    protected TemplateLoader loader;
 
@@ -16,7 +18,7 @@ public class TemplateFactory {
       this.fragments = fragments;
    }
 
-   public Template createTemplate() {
-      return new DynamicTemplate(fragments);
-   }
+   public abstract Template createTemplate();
+
+   public abstract Template createTemplate(Locale locale);
 }

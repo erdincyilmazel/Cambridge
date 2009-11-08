@@ -1,12 +1,11 @@
 package cambridge;
 
 import cambridge.model.TagNode;
-import cambridge.model.ModifyableTag;
-import cambridge.runtime.Super;
 import cambridge.runtime.Iter;
+import cambridge.runtime.Super;
+import cambridge.runtime.TemplateProperties;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * User: erdinc
@@ -17,7 +16,7 @@ public abstract class IterativeTagBehavior implements TagBehavior {
    public IterativeTagBehavior() {
    }
 
-   public final void iterate(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public final void iterate(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       Object t = properties.get("#this");
       Super ts = (Super) properties.get("#super");
       Iter iter = (Iter) properties.get("#iter");
@@ -42,5 +41,5 @@ public abstract class IterativeTagBehavior implements TagBehavior {
       }
    }
 
-   public abstract void loop(Map<String, Object> properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException;
+   public abstract void loop(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException;
 }

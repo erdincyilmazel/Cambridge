@@ -63,6 +63,7 @@ public class Behaviors {
       bind(DefaultNamespace, "foreach").to(ForeachBehavior.getProvider());
       bind(DefaultNamespace, "while").to(WhileBehavior.getProvider());
       bind(DefaultNamespace, "from").to(FromBehavior.getProvider());
+      bind(DefaultNamespace, "repeat").to(RepeatBehavior.getProvider());
       bind(DefaultNamespace, "selectedIf").to(SelectedBehavior.getProvider());
       bindStatic(DefaultNamespace, "addAlt").to(AltAdderStaticBehavior.class);
       bindStatic(DefaultNamespace, "hide").to(HideBehavior.class);

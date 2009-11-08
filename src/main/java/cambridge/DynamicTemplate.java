@@ -1,12 +1,11 @@
 package cambridge;
 
-import cambridge.Template;
-import cambridge.TemplateRuntimeException;
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
+import cambridge.runtime.TemplateProperties;
 
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.Locale;
 
 /**
  * User: erdinc
@@ -17,12 +16,17 @@ public class DynamicTemplate implements Template {
 
    final FragmentList fragments;
 
-   public DynamicTemplate(FragmentList fragments) {
+   public DynamicTemplate(FragmentList fragments, Locale locale) {
       this.fragments = fragments;
-      properties = new HashMap<String, Object>();
+      properties = new TemplateProperties(locale);
    }
 
-   HashMap<String, Object> properties;
+   public DynamicTemplate(FragmentList fragments) {
+      this.fragments = fragments;
+      properties = new TemplateProperties();
+   }
+
+   TemplateProperties properties;
 
    @Override
    public void setProperty(String name, Object property) {
