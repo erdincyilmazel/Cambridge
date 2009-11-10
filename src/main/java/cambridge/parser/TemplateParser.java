@@ -184,7 +184,7 @@ public class TemplateParser {
       try {
          ExpressionToken tok = (ExpressionToken) currentToken;
          ExpressionNode node = new ExpressionNode(currentToken.value);
-         if(tok.getFilters() != null) {
+         if (tok.getFilters() != null) {
             node.setFilters(tok.getFilters());
          }
 
@@ -289,7 +289,20 @@ public class TemplateParser {
                node.addAttribute(element);
                break;
             case EXPRESSION:
-               node.addExpression(new ExpressionTagPart(currentToken.value));
+               try {
+
+                  ExpressionToken t = (ExpressionToken) currentToken;
+                  ExpressionTagPart p = new ExpressionTagPart(currentToken.value);
+
+                  if (t.getFilters() != null) {
+                     p.setFilters(t.getFilters());
+                  }
+
+                  node.addExpression(p);
+
+               } catch (ExpressionParsingException e1) {
+                  throw new TemplateParsingException("Error parsing expression", e1, currentToken.getLineNo(), currentToken.getColumn());
+               }
                break;
             case TAG_END:
                node.setTagEndText(currentToken.getActualValue());

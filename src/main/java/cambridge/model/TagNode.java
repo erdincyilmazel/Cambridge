@@ -275,15 +275,19 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             if (tagParts != null) {
                boolean whiteSpace = false;
                for (TagPart t : tagParts) {
-                  if (!t.isWhiteSpace()) {
-                     if (!whiteSpace) {
-                        f.append(" ");
-                     }
-                     whiteSpace = false;
+                  if (t instanceof ExpressionTagPart) {
+                     f.addFragment((ExpressionTagPart) t);
                   } else {
-                     whiteSpace = true;
+                     if (!t.isWhiteSpace()) {
+                        if (!whiteSpace) {
+                           f.append(" ");
+                        }
+                        whiteSpace = false;
+                     } else {
+                        whiteSpace = true;
+                     }
+                     f.append(t.getTextContent());
                   }
-                  f.append(t.getTextContent());
                }
             }
 
@@ -352,15 +356,19 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          if (tagParts != null) {
             boolean whiteSpace = false;
             for (TagPart t : tagParts) {
-               if (!t.isWhiteSpace()) {
-                  if (!whiteSpace) {
-                     f.append(" ");
-                  }
-                  whiteSpace = false;
+               if (t instanceof ExpressionTagPart) {
+                  f.addFragment((ExpressionTagPart) t);
                } else {
-                  whiteSpace = true;
+                  if (!t.isWhiteSpace()) {
+                     if (!whiteSpace) {
+                        f.append(" ");
+                     }
+                     whiteSpace = false;
+                  } else {
+                     whiteSpace = true;
+                  }
+                  f.append(t.getTextContent());
                }
-               f.append(t.getTextContent());
             }
          }
 
@@ -384,10 +392,12 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          return this;
       }
 
-      for (TemplateNode t : children) {
-         Tag n = t.getElementById(id);
-         if (n != null) {
-            return n;
+      if (children != null) {
+         for (TemplateNode t : children) {
+            Tag n = t.getElementById(id);
+            if (n != null) {
+               return n;
+            }
          }
       }
       return null;
@@ -519,15 +529,19 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          if (tag.getTagParts() != null) {
             boolean whiteSpace = false;
             for (TagPart t : tag.getTagParts()) {
-               if (!t.isWhiteSpace()) {
-                  if (!whiteSpace) {
-                     out.append(" ");
-                  }
-                  whiteSpace = false;
+               if (t instanceof ExpressionTagPart) {
+                  ((ExpressionTagPart) t).eval(properties, out);
                } else {
-                  whiteSpace = true;
+                  if (!t.isWhiteSpace()) {
+                     if (!whiteSpace) {
+                        out.append(" ");
+                     }
+                     whiteSpace = false;
+                  } else {
+                     whiteSpace = true;
+                  }
+                  out.append(t.getTextContent());
                }
-               out.append(t.getTextContent());
             }
          }
 

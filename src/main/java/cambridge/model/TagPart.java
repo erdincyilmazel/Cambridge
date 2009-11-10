@@ -24,4 +24,6 @@ public abstract class TagPart {
    }
 
    public abstract boolean isWhiteSpace();
+
+   public abstract boolean containsExpressions();
 }

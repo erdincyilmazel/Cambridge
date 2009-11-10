@@ -1,4 +1,4 @@
-// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g 2009-11-04 01:33:04
+// $ANTLR 3.2 Sep 23, 2009 12:02:23 /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g 2009-11-10 00:05:42
 
 package cambridge.parser.expressions;
 
@@ -23,9 +23,10 @@ public class ExpressionLexer extends Lexer {
     public static final int RPAREN=26;
     public static final int SLASH=39;
     public static final int T__51=51;
+    public static final int T__52=52;
     public static final int IDENTIFIER=4;
-    public static final int FloatSuffix=20;
     public static final int NonIntegerNumber=19;
+    public static final int FloatSuffix=20;
     public static final int CARET=42;
     public static final int TILDE=32;
     public static final int BANGEQ=44;
@@ -90,11 +91,10 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = T__49;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:20:7: ( '#super' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:20:9: '#super'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:20:7: ( ',' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:20:9: ','
             {
-            match("#super"); 
-
+            match(','); 
 
             }
 
@@ -111,10 +111,10 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = T__50;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:21:7: ( '#this' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:21:9: '#this'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:21:7: ( '#super' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:21:9: '#super'
             {
-            match("#this"); 
+            match("#super"); 
 
 
             }
@@ -132,10 +132,10 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = T__51;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:22:7: ( '#iter' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:22:9: '#iter'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:22:7: ( '#this' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:22:9: '#this'
             {
-            match("#iter"); 
+            match("#this"); 
 
 
             }
@@ -148,13 +148,34 @@ public class ExpressionLexer extends Lexer {
     }
     // $ANTLR end "T__51"
 
+    // $ANTLR start "T__52"
+    public final void mT__52() throws RecognitionException {
+        try {
+            int _type = T__52;
+            int _channel = DEFAULT_TOKEN_CHANNEL;
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:23:7: ( '#iter' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:23:9: '#iter'
+            {
+            match("#iter"); 
+
+
+            }
+
+            state.type = _type;
+            state.channel = _channel;
+        }
+        finally {
+        }
+    }
+    // $ANTLR end "T__52"
+
     // $ANTLR start "LONGLITERAL"
     public final void mLONGLITERAL() throws RecognitionException {
         try {
             int _type = LONGLITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:186:5: ( IntegerNumber LongSuffix )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:186:9: IntegerNumber LongSuffix
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:195:5: ( IntegerNumber LongSuffix )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:195:9: IntegerNumber LongSuffix
             {
             mIntegerNumber(); 
             mLongSuffix(); 
@@ -174,8 +195,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = INTLITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:190:5: ( IntegerNumber )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:190:9: IntegerNumber
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:199:5: ( IntegerNumber )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:199:9: IntegerNumber
             {
             mIntegerNumber(); 
 
@@ -192,7 +213,7 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "IntegerNumber"
     public final void mIntegerNumber() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:195:5: ( '0' | '1' .. '9' ( '0' .. '9' )* | '0' ( '0' .. '7' )+ | HexPrefix ( HexDigit )+ )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:204:5: ( '0' | '1' .. '9' ( '0' .. '9' )* | '0' ( '0' .. '7' )+ | HexPrefix ( HexDigit )+ )
             int alt4=4;
             int LA4_0 = input.LA(1);
 
@@ -231,17 +252,17 @@ public class ExpressionLexer extends Lexer {
             }
             switch (alt4) {
                 case 1 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:195:9: '0'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:204:9: '0'
                     {
                     match('0'); 
 
                     }
                     break;
                 case 2 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:196:9: '1' .. '9' ( '0' .. '9' )*
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:205:9: '1' .. '9' ( '0' .. '9' )*
                     {
                     matchRange('1','9'); 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:196:18: ( '0' .. '9' )*
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:205:18: ( '0' .. '9' )*
                     loop1:
                     do {
                         int alt1=2;
@@ -254,7 +275,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt1) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:196:19: '0' .. '9'
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:205:19: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -270,10 +291,10 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:197:9: '0' ( '0' .. '7' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:206:9: '0' ( '0' .. '7' )+
                     {
                     match('0'); 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:197:13: ( '0' .. '7' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:206:13: ( '0' .. '7' )+
                     int cnt2=0;
                     loop2:
                     do {
@@ -287,7 +308,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt2) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:197:14: '0' .. '7'
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:206:14: '0' .. '7'
                     	    {
                     	    matchRange('0','7'); 
 
@@ -307,10 +328,10 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:198:9: HexPrefix ( HexDigit )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:207:9: HexPrefix ( HexDigit )+
                     {
                     mHexPrefix(); 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:198:19: ( HexDigit )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:207:19: ( HexDigit )+
                     int cnt3=0;
                     loop3:
                     do {
@@ -324,7 +345,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt3) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:198:19: HexDigit
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:207:19: HexDigit
                     	    {
                     	    mHexDigit(); 
 
@@ -354,7 +375,7 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "HexPrefix"
     public final void mHexPrefix() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:202:5: ( '0x' | '0X' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:211:5: ( '0x' | '0X' )
             int alt5=2;
             int LA5_0 = input.LA(1);
 
@@ -382,7 +403,7 @@ public class ExpressionLexer extends Lexer {
             }
             switch (alt5) {
                 case 1 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:202:9: '0x'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:211:9: '0x'
                     {
                     match("0x"); 
 
@@ -390,7 +411,7 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:202:16: '0X'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:211:16: '0X'
                     {
                     match("0X"); 
 
@@ -408,8 +429,8 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "HexDigit"
     public final void mHexDigit() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:207:5: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:207:9: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:5: ( ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' ) )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:9: ( '0' .. '9' | 'a' .. 'f' | 'A' .. 'F' )
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='A' && input.LA(1)<='F')||(input.LA(1)>='a' && input.LA(1)<='f') ) {
                 input.consume();
@@ -432,7 +453,7 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "LongSuffix"
     public final void mLongSuffix() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:211:5: ( 'l' | 'L' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:220:5: ( 'l' | 'L' )
             // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:
             {
             if ( input.LA(1)=='L'||input.LA(1)=='l' ) {
@@ -456,14 +477,14 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "NonIntegerNumber"
     public final void mNonIntegerNumber() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? | '.' ( '0' .. '9' )+ ( Exponent )? | ( '0' .. '9' )+ Exponent | ( '0' .. '9' )+ | HexPrefix ( HexDigit )* ( () | ( '.' ( HexDigit )* ) ) ( 'p' | 'P' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:225:5: ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? | '.' ( '0' .. '9' )+ ( Exponent )? | ( '0' .. '9' )+ Exponent | ( '0' .. '9' )+ | HexPrefix ( HexDigit )* ( () | ( '.' ( HexDigit )* ) ) ( 'p' | 'P' ) ( '+' | '-' )? ( '0' .. '9' )+ )
             int alt18=5;
             alt18 = dfa18.predict(input);
             switch (alt18) {
                 case 1 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )?
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:225:9: ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )?
                     {
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:9: ( '0' .. '9' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:225:9: ( '0' .. '9' )+
                     int cnt6=0;
                     loop6:
                     do {
@@ -477,7 +498,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt6) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:10: '0' .. '9'
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:225:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -494,7 +515,7 @@ public class ExpressionLexer extends Lexer {
                     } while (true);
 
                     match('.'); 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:27: ( '0' .. '9' )*
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:225:27: ( '0' .. '9' )*
                     loop7:
                     do {
                         int alt7=2;
@@ -507,7 +528,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt7) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:28: '0' .. '9'
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:225:28: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -519,7 +540,7 @@ public class ExpressionLexer extends Lexer {
                         }
                     } while (true);
 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:41: ( Exponent )?
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:225:41: ( Exponent )?
                     int alt8=2;
                     int LA8_0 = input.LA(1);
 
@@ -528,7 +549,7 @@ public class ExpressionLexer extends Lexer {
                     }
                     switch (alt8) {
                         case 1 :
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:216:41: Exponent
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:225:41: Exponent
                             {
                             mExponent(); 
 
@@ -541,10 +562,10 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 2 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:217:9: '.' ( '0' .. '9' )+ ( Exponent )?
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:226:9: '.' ( '0' .. '9' )+ ( Exponent )?
                     {
                     match('.'); 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:217:13: ( '0' .. '9' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:226:13: ( '0' .. '9' )+
                     int cnt9=0;
                     loop9:
                     do {
@@ -558,7 +579,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt9) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:217:15: '0' .. '9'
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:226:15: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -574,7 +595,7 @@ public class ExpressionLexer extends Lexer {
                         cnt9++;
                     } while (true);
 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:217:29: ( Exponent )?
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:226:29: ( Exponent )?
                     int alt10=2;
                     int LA10_0 = input.LA(1);
 
@@ -583,7 +604,7 @@ public class ExpressionLexer extends Lexer {
                     }
                     switch (alt10) {
                         case 1 :
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:217:29: Exponent
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:226:29: Exponent
                             {
                             mExponent(); 
 
@@ -596,9 +617,9 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 3 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:218:9: ( '0' .. '9' )+ Exponent
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:227:9: ( '0' .. '9' )+ Exponent
                     {
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:218:9: ( '0' .. '9' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:227:9: ( '0' .. '9' )+
                     int cnt11=0;
                     loop11:
                     do {
@@ -612,7 +633,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt11) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:218:10: '0' .. '9'
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:227:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -633,9 +654,9 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 4 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:219:9: ( '0' .. '9' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:228:9: ( '0' .. '9' )+
                     {
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:219:9: ( '0' .. '9' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:228:9: ( '0' .. '9' )+
                     int cnt12=0;
                     loop12:
                     do {
@@ -649,7 +670,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt12) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:219:10: '0' .. '9'
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:228:10: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -669,10 +690,10 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 5 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:221:9: HexPrefix ( HexDigit )* ( () | ( '.' ( HexDigit )* ) ) ( 'p' | 'P' ) ( '+' | '-' )? ( '0' .. '9' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:230:9: HexPrefix ( HexDigit )* ( () | ( '.' ( HexDigit )* ) ) ( 'p' | 'P' ) ( '+' | '-' )? ( '0' .. '9' )+
                     {
                     mHexPrefix(); 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:221:19: ( HexDigit )*
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:230:19: ( HexDigit )*
                     loop13:
                     do {
                         int alt13=2;
@@ -685,7 +706,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt13) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:221:20: HexDigit
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:230:20: HexDigit
                     	    {
                     	    mHexDigit(); 
 
@@ -697,7 +718,7 @@ public class ExpressionLexer extends Lexer {
                         }
                     } while (true);
 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:222:9: ( () | ( '.' ( HexDigit )* ) )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:231:9: ( () | ( '.' ( HexDigit )* ) )
                     int alt15=2;
                     int LA15_0 = input.LA(1);
 
@@ -715,10 +736,10 @@ public class ExpressionLexer extends Lexer {
                     }
                     switch (alt15) {
                         case 1 :
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:222:14: ()
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:231:14: ()
                             {
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:222:14: ()
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:222:15: 
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:231:14: ()
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:231:15: 
                             {
                             }
 
@@ -726,13 +747,13 @@ public class ExpressionLexer extends Lexer {
                             }
                             break;
                         case 2 :
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:223:14: ( '.' ( HexDigit )* )
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:14: ( '.' ( HexDigit )* )
                             {
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:223:14: ( '.' ( HexDigit )* )
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:223:15: '.' ( HexDigit )*
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:14: ( '.' ( HexDigit )* )
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:15: '.' ( HexDigit )*
                             {
                             match('.'); 
-                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:223:19: ( HexDigit )*
+                            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:19: ( HexDigit )*
                             loop14:
                             do {
                                 int alt14=2;
@@ -745,7 +766,7 @@ public class ExpressionLexer extends Lexer {
 
                                 switch (alt14) {
                             	case 1 :
-                            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:223:20: HexDigit
+                            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:20: HexDigit
                             	    {
                             	    mHexDigit(); 
 
@@ -775,7 +796,7 @@ public class ExpressionLexer extends Lexer {
                         recover(mse);
                         throw mse;}
 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:226:9: ( '+' | '-' )?
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:235:9: ( '+' | '-' )?
                     int alt16=2;
                     int LA16_0 = input.LA(1);
 
@@ -801,7 +822,7 @@ public class ExpressionLexer extends Lexer {
 
                     }
 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:227:9: ( '0' .. '9' )+
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:236:9: ( '0' .. '9' )+
                     int cnt17=0;
                     loop17:
                     do {
@@ -815,7 +836,7 @@ public class ExpressionLexer extends Lexer {
 
                         switch (alt17) {
                     	case 1 :
-                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:227:11: '0' .. '9'
+                    	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:236:11: '0' .. '9'
                     	    {
                     	    matchRange('0','9'); 
 
@@ -845,8 +866,8 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "Exponent"
     public final void mExponent() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:5: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:9: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:241:5: ( ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+ )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:241:9: ( 'e' | 'E' ) ( '+' | '-' )? ( '0' .. '9' )+
             {
             if ( input.LA(1)=='E'||input.LA(1)=='e' ) {
                 input.consume();
@@ -857,7 +878,7 @@ public class ExpressionLexer extends Lexer {
                 recover(mse);
                 throw mse;}
 
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:23: ( '+' | '-' )?
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:241:23: ( '+' | '-' )?
             int alt19=2;
             int LA19_0 = input.LA(1);
 
@@ -883,7 +904,7 @@ public class ExpressionLexer extends Lexer {
 
             }
 
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:38: ( '0' .. '9' )+
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:241:38: ( '0' .. '9' )+
             int cnt20=0;
             loop20:
             do {
@@ -897,7 +918,7 @@ public class ExpressionLexer extends Lexer {
 
                 switch (alt20) {
             	case 1 :
-            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:232:40: '0' .. '9'
+            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:241:40: '0' .. '9'
             	    {
             	    matchRange('0','9'); 
 
@@ -925,7 +946,7 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "FloatSuffix"
     public final void mFloatSuffix() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:237:5: ( 'f' | 'F' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:246:5: ( 'f' | 'F' )
             // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:
             {
             if ( input.LA(1)=='F'||input.LA(1)=='f' ) {
@@ -949,7 +970,7 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "DoubleSuffix"
     public final void mDoubleSuffix() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:241:5: ( 'd' | 'D' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:250:5: ( 'd' | 'D' )
             // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:
             {
             if ( input.LA(1)=='D'||input.LA(1)=='d' ) {
@@ -975,8 +996,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = FLOATLITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:245:5: ( NonIntegerNumber FloatSuffix )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:245:9: NonIntegerNumber FloatSuffix
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:254:5: ( NonIntegerNumber FloatSuffix )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:254:9: NonIntegerNumber FloatSuffix
             {
             mNonIntegerNumber(); 
             mFloatSuffix(); 
@@ -996,11 +1017,11 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = DOUBLELITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:249:5: ( NonIntegerNumber ( DoubleSuffix )? )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:249:9: NonIntegerNumber ( DoubleSuffix )?
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:258:5: ( NonIntegerNumber ( DoubleSuffix )? )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:258:9: NonIntegerNumber ( DoubleSuffix )?
             {
             mNonIntegerNumber(); 
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:249:26: ( DoubleSuffix )?
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:258:26: ( DoubleSuffix )?
             int alt21=2;
             int LA21_0 = input.LA(1);
 
@@ -1009,7 +1030,7 @@ public class ExpressionLexer extends Lexer {
             }
             switch (alt21) {
                 case 1 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:249:26: DoubleSuffix
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:258:26: DoubleSuffix
                     {
                     mDoubleSuffix(); 
 
@@ -1034,11 +1055,11 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = CHARLITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:253:5: ( '\\'' ( EscapeSequence | ~ ( '\\'' | '\\\\' | '\\r' | '\\n' ) )* '\\'' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:253:9: '\\'' ( EscapeSequence | ~ ( '\\'' | '\\\\' | '\\r' | '\\n' ) )* '\\''
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:262:5: ( '\\'' ( EscapeSequence | ~ ( '\\'' | '\\\\' | '\\r' | '\\n' ) )* '\\'' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:262:9: '\\'' ( EscapeSequence | ~ ( '\\'' | '\\\\' | '\\r' | '\\n' ) )* '\\''
             {
             match('\''); 
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:254:9: ( EscapeSequence | ~ ( '\\'' | '\\\\' | '\\r' | '\\n' ) )*
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:263:9: ( EscapeSequence | ~ ( '\\'' | '\\\\' | '\\r' | '\\n' ) )*
             loop22:
             do {
                 int alt22=3;
@@ -1054,14 +1075,14 @@ public class ExpressionLexer extends Lexer {
 
                 switch (alt22) {
             	case 1 :
-            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:254:13: EscapeSequence
+            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:263:13: EscapeSequence
             	    {
             	    mEscapeSequence(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:255:13: ~ ( '\\'' | '\\\\' | '\\r' | '\\n' )
+            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:264:13: ~ ( '\\'' | '\\\\' | '\\r' | '\\n' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='&')||(input.LA(1)>='(' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1098,11 +1119,11 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = STRINGLITERAL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:261:5: ( '\"' ( EscapeSequence | ~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )* '\"' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:261:9: '\"' ( EscapeSequence | ~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )* '\"'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:270:5: ( '\"' ( EscapeSequence | ~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )* '\"' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:270:9: '\"' ( EscapeSequence | ~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )* '\"'
             {
             match('\"'); 
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:262:9: ( EscapeSequence | ~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )*
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:271:9: ( EscapeSequence | ~ ( '\\\\' | '\"' | '\\r' | '\\n' ) )*
             loop23:
             do {
                 int alt23=3;
@@ -1118,14 +1139,14 @@ public class ExpressionLexer extends Lexer {
 
                 switch (alt23) {
             	case 1 :
-            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:262:13: EscapeSequence
+            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:271:13: EscapeSequence
             	    {
             	    mEscapeSequence(); 
 
             	    }
             	    break;
             	case 2 :
-            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:263:13: ~ ( '\\\\' | '\"' | '\\r' | '\\n' )
+            	    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:272:13: ~ ( '\\\\' | '\"' | '\\r' | '\\n' )
             	    {
             	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\t')||(input.LA(1)>='\u000B' && input.LA(1)<='\f')||(input.LA(1)>='\u000E' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
             	        input.consume();
@@ -1160,89 +1181,89 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "EscapeSequence"
     public final void mEscapeSequence() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:270:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ) )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:270:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:279:5: ( '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ) )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:279:9: '\\\\' ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) )
             {
             match('\\'); 
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:270:14: ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:279:14: ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) )
             int alt24=11;
             alt24 = dfa24.predict(input);
             switch (alt24) {
                 case 1 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:271:18: 'b'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:280:18: 'b'
                     {
                     match('b'); 
 
                     }
                     break;
                 case 2 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:272:18: 't'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:281:18: 't'
                     {
                     match('t'); 
 
                     }
                     break;
                 case 3 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:273:18: 'n'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:282:18: 'n'
                     {
                     match('n'); 
 
                     }
                     break;
                 case 4 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:274:18: 'f'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:283:18: 'f'
                     {
                     match('f'); 
 
                     }
                     break;
                 case 5 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:275:18: 'r'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:284:18: 'r'
                     {
                     match('r'); 
 
                     }
                     break;
                 case 6 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:276:18: '\\\"'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:285:18: '\\\"'
                     {
                     match('\"'); 
 
                     }
                     break;
                 case 7 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:277:18: '\\''
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:286:18: '\\''
                     {
                     match('\''); 
 
                     }
                     break;
                 case 8 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:278:18: '\\\\'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:287:18: '\\\\'
                     {
                     match('\\'); 
 
                     }
                     break;
                 case 9 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:280:18: ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:289:18: ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' )
                     {
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:280:18: ( '0' .. '3' )
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:280:19: '0' .. '3'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:289:18: ( '0' .. '3' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:289:19: '0' .. '3'
                     {
                     matchRange('0','3'); 
 
                     }
 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:280:29: ( '0' .. '7' )
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:280:30: '0' .. '7'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:289:29: ( '0' .. '7' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:289:30: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:280:40: ( '0' .. '7' )
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:280:41: '0' .. '7'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:289:40: ( '0' .. '7' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:289:41: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1252,17 +1273,17 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 10 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:282:18: ( '0' .. '7' ) ( '0' .. '7' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:291:18: ( '0' .. '7' ) ( '0' .. '7' )
                     {
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:282:18: ( '0' .. '7' )
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:282:19: '0' .. '7'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:291:18: ( '0' .. '7' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:291:19: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
                     }
 
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:282:29: ( '0' .. '7' )
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:282:30: '0' .. '7'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:291:29: ( '0' .. '7' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:291:30: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1272,10 +1293,10 @@ public class ExpressionLexer extends Lexer {
                     }
                     break;
                 case 11 :
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:284:18: ( '0' .. '7' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:293:18: ( '0' .. '7' )
                     {
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:284:18: ( '0' .. '7' )
-                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:284:19: '0' .. '7'
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:293:18: ( '0' .. '7' )
+                    // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:293:19: '0' .. '7'
                     {
                     matchRange('0','7'); 
 
@@ -1301,8 +1322,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:288:5: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:288:9: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:297:5: ( ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' ) )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:297:9: ( ' ' | '\\r' | '\\t' | '\\u000C' | '\\n' )
             {
             if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||(input.LA(1)>='\f' && input.LA(1)<='\r')||input.LA(1)==' ' ) {
                 input.consume();
@@ -1332,8 +1353,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = TRUE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:301:5: ( 'true' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:301:9: 'true'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:310:5: ( 'true' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:310:9: 'true'
             {
             match("true"); 
 
@@ -1353,8 +1374,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = FALSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:304:5: ( 'false' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:304:9: 'false'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:313:5: ( 'false' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:313:9: 'false'
             {
             match("false"); 
 
@@ -1374,8 +1395,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = NULL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:307:5: ( 'null' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:307:9: 'null'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:316:5: ( 'null' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:316:9: 'null'
             {
             match("null"); 
 
@@ -1395,8 +1416,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = SUPER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:310:5: ( 'super' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:310:9: 'super'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:319:5: ( 'super' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:319:9: 'super'
             {
             match("super"); 
 
@@ -1416,8 +1437,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = LPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:313:5: ( '(' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:313:9: '('
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:322:5: ( '(' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:322:9: '('
             {
             match('('); 
 
@@ -1436,8 +1457,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = RPAREN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:316:5: ( ')' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:316:9: ')'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:325:5: ( ')' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:325:9: ')'
             {
             match(')'); 
 
@@ -1456,8 +1477,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = LBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:319:5: ( '[' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:319:9: '['
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:328:5: ( '[' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:328:9: '['
             {
             match('['); 
 
@@ -1476,8 +1497,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = RBRACKET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:322:5: ( ']' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:322:9: ']'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:331:5: ( ']' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:331:9: ']'
             {
             match(']'); 
 
@@ -1496,8 +1517,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = DOT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:325:5: ( '.' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:325:9: '.'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:334:5: ( '.' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:334:9: '.'
             {
             match('.'); 
 
@@ -1516,8 +1537,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:328:5: ( '=' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:328:9: '='
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:337:5: ( '=' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:337:9: '='
             {
             match('='); 
 
@@ -1536,8 +1557,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = BANG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:331:5: ( '!' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:331:9: '!'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:340:5: ( '!' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:340:9: '!'
             {
             match('!'); 
 
@@ -1556,8 +1577,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = TILDE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:334:5: ( '~' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:334:9: '~'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:343:5: ( '~' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:343:9: '~'
             {
             match('~'); 
 
@@ -1576,8 +1597,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = EQEQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:337:5: ( '==' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:337:9: '=='
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:346:5: ( '==' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:346:9: '=='
             {
             match("=="); 
 
@@ -1597,8 +1618,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = AMPAMP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:340:5: ( '&&' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:340:9: '&&'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:349:5: ( '&&' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:349:9: '&&'
             {
             match("&&"); 
 
@@ -1618,8 +1639,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = BARBAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:343:5: ( '||' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:343:9: '||'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:352:5: ( '||' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:352:9: '||'
             {
             match("||"); 
 
@@ -1639,8 +1660,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = PLUS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:346:5: ( '+' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:346:9: '+'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:355:5: ( '+' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:355:9: '+'
             {
             match('+'); 
 
@@ -1659,8 +1680,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = SUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:349:5: ( '-' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:349:9: '-'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:358:5: ( '-' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:358:9: '-'
             {
             match('-'); 
 
@@ -1679,8 +1700,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = STAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:352:5: ( '*' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:352:9: '*'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:361:5: ( '*' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:361:9: '*'
             {
             match('*'); 
 
@@ -1699,8 +1720,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = SLASH;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:355:5: ( '/' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:355:9: '/'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:364:5: ( '/' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:364:9: '/'
             {
             match('/'); 
 
@@ -1719,8 +1740,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = AMP;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:358:5: ( '&' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:358:9: '&'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:367:5: ( '&' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:367:9: '&'
             {
             match('&'); 
 
@@ -1739,8 +1760,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = BAR;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:361:5: ( '|' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:361:9: '|'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:370:5: ( '|' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:370:9: '|'
             {
             match('|'); 
 
@@ -1759,8 +1780,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = CARET;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:364:5: ( '^' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:364:9: '^'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:373:5: ( '^' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:373:9: '^'
             {
             match('^'); 
 
@@ -1779,8 +1800,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = PERCENT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:367:5: ( '%' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:367:9: '%'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:376:5: ( '%' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:376:9: '%'
             {
             match('%'); 
 
@@ -1799,8 +1820,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = BANGEQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:370:5: ( '!=' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:370:9: '!='
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:379:5: ( '!=' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:379:9: '!='
             {
             match("!="); 
 
@@ -1820,8 +1841,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = GT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:373:5: ( '>' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:373:9: '>'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:382:5: ( '>' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:382:9: '>'
             {
             match('>'); 
 
@@ -1840,8 +1861,8 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = LT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:376:5: ( '<' )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:376:9: '<'
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:385:5: ( '<' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:385:9: '<'
             {
             match('<'); 
 
@@ -1860,11 +1881,11 @@ public class ExpressionLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:380:5: ( LETTER ( LETTER | JavaIDDigit )* )
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:380:9: LETTER ( LETTER | JavaIDDigit )*
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:389:5: ( LETTER ( LETTER | JavaIDDigit )* )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:389:9: LETTER ( LETTER | JavaIDDigit )*
             {
             mLETTER(); 
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:380:16: ( LETTER | JavaIDDigit )*
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:389:16: ( LETTER | JavaIDDigit )*
             loop25:
             do {
                 int alt25=2;
@@ -1911,7 +1932,7 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "LETTER"
     public final void mLETTER() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:385:5: ( '\\u0024' | '\\u0041' .. '\\u005a' | '\\u005f' | '\\u0061' .. '\\u007a' | '\\u00c0' .. '\\u00d6' | '\\u00d8' .. '\\u00f6' | '\\u00f8' .. '\\u00ff' | '\\u0100' .. '\\u1fff' | '\\u3040' .. '\\u318f' | '\\u3300' .. '\\u337f' | '\\u3400' .. '\\u3d2d' | '\\u4e00' .. '\\u9fff' | '\\uf900' .. '\\ufaff' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:394:5: ( '\\u0024' | '\\u0041' .. '\\u005a' | '\\u005f' | '\\u0061' .. '\\u007a' | '\\u00c0' .. '\\u00d6' | '\\u00d8' .. '\\u00f6' | '\\u00f8' .. '\\u00ff' | '\\u0100' .. '\\u1fff' | '\\u3040' .. '\\u318f' | '\\u3300' .. '\\u337f' | '\\u3400' .. '\\u3d2d' | '\\u4e00' .. '\\u9fff' | '\\uf900' .. '\\ufaff' )
             // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:
             {
             if ( input.LA(1)=='$'||(input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z')||(input.LA(1)>='\u00C0' && input.LA(1)<='\u00D6')||(input.LA(1)>='\u00D8' && input.LA(1)<='\u00F6')||(input.LA(1)>='\u00F8' && input.LA(1)<='\u1FFF')||(input.LA(1)>='\u3040' && input.LA(1)<='\u318F')||(input.LA(1)>='\u3300' && input.LA(1)<='\u337F')||(input.LA(1)>='\u3400' && input.LA(1)<='\u3D2D')||(input.LA(1)>='\u4E00' && input.LA(1)<='\u9FFF')||(input.LA(1)>='\uF900' && input.LA(1)<='\uFAFF') ) {
@@ -1935,7 +1956,7 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR start "JavaIDDigit"
     public final void mJavaIDDigit() throws RecognitionException {
         try {
-            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:402:5: ( '\\u0030' .. '\\u0039' | '\\u0660' .. '\\u0669' | '\\u06f0' .. '\\u06f9' | '\\u0966' .. '\\u096f' | '\\u09e6' .. '\\u09ef' | '\\u0a66' .. '\\u0a6f' | '\\u0ae6' .. '\\u0aef' | '\\u0b66' .. '\\u0b6f' | '\\u0be7' .. '\\u0bef' | '\\u0c66' .. '\\u0c6f' | '\\u0ce6' .. '\\u0cef' | '\\u0d66' .. '\\u0d6f' | '\\u0e50' .. '\\u0e59' | '\\u0ed0' .. '\\u0ed9' | '\\u1040' .. '\\u1049' )
+            // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:411:5: ( '\\u0030' .. '\\u0039' | '\\u0660' .. '\\u0669' | '\\u06f0' .. '\\u06f9' | '\\u0966' .. '\\u096f' | '\\u09e6' .. '\\u09ef' | '\\u0a66' .. '\\u0a6f' | '\\u0ae6' .. '\\u0aef' | '\\u0b66' .. '\\u0b6f' | '\\u0be7' .. '\\u0bef' | '\\u0c66' .. '\\u0c6f' | '\\u0ce6' .. '\\u0cef' | '\\u0d66' .. '\\u0d6f' | '\\u0e50' .. '\\u0e59' | '\\u0ed0' .. '\\u0ed9' | '\\u1040' .. '\\u1049' )
             // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:
             {
             if ( (input.LA(1)>='0' && input.LA(1)<='9')||(input.LA(1)>='\u0660' && input.LA(1)<='\u0669')||(input.LA(1)>='\u06F0' && input.LA(1)<='\u06F9')||(input.LA(1)>='\u0966' && input.LA(1)<='\u096F')||(input.LA(1)>='\u09E6' && input.LA(1)<='\u09EF')||(input.LA(1)>='\u0A66' && input.LA(1)<='\u0A6F')||(input.LA(1)>='\u0AE6' && input.LA(1)<='\u0AEF')||(input.LA(1)>='\u0B66' && input.LA(1)<='\u0B6F')||(input.LA(1)>='\u0BE7' && input.LA(1)<='\u0BEF')||(input.LA(1)>='\u0C66' && input.LA(1)<='\u0C6F')||(input.LA(1)>='\u0CE6' && input.LA(1)<='\u0CEF')||(input.LA(1)>='\u0D66' && input.LA(1)<='\u0D6F')||(input.LA(1)>='\u0E50' && input.LA(1)<='\u0E59')||(input.LA(1)>='\u0ED0' && input.LA(1)<='\u0ED9')||(input.LA(1)>='\u1040' && input.LA(1)<='\u1049') ) {
@@ -1957,8 +1978,8 @@ public class ExpressionLexer extends Lexer {
     // $ANTLR end "JavaIDDigit"
 
     public void mTokens() throws RecognitionException {
-        // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:8: ( T__49 | T__50 | T__51 | LONGLITERAL | INTLITERAL | FLOATLITERAL | DOUBLELITERAL | CHARLITERAL | STRINGLITERAL | WS | TRUE | FALSE | NULL | SUPER | LPAREN | RPAREN | LBRACKET | RBRACKET | DOT | EQ | BANG | TILDE | EQEQ | AMPAMP | BARBAR | PLUS | SUB | STAR | SLASH | AMP | BAR | CARET | PERCENT | BANGEQ | GT | LT | IDENTIFIER )
-        int alt26=37;
+        // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:8: ( T__49 | T__50 | T__51 | T__52 | LONGLITERAL | INTLITERAL | FLOATLITERAL | DOUBLELITERAL | CHARLITERAL | STRINGLITERAL | WS | TRUE | FALSE | NULL | SUPER | LPAREN | RPAREN | LBRACKET | RBRACKET | DOT | EQ | BANG | TILDE | EQEQ | AMPAMP | BARBAR | PLUS | SUB | STAR | SLASH | AMP | BAR | CARET | PERCENT | BANGEQ | GT | LT | IDENTIFIER )
+        int alt26=38;
         alt26 = dfa26.predict(input);
         switch (alt26) {
             case 1 :
@@ -1983,238 +2004,245 @@ public class ExpressionLexer extends Lexer {
                 }
                 break;
             case 4 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:28: LONGLITERAL
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:28: T__52
+                {
+                mT__52(); 
+
+                }
+                break;
+            case 5 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:34: LONGLITERAL
                 {
                 mLONGLITERAL(); 
 
                 }
                 break;
-            case 5 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:40: INTLITERAL
+            case 6 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:46: INTLITERAL
                 {
                 mINTLITERAL(); 
 
                 }
                 break;
-            case 6 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:51: FLOATLITERAL
+            case 7 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:57: FLOATLITERAL
                 {
                 mFLOATLITERAL(); 
 
                 }
                 break;
-            case 7 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:64: DOUBLELITERAL
+            case 8 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:70: DOUBLELITERAL
                 {
                 mDOUBLELITERAL(); 
 
                 }
                 break;
-            case 8 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:78: CHARLITERAL
+            case 9 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:84: CHARLITERAL
                 {
                 mCHARLITERAL(); 
 
                 }
                 break;
-            case 9 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:90: STRINGLITERAL
+            case 10 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:96: STRINGLITERAL
                 {
                 mSTRINGLITERAL(); 
 
                 }
                 break;
-            case 10 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:104: WS
+            case 11 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:110: WS
                 {
                 mWS(); 
 
                 }
                 break;
-            case 11 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:107: TRUE
+            case 12 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:113: TRUE
                 {
                 mTRUE(); 
 
                 }
                 break;
-            case 12 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:112: FALSE
+            case 13 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:118: FALSE
                 {
                 mFALSE(); 
 
                 }
                 break;
-            case 13 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:118: NULL
+            case 14 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:124: NULL
                 {
                 mNULL(); 
 
                 }
                 break;
-            case 14 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:123: SUPER
+            case 15 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:129: SUPER
                 {
                 mSUPER(); 
 
                 }
                 break;
-            case 15 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:129: LPAREN
+            case 16 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:135: LPAREN
                 {
                 mLPAREN(); 
 
                 }
                 break;
-            case 16 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:136: RPAREN
+            case 17 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:142: RPAREN
                 {
                 mRPAREN(); 
 
                 }
                 break;
-            case 17 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:143: LBRACKET
+            case 18 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:149: LBRACKET
                 {
                 mLBRACKET(); 
 
                 }
                 break;
-            case 18 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:152: RBRACKET
+            case 19 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:158: RBRACKET
                 {
                 mRBRACKET(); 
 
                 }
                 break;
-            case 19 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:161: DOT
+            case 20 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:167: DOT
                 {
                 mDOT(); 
 
                 }
                 break;
-            case 20 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:165: EQ
+            case 21 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:171: EQ
                 {
                 mEQ(); 
 
                 }
                 break;
-            case 21 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:168: BANG
+            case 22 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:174: BANG
                 {
                 mBANG(); 
 
                 }
                 break;
-            case 22 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:173: TILDE
+            case 23 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:179: TILDE
                 {
                 mTILDE(); 
 
                 }
                 break;
-            case 23 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:179: EQEQ
+            case 24 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:185: EQEQ
                 {
                 mEQEQ(); 
 
                 }
                 break;
-            case 24 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:184: AMPAMP
+            case 25 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:190: AMPAMP
                 {
                 mAMPAMP(); 
 
                 }
                 break;
-            case 25 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:191: BARBAR
+            case 26 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:197: BARBAR
                 {
                 mBARBAR(); 
 
                 }
                 break;
-            case 26 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:198: PLUS
+            case 27 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:204: PLUS
                 {
                 mPLUS(); 
 
                 }
                 break;
-            case 27 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:203: SUB
+            case 28 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:209: SUB
                 {
                 mSUB(); 
 
                 }
                 break;
-            case 28 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:207: STAR
+            case 29 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:213: STAR
                 {
                 mSTAR(); 
 
                 }
                 break;
-            case 29 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:212: SLASH
+            case 30 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:218: SLASH
                 {
                 mSLASH(); 
 
                 }
                 break;
-            case 30 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:218: AMP
+            case 31 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:224: AMP
                 {
                 mAMP(); 
 
                 }
                 break;
-            case 31 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:222: BAR
+            case 32 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:228: BAR
                 {
                 mBAR(); 
 
                 }
                 break;
-            case 32 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:226: CARET
+            case 33 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:232: CARET
                 {
                 mCARET(); 
 
                 }
                 break;
-            case 33 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:232: PERCENT
+            case 34 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:238: PERCENT
                 {
                 mPERCENT(); 
 
                 }
                 break;
-            case 34 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:240: BANGEQ
+            case 35 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:246: BANGEQ
                 {
                 mBANGEQ(); 
 
                 }
                 break;
-            case 35 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:247: GT
+            case 36 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:253: GT
                 {
                 mGT(); 
 
                 }
                 break;
-            case 36 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:250: LT
+            case 37 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:256: LT
                 {
                 mLT(); 
 
                 }
                 break;
-            case 37 :
-                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:253: IDENTIFIER
+            case 38 :
+                // /Users/erdinc/Projects/cambridge/src/main/java/cambridge/parser/expressions/Expression.g:1:259: IDENTIFIER
                 {
                 mIDENTIFIER(); 
 
@@ -2230,7 +2258,7 @@ public class ExpressionLexer extends Lexer {
     protected DFA24 dfa24 = new DFA24(this);
     protected DFA26 dfa26 = new DFA26(this);
     static final String DFA18_eotS =
-        "\1\uffff\1\7\1\uffff\1\7\4\uffff";
+        "\1\uffff\1\5\1\uffff\1\5\4\uffff";
     static final String DFA18_eofS =
         "\10\uffff";
     static final String DFA18_minS =
@@ -2238,15 +2266,15 @@ public class ExpressionLexer extends Lexer {
     static final String DFA18_maxS =
         "\1\71\1\170\1\uffff\1\145\4\uffff";
     static final String DFA18_acceptS =
-        "\2\uffff\1\2\1\uffff\1\5\1\3\1\1\1\4";
+        "\2\uffff\1\2\1\uffff\1\5\1\4\1\1\1\3";
     static final String DFA18_specialS =
         "\10\uffff}>";
     static final String[] DFA18_transitionS = {
             "\1\2\1\uffff\1\1\11\3",
-            "\1\6\1\uffff\12\3\13\uffff\1\5\22\uffff\1\4\14\uffff\1\5\22"+
+            "\1\6\1\uffff\12\3\13\uffff\1\7\22\uffff\1\4\14\uffff\1\7\22"+
             "\uffff\1\4",
             "",
-            "\1\6\1\uffff\12\3\13\uffff\1\5\37\uffff\1\5",
+            "\1\6\1\uffff\12\3\13\uffff\1\7\37\uffff\1\7",
             "",
             "",
             "",
@@ -2283,19 +2311,20 @@ public class ExpressionLexer extends Lexer {
             this.transition = DFA18_transition;
         }
         public String getDescription() {
-            return "214:1: fragment NonIntegerNumber : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? | '.' ( '0' .. '9' )+ ( Exponent )? | ( '0' .. '9' )+ Exponent | ( '0' .. '9' )+ | HexPrefix ( HexDigit )* ( () | ( '.' ( HexDigit )* ) ) ( 'p' | 'P' ) ( '+' | '-' )? ( '0' .. '9' )+ );";
+            return "223:1: fragment NonIntegerNumber : ( ( '0' .. '9' )+ '.' ( '0' .. '9' )* ( Exponent )? | '.' ( '0' .. '9' )+ ( Exponent )? | ( '0' .. '9' )+ Exponent | ( '0' .. '9' )+ | HexPrefix ( HexDigit )* ( () | ( '.' ( HexDigit )* ) ) ( 'p' | 'P' ) ( '+' | '-' )? ( '0' .. '9' )+ );";
         }
     }
     static final String DFA24_eotS =
-        "\11\uffff\2\14\1\15\3\uffff";
+        "\11\uffff\2\13\1\uffff\1\15\2\uffff";
     static final String DFA24_eofS =
         "\17\uffff";
     static final String DFA24_minS =
-        "\1\42\10\uffff\3\60\3\uffff";
+        "\1\42\10\uffff\2\60\1\uffff\1\60\2\uffff";
     static final String DFA24_maxS =
-        "\1\164\10\uffff\3\67\3\uffff";
+        "\1\164\10\uffff\2\67\1\uffff\1\67\2\uffff";
     static final String DFA24_acceptS =
-        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\3\uffff\1\13\1\12\1\11";
+        "\1\uffff\1\1\1\2\1\3\1\4\1\5\1\6\1\7\1\10\2\uffff\1\13\1\uffff\1"+
+        "\12\1\11";
     static final String DFA24_specialS =
         "\17\uffff}>";
     static final String[] DFA24_transitionS = {
@@ -2309,10 +2338,10 @@ public class ExpressionLexer extends Lexer {
             "",
             "",
             "",
-            "\10\13",
+            "\10\14",
             "\10\15",
-            "\10\16",
             "",
+            "\10\16",
             "",
             ""
     };
@@ -2347,102 +2376,103 @@ public class ExpressionLexer extends Lexer {
             this.transition = DFA24_transition;
         }
         public String getDescription() {
-            return "270:14: ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) )";
+            return "279:14: ( 'b' | 't' | 'n' | 'f' | 'r' | '\\\"' | '\\'' | '\\\\' | ( '0' .. '3' ) ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) ( '0' .. '7' ) | ( '0' .. '7' ) )";
         }
     }
     static final String DFA26_eotS =
-        "\2\uffff\2\43\1\55\3\uffff\4\35\4\uffff\1\63\1\65\1\uffff\1\67\1"+
-        "\71\20\uffff\1\43\1\uffff\1\52\1\uffff\1\52\1\uffff\1\43\1\52\1"+
-        "\uffff\4\35\10\uffff\1\43\3\uffff\2\52\2\uffff\4\35\1\uffff\1\52"+
-        "\2\uffff\1\52\1\uffff\1\52\1\121\1\35\1\123\1\35\1\uffff\1\125\1"+
-        "\uffff\1\126\2\uffff";
+        "\3\uffff\2\44\1\55\3\uffff\4\36\4\uffff\1\64\1\66\1\uffff\1\70\1"+
+        "\72\20\uffff\1\44\1\uffff\1\45\1\uffff\1\45\1\uffff\1\44\1\uffff"+
+        "\1\45\4\36\10\uffff\1\44\3\uffff\2\45\2\uffff\4\36\1\uffff\1\45"+
+        "\2\uffff\1\45\1\uffff\1\45\1\122\1\36\1\124\1\36\1\uffff\1\126\1"+
+        "\uffff\1\127\2\uffff";
     static final String DFA26_eofS =
-        "\127\uffff";
+        "\130\uffff";
     static final String DFA26_minS =
-        "\1\11\1\151\2\56\1\60\3\uffff\1\162\1\141\2\165\4\uffff\2\75\1\uffff"+
-        "\1\46\1\174\14\uffff\2\56\2\uffff\1\56\1\53\1\60\1\uffff\1\56\1"+
-        "\uffff\1\56\1\60\1\uffff\1\165\2\154\1\160\10\uffff\1\56\1\53\4"+
-        "\60\2\53\1\145\1\163\1\154\1\145\7\60\1\44\1\145\1\44\1\162\1\uffff"+
-        "\1\44\1\uffff\1\44\2\uffff";
+        "\1\11\1\uffff\1\151\2\56\1\60\3\uffff\1\162\1\141\2\165\4\uffff"+
+        "\2\75\1\uffff\1\46\1\174\14\uffff\2\56\2\uffff\1\56\1\uffff\1\56"+
+        "\1\53\1\60\1\uffff\1\56\1\uffff\1\60\1\165\2\154\1\160\10\uffff"+
+        "\1\56\1\53\4\60\2\53\1\145\1\163\1\154\1\145\7\60\1\44\1\145\1\44"+
+        "\1\162\1\uffff\1\44\1\uffff\1\44\2\uffff";
     static final String DFA26_maxS =
-        "\1\ufaff\1\164\1\170\1\154\1\71\3\uffff\1\162\1\141\2\165\4\uffff"+
-        "\2\75\1\uffff\1\46\1\174\14\uffff\2\160\2\uffff\1\154\1\71\1\146"+
-        "\1\uffff\1\146\1\uffff\1\154\1\146\1\uffff\1\165\2\154\1\160\10"+
-        "\uffff\1\160\1\71\1\160\1\71\2\146\2\71\1\145\1\163\1\154\1\145"+
-        "\1\71\1\146\1\160\1\71\1\146\1\71\1\146\1\ufaff\1\145\1\ufaff\1"+
-        "\162\1\uffff\1\ufaff\1\uffff\1\ufaff\2\uffff";
+        "\1\ufaff\1\uffff\1\164\1\170\1\154\1\71\3\uffff\1\162\1\141\2\165"+
+        "\4\uffff\2\75\1\uffff\1\46\1\174\14\uffff\2\160\2\uffff\1\154\1"+
+        "\uffff\1\146\1\71\1\146\1\uffff\1\154\1\uffff\1\146\1\165\2\154"+
+        "\1\160\10\uffff\1\160\1\71\1\160\1\71\2\146\2\71\1\145\1\163\1\154"+
+        "\1\145\1\71\1\146\1\160\1\71\1\146\1\71\1\146\1\ufaff\1\145\1\ufaff"+
+        "\1\162\1\uffff\1\ufaff\1\uffff\1\ufaff\2\uffff";
     static final String DFA26_acceptS =
-        "\5\uffff\1\10\1\11\1\12\4\uffff\1\17\1\20\1\21\1\22\2\uffff\1\26"+
-        "\2\uffff\1\32\1\33\1\34\1\35\1\40\1\41\1\43\1\44\1\45\1\1\1\2\1"+
-        "\3\2\uffff\1\5\1\6\3\uffff\1\4\1\uffff\1\7\2\uffff\1\23\4\uffff"+
-        "\1\27\1\24\1\42\1\25\1\30\1\36\1\31\1\37\27\uffff\1\13\1\uffff\1"+
-        "\15\1\uffff\1\14\1\16";
+        "\1\uffff\1\1\4\uffff\1\11\1\12\1\13\4\uffff\1\20\1\21\1\22\1\23"+
+        "\2\uffff\1\27\2\uffff\1\33\1\34\1\35\1\36\1\41\1\42\1\44\1\45\1"+
+        "\46\1\2\1\3\1\4\2\uffff\1\6\1\10\1\uffff\1\5\3\uffff\1\7\1\uffff"+
+        "\1\24\5\uffff\1\30\1\25\1\43\1\26\1\31\1\37\1\32\1\40\27\uffff\1"+
+        "\14\1\uffff\1\16\1\uffff\1\15\1\17";
     static final String DFA26_specialS =
-        "\127\uffff}>";
+        "\130\uffff}>";
     static final String[] DFA26_transitionS = {
-            "\2\7\1\uffff\2\7\22\uffff\1\7\1\21\1\6\1\1\1\35\1\32\1\23\1"+
-            "\5\1\14\1\15\1\27\1\25\1\uffff\1\26\1\4\1\30\1\2\11\3\2\uffff"+
-            "\1\34\1\20\1\33\2\uffff\32\35\1\16\1\uffff\1\17\1\31\1\35\1"+
-            "\uffff\5\35\1\11\7\35\1\12\4\35\1\13\1\10\6\35\1\uffff\1\24"+
-            "\1\uffff\1\22\101\uffff\27\35\1\uffff\37\35\1\uffff\u1f08\35"+
-            "\u1040\uffff\u0150\35\u0170\uffff\u0080\35\u0080\uffff\u092e"+
-            "\35\u10d2\uffff\u5200\35\u5900\uffff\u0200\35",
-            "\1\40\11\uffff\1\36\1\37",
-            "\1\47\1\uffff\10\45\2\51\12\uffff\1\52\1\46\1\44\5\uffff\1"+
-            "\50\13\uffff\1\42\13\uffff\1\52\1\46\1\44\5\uffff\1\50\13\uffff"+
-            "\1\41",
-            "\1\47\1\uffff\12\53\12\uffff\1\52\1\46\1\44\5\uffff\1\50\27"+
-            "\uffff\1\52\1\46\1\44\5\uffff\1\50",
-            "\12\54",
+            "\2\10\1\uffff\2\10\22\uffff\1\10\1\22\1\7\1\2\1\36\1\33\1\24"+
+            "\1\6\1\15\1\16\1\30\1\26\1\1\1\27\1\5\1\31\1\3\11\4\2\uffff"+
+            "\1\35\1\21\1\34\2\uffff\32\36\1\17\1\uffff\1\20\1\32\1\36\1"+
+            "\uffff\5\36\1\12\7\36\1\13\4\36\1\14\1\11\6\36\1\uffff\1\25"+
+            "\1\uffff\1\23\101\uffff\27\36\1\uffff\37\36\1\uffff\u1f08\36"+
+            "\u1040\uffff\u0150\36\u0170\uffff\u0080\36\u0080\uffff\u092e"+
+            "\36\u10d2\uffff\u5200\36\u5900\uffff\u0200\36",
+            "",
+            "\1\41\11\uffff\1\37\1\40",
+            "\1\52\1\uffff\10\46\2\50\12\uffff\1\45\1\51\1\53\5\uffff\1"+
+            "\47\13\uffff\1\43\13\uffff\1\45\1\51\1\53\5\uffff\1\47\13\uffff"+
+            "\1\42",
+            "\1\52\1\uffff\12\54\12\uffff\1\45\1\51\1\53\5\uffff\1\47\27"+
+            "\uffff\1\45\1\51\1\53\5\uffff\1\47",
+            "\12\56",
             "",
             "",
             "",
-            "\1\56",
             "\1\57",
             "\1\60",
             "\1\61",
-            "",
-            "",
-            "",
-            "",
             "\1\62",
-            "\1\64",
-            "",
-            "\1\66",
-            "\1\70",
             "",
             "",
             "",
             "",
+            "\1\63",
+            "\1\65",
             "",
-            "",
-            "",
+            "\1\67",
+            "\1\71",
             "",
             "",
             "",
             "",
             "",
-            "\1\74\1\uffff\12\72\7\uffff\6\72\11\uffff\1\73\20\uffff\6\72"+
-            "\11\uffff\1\73",
-            "\1\74\1\uffff\12\72\7\uffff\6\72\11\uffff\1\73\20\uffff\6\72"+
-            "\11\uffff\1\73",
             "",
             "",
-            "\1\47\1\uffff\10\45\2\51\12\uffff\1\52\1\46\1\44\5\uffff\1"+
-            "\50\27\uffff\1\52\1\46\1\44\5\uffff\1\50",
-            "\1\75\1\uffff\1\75\2\uffff\12\76",
-            "\12\77\13\uffff\1\100\1\44\36\uffff\1\100\1\44",
             "",
-            "\1\47\1\uffff\12\51\13\uffff\1\46\1\44\36\uffff\1\46\1\44",
             "",
-            "\1\47\1\uffff\12\53\12\uffff\1\52\1\46\1\44\5\uffff\1\50\27"+
-            "\uffff\1\52\1\46\1\44\5\uffff\1\50",
-            "\12\54\13\uffff\1\101\1\44\36\uffff\1\101\1\44",
             "",
-            "\1\102",
+            "",
+            "",
+            "\1\75\1\uffff\12\73\7\uffff\6\73\11\uffff\1\74\20\uffff\6\73"+
+            "\11\uffff\1\74",
+            "\1\75\1\uffff\12\73\7\uffff\6\73\11\uffff\1\74\20\uffff\6\73"+
+            "\11\uffff\1\74",
+            "",
+            "",
+            "\1\52\1\uffff\10\46\2\50\12\uffff\1\45\1\51\1\53\5\uffff\1"+
+            "\47\27\uffff\1\45\1\51\1\53\5\uffff\1\47",
+            "",
+            "\1\52\1\uffff\12\50\13\uffff\1\51\1\53\36\uffff\1\51\1\53",
+            "\1\76\1\uffff\1\76\2\uffff\12\77",
+            "\12\100\13\uffff\1\101\1\53\36\uffff\1\101\1\53",
+            "",
+            "\1\52\1\uffff\12\54\12\uffff\1\45\1\51\1\53\5\uffff\1\47\27"+
+            "\uffff\1\45\1\51\1\53\5\uffff\1\47",
+            "",
+            "\12\56\13\uffff\1\102\1\53\36\uffff\1\102\1\53",
             "\1\103",
             "\1\104",
             "\1\105",
+            "\1\106",
             "",
             "",
             "",
@@ -2451,48 +2481,48 @@ public class ExpressionLexer extends Lexer {
             "",
             "",
             "",
-            "\1\74\1\uffff\12\72\7\uffff\6\72\5\uffff\1\50\3\uffff\1\73"+
-            "\20\uffff\6\72\5\uffff\1\50\3\uffff\1\73",
-            "\1\106\1\uffff\1\106\2\uffff\12\107",
-            "\12\110\7\uffff\6\110\11\uffff\1\73\20\uffff\6\110\11\uffff"+
-            "\1\73",
-            "\12\76",
-            "\12\76\14\uffff\1\44\37\uffff\1\44",
-            "\12\77\13\uffff\1\100\1\44\36\uffff\1\100\1\44",
-            "\1\111\1\uffff\1\111\2\uffff\12\112",
-            "\1\113\1\uffff\1\113\2\uffff\12\114",
-            "\1\115",
+            "\1\75\1\uffff\12\73\7\uffff\6\73\5\uffff\1\47\3\uffff\1\74"+
+            "\20\uffff\6\73\5\uffff\1\47\3\uffff\1\74",
+            "\1\107\1\uffff\1\107\2\uffff\12\110",
+            "\12\111\7\uffff\6\111\11\uffff\1\74\20\uffff\6\111\11\uffff"+
+            "\1\74",
+            "\12\77",
+            "\12\77\14\uffff\1\53\37\uffff\1\53",
+            "\12\100\13\uffff\1\101\1\53\36\uffff\1\101\1\53",
+            "\1\112\1\uffff\1\112\2\uffff\12\113",
+            "\1\114\1\uffff\1\114\2\uffff\12\115",
             "\1\116",
             "\1\117",
             "\1\120",
-            "\12\107",
-            "\12\107\14\uffff\1\44\37\uffff\1\44",
-            "\12\110\7\uffff\6\110\11\uffff\1\73\20\uffff\6\110\11\uffff"+
-            "\1\73",
-            "\12\112",
-            "\12\112\14\uffff\1\44\37\uffff\1\44",
-            "\12\114",
-            "\12\114\14\uffff\1\44\37\uffff\1\44",
-            "\1\35\13\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35\105\uffff\27\35\1\uffff\37\35\1\uffff\u1f08\35\u1040\uffff"+
-            "\u0150\35\u0170\uffff\u0080\35\u0080\uffff\u092e\35\u10d2\uffff"+
-            "\u5200\35\u5900\uffff\u0200\35",
-            "\1\122",
-            "\1\35\13\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35\105\uffff\27\35\1\uffff\37\35\1\uffff\u1f08\35\u1040\uffff"+
-            "\u0150\35\u0170\uffff\u0080\35\u0080\uffff\u092e\35\u10d2\uffff"+
-            "\u5200\35\u5900\uffff\u0200\35",
-            "\1\124",
+            "\1\121",
+            "\12\110",
+            "\12\110\14\uffff\1\53\37\uffff\1\53",
+            "\12\111\7\uffff\6\111\11\uffff\1\74\20\uffff\6\111\11\uffff"+
+            "\1\74",
+            "\12\113",
+            "\12\113\14\uffff\1\53\37\uffff\1\53",
+            "\12\115",
+            "\12\115\14\uffff\1\53\37\uffff\1\53",
+            "\1\36\13\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32"+
+            "\36\105\uffff\27\36\1\uffff\37\36\1\uffff\u1f08\36\u1040\uffff"+
+            "\u0150\36\u0170\uffff\u0080\36\u0080\uffff\u092e\36\u10d2\uffff"+
+            "\u5200\36\u5900\uffff\u0200\36",
+            "\1\123",
+            "\1\36\13\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32"+
+            "\36\105\uffff\27\36\1\uffff\37\36\1\uffff\u1f08\36\u1040\uffff"+
+            "\u0150\36\u0170\uffff\u0080\36\u0080\uffff\u092e\36\u10d2\uffff"+
+            "\u5200\36\u5900\uffff\u0200\36",
+            "\1\125",
             "",
-            "\1\35\13\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35\105\uffff\27\35\1\uffff\37\35\1\uffff\u1f08\35\u1040\uffff"+
-            "\u0150\35\u0170\uffff\u0080\35\u0080\uffff\u092e\35\u10d2\uffff"+
-            "\u5200\35\u5900\uffff\u0200\35",
+            "\1\36\13\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32"+
+            "\36\105\uffff\27\36\1\uffff\37\36\1\uffff\u1f08\36\u1040\uffff"+
+            "\u0150\36\u0170\uffff\u0080\36\u0080\uffff\u092e\36\u10d2\uffff"+
+            "\u5200\36\u5900\uffff\u0200\36",
             "",
-            "\1\35\13\uffff\12\35\7\uffff\32\35\4\uffff\1\35\1\uffff\32"+
-            "\35\105\uffff\27\35\1\uffff\37\35\1\uffff\u1f08\35\u1040\uffff"+
-            "\u0150\35\u0170\uffff\u0080\35\u0080\uffff\u092e\35\u10d2\uffff"+
-            "\u5200\35\u5900\uffff\u0200\35",
+            "\1\36\13\uffff\12\36\7\uffff\32\36\4\uffff\1\36\1\uffff\32"+
+            "\36\105\uffff\27\36\1\uffff\37\36\1\uffff\u1f08\36\u1040\uffff"+
+            "\u0150\36\u0170\uffff\u0080\36\u0080\uffff\u092e\36\u10d2\uffff"+
+            "\u5200\36\u5900\uffff\u0200\36",
             "",
             ""
     };
@@ -2527,7 +2557,7 @@ public class ExpressionLexer extends Lexer {
             this.transition = DFA26_transition;
         }
         public String getDescription() {
-            return "1:1: Tokens : ( T__49 | T__50 | T__51 | LONGLITERAL | INTLITERAL | FLOATLITERAL | DOUBLELITERAL | CHARLITERAL | STRINGLITERAL | WS | TRUE | FALSE | NULL | SUPER | LPAREN | RPAREN | LBRACKET | RBRACKET | DOT | EQ | BANG | TILDE | EQEQ | AMPAMP | BARBAR | PLUS | SUB | STAR | SLASH | AMP | BAR | CARET | PERCENT | BANGEQ | GT | LT | IDENTIFIER );";
+            return "1:1: Tokens : ( T__49 | T__50 | T__51 | T__52 | LONGLITERAL | INTLITERAL | FLOATLITERAL | DOUBLELITERAL | CHARLITERAL | STRINGLITERAL | WS | TRUE | FALSE | NULL | SUPER | LPAREN | RPAREN | LBRACKET | RBRACKET | DOT | EQ | BANG | TILDE | EQEQ | AMPAMP | BARBAR | PLUS | SUB | STAR | SLASH | AMP | BAR | CARET | PERCENT | BANGEQ | GT | LT | IDENTIFIER );";
         }
     }
  

@@ -13,5 +13,10 @@ public class TextTagPart extends TagPart {
       return whitespace;
    }
 
+   @Override
+   public boolean containsExpressions() {
+      return false;
+   }
+
    public boolean whitespace;
 }

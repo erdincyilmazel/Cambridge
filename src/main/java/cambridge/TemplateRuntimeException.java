@@ -22,4 +22,8 @@ public class TemplateRuntimeException extends Exception {
       this.column = column;
       this.tagName = tagName;
    }
+
+   public TemplateRuntimeException(Throwable cause) {
+      super(cause);
+   }
 }

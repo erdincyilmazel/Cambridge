@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * User: erdinc
@@ -32,7 +33,10 @@ public class Cambridge {
             @Override
             public void run() {
                while (true) {
-                  Template t = f.createTemplate();
+
+                  long start = System.currentTimeMillis();
+
+                  Template t = f.createTemplate(new Locale("TR"));
 
                   t.setProperty("user", new User("erdinc", "erdinc@yilmazel.com"));
                   t.setProperty("value", false);
@@ -53,6 +57,10 @@ public class Cambridge {
                   } catch (TemplateRuntimeException e) {
                      e.printStackTrace();
                   }
+
+                  System.out.println("-----------------------------------------------------------------");
+                  System.out.println("Rendered in " + (System.currentTimeMillis() - start) + " milliseconds");
+
                   try {
                      Thread.sleep(5000);
                   } catch (InterruptedException e) {

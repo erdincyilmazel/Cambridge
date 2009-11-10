@@ -15,8 +15,7 @@ public class SimpleAttribute extends TagPart implements Attribute {
    }
 
    public SimpleAttribute(String attributeName, String value) {
-      this.attributeName = attributeName;
-      this.value = value;
+      this(attributeName, null, value);
    }
 
    public String getAttributeName() {
@@ -41,6 +40,10 @@ public class SimpleAttribute extends TagPart implements Attribute {
 
    public void setValue(String value) {
       this.value = value;
+   }
+
+   public boolean containsExpressions() {
+      return false;
    }
 
    @Override

@@ -46,6 +46,14 @@ compilationUnit returns [Expression value]
 parExpression returns [Expression value]
     :   '(' e=expression ')' {$value = e;}
     ;
+
+function returns [Expression value]
+    :   IDENTIFIER '(' e=expression
+    {$value = new FunctionExpression($IDENTIFIER.text);
+    ArrayList<Expression> params = new ArrayList<Expression>();
+    params.add(e);
+    } (',' f=expression { params.add(f);})* ')' {((FunctionExpression)$value).setParameters(params);}
+    ;
     
 expression returns [Expression value]
     :   l = conditionalAndExpression {$value = l;}
@@ -144,6 +152,7 @@ unaryExpressionNotPlusMinus returns [Expression value]
 
 primary returns [Expression value]
     :   e=parExpression {$value = e;}
+    |   e=function {$value = e;}
     |   '#super' {$value = new VarExpression("#super");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
     |   '#this' {$value = new VarExpression("#this");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
     |   '#iter' {$value = new VarExpression("#iter");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*

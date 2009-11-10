@@ -2,6 +2,8 @@ erdinc
 
 <html xmlns:a="http://www.w3.org/1999/xhtml">
 <body>
+${text("test", 1, 2000.5)}
+
 Hello ${user.userName}
 
 <!--$include a.html inside /html/body -->
@@ -30,7 +32,9 @@ Hello ${user.userName}
    </select>
 </form>
 
-<div a:repeat="5">Hello world</div>
+<div a:repeat="5" ${user.userName}>Hello world</div>
+
+<span id="${user.userName}">deneme</span>
 
 ${date}(dateFormat:  yyyy)
 </body>
