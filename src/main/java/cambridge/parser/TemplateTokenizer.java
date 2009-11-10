@@ -187,12 +187,13 @@ public class TemplateTokenizer extends Tokenizer {
 
       while (true) {
          char peek = peek(1);
+         builder.append(c);
          if (Character.isWhitespace(peek) || peek == Tokenizer.EOL || peek == '>' || peek == '=' || peek == '"' || peek == '\'') {
-            builder.append(c);
             break;
          }
 
-         builder.append(peek);
+
+         //builder.append(peek);
          c = nextChar();
       }
 
