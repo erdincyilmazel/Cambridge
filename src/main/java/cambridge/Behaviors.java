@@ -18,7 +18,7 @@ import java.util.Map;
 public class Behaviors {
    public static String DefaultNamespace = "a";
 
-   class Bind {
+   public class Bind {
       AttributeKey k;
 
       Bind(AttributeKey k) {
@@ -30,7 +30,7 @@ public class Behaviors {
       }
    }
 
-   class BindStatic {
+   public class BindStatic {
       AttributeKey k;
 
       BindStatic(AttributeKey k) {
@@ -42,7 +42,7 @@ public class Behaviors {
       }
    }
 
-   class BindTag {
+   public class BindTag {
       AttributeKey[] keys;
 
       BindTag(AttributeKey[] k) {

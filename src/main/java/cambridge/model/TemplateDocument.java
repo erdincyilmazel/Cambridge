@@ -41,6 +41,14 @@ public class TemplateDocument implements ParentNode {
       children = new ArrayList<TemplateNode>();
    }
 
+   public void removeChild(TemplateNode node) {
+      children.remove(node);
+   }
+
+   public void remove(int index) {
+      children.remove(index);
+   }
+
    public void addChild(TemplateNode node) {
       children.add(node);
    }

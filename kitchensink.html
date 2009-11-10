@@ -1,6 +1,9 @@
 erdinc
 
 <html xmlns:a="http://www.w3.org/1999/xhtml">
+<head>
+   <title>This is kitchensink</title>
+</head>
 <body>
 ${text("test", 1, 2000.5)}(upper)
 
@@ -20,7 +23,7 @@ Hello ${user.userName}
 <div a:from="1990" a:to="2010">${#this}</div>
 <div a:while="user.countValid">${user.count1}</div>
 
-<img a:addAlt="anything"/>
+<img a:addAlt=""/>
 
 <span a:hide>sdddddddddddd</span>
 
@@ -32,9 +35,10 @@ Hello ${user.userName}
    </select>
 </form>
 
-<div a:repeat="5" ${user.userName}>Hello world</div>
+<div a:repeat="5">Hello world</div>
 
-<span id="${user.userName}">deneme</span>
+Merhaba Omer
+
 
 ${date}(dateFormat:  yyyy)
 </body>

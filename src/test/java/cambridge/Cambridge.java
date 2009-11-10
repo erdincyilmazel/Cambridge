@@ -1,7 +1,6 @@
 package cambridge;
 
-import cambridge.model.TemplateDocument;
-import cambridge.model.TextNode;
+import cambridge.model.*;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,11 +20,31 @@ public class Cambridge {
    public static void main(String[] args) {
       try {
 
-         DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
+         final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
          final TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
             @Override
             public void modifyTemplate(TemplateDocument doc) {
+
+               TagNode node = doc.locateTag("/html/head");
+               TagNode html = doc.locateTag("/html");
+
+               html.removeChild(node);
+
+               try {
+                  html.insertChild(new IncludeFragment(loader, "a.html", "/html/head"));
+               } catch (TemplateLoadingException e) {
+                  e.printStackTrace();
+               } catch (BehaviorInstantiationException e) {
+                  e.printStackTrace();
+               }
+
+
                doc.getElementById("email").addChild(new TextNode("cambridge rocks"));
+               try {
+                  doc.getElementById("email").addChild(new ExpressionNode("user.email"));
+               } catch (ExpressionParsingException e) {
+                  e.printStackTrace();
+               }
             }
          });
 

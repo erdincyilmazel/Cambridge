@@ -56,6 +56,26 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return "";
    }
 
+   public void removeChild(TemplateNode node) {
+      if(children != null) {
+         children.remove(node);
+      }
+   }
+
+   public void removeChild(int index) {
+      if(children != null) {
+         children.remove(index);
+      }
+   }
+
+   public void insertChild(TemplateNode node) {
+      children.add(0, node);
+   }
+
+   public void insertChild(TemplateNode node, int index) {
+      children.add(index, node);
+   }
+
    public void addChild(TemplateNode node) {
       if (children == null) children = new ArrayList<TemplateNode>();
       children.add(node);
