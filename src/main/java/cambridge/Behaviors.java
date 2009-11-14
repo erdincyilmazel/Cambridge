@@ -65,6 +65,7 @@ public class Behaviors {
       bind(DefaultNamespace, "from").to(FromBehavior.getProvider());
       bind(DefaultNamespace, "repeat").to(RepeatBehavior.getProvider());
       bind(DefaultNamespace, "selectedIf").to(SelectedBehavior.getProvider());
+      bind(DefaultNamespace, "next").to(ConditionalAttributeBehavior.getProvider());
       bindStatic(DefaultNamespace, "addAlt").to(AltAdderStaticBehavior.class);
       bindStatic(DefaultNamespace, "hide").to(HideBehavior.class);
       bindTag(DefaultNamespace, "dummy", "span").to(DummyTag.class);

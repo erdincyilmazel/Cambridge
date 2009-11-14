@@ -4,11 +4,7 @@ import cambridge.model.*;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 import cambridge.runtime.TemplateProperties;
-import org.junit.After;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
+import static org.junit.Assert.*;
 import org.junit.Test;
 
 import java.io.IOException;
@@ -22,7 +18,7 @@ public class ComplexAttributeTest {
    @Test
    public void testBasic() {
       try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(TokenizerTest.class.getResourceAsStream("basic.html"));
+         TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("basic.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
          TemplateProperties p = new TemplateProperties();
          p.put("class", "test");
@@ -53,7 +49,7 @@ public class ComplexAttributeTest {
          assertTrue(fragmentList.get(1) instanceof ExpressionNode);
          assertTrue(fragmentList.get(2) instanceof StaticFragment);
 
-         for(Fragment f : fragmentList) {
+         for (Fragment f : fragmentList) {
             f.eval(p, builder);
          }
 
@@ -73,7 +69,7 @@ public class ComplexAttributeTest {
    @Test
    public void testComplex() {
       try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(TokenizerTest.class.getResourceAsStream("complex.html"));
+         TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("complex.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
          TemplateProperties p = new TemplateProperties();
          p.put("a", "AAA");
@@ -116,7 +112,7 @@ public class ComplexAttributeTest {
          assertTrue(fragmentList.get(3) instanceof ExpressionNode);
          assertTrue(fragmentList.get(4) instanceof StaticFragment);
 
-         for(Fragment f : fragmentList) {
+         for (Fragment f : fragmentList) {
             f.eval(p, builder);
          }
 
@@ -136,7 +132,7 @@ public class ComplexAttributeTest {
    @Test
    public void testDymnamic() {
       try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(TokenizerTest.class.getResourceAsStream("dynamic.html"));
+         TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("dynamic.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
          TemplateProperties p = new TemplateProperties();
          p.put("style", "style");
@@ -166,7 +162,7 @@ public class ComplexAttributeTest {
 
          assertTrue(fragmentList.get(0) instanceof TagNode);
 
-         for(Fragment f : fragmentList) {
+         for (Fragment f : fragmentList) {
             f.eval(p, builder);
          }
 

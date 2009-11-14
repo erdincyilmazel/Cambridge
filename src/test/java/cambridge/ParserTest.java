@@ -117,7 +117,7 @@ public class ParserTest {
    @Test
    public void testFull() {
       try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(TokenizerTest.class.getResourceAsStream("full.html"));
+         TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("full.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -146,7 +146,7 @@ public class ParserTest {
    @Test
    public void testSelectBefore() {
       try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(TokenizerTest.class.getResourceAsStream("full.html"));
+         TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("full.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
          TemplateDocument t = parser.parse();
          FragmentList fragments = t.select("before /html/body/div[3]");
@@ -173,7 +173,7 @@ public class ParserTest {
    @Test
    public void testSelectAfter() {
       try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(TokenizerTest.class.getResourceAsStream("full.html"));
+         TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("full.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
          TemplateDocument t = parser.parse();
          FragmentList fragments = t.select("after /html/body/div[3]");
@@ -200,7 +200,7 @@ public class ParserTest {
    @Test
    public void testSelectInside() {
       try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(TokenizerTest.class.getResourceAsStream("full.html"));
+         TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("full.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
          TemplateDocument t = parser.parse();
          FragmentList fragments = t.select("inside /html/body");
