@@ -19,28 +19,29 @@ import java.util.regex.Pattern;
  * Time: 8:12:49 PM
  */
 public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTag {
-   String indent = "";
-   String tagName;
-   String nameSpace;
+   protected String indent = "";
+   protected String tagName;
+   protected String nameSpace;
 
-   String closeText;
-   String tagEndText;
+   protected String closeText;
+   protected String tagEndText;
 
-   ArrayList<TemplateNode> children;
-   ArrayList<TagPart> tagParts;
-   HashMap<AttributeKey, Attribute> attributes;
+   protected ArrayList<TemplateNode> children;
+   protected ArrayList<TagPart> tagParts;
+   protected HashMap<AttributeKey, Attribute> attributes;
 
-   String id;
+   protected String id;
 
    private FragmentList fragments;
 
    static final Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
 
-   ArrayList<ModifyingTagBehavior> modifyingBehaviors;
-   ArrayList<ConditionalTagBehavior> conditionalBehaviors;
-   IterativeTagBehavior iterative;
+   protected ArrayList<ModifyingTagBehavior> modifyingBehaviors;
+   protected ArrayList<ConditionalTagBehavior> conditionalBehaviors;
+   protected IterativeTagBehavior iterative;
 
-   boolean dynamic;
+   protected boolean dynamic;
+   protected boolean hidden;
 
    public TagNode() {
    }
@@ -57,13 +58,13 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    public void removeChild(TemplateNode node) {
-      if(children != null) {
+      if (children != null) {
          children.remove(node);
       }
    }
 
    public void removeChild(int index) {
-      if(children != null) {
+      if (children != null) {
          children.remove(index);
       }
    }
@@ -154,9 +155,9 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
       Behaviors bindings = Behaviors.getInstance();
 
-      if (!a.isDynamic()) {
-         tagParts.add((SimpleAttribute) a);
-      } else {
+      tagParts.add(a);
+
+      if (a.isDynamic()) {
          if (bindings.getStaticBehavior(key) == null) {
             dynamic = true;
          }
@@ -306,7 +307,36 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                      } else {
                         whiteSpace = true;
                      }
-                     f.append(t.getTextContent());
+                     if (t instanceof Attribute) {
+                        if (t instanceof SimpleAttribute) {
+                           f.append(t.getTextContent());
+                        } else if (t instanceof ComplexAttribute) {
+                           ComplexAttribute a = (ComplexAttribute) t;
+                           if (a.attributeNameSpace != null) {
+                              f.append(a.attributeNameSpace).append(":");
+                           }
+
+                           f.append(a.attributeName).append("=");
+                           char q = a.getQuote();
+                           if (q != 0) {
+                              f.append("" + q);
+                           }
+
+                           for (AttributeFragment af : a.getFragments()) {
+                              if (af instanceof StaticFragment) {
+                                 f.append(((StaticFragment) af).contents.toString());
+                              } else {
+                                 f.addFragment(af);
+                              }
+                           }
+
+                           if (q != 0) {
+                              f.append("" + q);
+                           }
+                        }
+                     } else {
+                        f.append(t.getTextContent());
+                     }
                   }
                }
             }
@@ -387,7 +417,37 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                   } else {
                      whiteSpace = true;
                   }
-                  f.append(t.getTextContent());
+
+                  if (t instanceof Attribute) {
+                     if (t instanceof SimpleAttribute) {
+                        f.append(t.getTextContent());
+                     } else if (t instanceof ComplexAttribute) {
+                        ComplexAttribute a = (ComplexAttribute) t;
+                        if (a.attributeNameSpace != null) {
+                           f.append(a.attributeNameSpace).append(":");
+                        }
+
+                        f.append(a.attributeName).append("=");
+                        char q = a.getQuote();
+                        if (q != 0) {
+                           f.append("" + q);
+                        }
+
+                        for (AttributeFragment af : a.getFragments()) {
+                           if (af instanceof StaticFragment) {
+                              f.append(((StaticFragment) af).contents.toString());
+                           } else {
+                              f.addFragment(af);
+                           }
+                        }
+
+                        if (q != 0) {
+                           f.append("" + q);
+                        }
+                     }
+                  } else {
+                     f.append(t.getTextContent());
+                  }
                }
             }
          }
@@ -468,8 +528,6 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    public ArrayList<TagPart> getTagParts() {
       return tagParts;
    }
-
-   boolean hidden;
 
    public String getIndent() {
       return indent;
@@ -552,15 +610,48 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                if (t instanceof ExpressionTagPart) {
                   ((ExpressionTagPart) t).eval(properties, out);
                } else {
-                  if (!t.isWhiteSpace()) {
-                     if (!whiteSpace) {
-                        out.append(" ");
+                  if (!(t instanceof DynamicAttribute)) {
+                     if (!t.isWhiteSpace()) {
+                        if (!whiteSpace) {
+                           out.append(" ");
+                        }
+                        whiteSpace = false;
+                     } else {
+                        whiteSpace = true;
                      }
-                     whiteSpace = false;
-                  } else {
-                     whiteSpace = true;
                   }
-                  out.append(t.getTextContent());
+
+                  if (t instanceof Attribute) {
+                     if (t instanceof SimpleAttribute) {
+                        out.append(t.getTextContent());
+                     } else if (t instanceof ComplexAttribute) {
+                        ComplexAttribute a = (ComplexAttribute) t;
+                        if (a.attributeNameSpace != null) {
+                           out.append(a.attributeNameSpace).append(":");
+                        }
+
+                        out.append(a.attributeName).append("=");
+                        char q = a.getQuote();
+                        if (q != 0) {
+                           out.append("" + q);
+                        }
+
+                        for (AttributeFragment af : a.getFragments()) {
+                           if (af instanceof StaticFragment) {
+                              out.append(((StaticFragment) af).contents.toString());
+                           } else if (af instanceof ExpressionNode) {
+                              ExpressionNode ex = (ExpressionNode) af;
+                              ex.eval(properties, out);
+                           }
+                        }
+
+                        if (q != 0) {
+                           out.append("" + q);
+                        }
+                     }
+                  } else {
+                     out.append(t.getTextContent());
+                  }
                }
             }
          }

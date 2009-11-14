@@ -9,7 +9,7 @@ import java.io.IOException;
  * Date: Oct 13, 2009
  * Time: 1:05:30 PM
  */
-public class StaticFragment implements Fragment {
+public class StaticFragment implements AttributeFragment {
    StringBuilder contents;
 
    public StaticFragment(String text) {
@@ -33,5 +33,9 @@ public class StaticFragment implements Fragment {
    @Override
    public void eval(TemplateProperties properties, Appendable out) throws IOException {
       out.append(contents);
+   }
+
+   public String toString() {
+      return contents.toString();
    }
 }

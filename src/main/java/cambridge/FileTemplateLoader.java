@@ -4,10 +4,7 @@ import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.HashSet;
 
 /**
@@ -63,18 +60,39 @@ public class FileTemplateLoader implements TemplateLoader {
       return null;
    }
 
+   public TemplateDocument parseTemplate(InputStream in) throws TemplateLoadingException {
+      return parseTemplate(in, DefaultEncoding);
+   }
+
+   public TemplateDocument parseTemplate(InputStream in, String encoding) throws TemplateLoadingException {
+      TemplateTokenizer tokenizer = null;
+      try {
+         tokenizer = new TemplateTokenizer(new InputStreamReader(in, encoding));
+         TemplateParser parser = new TemplateParser(tokenizer, this);
+         return parser.parse();
+      } catch (IOException e) {
+         throw new TemplateLoadingException(e);
+      } catch (TemplateParsingException e) {
+         throw new TemplateLoadingException(e);
+      } finally {
+         if(tokenizer != null) {
+            try {
+               tokenizer.close();
+            } catch (IOException e) {
+               e.printStackTrace();
+            }
+         }
+      }
+   }
+
    public TemplateDocument parseTemplate(File file) throws TemplateLoadingException {
       return parseTemplate(file, DefaultEncoding);
    }
 
    public TemplateDocument parseTemplate(File file, String encoding) throws TemplateLoadingException {
       try {
-         TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream(file), encoding));
-         TemplateParser parser = new TemplateParser(tokenizer, this);
-         return parser.parse();
-      } catch (IOException e) {
-         throw new TemplateLoadingException(e);
-      } catch (TemplateParsingException e) {
+         return parseTemplate(new FileInputStream(file), encoding);
+      } catch (FileNotFoundException e) {
          throw new TemplateLoadingException(e);
       }
    }

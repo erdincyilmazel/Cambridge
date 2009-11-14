@@ -133,10 +133,10 @@ public class TemplateTokenizer extends Tokenizer {
          tok.setQuotes(AttributeValueToken.DOUBLE_QUOTES);
          return tok;
       }
-
-      if (c == '$' && peek(1) == '{') {
-         return expressionToken(col, line);
-      }
+//
+//      if (c == '$' && peek(1) == '{') {
+//         return expressionToken(col, line);
+//      }
 
       builder.append(c);
       while (true) {
@@ -147,14 +147,14 @@ public class TemplateTokenizer extends Tokenizer {
             nextChar();
             builder.append("\"");
          } else {
-            if (c == '$' && peek(1) == '{') {
-               return expressionToken(col, line);
-            }
-
-            if (peek(1) == '$' && peek(2) == '{') {
-               builder.append(c);
-               break;
-            }
+//            if (c == '$' && peek(1) == '{') {
+//               return expressionToken(col, line);
+//            }
+//
+//            if (peek(1) == '$' && peek(2) == '{') {
+//               builder.append(c);
+//               break;
+//            }
             builder.append(c);
          }
       }

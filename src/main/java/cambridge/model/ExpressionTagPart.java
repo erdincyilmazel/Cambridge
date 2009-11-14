@@ -20,7 +20,8 @@ import java.util.Locale;
 /**
  * Represents cambridge expressions that are used inside an HTML tag.
  */
-public class ExpressionTagPart extends TagPart implements Fragment {
+public class ExpressionTagPart implements TagPart, Fragment {
+   String textContent;
    private Expression expression;
 
    ArrayList<F> filters;
@@ -62,7 +63,7 @@ public class ExpressionTagPart extends TagPart implements Fragment {
    }
 
    public ExpressionTagPart(String textContent) throws ExpressionParsingException {
-      super(textContent);
+      this.textContent = textContent;
 
       try {
          ANTLRStringStream stream = new ANTLRStringStream(textContent);
@@ -81,11 +82,6 @@ public class ExpressionTagPart extends TagPart implements Fragment {
    @Override
    public boolean isWhiteSpace() {
       return false;
-   }
-
-   @Override
-   public boolean containsExpressions() {
-      return true;
    }
 
    @Override
@@ -113,5 +109,13 @@ public class ExpressionTagPart extends TagPart implements Fragment {
       }
 
       return val;
+   }
+
+   public String getTextContent() {
+      return textContent;
+   }
+
+   public void setTextContent(String textContent) {
+      this.textContent = textContent;
    }
 }

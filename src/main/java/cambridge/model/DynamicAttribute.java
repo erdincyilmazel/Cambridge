@@ -14,6 +14,7 @@ import org.antlr.runtime.TokenStream;
  * class and which carry a dynamic behavior on.
  */
 public class DynamicAttribute implements Attribute {
+
    String attributeName;
    String attributeNameSpace;
    String value;
@@ -47,6 +48,15 @@ public class DynamicAttribute implements Attribute {
       return true;
    }
 
+   @Override
+   public String getTextContent() {
+      return value;
+   }
+
+   @Override
+   public void setTextContent(String textContent) {
+   }
+
    private Expression expression;
 
    public Expression getExpression() throws ExpressionParsingException {
@@ -66,5 +76,10 @@ public class DynamicAttribute implements Attribute {
          }
       }
       return expression;
+   }
+
+   @Override
+   public boolean isWhiteSpace() {
+      return false;
    }
 }

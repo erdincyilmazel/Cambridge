@@ -2,6 +2,7 @@ package cambridge.behaviors;
 
 import cambridge.*;
 import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.Iter;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.TagNode;
@@ -26,8 +27,11 @@ public class WhileBehavior extends IterativeTagBehavior {
    @Override
    public void loop(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
+         Iter iter = new Iter();
          while (expression.asBoolean(properties)) {
+            properties.put("#iter", iter);
             tag.executeTag(properties, out);
+            iter.next();
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());

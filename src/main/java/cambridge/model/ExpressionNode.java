@@ -22,7 +22,7 @@ import java.util.Locale;
  * ExpressionNodes are nodes within the documents that are
  * valid cambridge template expressions. Expression nodes
  */
-public class ExpressionNode extends TemplateNode implements Fragment {
+public class ExpressionNode extends TemplateNode implements AttributeFragment {
    String value;
    Expression expression;
 

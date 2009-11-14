@@ -5,6 +5,7 @@ import cambridge.model.*;
 import cambridge.parser.tokens.*;
 
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -233,18 +234,13 @@ public class TemplateParser {
                   tok.setNameSpace(node.getNameSpace());
                }
 
-               Attribute element;
+               Attribute element = null;
                StringBuilder textContent = new StringBuilder();
                textContent.append(tok.getActualValue());
 
                if (tok.getNameSpace() != null && bindings.isRegisteredNamespace(tok.getNameSpace())) {
                   element = new DynamicAttribute();
-               } else {
-                  element = new SimpleAttribute();
                }
-
-               element.setAttributeName(tok.getAttributeName());
-               element.setAttributeNameSpace(tok.getNameSpace());
 
                while (true) {
                   if (peek(1).getType() == TokenType.EOF
@@ -264,7 +260,56 @@ public class TemplateParser {
                         break;
                      case ATTRIBUTE_VALUE:
                         textContent.append(currentToken.getActualValue());
-                        element.setValue(currentToken.value);
+
+                        if(element instanceof DynamicAttribute) {
+                           ((DynamicAttribute) element).setValue(currentToken.value);
+                           exitLoop = true;
+                           break;
+                        }
+
+                        TemplateTokenizer at = new TemplateTokenizer(new StringReader(currentToken.getValue()));
+
+                        ArrayList<AttributeFragment> fragments = new ArrayList<AttributeFragment>();
+                        while(at.hasMoreTokens()) {
+                           Token attrToken = at.nextToken();
+                           switch (attrToken.getType()) {
+                              case EXPRESSION:
+                                 ExpressionToken expTok = (ExpressionToken) attrToken;
+                                 try {
+                                    ExpressionNode expNode = new ExpressionNode(attrToken.value);
+
+                                    if(expTok.getFilters() != null) {
+                                       expNode.setFilters(expTok.getFilters());
+                                    }
+                                    fragments.add(expNode);
+                                 } catch (ExpressionParsingException e1) {
+                                    throw new TemplateParsingException("Error parsing expression", e1, currentToken.getLineNo(), currentToken.getColumn());
+                                 }
+
+                                 break;
+                              case WS:
+                              case STRING:
+                                 StaticFragment st = new StaticFragment(attrToken.value);
+                                 fragments.add(st);
+                                 break;
+                           }
+                        }
+
+                        if(fragments.size() == 0 || fragments.size() == 1 && fragments.get(0) instanceof StaticFragment) {
+                           element = new SimpleAttribute();
+                           ((SimpleAttribute)element).setValue(currentToken.value);
+                        } else {
+                           element = new ComplexAttribute();
+                           ((ComplexAttribute)element).setFragments(fragments);
+                           AttributeValueToken aTok = (AttributeValueToken) currentToken;
+                           if(aTok.getQuotes() == -2) {
+                              ((ComplexAttribute)element).setQuote('"');
+                           }
+                           else if(aTok.getQuotes() == -3) {
+                              ((ComplexAttribute)element).setQuote('\'');
+                           }
+                        }
+
                         exitLoop = true;
                         break;
                   }
@@ -272,9 +317,10 @@ public class TemplateParser {
                   if (exitLoop) break;
                }
 
-               if (element instanceof SimpleAttribute) {
-                  ((SimpleAttribute) element).setTextContent(textContent.toString());
-               }
+               element.setAttributeName(tok.getAttributeName());
+               element.setAttributeNameSpace(tok.getNameSpace());
+               element.setTextContent(textContent.toString());
+
 
                int s = node.getTagParts().size();
                if (s > 0) {

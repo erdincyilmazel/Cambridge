@@ -1,22 +1,20 @@
 package cambridge.model;
 
-public class SimpleAttribute implements Attribute {
+import java.util.ArrayList;
+
+public class ComplexAttribute implements Attribute {
    String textContent;
    String attributeName;
    String attributeNameSpace;
-   String value;
+   ArrayList<AttributeFragment> fragments;
 
-   public SimpleAttribute() {
+   public ComplexAttribute() {
    }
 
-   public SimpleAttribute(String attributeName, String attributeNameSpace, String value) {
+   public ComplexAttribute(String attributeName, String attributeNameSpace, ArrayList<AttributeFragment> fragments) {
       this.attributeName = attributeName;
       this.attributeNameSpace = attributeNameSpace;
-      this.value = value;
-   }
-
-   public SimpleAttribute(String attributeName, String value) {
-      this(attributeName, null, value);
+      this.fragments = fragments;
    }
 
    public String getAttributeName() {
@@ -35,16 +33,31 @@ public class SimpleAttribute implements Attribute {
       this.attributeNameSpace = attributeNameSpace;
    }
 
+   @Override
    public String getValue() {
-      return value;
+      return "";
    }
 
-   public void setValue(String value) {
-      this.value = value;
+   public ArrayList<AttributeFragment> getFragments() {
+      return fragments;
+   }
+
+   public void setFragments(ArrayList<AttributeFragment> fragments) {
+      this.fragments = fragments;
    }
 
    public boolean containsExpressions() {
       return false;
+   }
+
+   char quote;
+
+   public char getQuote() {
+      return quote;
+   }
+
+   public void setQuote(char quote) {
+      this.quote = quote;
    }
 
    @Override
@@ -52,6 +65,7 @@ public class SimpleAttribute implements Attribute {
       return false;
    }
 
+   @Override
    public void setTextContent(String textContent) {
       this.textContent = textContent;
    }
@@ -62,7 +76,7 @@ public class SimpleAttribute implements Attribute {
          return textContent;
       }
 
-      return (attributeNameSpace == null ? "" : attributeNameSpace + ":") + attributeName + "=\"" + value.replaceAll("\"", "\\\"") + "\"";
+      return "";
    }
 
    @Override

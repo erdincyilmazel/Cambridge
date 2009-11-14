@@ -5,25 +5,10 @@ package cambridge.model;
  * attributes, expressions or other texts within an html tag are
  * TagParts.
  */
-public abstract class TagPart {
-   String textContent;
+public interface TagPart {
+   public String getTextContent();
 
-   public TagPart() {
-   }
-
-   public TagPart(String textContent) {
-      this.textContent = textContent;
-   }
-
-   public String getTextContent() {
-      return textContent;
-   }
-
-   public void setTextContent(String textContent) {
-      this.textContent = textContent;
-   }
+   public void setTextContent(String textContent);
 
    public abstract boolean isWhiteSpace();
-
-   public abstract boolean containsExpressions();
 }

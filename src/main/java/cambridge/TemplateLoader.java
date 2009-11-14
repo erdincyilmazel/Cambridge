@@ -3,6 +3,7 @@ package cambridge;
 import cambridge.model.TemplateDocument;
 
 import java.io.File;
+import java.io.InputStream;
 import java.util.HashSet;
 
 /**
@@ -30,6 +31,10 @@ public interface TemplateLoader {
    TemplateFactory newTemplateFactory(String template, TemplateModifier modifier) throws TemplateLoadingException;
 
    TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier) throws TemplateLoadingException;
+
+   TemplateDocument parseTemplate(InputStream in) throws TemplateLoadingException;
+
+   TemplateDocument parseTemplate(InputStream in, String encoding) throws TemplateLoadingException;
 
    TemplateDocument parseTemplate(String template) throws TemplateLoadingException;
 

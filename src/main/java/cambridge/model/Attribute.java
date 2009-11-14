@@ -10,7 +10,7 @@ package cambridge.model;
  * <p>For an attribute to be parsed as a DynamicAttribute, it should have a namespace portion and the attribute
  * name should be registered with the {@link cambridge.Behaviors} class</p>
  */
-public interface Attribute {
+public interface Attribute extends TagPart {
    /**
     * Returns the name of the attribute
     * @return Attribute name
@@ -48,15 +48,11 @@ public interface Attribute {
    String getValue();
 
    /**
-    * Sets the value of the Attribute
-    * @param value Attribute value
-    */
-   void setValue(String value);
-
-   /**
     * If this attribute type is registered with the {@link cambridge.Behaviors} class, it should
     * return true.
     * @return Returns if this attribute holds a dynamic behavior
     */
    public boolean isDynamic();
+
+   public void setTextContent(String textContent);
 }
