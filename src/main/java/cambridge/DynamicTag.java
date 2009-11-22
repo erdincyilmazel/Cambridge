@@ -4,9 +4,11 @@ import cambridge.model.TagNode;
 
 /**
  * User: erdinc
- * Date: Nov 5, 2009
- * Time: 6:24:09 PM
+ * Date: Nov 21, 2009
+ * Time: 6:46:52 PM
  */
 public abstract class DynamicTag extends TagNode {
-   public abstract void init();
+   public void init() throws TemplateParsingException {
+      //
+   }
 }

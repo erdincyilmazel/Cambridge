@@ -17,7 +17,7 @@ import java.util.Map;
  * Date: Nov 1, 2009
  * Time: 2:36:22 PM
  */
-public class WhileBehavior extends IterativeTagBehavior {
+public class WhileBehavior extends ExecutingTagBehavior {
    Expression expression;
 
    public WhileBehavior(Expression expression) {
@@ -25,12 +25,12 @@ public class WhileBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void loop(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          Iter iter = new Iter();
          while (expression.asBoolean(properties)) {
             properties.put("#iter", iter);
-            tag.executeTag(properties, out);
+            tag.execute(properties, out);
             iter.next();
          }
       } catch (ExpressionEvaluationException e) {

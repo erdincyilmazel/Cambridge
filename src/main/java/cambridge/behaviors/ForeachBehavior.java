@@ -15,7 +15,7 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 7:18:33 PM
  */
-public class ForeachBehavior extends IterativeTagBehavior {
+public class ForeachBehavior extends ExecutingTagBehavior {
    Expression iterable;
 
    public ForeachBehavior(Expression iterable) {
@@ -23,7 +23,7 @@ public class ForeachBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void loop(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          Object o = iterable.eval(properties);
          if (o == null) {
@@ -39,7 +39,7 @@ public class ForeachBehavior extends IterativeTagBehavior {
          for (Object o1 : ((Iterable) o)) {
             properties.put("#this", o1);
             properties.put("#iter", iter);
-            tag.executeTag(properties, out);
+            tag.execute(properties, out);
             iter.next();
          }
       } catch (ExpressionEvaluationException e) {

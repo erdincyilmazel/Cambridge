@@ -2,6 +2,7 @@ package cambridge;
 
 import cambridge.model.TemplateDocument;
 import cambridge.model.TemplateNode;
+import cambridge.model.TagNode;
 
 import java.io.File;
 import java.io.InputStream;
@@ -19,9 +20,7 @@ public class DynamicTagCreator {
       loader = new FileTemplateLoader();
    }
 
-
-
-   public <T extends DynamicTag> T createTag(InputStream in, Class<T> cl) throws TemplateLoadingException {
+   public <T extends TagNode> T createTag(InputStream in, Class<T> cl) throws TemplateLoadingException {
       TemplateDocument doc = loader.parseTemplate(in);
       ArrayList<TemplateNode> nodes = doc.getChildren();
 
@@ -38,7 +37,7 @@ public class DynamicTagCreator {
       return null;
    }
 
-   public <T extends DynamicTag> T createTag(File tagTemplate, Class<T> cl) throws TemplateLoadingException {
+   public <T extends TagNode> T createTag(File tagTemplate, Class<T> cl) throws TemplateLoadingException {
       TemplateDocument doc = loader.parseTemplate(tagTemplate);
       ArrayList<TemplateNode> nodes = doc.getChildren();
 

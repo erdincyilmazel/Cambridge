@@ -16,7 +16,7 @@ import java.util.Map;
  * Date: Nov 1, 2009
  * Time: 3:57:11 PM
  */
-public class FromBehavior extends IterativeTagBehavior {
+public class FromBehavior extends ExecutingTagBehavior {
    Expression from;
    Expression to;
 
@@ -26,13 +26,13 @@ public class FromBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void loop(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          Iter iter = new Iter();
          for (int i = from.asInt(properties); i <= to.asInt(properties); i++) {
             properties.put("#this", i);
             properties.put("#iter", iter);
-            tag.executeTag(properties, out);
+            tag.execute(properties, out);
             iter.next();
          }
       } catch (ExpressionEvaluationException e) {

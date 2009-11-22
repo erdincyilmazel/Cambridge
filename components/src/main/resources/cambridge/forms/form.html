@@ -1,0 +1,5 @@
+<form action="${#this.action}" name="${#this.name}" method="${#this.method}" enctype="${#this.encType}">
+   <div a:foreach="#this.elements">
+      <label for="${#this.id}">${#this.label}</label><input id="${#this.id}" name="${#this.name}" type="${#this.type}"/>
+   </div>
+</form>

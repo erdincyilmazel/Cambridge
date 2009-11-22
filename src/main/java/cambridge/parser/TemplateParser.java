@@ -261,7 +261,7 @@ public class TemplateParser {
                      case ATTRIBUTE_VALUE:
                         textContent.append(currentToken.getActualValue());
 
-                        if(element instanceof DynamicAttribute) {
+                        if (element instanceof DynamicAttribute) {
                            ((DynamicAttribute) element).setValue(currentToken.value);
                            exitLoop = true;
                            break;
@@ -270,7 +270,7 @@ public class TemplateParser {
                         TemplateTokenizer at = new TemplateTokenizer(new StringReader(currentToken.getValue()));
 
                         ArrayList<AttributeFragment> fragments = new ArrayList<AttributeFragment>();
-                        while(at.hasMoreTokens()) {
+                        while (at.hasMoreTokens()) {
                            Token attrToken = at.nextToken();
                            switch (attrToken.getType()) {
                               case EXPRESSION:
@@ -278,7 +278,7 @@ public class TemplateParser {
                                  try {
                                     ExpressionNode expNode = new ExpressionNode(attrToken.value);
 
-                                    if(expTok.getFilters() != null) {
+                                    if (expTok.getFilters() != null) {
                                        expNode.setFilters(expTok.getFilters());
                                     }
                                     fragments.add(expNode);
@@ -295,18 +295,17 @@ public class TemplateParser {
                            }
                         }
 
-                        if(fragments.size() == 0 || fragments.size() == 1 && fragments.get(0) instanceof StaticFragment) {
+                        if (fragments.size() == 0 || fragments.size() == 1 && fragments.get(0) instanceof StaticFragment) {
                            element = new SimpleAttribute();
-                           ((SimpleAttribute)element).setValue(currentToken.value);
+                           ((SimpleAttribute) element).setValue(currentToken.value);
                         } else {
                            element = new ComplexAttribute();
-                           ((ComplexAttribute)element).setFragments(fragments);
+                           ((ComplexAttribute) element).setFragments(fragments);
                            AttributeValueToken aTok = (AttributeValueToken) currentToken;
-                           if(aTok.getQuotes() == -2) {
-                              ((ComplexAttribute)element).setQuote('"');
-                           }
-                           else if(aTok.getQuotes() == -3) {
-                              ((ComplexAttribute)element).setQuote('\'');
+                           if (aTok.getQuotes() == -2) {
+                              ((ComplexAttribute) element).setQuote('"');
+                           } else if (aTok.getQuotes() == -3) {
+                              ((ComplexAttribute) element).setQuote('\'');
                            }
                         }
 
@@ -359,6 +358,10 @@ public class TemplateParser {
             if (currentToken.getValue().equals("/>")) {
                node.setEndLine(peek(1).getLineNo());
                node.setEndColumn(peek(1).getColumn());
+
+               if (dynamicTag) {
+                  ((DynamicTag) node).init();
+               }
                return node;
             } else {
                break;

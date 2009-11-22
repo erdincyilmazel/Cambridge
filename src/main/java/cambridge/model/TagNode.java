@@ -38,7 +38,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
    protected ArrayList<ModifyingTagBehavior> modifyingBehaviors;
    protected ArrayList<ConditionalTagBehavior> conditionalBehaviors;
-   protected IterativeTagBehavior iterative;
+   protected ExecutingTagBehavior executing;
 
    protected boolean dynamic;
    protected boolean hidden;
@@ -513,10 +513,10 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             printFragments(properties, out);
          } else {
             if (conditionsMet(properties)) {
-               if (iterative == null) {
-                  executeTag(properties, out);
+               if (executing == null) {
+                  execute(properties, out);
                } else {
-                  iterative.iterate(properties, this, out);
+                  executing.execute(properties, this, out);
                }
             }
          }
@@ -580,7 +580,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @SuppressWarnings("unchecked")
-   public void executeTag(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
+   public void execute(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
       ModifyableTag tag;
       if (modifyingBehaviors != null) {
          tag = new ModifyableCopy((ArrayList) tagParts.clone(), (FragmentList) fragments.clone());
@@ -716,8 +716,8 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          }
 
          conditionalBehaviors.add((ConditionalTagBehavior) behavior);
-      } else if (behavior instanceof IterativeTagBehavior) {
-         iterative = (IterativeTagBehavior) behavior;
+      } else if (behavior instanceof ExecutingTagBehavior) {
+         executing = (ExecutingTagBehavior) behavior;
       } else if (behavior instanceof ModifyingTagBehavior) {
          if (modifyingBehaviors == null) {
             modifyingBehaviors = new ArrayList<ModifyingTagBehavior>();

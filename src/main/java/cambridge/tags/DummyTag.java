@@ -8,8 +8,7 @@ import cambridge.DynamicTag;
  * Time: 12:07:33 AM
  */
 public class DummyTag extends DynamicTag {
-   @Override
-   public void init() {
+   public DummyTag() {
       setDynamic(true);
       setHidden(true);
    }

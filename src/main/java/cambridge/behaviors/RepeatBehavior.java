@@ -16,7 +16,7 @@ import java.util.Map;
  * Date: Nov 1, 2009
  * Time: 3:57:11 PM
  */
-public class RepeatBehavior extends IterativeTagBehavior {
+public class RepeatBehavior extends ExecutingTagBehavior {
    Expression number;
 
    public RepeatBehavior(Expression number) {
@@ -24,14 +24,14 @@ public class RepeatBehavior extends IterativeTagBehavior {
    }
 
    @Override
-   public void loop(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       try {
          Iter iter = new Iter();
          int n = number.asInt(properties);
          for (int i = 0; i != n; i++) {
             properties.put("#this", i);
             properties.put("#iter", iter);
-            tag.executeTag(properties, out);
+            tag.execute(properties, out);
             iter.next();
          }
       } catch (ExpressionEvaluationException e) {

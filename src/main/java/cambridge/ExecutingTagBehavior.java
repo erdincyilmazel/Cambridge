@@ -12,11 +12,11 @@ import java.io.IOException;
  * Date: Oct 31, 2009
  * Time: 7:16:27 PM
  */
-public abstract class IterativeTagBehavior implements TagBehavior {
-   public IterativeTagBehavior() {
+public abstract class ExecutingTagBehavior implements TagBehavior {
+   public ExecutingTagBehavior() {
    }
 
-   public final void iterate(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public final void execute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
       Object t = properties.get("#this");
       Super ts = (Super) properties.get("#super");
       Iter iter = (Iter) properties.get("#iter");
@@ -28,7 +28,7 @@ public abstract class IterativeTagBehavior implements TagBehavior {
          properties.put("#super", s);
       }
 
-      loop(properties, tag, out);
+      doExecute(properties, tag, out);
 
       if (t != null) {
          properties.put("#this", s.get());
@@ -41,5 +41,5 @@ public abstract class IterativeTagBehavior implements TagBehavior {
       }
    }
 
-   public abstract void loop(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException;
+   public abstract void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException;
 }
