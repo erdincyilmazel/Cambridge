@@ -21,6 +21,7 @@ public class Cambridge {
       try {
 
          final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
+                
          final TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
             @Override
             public void modifyTemplate(TemplateDocument doc) {
@@ -37,7 +38,6 @@ public class Cambridge {
                } catch (BehaviorInstantiationException e) {
                   e.printStackTrace();
                }
-
 
                doc.getElementById("email").addChild(new TextNode("cambridge rocks"));
                try {
