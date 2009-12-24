@@ -713,6 +713,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    public Tag addBehavior(TagBehavior behavior) {
+      dynamic = true;
       if (behavior instanceof ConditionalTagBehavior) {
          if (conditionalBehaviors == null) {
             conditionalBehaviors = new ArrayList<ConditionalTagBehavior>();
