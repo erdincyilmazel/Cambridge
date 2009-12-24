@@ -116,8 +116,10 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    @Override
    public ArrayList<Tag> getElementsByTagName(String tagName) {
       ArrayList<Tag> list = new ArrayList<Tag>();
-      for (TemplateNode t : children) {
-         t.addElementsbyTagName(tagName, list);
+      if (children != null) {
+         for (TemplateNode t : children) {
+            t.addElementsbyTagName(tagName, list);
+         }
       }
 
       return list;
@@ -675,9 +677,10 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       if (tagName.equals(this.tagName)) {
          tags.add(this);
       }
-
-      for (TemplateNode t : children) {
-         t.addElementsbyTagName(tagName, tags);
+      if (children != null) {
+         for (TemplateNode t : children) {
+            t.addElementsbyTagName(tagName, tags);
+         }
       }
    }
 

@@ -54,4 +54,6 @@ public interface Tag extends ParentNode {
    public Tag getFirst(String tagName);
 
    public Tag getLast(String tagName);
+
+   public boolean hasAttribute(String attribute);
 }
