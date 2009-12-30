@@ -42,6 +42,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
    protected boolean dynamic;
    protected boolean hidden;
+   protected boolean indented = true;
 
    public TagNode() {
    }
@@ -555,6 +556,14 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       this.hidden = hidden;
    }
 
+   public boolean isIndented() {
+      return indented;
+   }
+
+   public void setIndented(boolean indented) {
+      this.indented = indented;
+   }
+
    class ModifyableCopy implements ModifyableTag {
       ArrayList<TagPart> tagParts;
       FragmentList fragments;
@@ -598,7 +607,9 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          tag = this;
       }
 
-      out.append(indent);
+      if(indented) {
+         out.append(indent);
+      }
 
       if (!hidden) {
          out.append("<");

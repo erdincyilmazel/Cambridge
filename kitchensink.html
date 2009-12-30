@@ -43,5 +43,6 @@ Hello ${user.userName}
 ${date}(dateFormat:  yyyy)
 
 <div a:foreach="users"  id="${'sortable' + #iter.row}">test</div>
+<a:dummy from="10" to="15"><a:dummy if="!#iter.first">,</a:dummy>${#this}</a:dummy>
 </body>
 </html>
