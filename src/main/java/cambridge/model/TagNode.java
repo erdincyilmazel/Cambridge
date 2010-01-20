@@ -594,7 +594,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    public void execute(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
       ModifyableTag tag;
       if (modifyingBehaviors != null) {
-         tag = new ModifyableCopy((ArrayList) tagParts.clone(), (FragmentList) fragments.clone());
+         tag = new ModifyableCopy(tagParts == null ? null : (ArrayList) tagParts.clone(), fragments == null ? null : (FragmentList) fragments.clone());
 
          for (ModifyingTagBehavior b : modifyingBehaviors) {
             try {
