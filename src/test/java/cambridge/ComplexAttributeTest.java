@@ -61,7 +61,7 @@ public class ComplexAttributeTest {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }
@@ -124,7 +124,7 @@ public class ComplexAttributeTest {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }
@@ -174,7 +174,7 @@ public class ComplexAttributeTest {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }

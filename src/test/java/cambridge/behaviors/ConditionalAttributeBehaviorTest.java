@@ -5,10 +5,9 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertEquals;
 import cambridge.parser.TemplateTokenizer;
 import cambridge.parser.TemplateParser;
-import cambridge.TokenizerTest;
 import cambridge.TemplateParsingException;
 import cambridge.BehaviorInstantiationException;
-import cambridge.TemplateRuntimeException;
+import cambridge.TemplateEvaluationException;
 import cambridge.runtime.TemplateProperties;
 import cambridge.model.TemplateDocument;
 import cambridge.model.FragmentList;
@@ -50,7 +49,7 @@ public class ConditionalAttributeBehaviorTest {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }

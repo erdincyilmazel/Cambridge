@@ -5,7 +5,7 @@ package cambridge;
  * Date: Oct 31, 2009
  * Time: 2:40:57 AM
  */
-public class TemplateParsingException extends Exception {
+public class TemplateParsingException extends RuntimeException {
    int line;
    int col;
 

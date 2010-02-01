@@ -10,7 +10,7 @@ import java.io.IOException;
 public interface Template {
    public void setProperty(String name, Object property);
 
-   public void printTo(Appendable out) throws IOException, TemplateRuntimeException;
+   public void printTo(Appendable out) throws IOException, TemplateEvaluationException;
 
-   public String asString() throws TemplateRuntimeException;
+   public String asString() throws TemplateEvaluationException;
 }

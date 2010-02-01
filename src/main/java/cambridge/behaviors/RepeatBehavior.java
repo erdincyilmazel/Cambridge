@@ -24,7 +24,7 @@ public class RepeatBehavior extends ExecutingTagBehavior {
    }
 
    @Override
-   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
       try {
          Iter iter = new Iter();
          int n = number.asInt(properties);
@@ -35,7 +35,7 @@ public class RepeatBehavior extends ExecutingTagBehavior {
             iter.next();
          }
       } catch (ExpressionEvaluationException e) {
-         throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
+         throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
       }
    }
 

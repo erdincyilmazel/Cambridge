@@ -16,7 +16,7 @@ public abstract class ExecutingTagBehavior implements TagBehavior {
    public ExecutingTagBehavior() {
    }
 
-   public final void execute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public final void execute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
       Object t = properties.get("#this");
       Super ts = (Super) properties.get("#super");
       Iter iter = (Iter) properties.get("#iter");
@@ -41,5 +41,5 @@ public abstract class ExecutingTagBehavior implements TagBehavior {
       }
    }
 
-   public abstract void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException;
+   public abstract void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException;
 }

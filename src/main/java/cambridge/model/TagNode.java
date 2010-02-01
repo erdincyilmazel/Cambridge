@@ -510,7 +510,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
    @Override
    @SuppressWarnings("unchecked")
-   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
+   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
       try {
          if (!isDynamic()) {
             printFragments(properties, out);
@@ -524,7 +524,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             }
          }
       } catch (ExpressionEvaluationException e) {
-         throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), getTagName());
+         throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), getTagName());
       }
    }
 
@@ -591,7 +591,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @SuppressWarnings("unchecked")
-   public void execute(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
+   public void execute(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
       ModifyableTag tag;
       if (modifyingBehaviors != null) {
          tag = new ModifyableCopy(tagParts == null ? null : (ArrayList) tagParts.clone(), fragments == null ? null : (FragmentList) fragments.clone());
@@ -600,7 +600,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             try {
                b.modify(properties, tag);
             } catch (ExpressionEvaluationException e) {
-               throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), getTagName());
+               throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), getTagName());
             }
          }
       } else {
@@ -791,7 +791,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return get(tagName, -1);
    }
 
-   private void printFragments(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
+   private void printFragments(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
       if (fragments != null) {
          for (Fragment f : fragments) {
             f.eval(properties, out);

@@ -34,7 +34,7 @@ public class DynamicTemplate implements Template {
    }
 
    @Override
-   public void printTo(Appendable out) throws IOException, TemplateRuntimeException {
+   public void printTo(Appendable out) throws IOException, TemplateEvaluationException {
       properties.put("this", null);
       properties.put("super", null);
       for (Fragment f : fragments) {
@@ -43,7 +43,7 @@ public class DynamicTemplate implements Template {
    }
 
    @Override
-   public String asString() throws TemplateRuntimeException {
+   public String asString() throws TemplateEvaluationException {
       StringBuilder builder = new StringBuilder();
       try {
          printTo(builder);

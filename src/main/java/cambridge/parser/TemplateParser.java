@@ -316,6 +316,10 @@ public class TemplateParser {
                   if (exitLoop) break;
                }
 
+               if(element == null) {
+                  throw new TemplateParsingException("Error parsing template file. Unterminated tag?", currentToken.getLineNo(), currentToken.getColumn());
+               }
+
                element.setAttributeName(tok.getAttributeName());
                element.setAttributeNameSpace(tok.getNameSpace());
                element.setTextContent(textContent.toString());

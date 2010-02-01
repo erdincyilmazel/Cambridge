@@ -44,7 +44,7 @@ public class DirectoryTemplateLoaderTest {
          e.printStackTrace();
       } catch (IOException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }

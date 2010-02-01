@@ -2,7 +2,7 @@ package cambridge.model;
 
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
-import cambridge.TemplateRuntimeException;
+import cambridge.TemplateEvaluationException;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.ExpressionLexer;
 import cambridge.parser.expressions.ExpressionParser;
@@ -114,14 +114,14 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
    }
 
    @Override
-   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
+   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
       try {
          Object value = expression.eval(properties);
          if (value != null) {
             out.append(applyFilters(value, properties.getLocale()));
          }
       } catch (ExpressionEvaluationException e) {
-         throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), value);
+         throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), value);
       }
    }
 

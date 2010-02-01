@@ -5,7 +5,7 @@ package cambridge;
  * Date: Nov 3, 2009
  * Time: 3:26:54 PM
  */
-public class TemplateLoadingException extends Exception {
+public class TemplateLoadingException extends RuntimeException {
    public TemplateLoadingException() {
    }
 

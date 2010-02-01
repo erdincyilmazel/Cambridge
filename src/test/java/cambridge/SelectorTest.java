@@ -42,7 +42,7 @@ public class SelectorTest {
          e.printStackTrace();
       } catch (IOException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }

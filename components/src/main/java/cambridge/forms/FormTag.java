@@ -40,7 +40,7 @@ public class FormTag extends DynamicTag {
    }
 
    @Override
-   public void execute(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException {
+   public void execute(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
       try {
          Object f = formExpression.eval(properties);
          if (f instanceof Form) {
@@ -73,7 +73,7 @@ public class FormTag extends DynamicTag {
          }
 
       } catch (ExpressionEvaluationException e) {
-         throw new TemplateRuntimeException("Error evaluating expression", getBeginLine(), getBeginColumn());
+         throw new TemplateEvaluationException("Error evaluating expression", getBeginLine(), getBeginColumn());
       }
    }
 

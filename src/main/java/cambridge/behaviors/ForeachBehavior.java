@@ -24,12 +24,12 @@ public class ForeachBehavior extends ExecutingTagBehavior {
    }
 
    @Override
-   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateRuntimeException, IOException {
+   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
       try {
          Object o = iterable.eval(properties);
          if (o == null) {
             return;
-            //throw new TemplateRuntimeException("The provided expression value for foreach attribute is null", tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
+            //throw new TemplateEvaluationException("The provided expression value for foreach attribute is null", tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
          }
 
          if (o instanceof Object[]) {
@@ -49,15 +49,15 @@ public class ForeachBehavior extends ExecutingTagBehavior {
          } else if (o instanceof boolean[]) {
             iterateBoolean(properties, tag, out, (boolean[]) o);
          } else {
-            throw new TemplateRuntimeException("The provided expression value of class " + o.getClass().getName() + " for foreach attribute is not iterable", tag.getBeginLine(), tag.getBeginColumn());
+            throw new TemplateEvaluationException("The provided expression value of class " + o.getClass().getName() + " for foreach attribute is not iterable", tag.getBeginLine(), tag.getBeginColumn());
          }
 
       } catch (ExpressionEvaluationException e) {
-         throw new TemplateRuntimeException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
+         throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
       }
    }
 
-   private void iterateIterable(TemplateProperties properties, TagNode tag, Appendable out, Iterable o) throws IOException, TemplateRuntimeException {
+   private void iterateIterable(TemplateProperties properties, TagNode tag, Appendable out, Iterable o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (Object o1 : o) {
          properties.put("#this", o1);
@@ -67,7 +67,7 @@ public class ForeachBehavior extends ExecutingTagBehavior {
       }
    }
 
-   private void iterateArray(TemplateProperties properties, TagNode tag, Appendable out, Object[] o) throws IOException, TemplateRuntimeException {
+   private void iterateArray(TemplateProperties properties, TagNode tag, Appendable out, Object[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (Object o1 : o) {
          properties.put("#this", o1);
@@ -77,7 +77,7 @@ public class ForeachBehavior extends ExecutingTagBehavior {
       }
    }
 
-   private void iterateInt(TemplateProperties properties, TagNode tag, Appendable out, int[] o) throws IOException, TemplateRuntimeException {
+   private void iterateInt(TemplateProperties properties, TagNode tag, Appendable out, int[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (int o1 : o) {
          properties.put("#this", o1);
@@ -87,7 +87,7 @@ public class ForeachBehavior extends ExecutingTagBehavior {
       }
    }
 
-   private void iterateFloat(TemplateProperties properties, TagNode tag, Appendable out, float[] o) throws IOException, TemplateRuntimeException {
+   private void iterateFloat(TemplateProperties properties, TagNode tag, Appendable out, float[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (float o1 : o) {
          properties.put("#this", o1);
@@ -97,7 +97,7 @@ public class ForeachBehavior extends ExecutingTagBehavior {
       }
    }
 
-   private void iterateDouble(TemplateProperties properties, TagNode tag, Appendable out, double[] o) throws IOException, TemplateRuntimeException {
+   private void iterateDouble(TemplateProperties properties, TagNode tag, Appendable out, double[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (double o1 : o) {
          properties.put("#this", o1);
@@ -107,7 +107,7 @@ public class ForeachBehavior extends ExecutingTagBehavior {
       }
    }
 
-   private void iterateByte(TemplateProperties properties, TagNode tag, Appendable out, byte[] o) throws IOException, TemplateRuntimeException {
+   private void iterateByte(TemplateProperties properties, TagNode tag, Appendable out, byte[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (byte o1 : o) {
          properties.put("#this", o1);
@@ -117,7 +117,7 @@ public class ForeachBehavior extends ExecutingTagBehavior {
       }
    }
 
-   private void iterateChar(TemplateProperties properties, TagNode tag, Appendable out, char[] o) throws IOException, TemplateRuntimeException {
+   private void iterateChar(TemplateProperties properties, TagNode tag, Appendable out, char[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (char o1 : o) {
          properties.put("#this", o1);
@@ -127,7 +127,7 @@ public class ForeachBehavior extends ExecutingTagBehavior {
       }
    }
 
-   private void iterateBoolean(TemplateProperties properties, TagNode tag, Appendable out, boolean[] o) throws IOException, TemplateRuntimeException {
+   private void iterateBoolean(TemplateProperties properties, TagNode tag, Appendable out, boolean[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (boolean o1 : o) {
          properties.put("#this", o1);

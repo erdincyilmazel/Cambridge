@@ -1,6 +1,6 @@
 package cambridge.model;
 
-import cambridge.TemplateRuntimeException;
+import cambridge.TemplateEvaluationException;
 import cambridge.runtime.TemplateProperties;
 
 import java.io.IOException;
@@ -11,5 +11,5 @@ import java.io.IOException;
  * Time: 1:02:03 PM
  */
 public interface Fragment {
-   public abstract void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateRuntimeException;
+   public abstract void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException;
 }

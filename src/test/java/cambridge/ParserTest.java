@@ -138,7 +138,7 @@ public class ParserTest {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }
@@ -165,7 +165,7 @@ public class ParserTest {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }
@@ -192,7 +192,7 @@ public class ParserTest {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }
@@ -219,7 +219,7 @@ public class ParserTest {
          e.printStackTrace();
       } catch (BehaviorInstantiationException e) {
          e.printStackTrace();
-      } catch (TemplateRuntimeException e) {
+      } catch (TemplateEvaluationException e) {
          e.printStackTrace();
       }
    }

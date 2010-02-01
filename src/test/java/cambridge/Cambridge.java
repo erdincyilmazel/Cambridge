@@ -73,7 +73,7 @@ public class Cambridge {
                      t.printTo(System.out);
                   } catch (IOException e) {
                      e.printStackTrace();
-                  } catch (TemplateRuntimeException e) {
+                  } catch (TemplateEvaluationException e) {
                      e.printStackTrace();
                   }
 
