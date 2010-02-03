@@ -39,7 +39,7 @@ public interface Tag extends ParentNode {
 
    public Tag addCondition(String expression) throws ExpressionParsingException;
 
-   public Tag setExpression(String expression) throws ExpressionParsingException;
+   public Tag addExpression(String expression) throws ExpressionParsingException;
 
    public Tag iterateOver(String expression) throws ExpressionParsingException;
 

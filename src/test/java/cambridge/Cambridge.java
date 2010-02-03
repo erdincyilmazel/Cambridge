@@ -23,7 +23,6 @@ public class Cambridge {
          final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
                 
          final TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
-            @Override
             public void modifyTemplate(TemplateDocument doc) {
 
                TagNode node = doc.locateTag("/html/head");
@@ -40,8 +39,10 @@ public class Cambridge {
                }
 
                doc.getElementById("email").addChild(new TextNode("cambridge rocks"));
+
                try {
-                  doc.getElementById("email").addChild(new ExpressionNode("user.email"));
+                  doc.getElementById("email").addExpression("user.email");
+                  //doc.getElementById("email").addChild(new ExpressionNode("user.email"));
                } catch (ExpressionParsingException e) {
                   e.printStackTrace();
                }
@@ -49,7 +50,6 @@ public class Cambridge {
          });
 
          Thread thread = new Thread(new Runnable() {
-            @Override
             public void run() {
                while (true) {
 

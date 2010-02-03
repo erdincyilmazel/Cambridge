@@ -493,7 +493,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @Override
-   public Tag setExpression(String expression) throws ExpressionParsingException {
+   public Tag addExpression(String expression) throws ExpressionParsingException {
       addChild(new ExpressionNode(expression));
       return this;
    }

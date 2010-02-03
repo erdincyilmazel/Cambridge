@@ -97,32 +97,26 @@ public class FileTemplateLoader implements TemplateLoader {
       }
    }
 
-   @Override
    public TemplateFactory newTemplateFactory(String template) throws TemplateLoadingException {
       return newTemplateFactory(new File(template));
    }
 
-   @Override
    public TemplateFactory newTemplateFactory(String template, String encoding) throws TemplateLoadingException {
       return newTemplateFactory(new File(template), encoding);
    }
 
-   @Override
    public TemplateFactory newTemplateFactory(String template, TemplateModifier modifier) throws TemplateLoadingException {
       return newTemplateFactory(new File(template), modifier);
    }
 
-   @Override
    public TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier) throws TemplateLoadingException {
       return newTemplateFactory(new File(template), encoding, modifier);
    }
 
-   @Override
    public TemplateDocument parseTemplate(String template) throws TemplateLoadingException {
       return parseTemplate(new File(template));
    }
 
-   @Override
    public TemplateDocument parseTemplate(String template, String encoding) throws TemplateLoadingException {
       return parseTemplate(new File(template), encoding);
    }

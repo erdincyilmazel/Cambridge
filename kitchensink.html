@@ -16,6 +16,13 @@ Hello ${user.userName}
 
 <div id="email"></div>
 
+<table>
+   <tr><td>User Name</td><td>Email</td></tr>
+   <tr a:foreach="users">
+      <td>${#this.userName}</td><td>${#this.email}</td>
+   </tr>
+</table>
+
 <div a:if="value">Value is true</div>
       <div a:foreach="users">${#iter.row} ${#this.email} has friends:
          <ul>
