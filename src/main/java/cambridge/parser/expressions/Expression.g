@@ -41,7 +41,15 @@ package cambridge.parser.expressions;
 *********************************************************************************************/
 compilationUnit returns [Expression value]
     :   e=expression {$value = e;}
-    ;	
+    ;
+    
+mapExpression returns [MapExpression value]
+	 :	  '{' i=IDENTIFIER ':' e=expression {$value = new MapExpression(); $value.put(i.getText(), e);} (',' id=IDENTIFIER ':' x=expression  {$value.put(id.getText(), x);})* '}'
+	 ;
+
+listExpression returns [ListExpression value]
+    :	  '[' e=expression {$value = new ListExpression(); $value.add(e); } (',' x=expression {$value.add(x);})* ']'
+    ;
 
 parExpression returns [Expression value]
     :   '(' e=expression ')' {$value = e;}
@@ -152,6 +160,8 @@ unaryExpressionNotPlusMinus returns [Expression value]
 
 primary returns [Expression value]
     :   e=parExpression {$value = e;}
+    |   e=listExpression {$value = e;}
+    |	  e=mapExpression {$value = e;}
     |   e=function {$value = e;}
     |   '#super' {$value = new VarExpression("#super");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
     |   '#this' {$value = new VarExpression("#this");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
@@ -185,6 +195,7 @@ literal returns [Expression value]
     |   TRUE {$value = new BooleanLiteral(true);}
     |   FALSE {$value = new BooleanLiteral(false);}
     |   NULL {$value = NullLiteral.instance;}
+    |   RANGELITERAL {$value = Range.fromString($RANGELITERAL.text);}
     ; 
  
  
@@ -193,7 +204,11 @@ literal returns [Expression value]
 *********************************************************************************************/ 
 LONGLITERAL
     :   IntegerNumber LongSuffix
-    ; 
+    ;
+
+RANGELITERAL
+	 :   IntegerNumber '..' IntegerNumber
+	 ; 
    
 INTLITERAL
     :   IntegerNumber

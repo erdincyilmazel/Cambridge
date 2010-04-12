@@ -21,22 +21,18 @@ public class StringLiteral implements Expression {
       }
    }
 
-   @Override
    public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       return Type.String;
    }
 
-   @Override
    public String eval(TemplateProperties properties) {
       return value;
    }
 
-   @Override
    public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       return !value.equals("");
    }
 
-   @Override
    public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       try {
          return Integer.parseInt(value);
@@ -45,7 +41,6 @@ public class StringLiteral implements Expression {
       }
    }
 
-   @Override
    public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       try {
          return Float.parseFloat(value);
@@ -54,7 +49,6 @@ public class StringLiteral implements Expression {
       }
    }
 
-   @Override
    public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       try {
          return Double.parseDouble(value);
@@ -63,7 +57,6 @@ public class StringLiteral implements Expression {
       }
    }
 
-   @Override
    public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       try {
          return Long.parseLong(value);
@@ -72,8 +65,11 @@ public class StringLiteral implements Expression {
       }
    }
 
-   @Override
    public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
+      return value;
+   }
+
+   public String toString() {
       return value;
    }
 }
