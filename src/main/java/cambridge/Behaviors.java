@@ -10,9 +10,7 @@ import java.util.HashSet;
 import java.util.Map;
 
 /**
- * User: erdinc
- * Date: Oct 31, 2009
- * Time: 7:24:15 PM
+ * This is the mail 
  */
 @SuppressWarnings("unchecked")
 public class Behaviors {
@@ -171,7 +169,7 @@ public class Behaviors {
       instance = b;
    }
 
-   private Behaviors() {
+   public Behaviors() {
       namespaces = new HashSet<String>();
       providers = new HashMap<AttributeKey, BehaviorProvider>();
       staticBehaviorClasses = new HashMap<AttributeKey, Class<? extends StaticBehavior>>();

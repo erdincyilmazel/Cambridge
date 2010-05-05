@@ -3,12 +3,9 @@ package cambridge.parser.expressions;
 import cambridge.ExpressionEvaluationException;
 import cambridge.runtime.TemplateProperties;
 
-import java.util.Map;
 
 /**
- * User: erdinc
- * Date: Oct 31, 2009
- * Time: 12:34:49 AM
+ * An Expression with two operands
  */
 public class BinaryExpression implements Expression {
    Operator operator;
@@ -21,7 +18,6 @@ public class BinaryExpression implements Expression {
       this.right = right;
    }
 
-   @Override
    public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
@@ -89,7 +85,6 @@ public class BinaryExpression implements Expression {
       return Type.Null;
    }
 
-   @Override
    public Object eval(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
@@ -166,7 +161,6 @@ public class BinaryExpression implements Expression {
       return null;
    }
 
-   @Override
    public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
@@ -251,7 +245,6 @@ public class BinaryExpression implements Expression {
       return l == null && r == null || !(l == null || r == null) && l.equals(r);
    }
 
-   @Override
    public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
@@ -328,7 +321,6 @@ public class BinaryExpression implements Expression {
       return 0;
    }
 
-   @Override
    public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
@@ -405,7 +397,6 @@ public class BinaryExpression implements Expression {
       return 0;
    }
 
-   @Override
    public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
@@ -482,7 +473,6 @@ public class BinaryExpression implements Expression {
       return 0;
    }
 
-   @Override
    public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
@@ -558,7 +548,6 @@ public class BinaryExpression implements Expression {
       return 0;
    }
 
-   @Override
    public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       switch (operator) {
          case And:

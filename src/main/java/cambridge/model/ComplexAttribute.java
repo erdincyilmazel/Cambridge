@@ -33,7 +33,6 @@ public class ComplexAttribute implements Attribute {
       this.attributeNameSpace = attributeNameSpace;
    }
 
-   @Override
    public String getValue() {
       return "";
    }
@@ -60,17 +59,14 @@ public class ComplexAttribute implements Attribute {
       this.quote = quote;
    }
 
-   @Override
    public boolean isDynamic() {
       return false;
    }
 
-   @Override
    public void setTextContent(String textContent) {
       this.textContent = textContent;
    }
 
-   @Override
    public String getTextContent() {
       if (textContent != null) {
          return textContent;
@@ -79,7 +75,6 @@ public class ComplexAttribute implements Attribute {
       return "";
    }
 
-   @Override
    public boolean isWhiteSpace() {
       return false;
    }

@@ -24,7 +24,6 @@ public class ConditionalAttributeBehavior implements ModifyingTagBehavior {
       this.attribute = attribute;
    }
 
-   @Override
    public void modify(TemplateProperties properties, ModifyableTag tag) throws ExpressionEvaluationException {
       if(!expression.asBoolean(properties)) {
          int remove = -1;
@@ -53,7 +52,6 @@ public class ConditionalAttributeBehavior implements ModifyingTagBehavior {
 
    public static BehaviorProvider<ConditionalAttributeBehavior> getProvider() {
       return new BehaviorProvider<ConditionalAttributeBehavior>() {
-         @Override
          public ConditionalAttributeBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
             return new ConditionalAttributeBehavior(keyAttribute.getExpression(), keyAttribute);
          }

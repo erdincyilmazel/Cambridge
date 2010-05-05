@@ -22,7 +22,6 @@ public class SelectedBehavior implements ModifyingTagBehavior {
       this.expression = expression;
    }
 
-   @Override
    public void modify(TemplateProperties properties, ModifyableTag tag) throws ExpressionEvaluationException {
       if(expression.asBoolean(properties)) {
          tag.getTagParts().add(new SimpleAttribute("selected", "selected"));
@@ -31,7 +30,6 @@ public class SelectedBehavior implements ModifyingTagBehavior {
 
    public static BehaviorProvider<SelectedBehavior> getProvider() {
       return new BehaviorProvider<SelectedBehavior>() {
-         @Override
          public SelectedBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
             return new SelectedBehavior(keyAttribute.getExpression());
          }

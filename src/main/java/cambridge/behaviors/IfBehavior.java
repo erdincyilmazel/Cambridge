@@ -27,7 +27,6 @@ public class IfBehavior extends ConditionalTagBehavior {
 
    public static BehaviorProvider<IfBehavior> getProvider() {
       return new BehaviorProvider<IfBehavior>() {
-         @Override
          public IfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException {
             return new IfBehavior(keyAttribute.getExpression());
          }

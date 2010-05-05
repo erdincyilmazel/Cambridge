@@ -41,7 +41,6 @@ public class RepeatBehavior extends ExecutingTagBehavior {
 
    public static BehaviorProvider<RepeatBehavior> getProvider() {
       return new BehaviorProvider<RepeatBehavior>() {
-         @Override
          public RepeatBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
             Expression number = keyAttribute.getExpression();
             return new RepeatBehavior(number);

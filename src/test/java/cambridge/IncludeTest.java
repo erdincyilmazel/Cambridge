@@ -23,7 +23,6 @@ public class IncludeTest {
 
       try {
          TemplateFactory f = loader.newTemplateFactory("a.html", new TemplateModifier() {
-            @Override
             public void modifyTemplate(TemplateDocument doc) {
                try {
                   TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream("b.html"), "UTF-8"));

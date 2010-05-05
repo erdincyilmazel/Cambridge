@@ -15,43 +15,50 @@ public class LongLiteral implements Expression {
       this.value = value;
    }
 
-   @Override
    public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       return Type.Long;
    }
 
-   @Override
    public Long eval(TemplateProperties properties) {
       return value;
    }
 
-   @Override
    public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       return value != 0;
    }
 
-   @Override
    public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       return (int) value;
    }
 
-   @Override
    public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       return (float) value;
    }
 
-   @Override
    public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       return (double) value;
    }
 
-   @Override
    public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       return value;
    }
 
-   @Override
    public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return "" + value;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      LongLiteral that = (LongLiteral) o;
+
+      return value == that.value;
+   }
+
+   @Override
+   public int hashCode() {
+      return (int) (value ^ (value >>> 32));
    }
 }

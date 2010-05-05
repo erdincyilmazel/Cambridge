@@ -46,4 +46,19 @@ public class IntLiteral implements Expression {
    public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return "" + value;
    }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      IntLiteral that = (IntLiteral) o;
+
+      return value == that.value;
+   }
+
+   @Override
+   public int hashCode() {
+      return value;
+   }
 }

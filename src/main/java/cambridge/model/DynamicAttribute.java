@@ -43,17 +43,14 @@ public class DynamicAttribute implements Attribute {
       this.value = value;
    }
 
-   @Override
    public boolean isDynamic() {
       return true;
    }
 
-   @Override
    public String getTextContent() {
       return value;
    }
 
-   @Override
    public void setTextContent(String textContent) {
    }
 
@@ -78,7 +75,6 @@ public class DynamicAttribute implements Attribute {
       return expression;
    }
 
-   @Override
    public boolean isWhiteSpace() {
       return false;
    }

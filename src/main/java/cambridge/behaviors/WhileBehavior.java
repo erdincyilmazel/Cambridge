@@ -40,7 +40,6 @@ public class WhileBehavior extends ExecutingTagBehavior {
 
    public static BehaviorProvider<WhileBehavior> getProvider() {
       return new BehaviorProvider<WhileBehavior>() {
-         @Override
          public WhileBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
             return new WhileBehavior(keyAttribute.getExpression());
          }

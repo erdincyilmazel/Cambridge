@@ -13,7 +13,6 @@ import java.util.ArrayList;
  * Time: 3:59:27 PM
  */
 public class AltAdderStaticBehavior implements StaticBehavior {
-   @Override
    public void modify(TagNode t) {
       ArrayList<Tag> tags = t.getElementsByTagName("img");
       for(Tag tag: tags) {

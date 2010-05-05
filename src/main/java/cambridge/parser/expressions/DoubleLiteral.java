@@ -15,43 +15,51 @@ public class DoubleLiteral implements Expression {
       this.value = value;
    }
 
-   @Override
    public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       return Type.Double;
    }
 
-   @Override
    public Object eval(TemplateProperties properties) {
       return value;
    }
 
-   @Override
    public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       return value != 0;
    }
 
-   @Override
    public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       return (int) value;
    }
 
-   @Override
    public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       return (float) value;
    }
 
-   @Override
    public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       return value;
    }
 
-   @Override
    public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       return (long) value;
    }
 
-   @Override
    public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return "" + value;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      DoubleLiteral that = (DoubleLiteral) o;
+
+      return Double.compare(that.value, value) == 0;
+   }
+
+   @Override
+   public int hashCode() {
+      long temp = value != +0.0d ? Double.doubleToLongBits(value) : 0L;
+      return (int) (temp ^ (temp >>> 32));
    }
 }

@@ -15,43 +15,50 @@ public class FloatLiteral implements Expression {
       this.value = value;
    }
 
-   @Override
    public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       return Type.Float;
    }
 
-   @Override
    public Float eval(TemplateProperties properties) {
       return value;
    }
 
-   @Override
    public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       return 0 != value;
    }
 
-   @Override
    public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       return (int) value;
    }
 
-   @Override
    public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       return value;
    }
 
-   @Override
    public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       return value;
    }
 
-   @Override
    public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       return (long) value;
    }
 
-   @Override
    public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return "" + value;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      FloatLiteral that = (FloatLiteral) o;
+
+      return Float.compare(that.value, value) == 0;
+   }
+
+   @Override
+   public int hashCode() {
+      return (value != +0.0f ? Float.floatToIntBits(value) : 0);
    }
 }

@@ -42,7 +42,6 @@ public class FromBehavior extends ExecutingTagBehavior {
 
    public static BehaviorProvider<FromBehavior> getProvider() {
       return new BehaviorProvider<FromBehavior>() {
-         @Override
          public FromBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
             Expression from = keyAttribute.getExpression();
             AttributeKey toKey = new AttributeKey(keyAttribute.getAttributeNameSpace(), "to");

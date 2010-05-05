@@ -1910,7 +1910,7 @@ public class ExpressionParser extends Parser {
                     // C:\\Users\\Erdinc\\Projects\\cambridge\\src\\main\\java\\cambridge\\parser\\expressions\\Expression.g:193:9: STRINGLITERAL
                     {
                     STRINGLITERAL8=(Token)match(input,STRINGLITERAL,FOLLOW_STRINGLITERAL_in_literal1606); 
-                    value = new StringLiteral((STRINGLITERAL8!=null?STRINGLITERAL8.getText():null));
+                    value = StringLiteral.fromText((STRINGLITERAL8!=null?STRINGLITERAL8.getText():null));
 
                     }
                     break;
@@ -1918,7 +1918,7 @@ public class ExpressionParser extends Parser {
                     // C:\\Users\\Erdinc\\Projects\\cambridge\\src\\main\\java\\cambridge\\parser\\expressions\\Expression.g:194:9: CHARLITERAL
                     {
                     CHARLITERAL9=(Token)match(input,CHARLITERAL,FOLLOW_CHARLITERAL_in_literal1618); 
-                    value = new StringLiteral((CHARLITERAL9!=null?CHARLITERAL9.getText():null));
+                    value = StringLiteral.fromText((CHARLITERAL9!=null?CHARLITERAL9.getText():null));
 
                     }
                     break;

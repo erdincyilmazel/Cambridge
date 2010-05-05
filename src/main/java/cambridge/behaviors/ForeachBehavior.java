@@ -139,7 +139,6 @@ public class ForeachBehavior extends ExecutingTagBehavior {
 
    public static BehaviorProvider<ForeachBehavior> getProvider() {
       return new BehaviorProvider<ForeachBehavior>() {
-         @Override
          public ForeachBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
             Expression e = keyAttribute.getExpression();
             return new ForeachBehavior(e);

@@ -12,12 +12,16 @@ public class StringLiteral implements Expression {
    String value;
 
    public StringLiteral(String value) {
+      this.value = value;
+   }
+
+   public static StringLiteral fromText(String value) {
       value = value.replaceAll("\\\\n", "\n").replaceAll("\\\\t", "\t").replaceAll("\\\\r", "\r");
 
       if (value.length() <= 2) {
-         this.value = "";
+         return new StringLiteral("");
       } else {
-         this.value = value.substring(1, value.length() - 1);
+         return new StringLiteral(value.substring(1, value.length() - 1));
       }
    }
 
@@ -71,5 +75,20 @@ public class StringLiteral implements Expression {
 
    public String toString() {
       return value;
+   }
+
+   @Override
+   public boolean equals(Object o) {
+      if (this == o) return true;
+      if (o == null || getClass() != o.getClass()) return false;
+
+      StringLiteral that = (StringLiteral) o;
+
+      return !(value != null ? !value.equals(that.value) : that.value != null);
+   }
+
+   @Override
+   public int hashCode() {
+      return value != null ? value.hashCode() : 0;
    }
 }

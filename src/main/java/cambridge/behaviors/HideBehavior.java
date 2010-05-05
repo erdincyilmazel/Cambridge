@@ -9,7 +9,6 @@ import cambridge.model.TagNode;
  * Time: 5:53:51 PM
  */
 public class HideBehavior implements StaticBehavior {
-   @Override
    public void modify(TagNode t) {
       t.setDynamic(true);
       t.setHidden(true);

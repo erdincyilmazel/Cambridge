@@ -161,7 +161,7 @@ unaryExpressionNotPlusMinus returns [Expression value]
 primary returns [Expression value]
     :   e=parExpression {$value = e;}
     |   e=listExpression {$value = e;}
-    |	  e=mapExpression {$value = e;}
+    |	e=mapExpression {$value = e;}
     |   e=function {$value = e;}
     |   '#super' {$value = new VarExpression("#super");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
     |   '#this' {$value = new VarExpression("#this");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
@@ -190,8 +190,8 @@ literal returns [Expression value]
     |   LONGLITERAL {$value = new LongLiteral(Long.parseLong($LONGLITERAL.text));}
     |   FLOATLITERAL {$value = new FloatLiteral(Float.parseFloat($FLOATLITERAL.text));}
     |   DOUBLELITERAL {$value = new DoubleLiteral(Double.parseDouble($DOUBLELITERAL.text));}
-    |   STRINGLITERAL {$value = new StringLiteral($STRINGLITERAL.text);}
-    |   CHARLITERAL {$value = new StringLiteral($CHARLITERAL.text);}
+    |   STRINGLITERAL {$value = StringLiteral.fromText($STRINGLITERAL.text);}
+    |   CHARLITERAL {$value = StringLiteral.fromText($CHARLITERAL.text);}
     |   TRUE {$value = new BooleanLiteral(true);}
     |   FALSE {$value = new BooleanLiteral(false);}
     |   NULL {$value = NullLiteral.instance;}
