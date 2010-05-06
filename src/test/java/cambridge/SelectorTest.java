@@ -21,7 +21,6 @@ public class SelectorTest {
       final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
       try {
          TemplateFactory f = loader.newTemplateFactory("a.html", new TemplateModifier() {
-            @Override
             public void modifyTemplate(TemplateDocument doc) {
                Tag t = doc.locateTag("/html/body/div/div/span");
 
