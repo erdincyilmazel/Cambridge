@@ -23,7 +23,7 @@ import java.util.Locale;
  * valid cambridge template expressions. Expression nodes
  */
 public class ExpressionNode extends TemplateNode implements AttributeFragment {
-   String value;
+   final String value;
    Expression expression;
 
    ArrayList<F> filters;
@@ -84,7 +84,7 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
       return "${" + value + "}";
    }
 
-   public void print(PrintStream out) throws IOException {
+   public void print(PrintStream out) {
       out.print("${");
       out.print(value);
       out.print("}");
@@ -113,7 +113,6 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   @Override
    public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
       try {
          Object value = expression.eval(properties);

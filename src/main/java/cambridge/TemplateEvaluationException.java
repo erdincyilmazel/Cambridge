@@ -6,9 +6,9 @@ package cambridge;
  * Time: 6:12:17 PM
  */
 public class TemplateEvaluationException extends RuntimeException {
-   int line;
-   int column;
-   String tagName;
+   private int line;
+   private int column;
+   private String tagName;
 
    public TemplateEvaluationException(String message, int line, int column) {
       super(message);

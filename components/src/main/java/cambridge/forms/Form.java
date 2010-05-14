@@ -8,10 +8,10 @@ import java.util.ArrayList;
  * Time: 3:41:19 PM
  */
 public class Form {
-   String id;
-   String name;
-   String action;
-   String encType;
+   private String id;
+   private String name;
+   private String action;
+   private String encType;
 
    enum Method {
       Post,

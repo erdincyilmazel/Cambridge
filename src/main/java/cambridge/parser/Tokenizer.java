@@ -5,17 +5,17 @@ import cambridge.parser.tokens.Token;
 import java.io.*;
 
 public abstract class Tokenizer {
-   public final static char EOL = 65535;
+   final static char EOL = 65535;
 
-   final static int BUFFER_SIZE = 50;
-   final static int maxPeek = 40;
+   private final static int BUFFER_SIZE = 50;
+   private final static int maxPeek = 40;
 
-   protected Reader reader;
-   protected InputStream input;
+   private final Reader reader;
+  // protected InputStream input;
 
    private int lineNo = 1;
 
-   private char[] buf = new char[BUFFER_SIZE];
+   private final char[] buf = new char[BUFFER_SIZE];
 
    private int readIndex = -1; // The last read index
    private int writeIndex = -1; // The last written index
@@ -41,7 +41,7 @@ public abstract class Tokenizer {
       }
    }
 
-   char previousChar;
+   private char previousChar;
 
    char nextChar() throws IOException {
       if (readIndex + (BUFFER_SIZE - maxPeek) == writeIndex && (int) buf[getIndex(writeIndex)] != -1) {
@@ -99,7 +99,6 @@ public abstract class Tokenizer {
 
    public Tokenizer(InputStream in) throws IOException {
       this(new BufferedReader(new InputStreamReader(in)));
-      this.input = in;
    }
 
    public void close() throws IOException {

@@ -14,11 +14,11 @@ public class AttributeValueToken extends Token {
       return TokenType.ATTRIBUTE_VALUE;
    }
 
-   public static int NO_QUOTES = -1;
-   public static int DOUBLE_QUOTES = -2;
-   public static int SINGLE_QUOTES = -3;
+   public static final int NO_QUOTES = -1;
+   public static final int DOUBLE_QUOTES = -2;
+   public static final int SINGLE_QUOTES = -3;
 
-   int quotes = NO_QUOTES;
+   private int quotes = NO_QUOTES;
 
    public int getQuotes() {
       return quotes;

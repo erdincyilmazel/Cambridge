@@ -9,7 +9,7 @@ import cambridge.runtime.TemplateProperties;
  * Time: 1:09:41 AM
  */
 public class BooleanLiteral implements Expression {
-   boolean value;
+   private final boolean value;
 
    public BooleanLiteral(boolean value) {
       this.value = value;

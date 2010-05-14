@@ -20,7 +20,6 @@ public class FragmentSelectorTest {
       final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
       try {
          loader.newTemplateFactory("a.html", new TemplateModifier() {
-            @Override
             public void modifyTemplate(TemplateDocument doc) {
                try {
                   FragmentList fragmentList = doc.select("except #s");

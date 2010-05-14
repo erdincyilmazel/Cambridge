@@ -20,7 +20,7 @@ import java.io.IOException;
  */
 public class IndexServlet extends HttpServlet {
 
-   TemplateFactory tf;
+   private TemplateFactory tf;
 
 
    @Override

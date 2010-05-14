@@ -12,11 +12,11 @@ import java.util.Locale;
  * Time: 4:03:22 PM
  */
 public class FileTemplateFactory extends TemplateFactory {
-   File templateFile;
-   String encoding;
-   TemplateModifier modifier;
-   long lastCheck;
-   HashSet<File> includes;
+   private final File templateFile;
+   private final String encoding;
+   private final TemplateModifier modifier;
+   private long lastCheck;
+   private HashSet<File> includes;
 
    public static long ChangeDetectionInterval = 5000L;
 

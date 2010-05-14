@@ -16,8 +16,8 @@ import java.util.Map;
  * Time: 3:04:10 PM
  */
 public class ConditionalAttributeBehavior implements ModifyingTagBehavior {
-   Expression expression;
-   DynamicAttribute attribute;
+   private final Expression expression;
+   private final DynamicAttribute attribute;
 
    public ConditionalAttributeBehavior(Expression expression, DynamicAttribute attribute) {
       this.expression = expression;

@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Time: 5:11:59 PM
  */
 public abstract class Filter {
-   public static HashMap<String, Filter> filters = new HashMap<String, Filter>();
+   public static final HashMap<String, Filter> filters = new HashMap<String, Filter>();
 
    static {
       filters.put("lower", new LowerCaseFilter());

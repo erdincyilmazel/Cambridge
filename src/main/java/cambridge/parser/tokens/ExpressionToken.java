@@ -15,7 +15,7 @@ public class ExpressionToken extends Token {
       this.filters = filters;
    }
 
-   ArrayList<String> filters;
+   private ArrayList<String> filters;
 
    public ArrayList<String> getFilters() {
       return filters;

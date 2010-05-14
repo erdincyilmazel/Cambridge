@@ -14,7 +14,7 @@ import java.util.ArrayList;
  * Time: 1:43:02 PM
  */
 public class DynamicTagCreator {
-   FileTemplateLoader loader;
+   private final FileTemplateLoader loader;
 
    public DynamicTagCreator() {
       loader = new FileTemplateLoader();

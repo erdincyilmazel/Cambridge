@@ -9,7 +9,7 @@ import cambridge.runtime.TemplateProperties;
  * Time: 1:08:05 AM
  */
 public class IntLiteral implements Expression {
-   int value;
+   private final int value;
 
    public IntLiteral(int value) {
       this.value = value;

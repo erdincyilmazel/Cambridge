@@ -14,7 +14,7 @@ public class CommentNode extends TextNode {
       return contents;
    }
 
-   public void print(PrintStream out) throws IOException {
+   public void print(PrintStream out) {
       out.print(contents);
    }
 

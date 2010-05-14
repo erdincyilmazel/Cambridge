@@ -17,7 +17,7 @@ import java.util.Map;
  * Time: 3:57:11 PM
  */
 public class RepeatBehavior extends ExecutingTagBehavior {
-   Expression number;
+   private final Expression number;
 
    public RepeatBehavior(Expression number) {
       this.number = number;

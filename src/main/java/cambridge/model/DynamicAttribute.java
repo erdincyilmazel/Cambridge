@@ -15,9 +15,9 @@ import org.antlr.runtime.TokenStream;
  */
 public class DynamicAttribute implements Attribute {
 
-   String attributeName;
-   String attributeNameSpace;
-   String value;
+   private String attributeName;
+   private String attributeNameSpace;
+   private String value;
 
    public String getAttributeName() {
       return attributeName;

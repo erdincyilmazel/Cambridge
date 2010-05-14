@@ -8,9 +8,9 @@ import cambridge.runtime.TemplateProperties;
  * An Expression with two operands
  */
 public class BinaryExpression implements Expression {
-   Operator operator;
-   Expression left;
-   Expression right;
+   private final Operator operator;
+   private final Expression left;
+   private final Expression right;
 
    public BinaryExpression(Operator operator, Expression left, Expression right) {
       this.operator = operator;

@@ -19,30 +19,30 @@ import java.util.regex.Pattern;
  * Time: 8:12:49 PM
  */
 public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTag {
-   protected String indent = "";
-   protected String tagName;
+   private String indent = "";
+   private String tagName;
    protected String nameSpace;
 
-   protected String closeText;
-   protected String tagEndText;
+   private String closeText;
+   private String tagEndText;
 
-   protected ArrayList<TemplateNode> children;
-   protected ArrayList<TagPart> tagParts;
-   protected HashMap<AttributeKey, Attribute> attributes;
+   private ArrayList<TemplateNode> children;
+   private ArrayList<TagPart> tagParts;
+   private HashMap<AttributeKey, Attribute> attributes;
 
-   protected String id;
+   private String id;
 
    private FragmentList fragments;
 
-   static final Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
+   private static final Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
 
-   protected ArrayList<ModifyingTagBehavior> modifyingBehaviors;
-   protected ArrayList<ConditionalTagBehavior> conditionalBehaviors;
-   protected ExecutingTagBehavior executing;
+   private ArrayList<ModifyingTagBehavior> modifyingBehaviors;
+   private ArrayList<ConditionalTagBehavior> conditionalBehaviors;
+   private ExecutingTagBehavior executing;
 
-   protected boolean dynamic;
+   private boolean dynamic;
    protected boolean hidden;
-   protected boolean indented = true;
+   private boolean indented = true;
 
    public TagNode() {
    }
@@ -114,7 +114,6 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return null;
    }
 
-   @Override
    public ArrayList<Tag> getElementsByTagName(String tagName) {
       ArrayList<Tag> list = new ArrayList<Tag>();
       if (children != null) {
@@ -238,7 +237,6 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       this.dynamic = dynamic;
    }
 
-   @Override
    public boolean isDynamic() {
       return dynamic;
    }
@@ -486,19 +484,16 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return null;
    }
 
-   @Override
    public Tag addCondition(String expression) throws ExpressionParsingException {
       addBehavior(new IfBehavior(Expressions.parse(expression)));
       return this;
    }
 
-   @Override
    public Tag addExpression(String expression) throws ExpressionParsingException {
       addChild(new ExpressionNode(expression));
       return this;
    }
 
-   @Override
    public Tag iterateOver(String expression) throws ExpressionParsingException {
       addBehavior(new ForeachBehavior(Expressions.parse(expression)));
       return this;
@@ -508,7 +503,6 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn() + " - " + (nameSpace == null ? tagName : nameSpace + ":" + tagName);
    }
 
-   @Override
    @SuppressWarnings("unchecked")
    public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
       try {
@@ -744,7 +738,6 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return this;
    }
 
-   @Override
    public ArrayList<Tag> getChildrenByTagName(String tagName) {
       ArrayList<Tag> tags = new ArrayList<Tag>();
       for (TemplateNode t : children) {
@@ -756,7 +749,6 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return tags;
    }
 
-   @Override
    public Tag get(String tagName, int index) {
       if (children == null) {
          return null;
@@ -781,12 +773,10 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return null;
    }
 
-   @Override
    public Tag getFirst(String tagName) {
       return get(tagName, 0);
    }
 
-   @Override
    public Tag getLast(String tagName) {
       return get(tagName, -1);
    }

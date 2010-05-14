@@ -16,7 +16,7 @@ import java.util.Map;
  * Time: 8:36:59 PM
  */
 public class SelectedBehavior implements ModifyingTagBehavior {
-   Expression expression;
+   private final Expression expression;
 
    public SelectedBehavior(Expression expression) {
       this.expression = expression;

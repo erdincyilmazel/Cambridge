@@ -13,7 +13,7 @@ import java.io.IOException;
  * Time: 7:16:27 PM
  */
 public abstract class ExecutingTagBehavior implements TagBehavior {
-   public ExecutingTagBehavior() {
+   protected ExecutingTagBehavior() {
    }
 
    public final void execute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
@@ -41,5 +41,5 @@ public abstract class ExecutingTagBehavior implements TagBehavior {
       }
    }
 
-   public abstract void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException;
+   protected abstract void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException;
 }

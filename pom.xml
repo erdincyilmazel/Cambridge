@@ -6,7 +6,7 @@
    <artifactId>cambridge</artifactId>
    <packaging>jar</packaging>
    <name>Cambridge Template Engine</name>
-   <version>0.1</version>
+   <version>0.2-SNAPSHOT</version>
    <build>
       <plugins>
          <plugin>

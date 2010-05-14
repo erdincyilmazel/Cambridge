@@ -21,7 +21,7 @@ import cambridge.parser.TemplateTokenizer;
  * Time: 10:51:25 AM
  */
 public class TokenizerTest {
-   Tokenizer tokenizer;
+   private Tokenizer tokenizer;
 
    @Before
    public void setUp() {

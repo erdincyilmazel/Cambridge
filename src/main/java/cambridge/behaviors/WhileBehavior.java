@@ -18,7 +18,7 @@ import java.util.Map;
  * Time: 2:36:22 PM
  */
 public class WhileBehavior extends ExecutingTagBehavior {
-   Expression expression;
+   private final Expression expression;
 
    public WhileBehavior(Expression expression) {
       this.expression = expression;

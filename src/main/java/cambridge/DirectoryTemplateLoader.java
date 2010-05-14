@@ -11,10 +11,10 @@ import java.util.HashSet;
  * Time: 6:15:47 PM
  */
 public class DirectoryTemplateLoader extends FileTemplateLoader {
-   File templateDirectory;
-   String encoding;
+   private final File templateDirectory;
+   private final String encoding;
 
-   static String fileSeperator = System.getProperty("file.separator");
+   private static String fileSeperator = System.getProperty("file.separator");
 
    public DirectoryTemplateLoader(File templateDirectory) {
       this.templateDirectory = templateDirectory;

@@ -23,14 +23,14 @@ import java.io.InputStream;
 /**
  * An InputStream to read from Strings.
  */
-public class StringInputStream extends InputStream {
-   String input;
+class StringInputStream extends InputStream {
+   private final String input;
 
    public StringInputStream(String input) {
       this.input = input;
    }
 
-   int current;
+   private int current;
 
    @Override
    public int read() throws IOException {

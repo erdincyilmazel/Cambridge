@@ -40,7 +40,7 @@ public class PropertyUtils {
       }
    }
 
-   static PropertyUtils instance;
+   private static PropertyUtils instance;
 
    public static PropertyUtils instance() {
       if (instance == null) {

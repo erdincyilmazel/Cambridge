@@ -5,10 +5,10 @@ import cambridge.BehaviorInstantiationException;
 import java.util.ArrayList;
 
 public abstract class TemplateNode {
-   ParentNode parent;
+   private ParentNode parent;
 
-   int beginLine, beginColumn;
-   int endLine, endColumn;
+   private int beginLine, beginColumn;
+   private int endLine, endColumn;
 
    public void setParent(ParentNode parent) {
       this.parent = parent;

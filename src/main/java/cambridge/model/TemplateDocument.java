@@ -22,7 +22,7 @@ import java.util.regex.Pattern;
  * other nodes.
  */
 public class TemplateDocument implements ParentNode {
-   ArrayList<TemplateNode> children;
+   private final ArrayList<TemplateNode> children;
    private HashSet<String> includes;
 
    public void addInclude(String include) {
@@ -164,8 +164,8 @@ public class TemplateDocument implements ParentNode {
       return list;
    }
 
-   public static Pattern selectorPattern = Pattern.compile("(before|after|endof|from|except|inside)?\\s*(((/|#)([^/#\\s]+)(\\[\\d+\\])?)+)$");
-   static Pattern indexPattern = Pattern.compile("([^/#\\s]+)\\[(\\d+)\\]");
+   public static final Pattern selectorPattern = Pattern.compile("(before|after|endof|from|except|inside)?\\s*(((/|#)([^/#\\s]+)(\\[\\d+\\])?)+)$");
+   private static final Pattern indexPattern = Pattern.compile("([^/#\\s]+)\\[(\\d+)\\]");
 
    public TagNode locateTag(String selector) {
       StringTokenizer tokenizer = new StringTokenizer(selector, "/#", true);
@@ -221,7 +221,7 @@ public class TemplateDocument implements ParentNode {
       Except("except"),
       Inside("inside");
 
-      String s;
+      final String s;
 
       Selector(String s) {
          this.s = s;

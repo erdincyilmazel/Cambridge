@@ -3,10 +3,10 @@ package cambridge.model;
 import java.util.ArrayList;
 
 public class ComplexAttribute implements Attribute {
-   String textContent;
+   private String textContent;
    String attributeName;
    String attributeNameSpace;
-   ArrayList<AttributeFragment> fragments;
+   private ArrayList<AttributeFragment> fragments;
 
    public ComplexAttribute() {
    }
@@ -49,7 +49,7 @@ public class ComplexAttribute implements Attribute {
       return false;
    }
 
-   char quote;
+   private char quote;
 
    public char getQuote() {
       return quote;

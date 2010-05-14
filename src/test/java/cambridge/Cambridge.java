@@ -1,5 +1,6 @@
 package cambridge;
 
+import cambridge.behaviors.IfBehavior;
 import cambridge.model.*;
 
 import java.io.BufferedReader;

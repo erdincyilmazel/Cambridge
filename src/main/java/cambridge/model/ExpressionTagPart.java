@@ -79,12 +79,10 @@ public class ExpressionTagPart implements TagPart, Fragment {
       }
    }
 
-   @Override
    public boolean isWhiteSpace() {
       return false;
    }
 
-   @Override
    public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
       try {
          Object value = expression.eval(properties);

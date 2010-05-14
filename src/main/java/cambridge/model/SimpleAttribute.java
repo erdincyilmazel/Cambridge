@@ -1,10 +1,10 @@
 package cambridge.model;
 
 public class SimpleAttribute implements Attribute {
-   String textContent;
-   String attributeName;
-   String attributeNameSpace;
-   String value;
+   private String textContent;
+   private String attributeName;
+   private String attributeNameSpace;
+   private String value;
 
    public SimpleAttribute() {
    }
@@ -47,7 +47,6 @@ public class SimpleAttribute implements Attribute {
       return false;
    }
 
-   @Override
    public boolean isDynamic() {
       return false;
    }
@@ -56,7 +55,6 @@ public class SimpleAttribute implements Attribute {
       this.textContent = textContent;
    }
 
-   @Override
    public String getTextContent() {
       if (textContent != null) {
          return textContent;
@@ -65,7 +63,6 @@ public class SimpleAttribute implements Attribute {
       return (attributeNameSpace == null ? "" : attributeNameSpace + ":") + attributeName + "=\"" + value.replaceAll("\"", "\\\"") + "\"";
    }
 
-   @Override
    public boolean isWhiteSpace() {
       return false;
    }

@@ -12,10 +12,9 @@ import java.util.ArrayList;
  * Time: 1:29:09 AM
  */
 public class FunctionExpression implements Expression {
-   String functionName;
-   Expression[] parameters;
-
-   FunctionRunner runner;
+   private final String functionName;
+   private Expression[] parameters;
+   private final FunctionRunner runner;
 
    public FunctionExpression(String functionName) {
       this.functionName = functionName;
@@ -26,7 +25,6 @@ public class FunctionExpression implements Expression {
       parameters = params.toArray(new Expression[params.size()]);
    }
 
-   @Override
    public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Boolean) {
@@ -50,7 +48,6 @@ public class FunctionExpression implements Expression {
       return o == null ? Type.Null : Type.Object;
    }
 
-   @Override
    public Object eval(TemplateProperties p) throws ExpressionEvaluationException {
       if(runner == null) {
          throw new ExpressionEvaluationException("Unknown function " + functionName);
@@ -58,13 +55,11 @@ public class FunctionExpression implements Expression {
       return runner.eval(p, parameters);
    }
 
-   @Override
    public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       return o instanceof Boolean && (Boolean) o;
    }
 
-   @Override
    public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
@@ -73,7 +68,6 @@ public class FunctionExpression implements Expression {
       return 0;
    }
 
-   @Override
    public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
@@ -83,7 +77,6 @@ public class FunctionExpression implements Expression {
       return 0;
    }
 
-   @Override
    public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
@@ -92,7 +85,6 @@ public class FunctionExpression implements Expression {
       return 0;
    }
 
-   @Override
    public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
@@ -101,7 +93,6 @@ public class FunctionExpression implements Expression {
       return 0;
    }
 
-   @Override
    public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return eval(properties).toString();
    }

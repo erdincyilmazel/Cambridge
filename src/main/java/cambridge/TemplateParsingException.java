@@ -6,8 +6,8 @@ package cambridge;
  * Time: 2:40:57 AM
  */
 public class TemplateParsingException extends RuntimeException {
-   int line;
-   int col;
+   private final int line;
+   private final int col;
 
    public TemplateParsingException(String message, int line, int col) {
       super(message);

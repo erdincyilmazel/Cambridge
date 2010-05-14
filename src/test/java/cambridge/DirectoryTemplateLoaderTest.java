@@ -19,7 +19,6 @@ public class DirectoryTemplateLoaderTest {
 
       try {
          TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
-            @Override
             public void modifyTemplate(TemplateDocument doc) {
 
                FragmentList list = new FragmentList();

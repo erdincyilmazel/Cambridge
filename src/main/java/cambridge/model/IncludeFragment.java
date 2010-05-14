@@ -11,9 +11,7 @@ import cambridge.TemplateLoadingException;
  */
 public class IncludeFragment extends TemplateNode {
 
-   FragmentList fragments;
-
-   TemplateLoader loader;
+   private FragmentList fragments;
 
    public IncludeFragment(TemplateLoader templateLoader, String fileName) throws TemplateLoadingException, BehaviorInstantiationException {
       this(templateLoader, fileName, null);

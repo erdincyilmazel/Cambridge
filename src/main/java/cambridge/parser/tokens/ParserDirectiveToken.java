@@ -12,8 +12,8 @@ public class ParserDirectiveToken extends Token {
       this.args = args;
    }
 
-   String directive;
-   String args;
+   private final String directive;
+   private final String args;
 
    public String getDirective() {
       return directive;
@@ -27,7 +27,7 @@ public class ParserDirectiveToken extends Token {
       return TokenType.PARSER_DIRECTIVE;
    }
 
-   String trailingSpace;
+   private String trailingSpace;
 
    public void setTrailingSpace(String space) {
       trailingSpace = space;

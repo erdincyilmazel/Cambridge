@@ -9,7 +9,7 @@ import cambridge.runtime.TemplateProperties;
  * Time: 1:07:43 AM
  */
 public class StringLiteral implements Expression {
-   String value;
+   private final String value;
 
    public StringLiteral(String value) {
       this.value = value;

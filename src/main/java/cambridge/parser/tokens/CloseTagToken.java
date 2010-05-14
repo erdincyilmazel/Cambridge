@@ -12,7 +12,7 @@ public class CloseTagToken extends Token {
       return TokenType.CLOSE_TAG;
    }
 
-   String tagName;
+   private String tagName;
 
    public String getTagName() {
       return tagName;

@@ -6,13 +6,21 @@ package cambridge.runtime;
  * Time: 5:25:32 PM
  */
 public class PropertyAccessException extends Exception {
-   Object o;
-   String property;
+   private final Object o;
+   private final String property;
 
    public PropertyAccessException(String message, Object o, String property) {
       super(message);
 
       this.o = o;
       this.property = property;
+   }
+
+   public Object getO() {
+      return o;
+   }
+
+   public String getProperty() {
+      return property;
    }
 }

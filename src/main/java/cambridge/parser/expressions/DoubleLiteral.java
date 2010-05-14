@@ -9,7 +9,7 @@ import cambridge.runtime.TemplateProperties;
  * Time: 1:09:06 AM
  */
 public class DoubleLiteral implements Expression {
-   double value;
+   private final double value;
 
    public DoubleLiteral(double value) {
       this.value = value;

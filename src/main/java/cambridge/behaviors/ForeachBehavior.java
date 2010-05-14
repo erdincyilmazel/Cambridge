@@ -17,7 +17,7 @@ import java.util.Map;
  * Time: 7:18:33 PM
  */
 public class ForeachBehavior extends ExecutingTagBehavior {
-   Expression iterable;
+   private final Expression iterable;
 
    public ForeachBehavior(Expression iterable) {
       this.iterable = iterable;
@@ -144,10 +144,5 @@ public class ForeachBehavior extends ExecutingTagBehavior {
             return new ForeachBehavior(e);
          }
       };
-   }
-
-   public static void main(String[] args) {
-      int[] a = {2, 3};
-      System.out.println(a instanceof int[]);
    }
 }

@@ -6,12 +6,12 @@ package cambridge.parser.tokens;
  */
 public abstract class Token {
    public String value;
-   int lineNo;
-   int column;
-   int nextLine;
-   int nextCol;
+   private final int lineNo;
+   private final int column;
+   private final int nextLine;
+   private final int nextCol;
 
-   public Token(int line, int c, String val, int nl, int nc) {
+   Token(int line, int c, String val, int nl, int nc) {
       lineNo = line;
       column = c;
       value = val;

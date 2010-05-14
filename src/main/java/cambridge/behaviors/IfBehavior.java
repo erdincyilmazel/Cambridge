@@ -14,7 +14,7 @@ import java.util.Map;
  * Time: 10:27:01 AM
  */
 public class IfBehavior extends ConditionalTagBehavior {
-   Expression expression;
+   private final Expression expression;
 
    public IfBehavior(Expression e) {
       expression = e;

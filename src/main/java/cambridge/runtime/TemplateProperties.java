@@ -9,7 +9,7 @@ import java.util.Locale;
  * Time: 4:16:02 PM
  */
 public class TemplateProperties extends HashMap<String, Object> {
-   Locale locale;
+   private final Locale locale;
 
    public Locale getLocale() {
       return locale;

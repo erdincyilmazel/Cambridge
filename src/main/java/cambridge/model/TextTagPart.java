@@ -4,7 +4,7 @@ package cambridge.model;
  * Arbitrary text within a tag element
  */
 public class TextTagPart implements TagPart {
-   String textContent;
+   private String textContent;
 
    public TextTagPart(String textContent) {
       this.textContent = textContent;
@@ -18,7 +18,6 @@ public class TextTagPart implements TagPart {
       this.textContent = textContent;
    }
 
-   @Override
    public boolean isWhiteSpace() {
       return whitespace;
    }

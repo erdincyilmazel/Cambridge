@@ -11,7 +11,7 @@ import java.util.Locale;
  */
 public abstract class TemplateFactory {
    protected FragmentList fragments;
-   protected TemplateLoader loader;
+   protected final TemplateLoader loader;
 
    public TemplateFactory(TemplateLoader loader, FragmentList fragments) {
       this.loader = loader;

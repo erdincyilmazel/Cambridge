@@ -11,7 +11,7 @@ import java.util.HashMap;
  * Time: 11:53:59 PM
  */
 public abstract class FunctionRunner {
-   public static HashMap<String, FunctionRunner> functions = new HashMap<String, FunctionRunner>();
+   public static final HashMap<String, FunctionRunner> functions = new HashMap<String, FunctionRunner>();
 
    static {
       functions.put("text", new ResourceBundleFunction());

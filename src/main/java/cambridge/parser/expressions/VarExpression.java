@@ -15,8 +15,8 @@ import java.util.Map;
  * Time: 1:29:09 AM
  */
 public class VarExpression implements Expression {
-   String varName;
-   ArrayList<VarProperty> properties;
+   private final String varName;
+   private ArrayList<VarProperty> properties;
 
    public VarExpression(String varName) {
       this.varName = varName;
@@ -30,7 +30,6 @@ public class VarExpression implements Expression {
       properties.add(p);
    }
 
-   @Override
    public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Boolean) {
@@ -54,7 +53,6 @@ public class VarExpression implements Expression {
       return o == null ? Type.Null : Type.Object;
    }
 
-   @Override
    public Object eval(TemplateProperties p) throws ExpressionEvaluationException {
       PropertyUtils utils = PropertyUtils.instance();
       if (properties == null) {
@@ -86,13 +84,11 @@ public class VarExpression implements Expression {
       return object;
    }
 
-   @Override
    public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       return o instanceof Boolean && (Boolean) o;
    }
 
-   @Override
    public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
@@ -101,7 +97,6 @@ public class VarExpression implements Expression {
       return 0;
    }
 
-   @Override
    public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
@@ -111,7 +106,6 @@ public class VarExpression implements Expression {
       return 0;
    }
 
-   @Override
    public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
@@ -120,7 +114,6 @@ public class VarExpression implements Expression {
       return 0;
    }
 
-   @Override
    public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
       if (o instanceof Number) {
@@ -129,7 +122,6 @@ public class VarExpression implements Expression {
       return 0;
    }
 
-   @Override
    public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
       return eval(properties).toString();
    }

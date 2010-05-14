@@ -4,8 +4,8 @@ package cambridge.parser;
  * This is a utility to test the characters within the document if they are in valid
  * character range for an XML document.
  */
-public class CharUtil {
-   static int[][] BASE_CHARS = new int[][]{
+class CharUtil {
+   private static int[][] BASE_CHARS = new int[][]{
       {0x0041, 0x005A},
       {0x0061, 0x007A}, {0x00C0, 0x00D6}, {0x00D8, 0x00F6}, {0x00F8, 0x00FF}, {0x0100, 0x0131},
       {0x0134, 0x013E},
@@ -51,7 +51,7 @@ public class CharUtil {
 
    };
 
-   static int[][] DIGITS = new int[][]{
+   private static int[][] DIGITS = new int[][]{
       {0x0030, 0x0039}, {0x0660, 0x0669}, {0x06F0, 0x06F9}, {0x0966, 0x096F}, {0x09E6, 0x09EF},
       {0x0A66, 0x0A6F}, {0x0AE6, 0x0AEF}, {0x0B66, 0x0B6F}, {0x0BE7, 0x0BEF}, {0x0C66, 0x0C6F},
       {0x0CE6, 0x0CEF}, {0x0D66, 0x0D6F}, {0x0E50, 0x0E59}, {0x0ED0, 0x0ED9}, {0x0F20, 0x0F29}

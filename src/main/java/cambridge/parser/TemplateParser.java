@@ -23,11 +23,9 @@ import java.util.regex.Matcher;
  */
 public class TemplateParser {
 
-   TemplateNode previousNode = null;
+   private final TemplateTokenizer tokenizer;
 
-   TemplateTokenizer tokenizer;
-
-   TemplateLoader templateLoader;
+   private TemplateLoader templateLoader;
 
    public TemplateParser(TemplateTokenizer tokenizer) {
       this.tokenizer = tokenizer;
@@ -38,10 +36,10 @@ public class TemplateParser {
       this.templateLoader = loader;
    }
 
-   final static int BUFFER_SIZE = 5;
-   final static int maxPeek = 3;
+   private final static int BUFFER_SIZE = 5;
+   private final static int maxPeek = 3;
 
-   Token[] buf = new Token[BUFFER_SIZE];
+   private final Token[] buf = new Token[BUFFER_SIZE];
 
    private int readIndex = -1; // The last read index
    private int writeIndex = -1; // The last written index
@@ -78,9 +76,9 @@ public class TemplateParser {
       return buf[getIndex(readIndex + p)];
    }
 
-   Token currentToken;
-   List<TemplateNode> matchedNodes = new ArrayList<TemplateNode>();
-   TemplateDocument template;
+   private Token currentToken;
+   private List<TemplateNode> matchedNodes = new ArrayList<TemplateNode>();
+   private TemplateDocument template;
 
    public TemplateDocument parse() throws IOException, TemplateParsingException {
       template = new TemplateDocument();

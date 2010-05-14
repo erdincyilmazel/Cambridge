@@ -21,8 +21,16 @@ public class BehaviorInstantiationException extends Exception {
       super(cause);
    }
 
-   int line;
-   int col;
+   private int line;
+   private int col;
+
+   public int getCol() {
+      return col;
+   }
+
+   public int getLine() {
+      return line;
+   }
 
    public BehaviorInstantiationException(String message, Throwable cause, int line, int col) {
       super(message, cause);

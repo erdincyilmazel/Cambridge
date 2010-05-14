@@ -14,7 +14,7 @@ import java.util.Locale;
  */
 public class DynamicTemplate implements Template {
 
-   final FragmentList fragments;
+   private final FragmentList fragments;
 
    public DynamicTemplate(FragmentList fragments, Locale locale) {
       this.fragments = fragments;
@@ -26,14 +26,12 @@ public class DynamicTemplate implements Template {
       properties = new TemplateProperties();
    }
 
-   TemplateProperties properties;
+   private final TemplateProperties properties;
 
-   @Override
    public void setProperty(String name, Object property) {
       properties.put(name, property);
    }
 
-   @Override
    public void printTo(Appendable out) throws IOException, TemplateEvaluationException {
       properties.put("this", null);
       properties.put("super", null);
@@ -42,7 +40,6 @@ public class DynamicTemplate implements Template {
       }
    }
 
-   @Override
    public String asString() throws TemplateEvaluationException {
       StringBuilder builder = new StringBuilder();
       try {

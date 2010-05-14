@@ -21,7 +21,7 @@ import java.io.IOException;
  * Time: 11:09:09 PM
  */
 public class ConditionalAttributeBehaviorTest {
-   String output = "<div id=\"id\">test</div>";
+   private String output = "<div id=\"id\">test</div>";
 
    @Test
    public void test() {

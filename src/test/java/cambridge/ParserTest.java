@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Time: 10:55:06 AM
  */
 public class ParserTest {
-   static TemplateProperties properties;
+   private static TemplateProperties properties;
 
    @BeforeClass
    public static void init() {
@@ -36,7 +36,7 @@ public class ParserTest {
       properties.put("condition", true);
    }
 
-   String full = "<!DOCTYPE html>\n" +
+   private String full = "<!DOCTYPE html>\n" +
       "<html>\n" +
       "<body>\n" +
       "\n" +
@@ -63,7 +63,7 @@ public class ParserTest {
       "</body>\n" +
       "</html>";
 
-   String before = "<!DOCTYPE html>\n" +
+   private String before = "<!DOCTYPE html>\n" +
       "<html>\n" +
       "<body>\n" +
       "\n" +
@@ -74,7 +74,7 @@ public class ParserTest {
       "<div id=\"test\">Expression Attribute</div>\n" +
       "\n";
 
-   String after = "\n" +
+   private String after = "\n" +
       "\n" +
       "<div>Condition true</div>\n" +
       "\n" +
@@ -91,7 +91,7 @@ public class ParserTest {
       "</body>\n" +
       "</html>";
 
-   String inside = "\n" +
+   private String inside = "\n" +
       "\n" +
       "<div>Simple expression simple</div>\n" +
       "\n" +

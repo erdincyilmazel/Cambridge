@@ -17,7 +17,7 @@ public class Behaviors {
    public static String DefaultNamespace = "a";
 
    public class Bind {
-      AttributeKey k;
+      final AttributeKey k;
 
       Bind(AttributeKey k) {
          this.k = k;
@@ -29,7 +29,7 @@ public class Behaviors {
    }
 
    public class BindStatic {
-      AttributeKey k;
+      final AttributeKey k;
 
       BindStatic(AttributeKey k) {
          this.k = k;
@@ -41,7 +41,7 @@ public class Behaviors {
    }
 
    public class BindTag {
-      AttributeKey[] keys;
+      final AttributeKey[] keys;
 
       BindTag(AttributeKey[] k) {
          this.keys = k;
@@ -54,7 +54,7 @@ public class Behaviors {
       }
    }
 
-   private HashSet<String> namespaces;
+   private final HashSet<String> namespaces;
 
    public void setUp() {
       bind(DefaultNamespace, "if").to(IfBehavior.getProvider());
@@ -97,10 +97,10 @@ public class Behaviors {
       return namespaces.contains(n);
    }
 
-   private HashMap<AttributeKey, BehaviorProvider> providers;
-   private HashMap<AttributeKey, Class<? extends StaticBehavior>> staticBehaviorClasses;
-   private HashMap<AttributeKey, StaticBehavior> staticBehaviors;
-   private HashMap<AttributeKey, Class<? extends DynamicTag>> dynamicTagClasses;
+   private final HashMap<AttributeKey, BehaviorProvider> providers;
+   private final HashMap<AttributeKey, Class<? extends StaticBehavior>> staticBehaviorClasses;
+   private final HashMap<AttributeKey, StaticBehavior> staticBehaviors;
+   private final HashMap<AttributeKey, Class<? extends DynamicTag>> dynamicTagClasses;
 
    public TagBehavior getBehavior(String namespace, String attribute, Map<AttributeKey, Attribute> attributes) throws BehaviorInstantiationException, ExpressionParsingException {
       AttributeKey key = new AttributeKey(namespace, attribute);
@@ -155,7 +155,7 @@ public class Behaviors {
       }
    }
 
-   static Behaviors instance;
+   private static Behaviors instance;
 
    public static Behaviors getInstance() {
       if (instance == null) {

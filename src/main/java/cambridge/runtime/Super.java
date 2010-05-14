@@ -6,9 +6,9 @@ package cambridge.runtime;
  * Time: 1:26:57 PM
  */
 public class Super {
-   Object o;
-   Super s;
-   Iter iter;
+   private final Object o;
+   private final Super s;
+   private final Iter iter;
 
    public Super(Object o, Super s, Iter i) {
       this.o = o;

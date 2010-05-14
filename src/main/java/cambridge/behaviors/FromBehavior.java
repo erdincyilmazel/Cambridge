@@ -17,8 +17,8 @@ import java.util.Map;
  * Time: 3:57:11 PM
  */
 public class FromBehavior extends ExecutingTagBehavior {
-   Expression from;
-   Expression to;
+   private final Expression from;
+   private final Expression to;
 
    public FromBehavior(Expression from, Expression to) {
       this.from = from;

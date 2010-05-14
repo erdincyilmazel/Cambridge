@@ -6,7 +6,7 @@ package cambridge.runtime;
  * Time: 1:14:40 AM
  */
 public class Iter {
-   int row = 1;
+   private int row = 1;
 
    public boolean isFirst() {
       return row == 1;
