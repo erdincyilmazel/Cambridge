@@ -30,7 +30,7 @@ public class IncludeNode extends TemplateNode {
    public void normalize(FragmentList list) throws BehaviorInstantiationException {
       for(Fragment f : fragments) {
          if(f instanceof StaticFragment) {
-            list.append(((StaticFragment) f).contents.toString());
+            list.append(f.toString());
          } else {
             list.addFragment(f);
          }

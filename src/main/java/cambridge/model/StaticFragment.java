@@ -50,6 +50,10 @@ public class StaticFragment implements AttributeFragment {
    }
 
    public String toString() {
-      return contents.toString();
+      if(packed) {
+         return packedContents;
+      } else {
+         return contents.toString();
+      }
    }
 }
