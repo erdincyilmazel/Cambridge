@@ -124,6 +124,9 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
       }
    }
 
+   public void pack() {
+   }
+
    public String toString() {
       return getSource();
    }

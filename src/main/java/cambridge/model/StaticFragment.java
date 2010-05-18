@@ -10,28 +10,43 @@ import java.io.IOException;
  * Time: 1:05:30 PM
  */
 public class StaticFragment implements AttributeFragment {
-   final StringBuilder contents;
+   StringBuffer contents;
+   private String packedContents;
+   private boolean packed;
 
    public StaticFragment(String text) {
-      contents = new StringBuilder(text);
+      contents = new StringBuffer(text);
    }
 
    public StaticFragment() {
-      contents = new StringBuilder();
+      contents = new StringBuffer();
    }
 
    public StaticFragment append(String c) {
-      contents.append(c);
+      if(!packed) {
+         contents.append(c);
+      }
       return this;
    }
 
    public StaticFragment append(StringBuilder c) {
-      contents.append(c);
+      if(!packed) {
+         contents.append(c);
+      }
       return this;
    }
 
    public void eval(TemplateProperties properties, Appendable out) throws IOException {
-      out.append(contents);
+      out.append(packedContents);
+   }
+
+   public void pack() {
+      if(!packed) {
+         packedContents = contents.toString();
+         contents.setLength(0);
+         contents = null;
+         packed = true;
+      }
    }
 
    public String toString() {

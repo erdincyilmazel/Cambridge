@@ -11,4 +11,7 @@ public abstract class DynamicTag extends TagNode {
    public void init() throws TemplateParsingException {
       //
    }
+
+   public void pack() {
+   }
 }

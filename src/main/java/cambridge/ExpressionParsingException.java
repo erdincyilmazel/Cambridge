@@ -9,7 +9,7 @@ import java.util.List;
  * Date: Nov 2, 2009
  * Time: 6:44:14 PM
  */
-public class ExpressionParsingException extends Exception {
+public class ExpressionParsingException extends RuntimeException {
    List<RecognitionException> errors;
 
    public ExpressionParsingException(Throwable cause) {

@@ -94,6 +94,9 @@ public class ExpressionTagPart implements TagPart, Fragment {
       }
    }
 
+   public void pack() {
+   }
+
    private String applyFilters(Object o, Locale locale) {
       if (filters == null) return o.toString();
       String val = "";

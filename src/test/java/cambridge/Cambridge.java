@@ -1,6 +1,5 @@
 package cambridge;
 
-import cambridge.behaviors.IfBehavior;
 import cambridge.model.*;
 
 import java.io.BufferedReader;
@@ -32,7 +31,7 @@ public class Cambridge {
                html.removeChild(node);
 
                try {
-                  html.insertChild(new IncludeFragment(loader, "a.html", "/html/head"));
+                  html.insertChild(new IncludeNode(loader, "a.html", "/html/head"));
                } catch (TemplateLoadingException e) {
                   e.printStackTrace();
                } catch (BehaviorInstantiationException e) {

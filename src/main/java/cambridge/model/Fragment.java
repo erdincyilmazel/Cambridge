@@ -12,4 +12,5 @@ import java.io.IOException;
  */
 public interface Fragment {
    public abstract void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException;
+   public void pack();
 }

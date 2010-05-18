@@ -25,7 +25,7 @@ public class DirectoryTemplateLoaderTest {
                list.add(new StaticFragment("This is a test"));
 
                try {
-                  doc.getElementById("email").addChild(new IncludeFragment(loader, "a.html", "#s"));
+                  doc.getElementById("email").addChild(new IncludeNode(loader, "a.html", "#s"));
                } catch (TemplateLoadingException e) {
                   e.printStackTrace();
                } catch (BehaviorInstantiationException e) {

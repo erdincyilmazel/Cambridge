@@ -9,15 +9,15 @@ import cambridge.TemplateLoadingException;
  * Date: Nov 6, 2009
  * Time: 6:45:33 PM
  */
-public class IncludeFragment extends TemplateNode {
+public class IncludeNode extends TemplateNode {
 
    private FragmentList fragments;
 
-   public IncludeFragment(TemplateLoader templateLoader, String fileName) throws TemplateLoadingException, BehaviorInstantiationException {
+   public IncludeNode(TemplateLoader templateLoader, String fileName) throws TemplateLoadingException, BehaviorInstantiationException {
       this(templateLoader, fileName, null);
    }
 
-   public IncludeFragment(TemplateLoader templateLoader, String fileName, String selector) throws TemplateLoadingException, BehaviorInstantiationException {
+   public IncludeNode(TemplateLoader templateLoader, String fileName, String selector) throws TemplateLoadingException, BehaviorInstantiationException {
       TemplateDocument doc = templateLoader.parseTemplate(fileName);
       if(selector != null) {
          fragments = doc.select(selector);

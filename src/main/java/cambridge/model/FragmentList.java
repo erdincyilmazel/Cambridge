@@ -37,5 +37,9 @@ public class FragmentList extends ArrayList<Fragment> {
       if (current != null) {
          add(current);
       }
+
+      for(Fragment f :this) {
+         f.pack();
+      }
    }
 }

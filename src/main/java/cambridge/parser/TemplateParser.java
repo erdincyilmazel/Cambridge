@@ -2,6 +2,8 @@ package cambridge.parser;
 
 import cambridge.*;
 import cambridge.model.*;
+import cambridge.parser.expressions.Expression;
+import cambridge.parser.expressions.Expressions;
 import cambridge.parser.tokens.*;
 
 import java.io.IOException;
@@ -9,6 +11,7 @@ import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * TemplateParser creates a Template Model object by parsing a template document
@@ -381,27 +384,60 @@ public class TemplateParser {
    private TemplateNode parserDirective() throws TemplateParsingException {
       ParserDirectiveToken tok = (ParserDirectiveToken) currentToken;
       if ("include".equalsIgnoreCase(tok.getDirective()) && templateLoader != null) {
-         Matcher matcher = TemplateDocument.selectorPattern.matcher(tok.getArgs());
-
-         String fileName = matcher.replaceAll("").trim();
-         String selector = null;
-         matcher.reset();
-         if (matcher.find()) {
-            selector = matcher.group(0);
-         }
-
-         try {
-            template.addInclude(fileName);
-            return new IncludeFragment(templateLoader, fileName, selector);
-         } catch (TemplateLoadingException e) {
-            throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
-         } catch (BehaviorInstantiationException e) {
-            throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
-         }
+         return parseIncludeNode(tok);
+      }
+      if ("set".equalsIgnoreCase(tok.getDirective())) {
+         return parseSetDirective(tok);
       }
 
       return null;
    }
+
+   private static final Pattern setDirectivePattern = Pattern.compile("(\\w+)\\s?=(.*)");
+
+   private TemplateNode parseSetDirective(ParserDirectiveToken tok) {
+      String args = tok.getArgs();
+      if(args == null) {
+         throw new TemplateParsingException("Invalid set directive", currentToken.getLineNo(), currentToken.getColumn());
+      }
+
+      Matcher matcher = setDirectivePattern.matcher(args);
+      if(!matcher.find()) {
+         throw new TemplateParsingException("Invalid set directive", currentToken.getLineNo(), currentToken.getColumn());
+      }
+
+      String varName = matcher.group(1);
+      String expression = matcher.group(2);
+
+      Expression ex = Expressions.parse(expression);
+
+      return new SetDirective(varName, ex);
+   }
+
+   private TemplateNode parseIncludeNode(ParserDirectiveToken tok) {
+      if(tok.getArgs() == null) {
+         throw new TemplateParsingException("Invalid include directive", currentToken.getLineNo(), currentToken.getColumn());
+      }
+      Matcher matcher = TemplateDocument.selectorPattern.matcher(tok.getArgs());
+
+      String fileName = matcher.replaceAll("").trim();
+      String selector = null;
+      matcher.reset();
+      if (matcher.find()) {
+         selector = matcher.group(0);
+      }
+
+      try {
+         template.addInclude(fileName);
+         return new IncludeNode(templateLoader, fileName, selector);
+      } catch (TemplateLoadingException e) {
+         throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
+      } catch (BehaviorInstantiationException e) {
+         throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
+      }
+   }
+
+
 
    /**
     * Matches textNodes

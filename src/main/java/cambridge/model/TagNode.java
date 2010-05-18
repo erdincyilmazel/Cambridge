@@ -522,6 +522,9 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
    }
 
+   public void pack() {
+   }
+
    public ArrayList<TagPart> getTagParts() {
       return tagParts;
    }
