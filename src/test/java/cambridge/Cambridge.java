@@ -30,13 +30,7 @@ public class Cambridge {
 
                html.removeChild(node);
 
-               try {
-                  html.insertChild(new IncludeNode(loader, "a.html", "/html/head"));
-               } catch (TemplateLoadingException e) {
-                  e.printStackTrace();
-               } catch (BehaviorInstantiationException e) {
-                  e.printStackTrace();
-               }
+               html.addInclude(loader, "a.html", "/html/head");
 
                doc.getElementById("email").addChild(new TextNode("cambridge rocks"));
 

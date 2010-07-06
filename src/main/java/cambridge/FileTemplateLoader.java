@@ -1,10 +1,10 @@
 package cambridge;
 
 import cambridge.model.TemplateDocument;
-import cambridge.parser.TemplateParser;
-import cambridge.parser.TemplateTokenizer;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.HashSet;
 
 /**
@@ -12,9 +12,7 @@ import java.util.HashSet;
  * Date: Nov 3, 2009
  * Time: 3:20:20 PM
  */
-public class FileTemplateLoader implements TemplateLoader {
-   public static final String DefaultEncoding = "UTF-8";
-
+public class FileTemplateLoader extends AbstractTemplateLoader {
    public TemplateFactory newTemplateFactory(File file) throws TemplateLoadingException {
       return newTemplateFactory(file, DefaultEncoding, null);
    }
@@ -46,44 +44,20 @@ public class FileTemplateLoader implements TemplateLoader {
 
    public HashSet<File> getFiles(HashSet<String> fileNames) {
       HashSet<File> files = new HashSet<File>();
-      for(String s : fileNames) {
+      for (String s : fileNames) {
          File f = new File(s);
-         if(f.exists()) {
+         if (f.exists()) {
             files.add(f);
          }
       }
 
-      if(files.size() != 0) {
+      if (files.size() != 0) {
          return files;
       }
 
       return null;
    }
 
-   public TemplateDocument parseTemplate(InputStream in) throws TemplateLoadingException {
-      return parseTemplate(in, DefaultEncoding);
-   }
-
-   public TemplateDocument parseTemplate(InputStream in, String encoding) throws TemplateLoadingException {
-      TemplateTokenizer tokenizer = null;
-      try {
-         tokenizer = new TemplateTokenizer(new InputStreamReader(in, encoding));
-         TemplateParser parser = new TemplateParser(tokenizer, this);
-         return parser.parse();
-      } catch (IOException e) {
-         throw new TemplateLoadingException(e);
-      } catch (TemplateParsingException e) {
-         throw new TemplateLoadingException(e);
-      } finally {
-         if(tokenizer != null) {
-            try {
-               tokenizer.close();
-            } catch (IOException e) {
-               e.printStackTrace();
-            }
-         }
-      }
-   }
 
    public TemplateDocument parseTemplate(File file) throws TemplateLoadingException {
       return parseTemplate(file, DefaultEncoding);

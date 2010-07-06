@@ -70,6 +70,20 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
    }
 
+   public void addInclude(TemplateLoader loader, String template, String selector) {
+      IncludeNode node = null;
+      try {
+         node = new IncludeNode(loader, template, selector);
+      } catch (BehaviorInstantiationException e) {
+         throw new TemplateLoadingException("Could not include " + template, e);
+      }
+      addChild(node);
+   }
+
+   public void addInclude(TemplateLoader loader, String template) {
+      addInclude(loader, template, null);
+   }
+
    public void insertChild(TemplateNode node) {
       children.add(0, node);
    }

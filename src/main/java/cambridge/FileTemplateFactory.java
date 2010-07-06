@@ -2,6 +2,7 @@ package cambridge;
 
 import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
+
 import java.io.File;
 import java.util.HashSet;
 import java.util.Locale;
@@ -11,7 +12,8 @@ import java.util.Locale;
  * Date: Nov 3, 2009
  * Time: 4:03:22 PM
  */
-public class FileTemplateFactory extends TemplateFactory {
+
+class FileTemplateFactory extends TemplateFactory {
    private final File templateFile;
    private final String encoding;
    private final TemplateModifier modifier;
@@ -76,14 +78,15 @@ public class FileTemplateFactory extends TemplateFactory {
 
    private synchronized void reload() {
       reloading = true;
+      FileTemplateLoader l = (FileTemplateLoader) loader;
       try {
-         TemplateDocument doc = loader.parseTemplate(templateFile, encoding);
+         TemplateDocument doc = l.parseTemplate(templateFile, encoding);
          if (modifier != null) {
             modifier.modifyTemplate(doc);
          }
 
          if (doc.getIncludes() != null) {
-            includes = loader.getFiles(doc.getIncludes());
+            includes = l.getFiles(doc.getIncludes());
          }
 
          fragments = doc.normalize();
