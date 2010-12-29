@@ -45,12 +45,13 @@ public class TemplateDocument implements ParentNode {
       children.remove(node);
    }
 
-   public void remove(int index) {
-      children.remove(index);
-   }
-
    public void addChild(TemplateNode node) {
       children.add(node);
+   }
+
+   public void setText(String text) {
+      children.clear();
+      children.add(new TextNode(text));
    }
 
    public void addChildren(List<TemplateNode> nodes) {
@@ -97,7 +98,7 @@ public class TemplateDocument implements ParentNode {
       return tags;
    }
 
-   public Tag get(String tagName, int index) {
+   public Tag getTag(String tagName, int index) {
       Tag tag = null;
       int j = 0;
       for (TemplateNode t : children) {
@@ -118,12 +119,12 @@ public class TemplateDocument implements ParentNode {
       return null;
    }
 
-   public Tag getFirst(String tagName) {
-      return get(tagName, 0);
+   public Tag getFirstTag(String tagName) {
+      return getTag(tagName, 0);
    }
 
-   public Tag getLast(String tagName) {
-      return get(tagName, -1);
+   public Tag getLastTag(String tagName) {
+      return getTag(tagName, -1);
    }
 
    public TemplateNode getPreviousChild(TemplateNode node) {
@@ -179,9 +180,9 @@ public class TemplateDocument implements ParentNode {
       } else {
          Matcher m = indexPattern.matcher(search);
          if (m.find()) {
-            tag = get(m.group(1), Integer.parseInt(m.group(2)));
+            tag = getTag(m.group(1), Integer.parseInt(m.group(2)));
          } else {
-            tag = getFirst(search);
+            tag = getFirstTag(search);
          }
       }
 

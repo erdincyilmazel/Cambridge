@@ -87,11 +87,11 @@ public class FileTemplateLoader extends AbstractTemplateLoader {
       return newTemplateFactory(new File(template), encoding, modifier);
    }
 
-   public TemplateDocument parseTemplate(String template) throws TemplateLoadingException {
-      return parseTemplate(new File(template));
+   public TemplateDocument parseTemplate(String templateFile) throws TemplateLoadingException {
+      return parseTemplate(new File(templateFile));
    }
 
-   public TemplateDocument parseTemplate(String template, String encoding) throws TemplateLoadingException {
-      return parseTemplate(new File(template), encoding);
+   public TemplateDocument parseTemplate(String templateFile, String encoding) throws TemplateLoadingException {
+      return parseTemplate(new File(templateFile), encoding);
    }
 }

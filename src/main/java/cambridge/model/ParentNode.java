@@ -16,6 +16,8 @@ public interface ParentNode {
     */
    public void addChild(TemplateNode node);
 
+   public void setText(String text);
+
    public void addChildren(List<TemplateNode> nodes);
 
    public ArrayList<TemplateNode> getChildren();

@@ -53,10 +53,10 @@ abstract class AbstractTemplateLoader implements TemplateLoader {
       }
    }
 
-   public TemplateDocument parseAndCreateTemplateDocument(String source) throws TemplateLoadingException {
+   public TemplateDocument parseAndCreateTemplateDocument(String templateSource) throws TemplateLoadingException {
       TemplateTokenizer tokenizer = null;
       try {
-         tokenizer = new TemplateTokenizer(new StringReader(source));
+         tokenizer = new TemplateTokenizer(new StringReader(templateSource));
          TemplateParser parser = new TemplateParser(tokenizer, this);
          return parser.parse();
       } catch (IOException e) {

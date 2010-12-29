@@ -32,7 +32,7 @@ public class Cambridge {
 
                html.addInclude(loader, "a.html", "/html/head");
 
-               doc.getElementById("email").addChild(new TextNode("cambridge rocks"));
+               doc.getElementById("email").setText("Cambridge rocks!");
 
                try {
                   doc.getElementById("email").addExpression("user.email");

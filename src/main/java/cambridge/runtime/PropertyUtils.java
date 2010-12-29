@@ -71,11 +71,6 @@ public class PropertyUtils {
          Method m;
          Property p = new Property(beanClass, property);
 
-//         m = accessors.get(p);
-//         if (m != null) {
-//            return m.invoke(bean);
-//         }
-
          BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
 
          PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
@@ -120,11 +115,6 @@ public class PropertyUtils {
       try {
          Method m;
          Property p = new Property(bean.getClass(), property);
-
-         //m = accessors.get(p);
-//         if (m != null) {
-//            return true;
-//         }
 
          BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
          PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
