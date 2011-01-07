@@ -15,6 +15,7 @@ public abstract class FunctionRunner {
 
    static {
       functions.put("text", new ResourceBundleFunction());
+      functions.put("if", new IfFunction());
    }
 
    public static FunctionRunner getInstance(String name) {

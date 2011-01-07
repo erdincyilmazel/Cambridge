@@ -13,6 +13,18 @@ import java.util.HashSet;
  * Time: 3:20:20 PM
  */
 public class FileTemplateLoader extends AbstractTemplateLoader {
+   public FileTemplateLoader() {
+      changeDetectionInterval = DefaultChangeDetectionInterval;
+   }
+
+   public FileTemplateLoader(int changeDetectionInterval) {
+      this.changeDetectionInterval = changeDetectionInterval;
+   }
+
+   public static int DefaultChangeDetectionInterval = 5000;
+
+   private final int changeDetectionInterval;
+
    public TemplateFactory newTemplateFactory(File file) throws TemplateLoadingException {
       return newTemplateFactory(file, DefaultEncoding, null);
    }
@@ -33,10 +45,10 @@ public class FileTemplateLoader extends AbstractTemplateLoader {
 
       try {
          if (document.getIncludes() != null) {
-            return new FileTemplateFactory(this, document.normalize(), file, encoding, modifier, getFiles(document.getIncludes()));
+            return new FileTemplateFactory(this, document.normalize(), file, encoding, modifier, getFiles(document.getIncludes()), changeDetectionInterval);
          }
 
-         return new FileTemplateFactory(this, document.normalize(), file, encoding, modifier);
+         return new FileTemplateFactory(this, document.normalize(), file, encoding, modifier, null, changeDetectionInterval);
       } catch (BehaviorInstantiationException e) {
          throw new TemplateLoadingException(e);
       }

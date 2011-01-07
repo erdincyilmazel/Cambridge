@@ -20,26 +20,15 @@ class FileTemplateFactory extends TemplateFactory {
    private long lastCheck;
    private HashSet<File> includes;
 
-   public static long ChangeDetectionInterval = 5000L;
+   private final int changeDetectionInterval;
 
-   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding) {
-      this(loader, fragments, templateFile, encoding, null, null);
-   }
-
-   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding, TemplateModifier modifier) {
-      this(loader, fragments, templateFile, encoding, modifier, null);
-   }
-
-   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding, HashSet<File> includes) {
-      this(loader, fragments, templateFile, encoding, null, includes);
-   }
-
-   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding, TemplateModifier modifier, HashSet<File> includes) {
+   public FileTemplateFactory(TemplateLoader loader, FragmentList fragments, File templateFile, String encoding, TemplateModifier modifier, HashSet<File> includes, int changeDetectionInterval) {
       super(loader, fragments);
       this.templateFile = templateFile;
       this.encoding = encoding;
       this.modifier = modifier;
       this.includes = includes;
+      this.changeDetectionInterval = changeDetectionInterval;
       lastCheck = System.currentTimeMillis();
    }
 
@@ -58,7 +47,7 @@ class FileTemplateFactory extends TemplateFactory {
    }
 
    private void checkForChanges() {
-      if (ChangeDetectionInterval != -1 && !reloading && lastCheck + ChangeDetectionInterval < System.currentTimeMillis()) {
+      if (changeDetectionInterval != -1 && !reloading && lastCheck + changeDetectionInterval < System.currentTimeMillis()) {
          if (templateFile.lastModified() > lastCheck) {
             reload();
          } else if (includes != null) {

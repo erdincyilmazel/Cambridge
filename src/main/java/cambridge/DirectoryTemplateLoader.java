@@ -17,15 +17,15 @@ public class DirectoryTemplateLoader extends FileTemplateLoader {
    private static String fileSeperator = System.getProperty("file.separator");
 
    public DirectoryTemplateLoader(File templateDirectory) {
-      this.templateDirectory = templateDirectory;
-      if (!templateDirectory.isDirectory()) {
-         throw new RuntimeException(templateDirectory + " is not a directory");
-      }
-
-      encoding = FileTemplateLoader.DefaultEncoding;
+      this(templateDirectory, FileTemplateLoader.DefaultEncoding, FileTemplateLoader.DefaultChangeDetectionInterval);
    }
 
    public DirectoryTemplateLoader(File templateDirectory, String defaultEncoding) {
+      this(templateDirectory, defaultEncoding, FileTemplateLoader.DefaultChangeDetectionInterval);
+   }
+
+   public DirectoryTemplateLoader(File templateDirectory, String defaultEncoding, int changeDetectionInterval) {
+      super(changeDetectionInterval);
       this.templateDirectory = templateDirectory;
       if (!templateDirectory.isDirectory()) {
          throw new RuntimeException(templateDirectory + " is not a directory");
