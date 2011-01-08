@@ -33,8 +33,9 @@ public class DynamicTemplate implements Template {
    }
 
    public void printTo(Appendable out) throws IOException, TemplateEvaluationException {
-      properties.put("this", null);
-      properties.put("super", null);
+      properties.remove("#this");
+      properties.remove("#super");
+      properties.remove("#iter");
       for (Fragment f : fragments) {
          f.eval(properties, out);
       }

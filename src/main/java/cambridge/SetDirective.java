@@ -38,7 +38,8 @@ public class SetDirective extends TemplateNode implements AttributeFragment {
       } else {
          f.addFragment(this);
          return false;
-      }   }
+      }
+   }
 
    @Override
    public Tag getElementById(String id) {

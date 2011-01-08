@@ -389,6 +389,9 @@ public class TemplateParser {
       if ("set".equalsIgnoreCase(tok.getDirective())) {
          return parseSetDirective(tok);
       }
+      if ("debug".equalsIgnoreCase(tok.getDirective())) {
+         return new DebugDirective();
+      }
 
       return null;
    }
@@ -436,8 +439,6 @@ public class TemplateParser {
          throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
       }
    }
-
-
 
    /**
     * Matches textNodes

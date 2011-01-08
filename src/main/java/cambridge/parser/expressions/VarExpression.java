@@ -86,7 +86,14 @@ public class VarExpression implements Expression {
 
    public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
       Object o = eval(properties);
-      return o instanceof Boolean && (Boolean) o;
+
+      if (o instanceof Boolean) {
+         return (Boolean) o;
+      }
+      if (o instanceof Number) {
+         return ((Number) o).intValue() != 0;
+      }
+      return o instanceof String && !"".equals(o);
    }
 
    public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
