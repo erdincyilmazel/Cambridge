@@ -2,37 +2,28 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
-   <groupId>cambridge</groupId>
-   <artifactId>cambridge-components</artifactId>
+   <groupId>com.googlecode.cambridge</groupId>
+   <artifactId>components</artifactId>
    <packaging>jar</packaging>
    <name>Cambridge Template Engine Components</name>
-   <version>0.1-SNAPSHOT</version>
-   <build>
-      <plugins>
-         <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-               <source>1.6</source>
-               <target>1.6</target>
-               <optimize>true</optimize>
-               <encoding>utf-8</encoding>
-               <debug>true</debug>
-            </configuration>
-         </plugin>
-      </plugins>
-   </build>
+   <version>0.2-SNAPSHOT</version>
+   <parent>
+      <artifactId>cambridge</artifactId>
+      <groupId>com.googlecode.cambridge</groupId>
+      <version>0.2-SNAPSHOT</version>
+      <relativePath>../pom.xml</relativePath>
+   </parent>
    <dependencies>
       <dependency>
          <groupId>junit</groupId>
          <artifactId>junit</artifactId>
-         <version>4.5</version>
+         <version>4.6</version>
          <scope>test</scope>
       </dependency>
       <dependency>
-         <groupId>cambridge</groupId>
-         <artifactId>cambridge</artifactId>
-         <version>0.1-SNAPSHOT</version>
+         <groupId>com.googlecode.cambridge</groupId>
+         <artifactId>core</artifactId>
+         <version>0.2-SNAPSHOT</version>
          <scope>compile</scope>
       </dependency>
    </dependencies>
