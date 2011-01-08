@@ -2,10 +2,11 @@ package cambridge;
 
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
-import cambridge.runtime.TemplateProperties;
-
+import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.runtime.TemplateBindings;
 import java.io.IOException;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -18,26 +19,34 @@ public class DynamicTemplate implements Template {
 
    public DynamicTemplate(FragmentList fragments, Locale locale) {
       this.fragments = fragments;
-      properties = new TemplateProperties(locale);
+      bindings = new DefaultTemplateBindings(locale);
    }
 
    public DynamicTemplate(FragmentList fragments) {
       this.fragments = fragments;
-      properties = new TemplateProperties();
+      bindings = new DefaultTemplateBindings();
    }
 
-   private final TemplateProperties properties;
+   private final TemplateBindings bindings;
 
    public void setProperty(String name, Object property) {
-      properties.put(name, property);
+      bindings.put(name, property);
+   }
+
+   public void setAllProperties(Map<String, Object> properties) {
+      bindings.putAll(properties);
+   }
+
+   public void clearProperties() {
+      bindings.clear();
    }
 
    public void printTo(Appendable out) throws IOException, TemplateEvaluationException {
-      properties.remove("#this");
-      properties.remove("#super");
-      properties.remove("#iter");
+      bindings.remove("#this");
+      bindings.remove("#super");
+      bindings.remove("#iter");
       for (Fragment f : fragments) {
-         f.eval(properties, out);
+         f.eval(bindings, out);
       }
    }
 

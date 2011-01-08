@@ -1,10 +1,9 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 
@@ -26,35 +25,35 @@ public class Range implements Iterable<Integer>, Expression {
       this.max = max;
    }
 
-   public Type getType(TemplateProperties globals) throws ExpressionEvaluationException {
+   public Type getType(TemplateBindings globals) throws ExpressionEvaluationException {
       return Type.Object;
    }
 
-   public Object eval(TemplateProperties globals) throws ExpressionEvaluationException {
+   public Object eval(TemplateBindings globals) throws ExpressionEvaluationException {
       return this;
    }
 
-   public boolean asBoolean(TemplateProperties globals) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateBindings globals) throws ExpressionEvaluationException {
       return true;
    }
 
-   public int asInt(TemplateProperties globals) throws ExpressionEvaluationException {
+   public int asInt(TemplateBindings globals) throws ExpressionEvaluationException {
       return min;
    }
 
-   public float asFloat(TemplateProperties globals) throws ExpressionEvaluationException {
+   public float asFloat(TemplateBindings globals) throws ExpressionEvaluationException {
       return min;
    }
 
-   public double asDouble(TemplateProperties globals) throws ExpressionEvaluationException {
+   public double asDouble(TemplateBindings globals) throws ExpressionEvaluationException {
       return min;
    }
 
-   public long asLong(TemplateProperties globals) throws ExpressionEvaluationException {
+   public long asLong(TemplateBindings globals) throws ExpressionEvaluationException {
       return min;
    }
 
-   public String asString(TemplateProperties globals) throws ExpressionEvaluationException {
+   public String asString(TemplateBindings globals) throws ExpressionEvaluationException {
       return toString();
    }
 

@@ -3,7 +3,9 @@ package cambridge;
 import cambridge.model.*;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.runtime.TemplateBindings;
+
 import static org.junit.Assert.*;
 import org.junit.Test;
 
@@ -20,7 +22,7 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("basic.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateProperties p = new TemplateProperties();
+         TemplateBindings p = new DefaultTemplateBindings();
          p.put("class", "test");
          TemplateDocument t = parser.parse();
 
@@ -71,7 +73,7 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("complex.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateProperties p = new TemplateProperties();
+         TemplateBindings p = new DefaultTemplateBindings();
          p.put("a", "AAA");
          p.put("b", "BBB");
          TemplateDocument t = parser.parse();
@@ -134,7 +136,7 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("dynamic.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateProperties p = new TemplateProperties();
+         TemplateBindings p = new DefaultTemplateBindings();
          p.put("style", "style");
 
          TemplateDocument t = parser.parse();

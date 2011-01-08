@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 /**
  * User: erdinc
@@ -25,19 +25,19 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
       return Type.String;
    }
 
-   public String eval(TemplateProperties properties) {
+   public String eval(TemplateBindings bindings) {
       return value;
    }
 
-   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
       return !value.equals("");
    }
 
-   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
       try {
          return Integer.parseInt(value);
       } catch (NumberFormatException e) {
@@ -45,7 +45,7 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
       try {
          return Float.parseFloat(value);
       } catch (NumberFormatException e) {
@@ -53,7 +53,7 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
       try {
          return Double.parseDouble(value);
       } catch (NumberFormatException e) {
@@ -61,7 +61,7 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
       try {
          return Long.parseLong(value);
       } catch (NumberFormatException e) {
@@ -69,7 +69,7 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
+   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
       return value;
    }
 

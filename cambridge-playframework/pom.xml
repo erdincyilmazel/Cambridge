@@ -26,5 +26,12 @@
          <version>0.2-SNAPSHOT</version>
          <scope>compile</scope>
       </dependency>
+      <dependency>
+         <groupId>com.playframework</groupId>
+         <artifactId>playframework</artifactId>
+         <version>1.1</version>
+         <scope>system</scope>
+         <systemPath>/Users/erdincyilmazel/tools/play-1.1/framework/play.jar</systemPath>
+      </dependency>
    </dependencies>
 </project>

@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 /**
  * User: erdinc
@@ -44,19 +44,19 @@ public interface Expression {
       Not,
    }
 
-   public Type getType(TemplateProperties globals) throws ExpressionEvaluationException;
+   public Type getType(TemplateBindings globals) throws ExpressionEvaluationException;
 
-   public Object eval(TemplateProperties globals) throws ExpressionEvaluationException;
+   public Object eval(TemplateBindings globals) throws ExpressionEvaluationException;
 
-   public boolean asBoolean(TemplateProperties globals) throws ExpressionEvaluationException;
+   public boolean asBoolean(TemplateBindings globals) throws ExpressionEvaluationException;
 
-   public int asInt(TemplateProperties globals) throws ExpressionEvaluationException;
+   public int asInt(TemplateBindings globals) throws ExpressionEvaluationException;
 
-   public float asFloat(TemplateProperties globals) throws ExpressionEvaluationException;
+   public float asFloat(TemplateBindings globals) throws ExpressionEvaluationException;
 
-   public double asDouble(TemplateProperties globals) throws ExpressionEvaluationException;
+   public double asDouble(TemplateBindings globals) throws ExpressionEvaluationException;
 
-   public long asLong(TemplateProperties globals) throws ExpressionEvaluationException;
+   public long asLong(TemplateBindings globals) throws ExpressionEvaluationException;
 
-   public String asString(TemplateProperties globals) throws ExpressionEvaluationException;
+   public String asString(TemplateBindings globals) throws ExpressionEvaluationException;
 }

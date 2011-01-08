@@ -5,7 +5,7 @@ import cambridge.model.FragmentList;
 import cambridge.model.Tag;
 import cambridge.model.TemplateNode;
 import cambridge.parser.expressions.Expression;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 import java.io.IOException;
 
@@ -46,9 +46,9 @@ public class SetDirective extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
       try {
-         properties.put(varName, expression.eval(properties));
+         bindings.put(varName, expression.eval(bindings));
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn());
       }

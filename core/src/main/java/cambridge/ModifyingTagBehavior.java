@@ -1,7 +1,7 @@
 package cambridge;
 
 import cambridge.model.ModifyableTag;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 /**
  * User: erdinc
@@ -9,5 +9,5 @@ import cambridge.runtime.TemplateProperties;
  * Time: 3:29:42 PM
  */
 public interface ModifyingTagBehavior extends TagBehavior {
-   public void modify(TemplateProperties properties, ModifyableTag tag) throws ExpressionEvaluationException;
+   public void modify(TemplateBindings bindings, ModifyableTag tag) throws ExpressionEvaluationException;
 }

@@ -3,7 +3,7 @@ package cambridge;
 import cambridge.model.TagNode;
 import cambridge.runtime.Iter;
 import cambridge.runtime.Super;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 import java.io.IOException;
 
@@ -16,30 +16,30 @@ public abstract class ExecutingTagBehavior implements TagBehavior {
    protected ExecutingTagBehavior() {
    }
 
-   public final void execute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
-      Object t = properties.get("#this");
-      Super ts = (Super) properties.get("#super");
-      Iter iter = (Iter) properties.get("#iter");
+   public final void execute(TemplateBindings bindings, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
+      Object t = bindings.get("#this");
+      Super ts = (Super) bindings.get("#super");
+      Iter iter = (Iter) bindings.get("#iter");
 
       Super s = null;
 
       if (t != null) {
          s = new Super(t, ts, iter);
-         properties.put("#super", s);
+         bindings.put("#super", s);
       }
 
-      doExecute(properties, tag, out);
+      doExecute(bindings, tag, out);
 
       if (t != null) {
-         properties.put("#this", s.get());
-         properties.put("#super", s.getSuper());
-         properties.put("#iter", s.getIter());
+         bindings.put("#this", s.get());
+         bindings.put("#super", s.getSuper());
+         bindings.put("#iter", s.getIter());
       } else {
-         properties.put("#this", t);
-         properties.put("#super", ts);
-         properties.put("#iter", iter);
+         bindings.put("#this", t);
+         bindings.put("#super", ts);
+         bindings.put("#iter", iter);
       }
    }
 
-   protected abstract void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException;
+   protected abstract void doExecute(TemplateBindings bindings, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException;
 }

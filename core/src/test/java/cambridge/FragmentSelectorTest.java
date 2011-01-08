@@ -3,7 +3,7 @@ package cambridge;
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.DefaultTemplateBindings;
 import org.junit.Test;
 
 import java.io.File;
@@ -25,7 +25,7 @@ public class FragmentSelectorTest {
                   FragmentList fragmentList = doc.select("except #s");
 
                   for (Fragment f : fragmentList) {
-                     f.eval(new TemplateProperties(), System.out);
+                     f.eval(new DefaultTemplateBindings(), System.out);
                   }
 
                } catch (BehaviorInstantiationException e) {

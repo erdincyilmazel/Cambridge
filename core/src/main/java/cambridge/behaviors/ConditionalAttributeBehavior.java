@@ -6,7 +6,7 @@ import cambridge.model.ModifyableTag;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.Attribute;
 import cambridge.model.TagPart;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 import java.util.Map;
 
@@ -24,8 +24,8 @@ public class ConditionalAttributeBehavior implements ModifyingTagBehavior {
       this.attribute = attribute;
    }
 
-   public void modify(TemplateProperties properties, ModifyableTag tag) throws ExpressionEvaluationException {
-      if(!expression.asBoolean(properties)) {
+   public void modify(TemplateBindings bindings, ModifyableTag tag) throws ExpressionEvaluationException {
+      if(!expression.asBoolean(bindings)) {
          int remove = -1;
          boolean next = false;
          for (int i = 0; i < tag.getTagParts().size(); i++) {

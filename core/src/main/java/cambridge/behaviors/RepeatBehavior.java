@@ -6,7 +6,7 @@ import cambridge.model.DynamicAttribute;
 import cambridge.model.TagNode;
 import cambridge.parser.expressions.Expression;
 import cambridge.runtime.Iter;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 import java.io.IOException;
 import java.util.Map;
@@ -24,14 +24,14 @@ public class RepeatBehavior extends ExecutingTagBehavior {
    }
 
    @Override
-   public void doExecute(TemplateProperties properties, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
+   public void doExecute(TemplateBindings bindings, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
       try {
          Iter iter = new Iter();
-         int n = number.asInt(properties);
+         int n = number.asInt(bindings);
          for (int i = 0; i != n; i++) {
-            properties.put("#this", i);
-            properties.put("#iter", iter);
-            tag.execute(properties, out);
+            bindings.put("#this", i);
+            bindings.put("#iter", iter);
+            tag.execute(bindings, out);
             iter.next();
          }
       } catch (ExpressionEvaluationException e) {

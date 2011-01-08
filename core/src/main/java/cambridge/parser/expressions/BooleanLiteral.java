@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 /**
  * User: erdinc
@@ -15,35 +15,35 @@ public class BooleanLiteral implements Expression {
       this.value = value;
    }
 
-   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
       return Type.Boolean;
    }
 
-   public Object eval(TemplateProperties properties) {
+   public Object eval(TemplateBindings bindings) {
       return value;
    }
 
-   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
       return value;
    }
 
-   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
       return value ? 1 : 0;
    }
 
-   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
       return value ? 1 : 0;
    }
 
-   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
       return value ? 1 : 0;
    }
 
-   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
+   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
       return "" + value;
    }
 

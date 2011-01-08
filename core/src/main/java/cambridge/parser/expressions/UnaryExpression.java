@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 /**
  * User: erdinc
@@ -17,69 +17,69 @@ public class UnaryExpression implements Expression {
       this.expression = expression;
    }
 
-   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return Type.Boolean;
       }
       return Type.Int;
    }
 
-   public Object eval(TemplateProperties properties) throws ExpressionEvaluationException {
+   public Object eval(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case Not:
-            return !expression.asBoolean(properties);
+            return !expression.asBoolean(bindings);
          case Tilde:
-            return ~expression.asInt(properties);
+            return ~expression.asInt(bindings);
       }
 
       return null;
    }
 
-   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(properties);
+         return !expression.asBoolean(bindings);
       }
 
-      return ~expression.asInt(properties) != 0;
+      return ~expression.asInt(bindings) != 0;
    }
 
-   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(properties) ? 1 : 0;
+         return !expression.asBoolean(bindings) ? 1 : 0;
       }
 
-      return ~expression.asInt(properties);
+      return ~expression.asInt(bindings);
    }
 
-   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(properties) ? 1 : 0;
+         return !expression.asBoolean(bindings) ? 1 : 0;
       }
 
-      return ~expression.asInt(properties);
+      return ~expression.asInt(bindings);
    }
 
-   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(properties) ? 1 : 0;
+         return !expression.asBoolean(bindings) ? 1 : 0;
       }
 
-      return ~expression.asInt(properties);
+      return ~expression.asInt(bindings);
    }
 
-   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(properties) ? 1 : 0;
+         return !expression.asBoolean(bindings) ? 1 : 0;
       }
 
-      return ~expression.asInt(properties);
+      return ~expression.asInt(bindings);
    }
 
-   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
+   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(properties) ? "true" : "false";
+         return !expression.asBoolean(bindings) ? "true" : "false";
       }
 
-      return ~expression.asInt(properties) + "";
+      return ~expression.asInt(bindings) + "";
    }
 }

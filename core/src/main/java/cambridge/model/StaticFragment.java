@@ -1,6 +1,6 @@
 package cambridge.model;
 
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 import java.io.IOException;
 
@@ -36,7 +36,7 @@ public class StaticFragment implements AttributeFragment {
       return this;
    }
 
-   public void eval(TemplateProperties properties, Appendable out) throws IOException {
+   public void eval(TemplateBindings bindings, Appendable out) throws IOException {
       out.append(packedContents);
    }
 

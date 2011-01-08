@@ -1,7 +1,7 @@
 package cambridge;
 
 import cambridge.model.*;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -57,7 +57,7 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
 
    @Override
    public void normalize(FragmentList fList) throws BehaviorInstantiationException {
-      fList.add(this);
+      fList.addFragment(this);
    }
 
    @Override
@@ -78,9 +78,9 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
       ArrayList<DebugElement> elements = new ArrayList<DebugElement>();
-      Set<Map.Entry<String,Object>> entries = properties.entrySet();
+      Set<Map.Entry<String,Object>> entries = bindings.entrySet();
 
       for (Map.Entry<String, Object> e : entries) {
          String key = e.getKey();
@@ -98,12 +98,12 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
          }
       }
 
-      properties.put("___DebugAllValues___", elements);
+      bindings.put("___DebugAllValues___", elements);
       for (Fragment f : debugTemplate) {
-         f.eval(properties, out);
+         f.eval(bindings, out);
       }
 
-      properties.remove("___DebugAllValues___");
+      bindings.remove("___DebugAllValues___");
    }
 
    public void pack() {

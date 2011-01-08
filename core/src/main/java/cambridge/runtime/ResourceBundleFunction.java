@@ -14,7 +14,7 @@ import java.text.MessageFormat;
  */
 public class ResourceBundleFunction extends FunctionRunner {
    @Override
-   public Object eval(TemplateProperties p, Expression[] params) throws ExpressionEvaluationException {
+   public Object eval(TemplateBindings p, Expression[] params) throws ExpressionEvaluationException {
       try {
          ResourceBundle bundle = ResourceBundle.getBundle("Cambridge", p.getLocale());
 

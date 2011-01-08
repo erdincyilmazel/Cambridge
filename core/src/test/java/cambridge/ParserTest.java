@@ -5,7 +5,9 @@ import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.runtime.TemplateBindings;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.BeforeClass;
@@ -20,20 +22,20 @@ import java.util.ArrayList;
  * Time: 10:55:06 AM
  */
 public class ParserTest {
-   private static TemplateProperties properties;
+   private static TemplateBindings bindings;
 
    @BeforeClass
    public static void init() {
-      properties = new TemplateProperties();
-      properties.put("var", "simple");
-      properties.put("id", "test");
-      properties.put("exp", "class=\"x\"");
+      bindings = new DefaultTemplateBindings();
+      bindings.put("var", "simple");
+      bindings.put("id", "test");
+      bindings.put("exp", "class=\"x\"");
       ArrayList<Integer> list = new ArrayList<Integer>();
       list.add(1);
       list.add(2);
       list.add(3);
-      properties.put("list", list);
-      properties.put("condition", true);
+      bindings.put("list", list);
+      bindings.put("condition", true);
    }
 
    private String full = "<!DOCTYPE html>\n" +
@@ -127,7 +129,7 @@ public class ParserTest {
          StringBuilder builder = new StringBuilder();
 
          for (Fragment f : fragments) {
-            f.eval(properties, builder);
+            f.eval(bindings, builder);
          }
 
          assertEquals(full, builder.toString());
@@ -154,7 +156,7 @@ public class ParserTest {
          StringBuilder builder = new StringBuilder();
 
          for (Fragment f : fragments) {
-            f.eval(properties, builder);
+            f.eval(bindings, builder);
          }
 
          assertEquals(before, builder.toString());
@@ -181,7 +183,7 @@ public class ParserTest {
          StringBuilder builder = new StringBuilder();
 
          for (Fragment f : fragments) {
-            f.eval(properties, builder);
+            f.eval(bindings, builder);
          }
 
          assertEquals(after, builder.toString());
@@ -208,7 +210,7 @@ public class ParserTest {
          StringBuilder builder = new StringBuilder();
 
          for (Fragment f : fragments) {
-            f.eval(properties, builder);
+            f.eval(bindings, builder);
          }
 
          assertEquals(inside, builder.toString());

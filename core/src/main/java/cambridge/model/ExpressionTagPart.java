@@ -7,7 +7,7 @@ import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.ExpressionLexer;
 import cambridge.parser.expressions.ExpressionParser;
 import cambridge.runtime.Filter;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -83,11 +83,11 @@ public class ExpressionTagPart implements TagPart, Fragment {
       return false;
    }
 
-   public void eval(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
       try {
-         Object value = expression.eval(properties);
+         Object value = expression.eval(bindings);
          if (value != null) {
-            out.append(applyFilters(value, properties.getLocale()));
+            out.append(applyFilters(value, bindings.getLocale()));
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException(e);

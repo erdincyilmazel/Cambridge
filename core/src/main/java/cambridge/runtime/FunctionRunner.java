@@ -22,5 +22,5 @@ public abstract class FunctionRunner {
       return functions.get(name);
    }
 
-   public abstract Object eval(TemplateProperties p, Expression[] params) throws ExpressionEvaluationException;
+   public abstract Object eval(TemplateBindings p, Expression[] params) throws ExpressionEvaluationException;
 }

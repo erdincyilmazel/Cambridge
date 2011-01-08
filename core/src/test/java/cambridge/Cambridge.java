@@ -22,7 +22,7 @@ public class Cambridge {
 
          final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
                 
-         final TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
+         final TemplateFactory f = loader.newTemplateFactory("kitchensink.html");/*, new TemplateModifier() {
             public void modifyTemplate(TemplateDocument doc) {
 
                TagNode node = doc.locateTag("/html/head");
@@ -41,7 +41,7 @@ public class Cambridge {
                   e.printStackTrace();
                }
             }
-         });
+         });*/
 
          Thread thread = new Thread(new Runnable() {
             public void run() {

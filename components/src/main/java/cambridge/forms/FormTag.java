@@ -6,7 +6,7 @@ import cambridge.model.DynamicAttribute;
 import cambridge.parser.expressions.Expression;
 import cambridge.runtime.Iter;
 import cambridge.runtime.Super;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 import java.io.IOException;
 
@@ -40,34 +40,34 @@ public class FormTag extends DynamicTag {
    }
 
    @Override
-   public void execute(TemplateProperties properties, Appendable out) throws IOException, TemplateEvaluationException {
+   public void execute(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
       try {
-         Object f = formExpression.eval(properties);
+         Object f = formExpression.eval(bindings);
          if (f instanceof Form) {
             Form form = (Form) f;
 
-            Object t = properties.get("#this");
-            Super ts = (Super) properties.get("#super");
-            Iter iter = (Iter) properties.get("#iter");
+            Object t = bindings.get("#this");
+            Super ts = (Super) bindings.get("#super");
+            Iter iter = (Iter) bindings.get("#iter");
 
             Super s = null;
 
             if (t != null) {
                s = new Super(t, ts, iter);
-               properties.put("#super", s);
+               bindings.put("#super", s);
             }
 
-            properties.put("#this", form);
-            super.execute(properties, out);
+            bindings.put("#this", form);
+            super.execute(bindings, out);
 
             if (t != null) {
-               properties.put("#this", s.get());
-               properties.put("#super", s.getSuper());
-               properties.put("#iter", s.getIter());
+               bindings.put("#this", s.get());
+               bindings.put("#super", s.getSuper());
+               bindings.put("#iter", s.getIter());
             } else {
-               properties.put("#this", t);
-               properties.put("#super", ts);
-               properties.put("#iter", iter);
+               bindings.put("#this", t);
+               bindings.put("#super", ts);
+               bindings.put("#iter", iter);
             }
 
          }

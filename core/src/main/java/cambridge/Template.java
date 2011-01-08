@@ -1,6 +1,7 @@
 package cambridge;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -9,6 +10,10 @@ import java.io.IOException;
  */
 public interface Template {
    public void setProperty(String name, Object property);
+
+   public void setAllProperties(Map<String, Object> properties);
+
+   public void clearProperties();
 
    public void printTo(Appendable out) throws IOException, TemplateEvaluationException;
 

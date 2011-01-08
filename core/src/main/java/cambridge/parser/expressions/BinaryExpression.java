@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 
 
 /**
@@ -18,7 +18,7 @@ public class BinaryExpression implements Expression {
       this.right = right;
    }
 
-   public Type getType(TemplateProperties properties) throws ExpressionEvaluationException {
+   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return Type.Int;
@@ -57,8 +57,8 @@ public class BinaryExpression implements Expression {
          case Divide:
          case Minus:
          case Times:
-            Type lt = left.getType(properties);
-            Type rt = right.getType(properties);
+            Type lt = left.getType(bindings);
+            Type rt = right.getType(bindings);
             if (lt == Type.Double || rt == Type.Double) {
                return Type.Double;
             }
@@ -67,8 +67,8 @@ public class BinaryExpression implements Expression {
             }
             return Type.Int;
          case Plus:
-            lt = left.getType(properties);
-            rt = right.getType(properties);
+            lt = left.getType(bindings);
+            rt = right.getType(bindings);
             if (lt == Type.String || rt == Type.String) {
                return Type.String;
             }
@@ -85,540 +85,540 @@ public class BinaryExpression implements Expression {
       return Type.Null;
    }
 
-   public Object eval(TemplateProperties properties) throws ExpressionEvaluationException {
+   public Object eval(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(properties) & right.asInt(properties);
+            return left.asInt(bindings) & right.asInt(bindings);
          case ConditionalAnd:
-            return left.asBoolean(properties) && right.asBoolean(properties);
+            return left.asBoolean(bindings) && right.asBoolean(bindings);
          case ConditionalOr:
-            return left.asBoolean(properties) || right.asBoolean(properties);
+            return left.asBoolean(bindings) || right.asBoolean(bindings);
          case Equal:
-            return left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties));
+            return left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings));
          case GT:
-            return left.asDouble(properties) > right.asDouble(properties);
+            return left.asDouble(bindings) > right.asDouble(bindings);
          case GTE:
-            return left.asDouble(properties) >= right.asDouble(properties);
+            return left.asDouble(bindings) >= right.asDouble(bindings);
          case LT:
-            return left.asDouble(properties) < right.asDouble(properties);
+            return left.asDouble(bindings) < right.asDouble(bindings);
          case LTE:
-            return left.asDouble(properties) <= right.asDouble(properties);
+            return left.asDouble(bindings) <= right.asDouble(bindings);
          case Mod:
-            return left.asInt(properties) % right.asInt(properties);
+            return left.asInt(bindings) % right.asInt(bindings);
          case NotEqual:
-            return !(left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties)));
+            return !(left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings)));
          case Or:
-            return left.asInt(properties) | right.asInt(properties);
+            return left.asInt(bindings) | right.asInt(bindings);
          case SHIFT_LEFT:
-            return left.asInt(properties) << right.asInt(properties);
+            return left.asInt(bindings) << right.asInt(bindings);
          case SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case U_SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case XOr:
-            return left.asInt(properties) ^ right.asInt(properties);
+            return left.asInt(bindings) ^ right.asInt(bindings);
          case Plus:
-            Type t = getType(properties);
+            Type t = getType(bindings);
             if (t == Type.String) {
-               return left.asString(properties) + right.asString(properties);
+               return left.asString(bindings) + right.asString(bindings);
             }
             if (t == Type.Double) {
-               return left.asDouble(properties) + right.asDouble(properties);
+               return left.asDouble(bindings) + right.asDouble(bindings);
             }
             if (t == Type.Float) {
-               return left.asFloat(properties) + right.asFloat(properties);
+               return left.asFloat(bindings) + right.asFloat(bindings);
             }
-            return left.asInt(properties) + right.asInt(properties);
+            return left.asInt(bindings) + right.asInt(bindings);
          case Minus:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return left.asDouble(properties) - right.asDouble(properties);
+               return left.asDouble(bindings) - right.asDouble(bindings);
             }
             if (t == Type.Float) {
-               return left.asFloat(properties) - right.asFloat(properties);
+               return left.asFloat(bindings) - right.asFloat(bindings);
             }
-            return left.asInt(properties) - right.asInt(properties);
+            return left.asInt(bindings) - right.asInt(bindings);
          case Divide:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return left.asDouble(properties) / right.asDouble(properties);
+               return left.asDouble(bindings) / right.asDouble(bindings);
             }
             if (t == Type.Float) {
-               return left.asFloat(properties) / right.asFloat(properties);
+               return left.asFloat(bindings) / right.asFloat(bindings);
             }
-            return left.asInt(properties) / right.asInt(properties);
+            return left.asInt(bindings) / right.asInt(bindings);
          case Times:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return left.asDouble(properties) * right.asDouble(properties);
+               return left.asDouble(bindings) * right.asDouble(bindings);
             }
             if (t == Type.Float) {
-               return left.asFloat(properties) * right.asFloat(properties);
+               return left.asFloat(bindings) * right.asFloat(bindings);
             }
-            return left.asInt(properties) * right.asInt(properties);
+            return left.asInt(bindings) * right.asInt(bindings);
       }
 
       return null;
    }
 
-   public boolean asBoolean(TemplateProperties properties) throws ExpressionEvaluationException {
+   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return (left.asInt(properties) & right.asInt(properties)) != 0;
+            return (left.asInt(bindings) & right.asInt(bindings)) != 0;
          case ConditionalAnd:
-            return left.asBoolean(properties) && right.asBoolean(properties);
+            return left.asBoolean(bindings) && right.asBoolean(bindings);
          case ConditionalOr:
-            return left.asBoolean(properties) || right.asBoolean(properties);
+            return left.asBoolean(bindings) || right.asBoolean(bindings);
          case Equal:
-            return areEqual(properties);
+            return areEqual(bindings);
 
          case GT:
-            return left.asDouble(properties) > right.asDouble(properties);
+            return left.asDouble(bindings) > right.asDouble(bindings);
          case GTE:
-            return left.asDouble(properties) >= right.asDouble(properties);
+            return left.asDouble(bindings) >= right.asDouble(bindings);
          case LT:
-            return left.asDouble(properties) < right.asDouble(properties);
+            return left.asDouble(bindings) < right.asDouble(bindings);
          case LTE:
-            return left.asDouble(properties) <= right.asDouble(properties);
+            return left.asDouble(bindings) <= right.asDouble(bindings);
          case Mod:
-            return (left.asInt(properties) % right.asInt(properties)) != 0;
+            return (left.asInt(bindings) % right.asInt(bindings)) != 0;
          case NotEqual:
-            return !areEqual(properties);
+            return !areEqual(bindings);
          case Or:
-            return (left.asInt(properties) | right.asInt(properties)) != 0;
+            return (left.asInt(bindings) | right.asInt(bindings)) != 0;
          case SHIFT_LEFT:
-            return (left.asInt(properties) << right.asInt(properties)) != 0;
+            return (left.asInt(bindings) << right.asInt(bindings)) != 0;
          case SHIFT_RIGHT:
-            return (left.asInt(properties) >> right.asInt(properties)) != 0;
+            return (left.asInt(bindings) >> right.asInt(bindings)) != 0;
          case U_SHIFT_RIGHT:
-            return (left.asInt(properties) >> right.asInt(properties)) != 0;
+            return (left.asInt(bindings) >> right.asInt(bindings)) != 0;
          case XOr:
-            return (left.asInt(properties) ^ right.asInt(properties)) != 0;
+            return (left.asInt(bindings) ^ right.asInt(bindings)) != 0;
          case Plus:
-            Type t = getType(properties);
+            Type t = getType(bindings);
             if (t == Type.String) {
-               return !(left.asString(properties) + right.asString(properties)).equals("");
+               return !(left.asString(bindings) + right.asString(bindings)).equals("");
             }
             if (t == Type.Double) {
-               return (left.asDouble(properties) + right.asDouble(properties)) != 0;
+               return (left.asDouble(bindings) + right.asDouble(bindings)) != 0;
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) + right.asFloat(properties)) != 0;
+               return (left.asFloat(bindings) + right.asFloat(bindings)) != 0;
             }
-            return (left.asInt(properties) + right.asInt(properties)) != 0;
+            return (left.asInt(bindings) + right.asInt(bindings)) != 0;
          case Minus:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (left.asDouble(properties) - right.asDouble(properties)) != 0;
+               return (left.asDouble(bindings) - right.asDouble(bindings)) != 0;
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) - right.asFloat(properties)) != 0;
+               return (left.asFloat(bindings) - right.asFloat(bindings)) != 0;
             }
-            return (left.asInt(properties) - right.asInt(properties)) != 0;
+            return (left.asInt(bindings) - right.asInt(bindings)) != 0;
          case Divide:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (left.asDouble(properties) / right.asDouble(properties)) != 0;
+               return (left.asDouble(bindings) / right.asDouble(bindings)) != 0;
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) / right.asFloat(properties)) != 0;
+               return (left.asFloat(bindings) / right.asFloat(bindings)) != 0;
             }
-            return (left.asInt(properties) / right.asInt(properties)) != 0;
+            return (left.asInt(bindings) / right.asInt(bindings)) != 0;
          case Times:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (left.asDouble(properties) * right.asDouble(properties)) != 0;
+               return (left.asDouble(bindings) * right.asDouble(bindings)) != 0;
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) * right.asFloat(properties)) != 0;
+               return (left.asFloat(bindings) * right.asFloat(bindings)) != 0;
             }
-            return (left.asInt(properties) * right.asInt(properties)) != 0;
+            return (left.asInt(bindings) * right.asInt(bindings)) != 0;
       }
 
       return false;
    }
 
-   private boolean areEqual(TemplateProperties properties) throws ExpressionEvaluationException {
-      Object l = left.eval(properties);
-      Object r = right.eval(properties);
+   private boolean areEqual(TemplateBindings bindings) throws ExpressionEvaluationException {
+      Object l = left.eval(bindings);
+      Object r = right.eval(bindings);
 
       return l == null && r == null || !(l == null || r == null) && l.equals(r);
    }
 
-   public int asInt(TemplateProperties properties) throws ExpressionEvaluationException {
+   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(properties) & right.asInt(properties);
+            return left.asInt(bindings) & right.asInt(bindings);
          case ConditionalAnd:
-            return (left.asBoolean(properties) && right.asBoolean(properties)) ? 1 : 0;
+            return (left.asBoolean(bindings) && right.asBoolean(bindings)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1 : 0;
+            return (left.asBoolean(bindings) || right.asBoolean(bindings)) ? 1 : 0;
          case Equal:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 1 : 0;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 1 : 0;
          case GT:
-            return (left.asDouble(properties) > right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) > right.asDouble(bindings)) ? 1 : 0;
          case GTE:
-            return (left.asDouble(properties) >= right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) >= right.asDouble(bindings)) ? 1 : 0;
          case LT:
-            return (left.asDouble(properties) < right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) < right.asDouble(bindings)) ? 1 : 0;
          case LTE:
-            return (left.asDouble(properties) <= right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) <= right.asDouble(bindings)) ? 1 : 0;
          case Mod:
-            return left.asInt(properties) % right.asInt(properties);
+            return left.asInt(bindings) % right.asInt(bindings);
          case NotEqual:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 0 : 1;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 0 : 1;
          case Or:
-            return left.asInt(properties) | right.asInt(properties);
+            return left.asInt(bindings) | right.asInt(bindings);
          case SHIFT_LEFT:
-            return left.asInt(properties) << right.asInt(properties);
+            return left.asInt(bindings) << right.asInt(bindings);
          case SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case U_SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case XOr:
-            return left.asInt(properties) ^ right.asInt(properties);
+            return left.asInt(bindings) ^ right.asInt(bindings);
          case Plus:
-            Type t = getType(properties);
+            Type t = getType(bindings);
             if (t == Type.String) {
-               return Integer.parseInt(left.asString(properties) + right.asString(properties));
+               return Integer.parseInt(left.asString(bindings) + right.asString(bindings));
             }
             if (t == Type.Double) {
-               return (int) (left.asDouble(properties) + right.asDouble(properties));
+               return (int) (left.asDouble(bindings) + right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (int) (left.asFloat(properties) + right.asFloat(properties));
+               return (int) (left.asFloat(bindings) + right.asFloat(bindings));
             }
-            return left.asInt(properties) + right.asInt(properties);
+            return left.asInt(bindings) + right.asInt(bindings);
          case Minus:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (int) (left.asDouble(properties) - right.asDouble(properties));
+               return (int) (left.asDouble(bindings) - right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (int) (left.asFloat(properties) - right.asFloat(properties));
+               return (int) (left.asFloat(bindings) - right.asFloat(bindings));
             }
-            return left.asInt(properties) - right.asInt(properties);
+            return left.asInt(bindings) - right.asInt(bindings);
          case Divide:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (int) (left.asDouble(properties) / right.asDouble(properties));
+               return (int) (left.asDouble(bindings) / right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (int) (left.asFloat(properties) / right.asFloat(properties));
+               return (int) (left.asFloat(bindings) / right.asFloat(bindings));
             }
-            return left.asInt(properties) / right.asInt(properties);
+            return left.asInt(bindings) / right.asInt(bindings);
          case Times:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (int) (left.asDouble(properties) * right.asDouble(properties));
+               return (int) (left.asDouble(bindings) * right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (int) (left.asFloat(properties) * right.asFloat(properties));
+               return (int) (left.asFloat(bindings) * right.asFloat(bindings));
             }
-            return left.asInt(properties) * right.asInt(properties);
+            return left.asInt(bindings) * right.asInt(bindings);
       }
 
       return 0;
    }
 
-   public float asFloat(TemplateProperties properties) throws ExpressionEvaluationException {
+   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(properties) & right.asInt(properties);
+            return left.asInt(bindings) & right.asInt(bindings);
          case ConditionalAnd:
-            return (left.asBoolean(properties) && right.asBoolean(properties)) ? 1 : 0;
+            return (left.asBoolean(bindings) && right.asBoolean(bindings)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1 : 0;
+            return (left.asBoolean(bindings) || right.asBoolean(bindings)) ? 1 : 0;
          case Equal:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 1 : 0;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 1 : 0;
          case GT:
-            return (left.asDouble(properties) > right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) > right.asDouble(bindings)) ? 1 : 0;
          case GTE:
-            return (left.asDouble(properties) >= right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) >= right.asDouble(bindings)) ? 1 : 0;
          case LT:
-            return (left.asDouble(properties) < right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) < right.asDouble(bindings)) ? 1 : 0;
          case LTE:
-            return (left.asDouble(properties) <= right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) <= right.asDouble(bindings)) ? 1 : 0;
          case Mod:
-            return left.asInt(properties) % right.asInt(properties);
+            return left.asInt(bindings) % right.asInt(bindings);
          case NotEqual:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 0 : 1;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 0 : 1;
          case Or:
-            return left.asInt(properties) | right.asInt(properties);
+            return left.asInt(bindings) | right.asInt(bindings);
          case SHIFT_LEFT:
-            return left.asInt(properties) << right.asInt(properties);
+            return left.asInt(bindings) << right.asInt(bindings);
          case SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case U_SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case XOr:
-            return left.asInt(properties) ^ right.asInt(properties);
+            return left.asInt(bindings) ^ right.asInt(bindings);
          case Plus:
-            Type t = getType(properties);
+            Type t = getType(bindings);
             if (t == Type.String) {
-               return Integer.parseInt(left.asString(properties) + right.asString(properties));
+               return Integer.parseInt(left.asString(bindings) + right.asString(bindings));
             }
             if (t == Type.Double) {
-               return (float) (left.asDouble(properties) + right.asDouble(properties));
+               return (float) (left.asDouble(bindings) + right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) + right.asFloat(properties));
+               return (left.asFloat(bindings) + right.asFloat(bindings));
             }
-            return left.asInt(properties) + right.asInt(properties);
+            return left.asInt(bindings) + right.asInt(bindings);
          case Minus:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (float) (left.asDouble(properties) - right.asDouble(properties));
+               return (float) (left.asDouble(bindings) - right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) - right.asFloat(properties));
+               return (left.asFloat(bindings) - right.asFloat(bindings));
             }
-            return left.asInt(properties) - right.asInt(properties);
+            return left.asInt(bindings) - right.asInt(bindings);
          case Divide:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (float) (left.asDouble(properties) / right.asDouble(properties));
+               return (float) (left.asDouble(bindings) / right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) / right.asFloat(properties));
+               return (left.asFloat(bindings) / right.asFloat(bindings));
             }
-            return left.asInt(properties) / right.asInt(properties);
+            return left.asInt(bindings) / right.asInt(bindings);
          case Times:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (float) (left.asDouble(properties) * right.asDouble(properties));
+               return (float) (left.asDouble(bindings) * right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) * right.asFloat(properties));
+               return (left.asFloat(bindings) * right.asFloat(bindings));
             }
-            return left.asInt(properties) * right.asInt(properties);
+            return left.asInt(bindings) * right.asInt(bindings);
       }
 
       return 0;
    }
 
-   public double asDouble(TemplateProperties properties) throws ExpressionEvaluationException {
+   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(properties) & right.asInt(properties);
+            return left.asInt(bindings) & right.asInt(bindings);
          case ConditionalAnd:
-            return (left.asBoolean(properties) && right.asBoolean(properties)) ? 1 : 0;
+            return (left.asBoolean(bindings) && right.asBoolean(bindings)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1 : 0;
+            return (left.asBoolean(bindings) || right.asBoolean(bindings)) ? 1 : 0;
          case Equal:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 1 : 0;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 1 : 0;
          case GT:
-            return (left.asDouble(properties) > right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) > right.asDouble(bindings)) ? 1 : 0;
          case GTE:
-            return (left.asDouble(properties) >= right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) >= right.asDouble(bindings)) ? 1 : 0;
          case LT:
-            return (left.asDouble(properties) < right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) < right.asDouble(bindings)) ? 1 : 0;
          case LTE:
-            return (left.asDouble(properties) <= right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) <= right.asDouble(bindings)) ? 1 : 0;
          case Mod:
-            return left.asInt(properties) % right.asInt(properties);
+            return left.asInt(bindings) % right.asInt(bindings);
          case NotEqual:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 0 : 1;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 0 : 1;
          case Or:
-            return left.asInt(properties) | right.asInt(properties);
+            return left.asInt(bindings) | right.asInt(bindings);
          case SHIFT_LEFT:
-            return left.asInt(properties) << right.asInt(properties);
+            return left.asInt(bindings) << right.asInt(bindings);
          case SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case U_SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case XOr:
-            return left.asInt(properties) ^ right.asInt(properties);
+            return left.asInt(bindings) ^ right.asInt(bindings);
          case Plus:
-            Type t = getType(properties);
+            Type t = getType(bindings);
             if (t == Type.String) {
-               return Integer.parseInt(left.asString(properties) + right.asString(properties));
+               return Integer.parseInt(left.asString(bindings) + right.asString(bindings));
             }
             if (t == Type.Double) {
-               return (left.asDouble(properties) + right.asDouble(properties));
+               return (left.asDouble(bindings) + right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) + right.asFloat(properties));
+               return (left.asFloat(bindings) + right.asFloat(bindings));
             }
-            return left.asInt(properties) + right.asInt(properties);
+            return left.asInt(bindings) + right.asInt(bindings);
          case Minus:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (left.asDouble(properties) - right.asDouble(properties));
+               return (left.asDouble(bindings) - right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) - right.asFloat(properties));
+               return (left.asFloat(bindings) - right.asFloat(bindings));
             }
-            return left.asInt(properties) - right.asInt(properties);
+            return left.asInt(bindings) - right.asInt(bindings);
          case Divide:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (left.asDouble(properties) / right.asDouble(properties));
+               return (left.asDouble(bindings) / right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) / right.asFloat(properties));
+               return (left.asFloat(bindings) / right.asFloat(bindings));
             }
-            return left.asInt(properties) / right.asInt(properties);
+            return left.asInt(bindings) / right.asInt(bindings);
          case Times:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (left.asDouble(properties) * right.asDouble(properties));
+               return (left.asDouble(bindings) * right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (left.asFloat(properties) * right.asFloat(properties));
+               return (left.asFloat(bindings) * right.asFloat(bindings));
             }
-            return left.asInt(properties) * right.asInt(properties);
+            return left.asInt(bindings) * right.asInt(bindings);
       }
 
       return 0;
    }
 
-   public long asLong(TemplateProperties properties) throws ExpressionEvaluationException {
+   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(properties) & right.asInt(properties);
+            return left.asInt(bindings) & right.asInt(bindings);
          case ConditionalAnd:
-            return (left.asBoolean(properties) && right.asBoolean(properties)) ? 1 : 0;
+            return (left.asBoolean(bindings) && right.asBoolean(bindings)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(properties) || right.asBoolean(properties)) ? 1 : 0;
+            return (left.asBoolean(bindings) || right.asBoolean(bindings)) ? 1 : 0;
          case Equal:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 1 : 0;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 1 : 0;
          case GT:
-            return (left.asDouble(properties) > right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) > right.asDouble(bindings)) ? 1 : 0;
          case GTE:
-            return (left.asDouble(properties) >= right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) >= right.asDouble(bindings)) ? 1 : 0;
          case LT:
-            return (left.asDouble(properties) < right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) < right.asDouble(bindings)) ? 1 : 0;
          case LTE:
-            return (left.asDouble(properties) <= right.asDouble(properties)) ? 1 : 0;
+            return (left.asDouble(bindings) <= right.asDouble(bindings)) ? 1 : 0;
          case Mod:
-            return left.asInt(properties) % right.asInt(properties);
+            return left.asInt(bindings) % right.asInt(bindings);
          case NotEqual:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))) ? 0 : 1;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 0 : 1;
          case Or:
-            return left.asInt(properties) | right.asInt(properties);
+            return left.asInt(bindings) | right.asInt(bindings);
          case SHIFT_LEFT:
-            return left.asInt(properties) << right.asInt(properties);
+            return left.asInt(bindings) << right.asInt(bindings);
          case SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case U_SHIFT_RIGHT:
-            return left.asInt(properties) >> right.asInt(properties);
+            return left.asInt(bindings) >> right.asInt(bindings);
          case XOr:
-            return left.asInt(properties) ^ right.asInt(properties);
+            return left.asInt(bindings) ^ right.asInt(bindings);
          case Plus:
-            Type t = getType(properties);
+            Type t = getType(bindings);
             if (t == Type.String) {
-               return Integer.parseInt(left.asString(properties) + right.asString(properties));
+               return Integer.parseInt(left.asString(bindings) + right.asString(bindings));
             }
             if (t == Type.Double) {
-               return (long) (left.asDouble(properties) + right.asDouble(properties));
+               return (long) (left.asDouble(bindings) + right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (long) (left.asFloat(properties) + right.asFloat(properties));
+               return (long) (left.asFloat(bindings) + right.asFloat(bindings));
             }
-            return left.asInt(properties) + right.asInt(properties);
+            return left.asInt(bindings) + right.asInt(bindings);
          case Minus:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (long) (left.asDouble(properties) - right.asDouble(properties));
+               return (long) (left.asDouble(bindings) - right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (long) (left.asFloat(properties) - right.asFloat(properties));
+               return (long) (left.asFloat(bindings) - right.asFloat(bindings));
             }
-            return left.asInt(properties) - right.asInt(properties);
+            return left.asInt(bindings) - right.asInt(bindings);
          case Divide:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (long) (left.asDouble(properties) / right.asDouble(properties));
+               return (long) (left.asDouble(bindings) / right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (long) (left.asFloat(properties) / right.asFloat(properties));
+               return (long) (left.asFloat(bindings) / right.asFloat(bindings));
             }
-            return left.asInt(properties) / right.asInt(properties);
+            return left.asInt(bindings) / right.asInt(bindings);
          case Times:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return (long) (left.asDouble(properties) * right.asDouble(properties));
+               return (long) (left.asDouble(bindings) * right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return (long) (left.asFloat(properties) * right.asFloat(properties));
+               return (long) (left.asFloat(bindings) * right.asFloat(bindings));
             }
-            return left.asInt(properties) * right.asInt(properties);
+            return left.asInt(bindings) * right.asInt(bindings);
       }
       return 0;
    }
 
-   public String asString(TemplateProperties properties) throws ExpressionEvaluationException {
+   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return "" + (left.asInt(properties) & right.asInt(properties));
+            return "" + (left.asInt(bindings) & right.asInt(bindings));
          case ConditionalAnd:
-            return "" + (left.asBoolean(properties) && right.asBoolean(properties));
+            return "" + (left.asBoolean(bindings) && right.asBoolean(bindings));
          case ConditionalOr:
-            return "" + (left.asBoolean(properties) || right.asBoolean(properties));
+            return "" + (left.asBoolean(bindings) || right.asBoolean(bindings));
          case Equal:
-            return "" + (left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties)));
+            return "" + (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings)));
          case GT:
-            return "" + (left.asDouble(properties) > right.asDouble(properties));
+            return "" + (left.asDouble(bindings) > right.asDouble(bindings));
          case GTE:
-            return "" + (left.asDouble(properties) >= right.asDouble(properties));
+            return "" + (left.asDouble(bindings) >= right.asDouble(bindings));
          case LT:
-            return "" + (left.asDouble(properties) < right.asDouble(properties));
+            return "" + (left.asDouble(bindings) < right.asDouble(bindings));
          case LTE:
-            return "" + (left.asDouble(properties) <= right.asDouble(properties));
+            return "" + (left.asDouble(bindings) <= right.asDouble(bindings));
          case Mod:
-            return "" + (left.asInt(properties) % right.asInt(properties));
+            return "" + (left.asInt(bindings) % right.asInt(bindings));
          case NotEqual:
-            return "" + (!(left == null && right == null || !(left == null || right == null) && left.eval(properties).equals(right.eval(properties))));
+            return "" + (!(left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))));
          case Or:
-            return "" + (left.asInt(properties) | right.asInt(properties));
+            return "" + (left.asInt(bindings) | right.asInt(bindings));
          case SHIFT_LEFT:
-            return "" + (left.asInt(properties) << right.asInt(properties));
+            return "" + (left.asInt(bindings) << right.asInt(bindings));
          case SHIFT_RIGHT:
-            return "" + (left.asInt(properties) >> right.asInt(properties));
+            return "" + (left.asInt(bindings) >> right.asInt(bindings));
          case U_SHIFT_RIGHT:
-            return "" + (left.asInt(properties) >> right.asInt(properties));
+            return "" + (left.asInt(bindings) >> right.asInt(bindings));
          case XOr:
-            return "" + (left.asInt(properties) ^ right.asInt(properties));
+            return "" + (left.asInt(bindings) ^ right.asInt(bindings));
          case Plus:
-            Type t = getType(properties);
+            Type t = getType(bindings);
             if (t == Type.String) {
-               return left.asString(properties) + right.asString(properties);
+               return left.asString(bindings) + right.asString(bindings);
             }
             if (t == Type.Double) {
-               return "" + (left.asDouble(properties) + right.asDouble(properties));
+               return "" + (left.asDouble(bindings) + right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return "" + (left.asFloat(properties) + right.asFloat(properties));
+               return "" + (left.asFloat(bindings) + right.asFloat(bindings));
             }
-            return "" + (left.asInt(properties) + right.asInt(properties));
+            return "" + (left.asInt(bindings) + right.asInt(bindings));
          case Minus:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return "" + (left.asDouble(properties) - right.asDouble(properties));
+               return "" + (left.asDouble(bindings) - right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return "" + (left.asFloat(properties) - right.asFloat(properties));
+               return "" + (left.asFloat(bindings) - right.asFloat(bindings));
             }
-            return "" + (left.asInt(properties) - right.asInt(properties));
+            return "" + (left.asInt(bindings) - right.asInt(bindings));
          case Divide:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return "" + (left.asDouble(properties) / right.asDouble(properties));
+               return "" + (left.asDouble(bindings) / right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return "" + (left.asFloat(properties) / right.asFloat(properties));
+               return "" + (left.asFloat(bindings) / right.asFloat(bindings));
             }
-            return "" + (left.asInt(properties) / right.asInt(properties));
+            return "" + (left.asInt(bindings) / right.asInt(bindings));
          case Times:
-            t = getType(properties);
+            t = getType(bindings);
             if (t == Type.Double) {
-               return "" + (left.asDouble(properties) * right.asDouble(properties));
+               return "" + (left.asDouble(bindings) * right.asDouble(bindings));
             }
             if (t == Type.Float) {
-               return "" + (left.asFloat(properties) * right.asFloat(properties));
+               return "" + (left.asFloat(bindings) * right.asFloat(bindings));
             }
-            return "" + (left.asInt(properties) * right.asInt(properties));
+            return "" + (left.asInt(bindings) * right.asInt(bindings));
       }
 
       return null;

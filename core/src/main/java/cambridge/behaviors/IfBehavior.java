@@ -1,7 +1,7 @@
 package cambridge.behaviors;
 
 import cambridge.*;
-import cambridge.runtime.TemplateProperties;
+import cambridge.runtime.TemplateBindings;
 import cambridge.parser.expressions.Expression;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
@@ -21,8 +21,8 @@ public class IfBehavior extends ConditionalTagBehavior {
    }
 
    @Override
-   public boolean conditionMet(TemplateProperties properties) throws ExpressionEvaluationException {
-      return expression.asBoolean(properties);
+   public boolean conditionMet(TemplateBindings bindings) throws ExpressionEvaluationException {
+      return expression.asBoolean(bindings);
    }
 
    public static BehaviorProvider<IfBehavior> getProvider() {
