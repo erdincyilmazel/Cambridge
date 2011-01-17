@@ -21,9 +21,7 @@ public class FileTemplateLoader extends AbstractTemplateLoader {
       this.changeDetectionInterval = changeDetectionInterval;
    }
 
-   public static int DefaultChangeDetectionInterval = 5000;
-
-   private final int changeDetectionInterval;
+   protected final int changeDetectionInterval;
 
    public TemplateFactory newTemplateFactory(File file) throws TemplateLoadingException {
       return newTemplateFactory(file, DefaultEncoding, null);

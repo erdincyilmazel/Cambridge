@@ -16,6 +16,7 @@ import java.io.StringReader;
  * Time: 7:08:57 PM
  */
 abstract class AbstractTemplateLoader implements TemplateLoader {
+   public static int DefaultChangeDetectionInterval = 5000;
    public static final String DefaultEncoding = "UTF-8";
 
    public TemplateFactory parseAndCreateTemplateFactory(String templateSource) throws TemplateLoadingException {

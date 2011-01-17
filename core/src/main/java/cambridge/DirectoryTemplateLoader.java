@@ -17,11 +17,11 @@ public class DirectoryTemplateLoader extends FileTemplateLoader {
    private static String fileSeperator = System.getProperty("file.separator");
 
    public DirectoryTemplateLoader(File templateDirectory) {
-      this(templateDirectory, FileTemplateLoader.DefaultEncoding, FileTemplateLoader.DefaultChangeDetectionInterval);
+      this(templateDirectory, FileTemplateLoader.DefaultEncoding, DefaultChangeDetectionInterval);
    }
 
    public DirectoryTemplateLoader(File templateDirectory, String defaultEncoding) {
-      this(templateDirectory, defaultEncoding, FileTemplateLoader.DefaultChangeDetectionInterval);
+      this(templateDirectory, defaultEncoding, DefaultChangeDetectionInterval);
    }
 
    public DirectoryTemplateLoader(File templateDirectory, String defaultEncoding, int changeDetectionInterval) {
