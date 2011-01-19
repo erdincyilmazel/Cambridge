@@ -63,6 +63,10 @@ public class ComplexAttribute implements Attribute {
       return false;
    }
 
+   public String getNamespaceUri() {
+      return null;
+   }
+
    public void setTextContent(String textContent) {
       this.textContent = textContent;
    }

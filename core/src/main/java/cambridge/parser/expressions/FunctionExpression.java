@@ -1,5 +1,6 @@
 package cambridge.parser.expressions;
 
+import cambridge.Cambridge;
 import cambridge.ExpressionEvaluationException;
 import cambridge.runtime.TemplateBindings;
 import cambridge.runtime.FunctionRunner;
@@ -18,7 +19,7 @@ public class FunctionExpression implements Expression {
 
    public FunctionExpression(String functionName) {
       this.functionName = functionName;
-      runner = FunctionRunner.getInstance(functionName);
+      runner = Cambridge.getInstance().getFunctionRunner(functionName);
    }
 
    public void setParameters(ArrayList<Expression> params) {

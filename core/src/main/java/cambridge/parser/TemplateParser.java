@@ -9,6 +9,7 @@ import cambridge.parser.tokens.*;
 import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -82,6 +83,22 @@ public class TemplateParser {
    private Token currentToken;
    private List<TemplateNode> matchedNodes = new ArrayList<TemplateNode>();
    private TemplateDocument template;
+   private HashMap<String, String> namespaceMappings;
+
+   private String getNamespaceUri(String name) {
+      if (name == null) {
+         return null;
+      }
+
+      if (namespaceMappings != null) {
+         String uri = namespaceMappings.get(name);
+         if (uri != null) {
+            return uri;
+         }
+      }
+
+      return Cambridge.getInstance().getDefaultNamespace(name);
+   }
 
    public TemplateDocument parse() throws IOException, TemplateParsingException {
       template = new TemplateDocument();
@@ -199,9 +216,17 @@ public class TemplateParser {
    private TagNode tag() throws IOException, TemplateParsingException {
       OpenTagToken token = (OpenTagToken) currentToken;
 
-      Behaviors bindings = Behaviors.getInstance();
+      Cambridge bindings = Cambridge.getInstance();
 
-      TagNode node = bindings.getDynamicTag(new AttributeKey(token.getNameSpace(), token.getTagName()));
+      TagNode node = null;
+
+      if (token.getNameSpace() != null) {
+         String namespaceUri = getNamespaceUri(token.getNameSpace());
+         if (namespaceUri != null) {
+            node = bindings.getDynamicTag(new DynamicAttributeKey(namespaceUri, token.getNameSpace(), token.getTagName()));
+         }
+      }
+
       boolean dynamicTag = true;
       if (node == null) {
          node = new TagNode();
@@ -239,8 +264,9 @@ public class TemplateParser {
                StringBuilder textContent = new StringBuilder();
                textContent.append(tok.getActualValue());
 
-               if (tok.getNameSpace() != null && bindings.isRegisteredNamespace(tok.getNameSpace())) {
-                  element = new DynamicAttribute();
+               String namespaceUri = getNamespaceUri(tok.getNameSpace());
+               if (namespaceUri != null && bindings.isRegisteredNamespace(namespaceUri)) {
+                  element = new DynamicAttribute(namespaceUri);
                }
 
                while (true) {
@@ -389,6 +415,9 @@ public class TemplateParser {
       if ("set".equalsIgnoreCase(tok.getDirective())) {
          return parseSetDirective(tok);
       }
+      if ("namespace".equalsIgnoreCase(tok.getDirective())) {
+         return parseNamespaceDirective(tok);
+      }
       if ("debug".equalsIgnoreCase(tok.getDirective())) {
          return new DebugDirective();
       }
@@ -415,6 +444,31 @@ public class TemplateParser {
       Expression ex = Expressions.parse(expression);
 
       return new SetDirective(varName, ex);
+   }
+
+   private static final Pattern namespaceDirectivePattern = Pattern.compile("(\\w+)\\s?=\"([^\"]+)\"");
+
+   private TemplateNode parseNamespaceDirective(ParserDirectiveToken tok) {
+      String args = tok.getArgs();
+      if(args == null) {
+         throw new TemplateParsingException("Invalid namespace directive", currentToken.getLineNo(), currentToken.getColumn());
+      }
+
+      Matcher matcher = namespaceDirectivePattern.matcher(args);
+      if(!matcher.find()) {
+         throw new TemplateParsingException("Invalid namespace directive", currentToken.getLineNo(), currentToken.getColumn());
+      }
+
+      String name = matcher.group(1);
+      String uri = matcher.group(2);
+
+      if (namespaceMappings == null) {
+         namespaceMappings = new HashMap<String, String>();
+      }
+
+      namespaceMappings.put(name, uri);
+
+      return new NamespaceDirective(name, uri);
    }
 
    private TemplateNode parseIncludeNode(ParserDirectiveToken tok) {

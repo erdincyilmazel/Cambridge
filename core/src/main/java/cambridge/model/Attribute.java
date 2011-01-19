@@ -8,7 +8,7 @@ package cambridge.model;
  * <li>{@link DynamicAttribute}</li><li>{@link SimpleAttribute}</li></ul></p>
  *
  * <p>For an attribute to be parsed as a DynamicAttribute, it should have a namespace portion and the attribute
- * name should be registered with the {@link cambridge.Behaviors} class</p>
+ * name should be registered with the {@link cambridge.Cambridge} class</p>
  */
 public interface Attribute extends TagPart {
    /**
@@ -48,11 +48,17 @@ public interface Attribute extends TagPart {
    String getValue();
 
    /**
-    * If this attribute type is registered with the {@link cambridge.Behaviors} class, it should
+    * If this attribute type is registered with the {@link cambridge.Cambridge} class, it should
     * return true.
     * @return Returns if this attribute holds a dynamic behavior
     */
-   public boolean isDynamic();
+   boolean isDynamic();
+
+   /**
+    * Returns the namespace uri of this attribute if there is any
+    * @return Returns the uri of the namespace attached or null
+    */
+   String getNamespaceUri();
 
    public void setTextContent(String textContent);
 }

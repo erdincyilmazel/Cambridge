@@ -11,7 +11,7 @@ public class DummyTag extends DynamicTag {
    public DummyTag() {
       setDynamic(true);
       setHidden(true);
-      setIndented(false);
+      setIndented(true);
    }
 
    public void pack() {

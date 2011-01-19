@@ -1,6 +1,19 @@
 package cambridge.model;
 
-import cambridge.*;
+import cambridge.AttributeKey;
+import cambridge.BehaviorInstantiationException;
+import cambridge.Cambridge;
+import cambridge.ConditionalTagBehavior;
+import cambridge.DynamicAttributeKey;
+import cambridge.ExecutingTagBehavior;
+import cambridge.ExpressionEvaluationException;
+import cambridge.ExpressionParsingException;
+import cambridge.ModifyingTagBehavior;
+import cambridge.StaticBehavior;
+import cambridge.TagBehavior;
+import cambridge.TemplateEvaluationException;
+import cambridge.TemplateLoader;
+import cambridge.TemplateLoadingException;
 import cambridge.behaviors.ForeachBehavior;
 import cambridge.behaviors.IfBehavior;
 import cambridge.parser.expressions.Expressions;
@@ -179,12 +192,13 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          id = a.getValue();
       }
 
-      Behaviors bindings = Behaviors.getInstance();
+      Cambridge bindings = Cambridge.getInstance();
 
       tagParts.add(a);
 
       if (a.isDynamic()) {
-         if (bindings.getStaticBehavior(key) == null) {
+         DynamicAttributeKey attributeKey = new DynamicAttributeKey(a.getNamespaceUri(), a.getAttributeNameSpace(), a.getAttributeName());
+         if (bindings.getStaticBehavior(attributeKey) == null) {
             dynamic = true;
          }
       }
@@ -273,11 +287,15 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          return true;
       } else {
          if (attributes != null) {
-            Behaviors bindings = Behaviors.getInstance();
-            for (AttributeKey key : attributes.keySet()) {
-               StaticBehavior sb = bindings.getStaticBehavior(key);
-               if (sb != null) {
-                  sb.modify(this);
+            Cambridge bindings = Cambridge.getInstance();
+
+            for (Attribute a : attributes.values()) {
+               if (a.isDynamic()) {
+                  DynamicAttributeKey key = new DynamicAttributeKey(a.getNamespaceUri(), a.getAttributeNameSpace(), a.getAttributeName());
+                  StaticBehavior sb = bindings.getStaticBehavior(key);
+                  if (sb != null) {
+                     sb.modify(this);
+                  }
                }
             }
          }
@@ -387,11 +405,15 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    @Override
    public void normalize(FragmentList f) throws BehaviorInstantiationException {
       if (attributes != null) {
-         Behaviors bindings = Behaviors.getInstance();
-         for (AttributeKey key : attributes.keySet()) {
-            StaticBehavior sb = bindings.getStaticBehavior(key);
-            if (sb != null) {
-               sb.modify(this);
+         Cambridge bindings = Cambridge.getInstance();
+
+         for (Attribute a : attributes.values()) {
+            if (a.isDynamic()) {
+               DynamicAttributeKey key = new DynamicAttributeKey(a.getNamespaceUri(), a.getAttributeNameSpace(), a.getAttributeName());
+               StaticBehavior sb = bindings.getStaticBehavior(key);
+               if (sb != null) {
+                  sb.modify(this);
+               }
             }
          }
       }
@@ -628,7 +650,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          tag = this;
       }
 
-      if(indented) {
+      if (indented) {
          out.append(indent);
       }
 
@@ -728,17 +750,20 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    private void assignBehaviors() throws BehaviorInstantiationException {
-      Behaviors bindings = Behaviors.getInstance();
+      Cambridge bindings = Cambridge.getInstance();
       if (attributes != null) {
-         for (AttributeKey key : attributes.keySet()) {
-            TagBehavior behavior;
-            try {
-               behavior = bindings.getBehavior(key, attributes);
-            } catch (ExpressionParsingException e) {
-               throw new BehaviorInstantiationException("Error in parsing expression", e, getBeginLine(), getBeginColumn());
-            }
-            if (behavior != null) {
-               addBehavior(behavior);
+         for (Attribute a : attributes.values()) {
+            if (a.isDynamic()) {
+               DynamicAttributeKey key = new DynamicAttributeKey(a.getNamespaceUri(), a.getAttributeNameSpace(), a.getAttributeName());
+               TagBehavior behavior;
+               try {
+                  behavior = bindings.getBehavior(key, attributes);
+               } catch (ExpressionParsingException e) {
+                  throw new BehaviorInstantiationException("Error in parsing expression", e, getBeginLine(), getBeginColumn());
+               }
+               if (behavior != null) {
+                  addBehavior(behavior);
+               }
             }
          }
       }

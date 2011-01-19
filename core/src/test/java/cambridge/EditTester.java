@@ -15,33 +15,18 @@ import java.util.Locale;
  * Date: Oct 13, 2009
  * Time: 11:48:01 AM
  */
-public class Cambridge {
+public class EditTester {
 
    public static void main(String[] args) {
       try {
 
          final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
                 
-         final TemplateFactory f = loader.newTemplateFactory("kitchensink.html");/*, new TemplateModifier() {
+         final TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
             public void modifyTemplate(TemplateDocument doc) {
 
-               TagNode node = doc.locateTag("/html/head");
-               TagNode html = doc.locateTag("/html");
-
-               html.removeChild(node);
-
-               html.addInclude(loader, "a.html", "/html/head");
-
-               doc.getElementById("email").setText("Cambridge rocks!");
-
-               try {
-                  doc.getElementById("email").addExpression("user.email");
-                  //doc.getElementById("email").addChild(new ExpressionNode("user.email"));
-               } catch (ExpressionParsingException e) {
-                  e.printStackTrace();
-               }
             }
-         });*/
+         });
 
          Thread thread = new Thread(new Runnable() {
             public void run() {

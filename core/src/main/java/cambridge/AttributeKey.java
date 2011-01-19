@@ -6,8 +6,8 @@ package cambridge;
  * Time: 1:15:50 PM
  */
 public class AttributeKey {
-   private final String namespace;
-   private final String attribute;
+   protected final String namespace;
+   protected final String attribute;
 
    @Override
    public boolean equals(Object o) {

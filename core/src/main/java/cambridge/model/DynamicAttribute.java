@@ -10,7 +10,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
 
 /**
- * DynamicAttributes are attributes which are registered with the {@link cambridge.Behaviors}
+ * DynamicAttributes are attributes which are registered with the {@link cambridge.Cambridge}
  * class and which carry a dynamic behavior on.
  */
 public class DynamicAttribute implements Attribute {
@@ -18,6 +18,15 @@ public class DynamicAttribute implements Attribute {
    private String attributeName;
    private String attributeNameSpace;
    private String value;
+   private final String namespaceUri;
+
+   public DynamicAttribute(String namespaceUri) {
+      this.namespaceUri = namespaceUri;
+   }
+
+   public String getNamespaceUri() {
+      return namespaceUri;
+   }
 
    public String getAttributeName() {
       return attributeName;
