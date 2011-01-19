@@ -316,7 +316,10 @@ public class TemplateDocument implements ParentNode {
             ret.pack();
             return ret;
          case Except:
-            ret = normalizeUntil(node, false);
+            ret = new FragmentList();
+            FragmentList before = normalizeUntil(node, false);
+            ret.addAll(before);
+            
             while (true) {
                ParentNode parent = node.getParent();
                if (parent == null) {
@@ -341,6 +344,7 @@ public class TemplateDocument implements ParentNode {
                }
             }
 
+            ret.pack();
             return ret;
          case Inside:
             ret = new FragmentList();
