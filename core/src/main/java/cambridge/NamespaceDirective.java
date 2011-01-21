@@ -32,4 +32,12 @@ public class NamespaceDirective extends TemplateNode {
    public Tag getElementById(String id) {
       return null;
    }
+
+   @Override
+   public String toString() {
+      return "NamespaceDirective{" +
+         "name='" + name + '\'' +
+         ", uri='" + uri + '\'' +
+         '}';
+   }
 }

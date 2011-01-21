@@ -102,7 +102,7 @@ public class Cambridge {
       bind(DefaultNamespaceURI, "next").to(ConditionalAttributeBehavior.getProvider());
       bindStatic(DefaultNamespaceURI, "addAlt").to(AltAdderStaticBehavior.class);
       bindStatic(DefaultNamespaceURI, "hide").to(HideBehavior.class);
-      bindTag(DefaultNamespaceURI, "dummy", "span").to(DummyTag.class);
+      bindTag(DefaultNamespaceURI, "hidden", "span").to(DummyTag.class);
    }
 
    public Bind bind(String uri, String attribute) {

@@ -16,7 +16,7 @@ import java.util.Map;
  * Date: Nov 1, 2009
  * Time: 3:57:11 PM
  */
-public class RepeatBehavior extends ExecutingTagBehavior {
+public class RepeatBehavior extends LoopingTagBehavior {
    private final Expression number;
 
    public RepeatBehavior(Expression number) {

@@ -46,6 +46,6 @@ public class TextNode extends TemplateNode {
    }
 
    public String toString() {
-      return getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn() + " - " + contents;
+      return contents + " @ " + getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn();
    }
 }

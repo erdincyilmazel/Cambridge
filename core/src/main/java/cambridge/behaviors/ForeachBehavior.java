@@ -16,7 +16,7 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 7:18:33 PM
  */
-public class ForeachBehavior extends ExecutingTagBehavior {
+public class ForeachBehavior extends LoopingTagBehavior {
    private final Expression iterable;
 
    public ForeachBehavior(Expression iterable) {

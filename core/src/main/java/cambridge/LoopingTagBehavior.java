@@ -12,8 +12,8 @@ import java.io.IOException;
  * Date: Oct 31, 2009
  * Time: 7:16:27 PM
  */
-public abstract class ExecutingTagBehavior implements TagBehavior {
-   protected ExecutingTagBehavior() {
+public abstract class LoopingTagBehavior implements TagBehavior {
+   protected LoopingTagBehavior() {
    }
 
    public final void execute(TemplateBindings bindings, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {

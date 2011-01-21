@@ -40,4 +40,8 @@ public class CommentNode extends TextNode {
    public TagNode getElementById(String id) {
       return null;
    }
+
+   public String toString() {
+      return "Comment node";
+   }
 }

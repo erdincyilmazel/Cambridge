@@ -16,7 +16,7 @@ import java.util.Map;
  * Date: Nov 1, 2009
  * Time: 3:57:11 PM
  */
-public class FromBehavior extends ExecutingTagBehavior {
+public class FromBehavior extends LoopingTagBehavior {
    private final Expression from;
    private final Expression to;
 

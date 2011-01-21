@@ -5,7 +5,7 @@ import cambridge.BehaviorInstantiationException;
 import cambridge.Cambridge;
 import cambridge.ConditionalTagBehavior;
 import cambridge.DynamicAttributeKey;
-import cambridge.ExecutingTagBehavior;
+import cambridge.LoopingTagBehavior;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
 import cambridge.ModifyingTagBehavior;
@@ -51,7 +51,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
    private ArrayList<ModifyingTagBehavior> modifyingBehaviors;
    private ArrayList<ConditionalTagBehavior> conditionalBehaviors;
-   private ExecutingTagBehavior executing;
+   private LoopingTagBehavior looping;
 
    private boolean dynamic;
    protected boolean hidden;
@@ -442,6 +442,8 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             fragments.pack();
 
             f.addFragment(this);
+
+
          }
       } else {
          f.append("<");
@@ -546,7 +548,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    public String toString() {
-      return (nameSpace == null ? tagName : nameSpace + ":" + tagName) + " @ " + getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn();
+      return "<" + (nameSpace == null ? tagName : nameSpace + ":" + tagName) + "> @ " + getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn();
    }
 
    @SuppressWarnings("unchecked")
@@ -556,10 +558,10 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             printFragments(bindings, out);
          } else {
             if (conditionsMet(bindings)) {
-               if (executing == null) {
+               if (looping == null) {
                   execute(bindings, out);
                } else {
-                  executing.execute(bindings, this, out);
+                  looping.execute(bindings, this, out);
                }
             }
          }
@@ -777,8 +779,8 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          }
 
          conditionalBehaviors.add((ConditionalTagBehavior) behavior);
-      } else if (behavior instanceof ExecutingTagBehavior) {
-         executing = (ExecutingTagBehavior) behavior;
+      } else if (behavior instanceof LoopingTagBehavior) {
+         looping = (LoopingTagBehavior) behavior;
       } else if (behavior instanceof ModifyingTagBehavior) {
          if (modifyingBehaviors == null) {
             modifyingBehaviors = new ArrayList<ModifyingTagBehavior>();
