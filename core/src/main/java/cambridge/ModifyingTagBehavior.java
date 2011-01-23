@@ -8,6 +8,6 @@ import cambridge.runtime.TemplateBindings;
  * Date: Nov 1, 2009
  * Time: 3:29:42 PM
  */
-public interface ModifyingTagBehavior extends TagBehavior {
-   public void modify(TemplateBindings bindings, ModifyableTag tag) throws ExpressionEvaluationException;
+public abstract class ModifyingTagBehavior implements TagBehavior {
+   public abstract void modify(TemplateBindings bindings, ModifyableTag tag) throws ExpressionEvaluationException;
 }

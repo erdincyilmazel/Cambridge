@@ -53,14 +53,14 @@ public class DirectoryTemplateLoader extends FileTemplateLoader {
    }
 
    @Override
-   public TemplateDocument parseTemplate(String template) throws TemplateLoadingException {
-      File templateFile = new File(templateDirectory.getAbsolutePath() + fileSeperator + template);
+   public TemplateDocument parseTemplate(String templateName) throws TemplateLoadingException {
+      File templateFile = new File(templateDirectory.getAbsolutePath() + fileSeperator + templateName);
       return parseTemplate(templateFile);
    }
 
    @Override
-   public TemplateDocument parseTemplate(String template, String encoding) throws TemplateLoadingException {
-      File templateFile = new File(templateDirectory.getAbsolutePath() + fileSeperator + template);
+   public TemplateDocument parseTemplate(String templateName, String encoding) throws TemplateLoadingException {
+      File templateFile = new File(templateDirectory.getAbsolutePath() + fileSeperator + templateName);
       return parseTemplate(templateFile, encoding);
    }
 

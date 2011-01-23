@@ -14,15 +14,13 @@ import java.util.Map;
  * Time: 10:27:01 AM
  */
 public class IfBehavior extends ConditionalTagBehavior {
-   private final Expression expression;
-
    public IfBehavior(Expression e) {
-      expression = e;
+      super(e);
    }
 
    @Override
-   public boolean conditionMet(TemplateBindings bindings) throws ExpressionEvaluationException {
-      return expression.asBoolean(bindings);
+   public ConditionType getType() {
+      return ConditionalTagBehavior.ConditionType.FIRST;
    }
 
    public static BehaviorProvider<IfBehavior> getProvider() {

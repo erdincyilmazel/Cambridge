@@ -14,6 +14,7 @@ import cambridge.TagBehavior;
 import cambridge.TemplateEvaluationException;
 import cambridge.TemplateLoader;
 import cambridge.TemplateLoadingException;
+import cambridge.TemplateParsingException;
 import cambridge.behaviors.ForeachBehavior;
 import cambridge.behaviors.IfBehavior;
 import cambridge.parser.expressions.Expressions;
@@ -50,7 +51,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    private static final Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
 
    private ArrayList<ModifyingTagBehavior> modifyingBehaviors;
-   private ArrayList<ConditionalTagBehavior> conditionalBehaviors;
+   private ConditionalTagBehavior conditionalBehavior;
    private LoopingTagBehavior looping;
 
    private boolean dynamic;
@@ -442,8 +443,6 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             fragments.pack();
 
             f.addFragment(this);
-
-
          }
       } else {
          f.append("<");
@@ -741,14 +740,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    private boolean conditionsMet(TemplateBindings bindings) throws ExpressionEvaluationException {
-      if (conditionalBehaviors == null) return true;
-      for (ConditionalTagBehavior b : conditionalBehaviors) {
-         if (!b.conditionMet(bindings)) {
-            return false;
-         }
-      }
-
-      return true;
+      return conditionalBehavior == null || conditionalBehavior.conditionMet(bindings);
    }
 
    private void assignBehaviors() throws BehaviorInstantiationException {
@@ -774,12 +766,14 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    public Tag addBehavior(TagBehavior behavior) {
       dynamic = true;
       if (behavior instanceof ConditionalTagBehavior) {
-         if (conditionalBehaviors == null) {
-            conditionalBehaviors = new ArrayList<ConditionalTagBehavior>();
+         if (conditionalBehavior != null) {
+            throw new TemplateParsingException("Only one conditional behaviour be assigned to a tag. Tag: " + toString(), getBeginLine(), getBeginColumn());
          }
-
-         conditionalBehaviors.add((ConditionalTagBehavior) behavior);
+         conditionalBehavior = (ConditionalTagBehavior) behavior;
       } else if (behavior instanceof LoopingTagBehavior) {
+         if (looping != null) {
+            throw new TemplateParsingException("Only one looping behaviour be assigned to a tag. Tag: " + toString(), getBeginLine(), getBeginColumn());
+         }
          looping = (LoopingTagBehavior) behavior;
       } else if (behavior instanceof ModifyingTagBehavior) {
          if (modifyingBehaviors == null) {
@@ -790,6 +784,14 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
 
       return this;
+   }
+
+   public ConditionalTagBehavior getConditionalBehavior() {
+      return conditionalBehavior;
+   }
+
+   public void removeConditionalBehavior() {
+      conditionalBehavior = null;
    }
 
    public ArrayList<Tag> getChildrenByTagName(String tagName) {

@@ -48,4 +48,8 @@ public class TextNode extends TemplateNode {
    public String toString() {
       return contents + " @ " + getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn();
    }
+
+   public boolean isWhiteSpace() {
+      return contents == null || "".equals(contents) || contents.matches("\\s+");
+   }
 }

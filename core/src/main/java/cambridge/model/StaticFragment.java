@@ -56,4 +56,17 @@ public class StaticFragment implements AttributeFragment {
          return contents.toString();
       }
    }
+
+   public boolean isWhitespace() {
+      if (packed) {
+         return packedContents == null
+            || packedContents.equals("")
+            || packedContents.matches("\\s+");
+      }
+
+      String c = contents.toString();
+      return c == null
+            || c.equals("")
+            || c.matches("\\s+");
+   }
 }

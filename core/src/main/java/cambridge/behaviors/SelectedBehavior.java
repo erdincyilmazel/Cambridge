@@ -15,7 +15,7 @@ import java.util.Map;
  * Date: Nov 7, 2009
  * Time: 8:36:59 PM
  */
-public class SelectedBehavior implements ModifyingTagBehavior {
+public class SelectedBehavior extends ModifyingTagBehavior {
    private final Expression expression;
 
    public SelectedBehavior(Expression expression) {

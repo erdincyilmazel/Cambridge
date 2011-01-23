@@ -2,6 +2,8 @@ package cambridge;
 
 import cambridge.behaviors.AltAdderStaticBehavior;
 import cambridge.behaviors.ConditionalAttributeBehavior;
+import cambridge.behaviors.ElseBehavior;
+import cambridge.behaviors.ElseIfBehavior;
 import cambridge.behaviors.ForeachBehavior;
 import cambridge.behaviors.FromBehavior;
 import cambridge.behaviors.HideBehavior;
@@ -24,12 +26,7 @@ import java.util.Map;
 public class Cambridge {
    public static String DefaultNamespaceURI = "http://cambridge.googlecode.com";
 
-   private static final HashMap<String, FunctionRunner> functions = new HashMap<String, FunctionRunner>();
-
-   static {
-      functions.put("text", new ResourceBundleFunction());
-      functions.put("if", new IfFunction());
-   }
+   private final HashMap<String, FunctionRunner> functions = new HashMap<String, FunctionRunner>();
 
    public void registerFunction(String name, FunctionRunner runner) {
       functions.put(name, runner);
@@ -93,7 +90,12 @@ public class Cambridge {
    public void setUp() {
       mapNamespace(DefaultNamespaceURI, "a", "cambridge");
 
+      registerFunction("text", new ResourceBundleFunction());
+      registerFunction("if", new IfFunction());
+
       bind(DefaultNamespaceURI, "if").to(IfBehavior.getProvider());
+      bind(DefaultNamespaceURI, "elseif").to(ElseIfBehavior.getProvider());
+      bind(DefaultNamespaceURI, "else").to(ElseBehavior.getProvider());
       bind(DefaultNamespaceURI, "foreach").to(ForeachBehavior.getProvider());
       bind(DefaultNamespaceURI, "while").to(WhileBehavior.getProvider());
       bind(DefaultNamespaceURI, "from").to(FromBehavior.getProvider());
