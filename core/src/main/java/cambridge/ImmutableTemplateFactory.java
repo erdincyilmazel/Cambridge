@@ -3,6 +3,7 @@ package cambridge;
 import cambridge.model.FragmentList;
 
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -22,5 +23,10 @@ class ImmutableTemplateFactory extends TemplateFactory {
    @Override
    public Template createTemplate(Locale locale) {
       return new DynamicTemplate(fragments, locale);
+   }
+
+   @Override
+   public Template createTemplate(Map<String, Object> bindings) {
+      return new DynamicTemplate(fragments, bindings);
    }
 }

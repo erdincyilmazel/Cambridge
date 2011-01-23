@@ -6,6 +6,7 @@ import cambridge.model.TemplateDocument;
 import java.io.File;
 import java.util.HashSet;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -44,6 +45,11 @@ class FileTemplateFactory extends TemplateFactory {
       checkForChanges();
 
       return new DynamicTemplate(fragments, locale);
+   }
+
+   @Override
+   public Template createTemplate(Map<String, Object> bindings) {
+      return new DynamicTemplate(fragments, bindings);
    }
 
    private void checkForChanges() {

@@ -1,7 +1,7 @@
 package cambridge;
 
 import cambridge.parser.expressions.Expression;
-import cambridge.runtime.TemplateBindings;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -25,7 +25,7 @@ public abstract class ConditionalTagBehavior implements TagBehavior {
       expression = null;
    }
 
-   public boolean conditionMet(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public boolean conditionMet(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return expression == null || expression.asBoolean(bindings);
    }
 

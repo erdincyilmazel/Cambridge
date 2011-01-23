@@ -1,7 +1,6 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateBindings;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,35 +13,35 @@ import java.util.Set;
  * Time: 11:53:23 PM
  */
 public class MapExpression extends HashMap<String, Object> implements Expression, Iterable<MapExpression.MapEntry> {
-   public Type getType(TemplateBindings globals) throws ExpressionEvaluationException {
+   public Type getType(Map<String, Object> globals) throws ExpressionEvaluationException {
       return Type.Object;
    }
 
-   public Object eval(TemplateBindings globals) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException {
       return this;
    }
 
-   public boolean asBoolean(TemplateBindings globals) throws ExpressionEvaluationException {
+   public boolean asBoolean(Map<String, Object> globals) throws ExpressionEvaluationException {
       return false;
    }
 
-   public int asInt(TemplateBindings globals) throws ExpressionEvaluationException {
+   public int asInt(Map<String, Object> globals) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public float asFloat(TemplateBindings globals) throws ExpressionEvaluationException {
+   public float asFloat(Map<String, Object> globals) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public double asDouble(TemplateBindings globals) throws ExpressionEvaluationException {
+   public double asDouble(Map<String, Object> globals) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public long asLong(TemplateBindings globals) throws ExpressionEvaluationException {
+   public long asLong(Map<String, Object> globals) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public String asString(TemplateBindings globals) throws ExpressionEvaluationException {
+   public String asString(Map<String, Object> globals) throws ExpressionEvaluationException {
       return toString();
    }
 

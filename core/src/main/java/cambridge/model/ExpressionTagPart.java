@@ -6,8 +6,8 @@ import cambridge.TemplateEvaluationException;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.ExpressionLexer;
 import cambridge.parser.expressions.ExpressionParser;
+import cambridge.runtime.DefaultTemplateBindings;
 import cambridge.runtime.Filter;
-import cambridge.runtime.TemplateBindings;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -16,6 +16,7 @@ import org.antlr.runtime.TokenStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * Represents cambridge expressions that are used inside an HTML tag.
@@ -83,11 +84,15 @@ public class ExpressionTagPart implements TagPart, Fragment {
       return false;
    }
 
-   public void eval(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
       try {
          Object value = expression.eval(bindings);
          if (value != null) {
-            out.append(applyFilters(value, bindings.getLocale()));
+            Locale locale = (Locale) bindings.get(DefaultTemplateBindings.LocaleVariable);
+            if (locale == null) {
+               locale = Locale.getDefault();
+            }
+            out.append(applyFilters(value, locale));
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException(e);

@@ -2,7 +2,9 @@ package cambridge;
 
 import cambridge.model.FragmentList;
 
+import javax.xml.transform.Templates;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -21,4 +23,6 @@ public abstract class TemplateFactory {
    public abstract Template createTemplate();
 
    public abstract Template createTemplate(Locale locale);
+
+   public abstract Template createTemplate(Map<String, Object> bindings);
 }

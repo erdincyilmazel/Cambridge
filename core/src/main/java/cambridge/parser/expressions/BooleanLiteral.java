@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateBindings;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -15,35 +15,35 @@ public class BooleanLiteral implements Expression {
       this.value = value;
    }
 
-   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return Type.Boolean;
    }
 
-   public Object eval(TemplateBindings bindings) {
+   public Object eval(Map<String, Object> bindings) {
       return value;
    }
 
-   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return value;
    }
 
-   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return value ? 1 : 0;
    }
 
-   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return value ? 1 : 0;
    }
 
-   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return value ? 1 : 0;
    }
 
-   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return "" + value;
    }
 

@@ -4,12 +4,10 @@ import cambridge.model.*;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 import cambridge.runtime.DefaultTemplateBindings;
-import cambridge.runtime.TemplateBindings;
-
 import static org.junit.Assert.*;
 import org.junit.Test;
-
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -22,7 +20,7 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("basic.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateBindings p = new DefaultTemplateBindings();
+         Map<String, Object> p = new DefaultTemplateBindings();
          p.put("class", "test");
          TemplateDocument t = parser.parse();
 
@@ -73,7 +71,7 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("complex.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateBindings p = new DefaultTemplateBindings();
+         Map<String, Object> p = new DefaultTemplateBindings();
          p.put("a", "AAA");
          p.put("b", "BBB");
          TemplateDocument t = parser.parse();
@@ -136,7 +134,7 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("dynamic.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateBindings p = new DefaultTemplateBindings();
+         Map<String, Object> p = new DefaultTemplateBindings();
          p.put("style", "style");
 
          TemplateDocument t = parser.parse();

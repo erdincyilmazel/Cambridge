@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateBindings;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -17,14 +17,14 @@ public class UnaryExpression implements Expression {
       this.expression = expression;
    }
 
-   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return Type.Boolean;
       }
       return Type.Int;
    }
 
-   public Object eval(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case Not:
             return !expression.asBoolean(bindings);
@@ -35,7 +35,7 @@ public class UnaryExpression implements Expression {
       return null;
    }
 
-   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(bindings);
       }
@@ -43,7 +43,7 @@ public class UnaryExpression implements Expression {
       return ~expression.asInt(bindings) != 0;
    }
 
-   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(bindings) ? 1 : 0;
       }
@@ -51,7 +51,7 @@ public class UnaryExpression implements Expression {
       return ~expression.asInt(bindings);
    }
 
-   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(bindings) ? 1 : 0;
       }
@@ -59,7 +59,7 @@ public class UnaryExpression implements Expression {
       return ~expression.asInt(bindings);
    }
 
-   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(bindings) ? 1 : 0;
       }
@@ -67,7 +67,7 @@ public class UnaryExpression implements Expression {
       return ~expression.asInt(bindings);
    }
 
-   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(bindings) ? 1 : 0;
       }
@@ -75,7 +75,7 @@ public class UnaryExpression implements Expression {
       return ~expression.asInt(bindings);
    }
 
-   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return !expression.asBoolean(bindings) ? "true" : "false";
       }

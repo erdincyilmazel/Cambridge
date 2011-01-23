@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateBindings;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -25,19 +25,19 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return Type.String;
    }
 
-   public String eval(TemplateBindings bindings) {
+   public String eval(Map<String, Object> bindings) {
       return value;
    }
 
-   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return !value.equals("");
    }
 
-   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
       try {
          return Integer.parseInt(value);
       } catch (NumberFormatException e) {
@@ -45,7 +45,7 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
       try {
          return Float.parseFloat(value);
       } catch (NumberFormatException e) {
@@ -53,7 +53,7 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
       try {
          return Double.parseDouble(value);
       } catch (NumberFormatException e) {
@@ -61,7 +61,7 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
       try {
          return Long.parseLong(value);
       } catch (NumberFormatException e) {
@@ -69,7 +69,7 @@ public class StringLiteral implements Expression {
       }
    }
 
-   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return value;
    }
 

@@ -5,9 +5,8 @@ import cambridge.model.FragmentList;
 import cambridge.model.Tag;
 import cambridge.model.TemplateNode;
 import cambridge.parser.expressions.Expression;
-import cambridge.runtime.TemplateBindings;
-
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -46,7 +45,7 @@ public class SetDirective extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
       try {
          bindings.put(varName, expression.eval(bindings));
       } catch (ExpressionEvaluationException e) {

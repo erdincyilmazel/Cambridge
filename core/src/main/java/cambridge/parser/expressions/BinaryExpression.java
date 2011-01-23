@@ -1,7 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateBindings;
+import java.util.Map;
 
 
 /**
@@ -18,7 +18,7 @@ public class BinaryExpression implements Expression {
       this.right = right;
    }
 
-   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return Type.Int;
@@ -85,7 +85,7 @@ public class BinaryExpression implements Expression {
       return Type.Null;
    }
 
-   public Object eval(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(bindings) & right.asInt(bindings);
@@ -161,7 +161,7 @@ public class BinaryExpression implements Expression {
       return null;
    }
 
-   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return (left.asInt(bindings) & right.asInt(bindings)) != 0;
@@ -238,14 +238,14 @@ public class BinaryExpression implements Expression {
       return false;
    }
 
-   private boolean areEqual(TemplateBindings bindings) throws ExpressionEvaluationException {
+   private boolean areEqual(Map<String, Object> bindings) throws ExpressionEvaluationException {
       Object l = left.eval(bindings);
       Object r = right.eval(bindings);
 
       return l == null && r == null || !(l == null || r == null) && l.equals(r);
    }
 
-   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(bindings) & right.asInt(bindings);
@@ -321,7 +321,7 @@ public class BinaryExpression implements Expression {
       return 0;
    }
 
-   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(bindings) & right.asInt(bindings);
@@ -397,7 +397,7 @@ public class BinaryExpression implements Expression {
       return 0;
    }
 
-   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(bindings) & right.asInt(bindings);
@@ -473,7 +473,7 @@ public class BinaryExpression implements Expression {
       return 0;
    }
 
-   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return left.asInt(bindings) & right.asInt(bindings);
@@ -548,7 +548,7 @@ public class BinaryExpression implements Expression {
       return 0;
    }
 
-   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return "" + (left.asInt(bindings) & right.asInt(bindings));

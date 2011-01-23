@@ -1,11 +1,10 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateBindings;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * User: Erdinc
@@ -25,35 +24,35 @@ public class Range implements Iterable<Integer>, Expression {
       this.max = max;
    }
 
-   public Type getType(TemplateBindings globals) throws ExpressionEvaluationException {
+   public Type getType(Map<String, Object> globals) throws ExpressionEvaluationException {
       return Type.Object;
    }
 
-   public Object eval(TemplateBindings globals) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException {
       return this;
    }
 
-   public boolean asBoolean(TemplateBindings globals) throws ExpressionEvaluationException {
+   public boolean asBoolean(Map<String, Object> globals) throws ExpressionEvaluationException {
       return true;
    }
 
-   public int asInt(TemplateBindings globals) throws ExpressionEvaluationException {
+   public int asInt(Map<String, Object> globals) throws ExpressionEvaluationException {
       return min;
    }
 
-   public float asFloat(TemplateBindings globals) throws ExpressionEvaluationException {
+   public float asFloat(Map<String, Object> globals) throws ExpressionEvaluationException {
       return min;
    }
 
-   public double asDouble(TemplateBindings globals) throws ExpressionEvaluationException {
+   public double asDouble(Map<String, Object> globals) throws ExpressionEvaluationException {
       return min;
    }
 
-   public long asLong(TemplateBindings globals) throws ExpressionEvaluationException {
+   public long asLong(Map<String, Object> globals) throws ExpressionEvaluationException {
       return min;
    }
 
-   public String asString(TemplateBindings globals) throws ExpressionEvaluationException {
+   public String asString(Map<String, Object> globals) throws ExpressionEvaluationException {
       return toString();
    }
 

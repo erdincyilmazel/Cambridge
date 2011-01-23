@@ -9,12 +9,12 @@ import cambridge.parser.TemplateParser;
 import cambridge.TemplateParsingException;
 import cambridge.BehaviorInstantiationException;
 import cambridge.TemplateEvaluationException;
-import cambridge.runtime.TemplateBindings;
 import cambridge.model.TemplateDocument;
 import cambridge.model.FragmentList;
 import cambridge.model.Fragment;
 
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -29,7 +29,7 @@ public class ConditionalAttributeBehaviorTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ConditionalAttributeBehaviorTest.class.getResourceAsStream("conditionalattribute.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         TemplateBindings bindings = new DefaultTemplateBindings();
+         Map<String, Object> bindings = new DefaultTemplateBindings();
          bindings.put("condition", true);
 
          TemplateDocument t = parser.parse();

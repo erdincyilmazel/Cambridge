@@ -3,9 +3,9 @@ package cambridge.model;
 import cambridge.ExpressionEvaluationException;
 import cambridge.TemplateEvaluationException;
 import cambridge.parser.expressions.Expression;
-import cambridge.runtime.TemplateBindings;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel (eyilmazel@tripadvisor.com)
@@ -67,7 +67,7 @@ public class ConditionalBlock implements Fragment {
          || defaultCondition != null;
    }
 
-   public void eval(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
       if (firstCondition == null) {
          return;
       }

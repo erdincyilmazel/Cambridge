@@ -1,7 +1,6 @@
 package cambridge;
 
 import cambridge.model.*;
-import cambridge.runtime.TemplateBindings;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -78,7 +77,7 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
       ArrayList<DebugElement> elements = new ArrayList<DebugElement>();
       Set<Map.Entry<String,Object>> entries = bindings.entrySet();
 

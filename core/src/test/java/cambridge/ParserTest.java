@@ -6,8 +6,6 @@ import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 import cambridge.runtime.DefaultTemplateBindings;
-import cambridge.runtime.TemplateBindings;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import org.junit.BeforeClass;
@@ -15,6 +13,7 @@ import org.junit.Test;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -22,7 +21,7 @@ import java.util.ArrayList;
  * Time: 10:55:06 AM
  */
 public class ParserTest {
-   private static TemplateBindings bindings;
+   private static Map<String, Object> bindings;
 
    @BeforeClass
    public static void init() {

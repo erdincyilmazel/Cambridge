@@ -1,7 +1,6 @@
 package cambridge.behaviors;
 
 import cambridge.*;
-import cambridge.runtime.TemplateBindings;
 import cambridge.parser.expressions.Expression;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;

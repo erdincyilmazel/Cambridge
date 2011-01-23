@@ -6,8 +6,8 @@ import cambridge.TemplateEvaluationException;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.ExpressionLexer;
 import cambridge.parser.expressions.ExpressionParser;
+import cambridge.runtime.DefaultTemplateBindings;
 import cambridge.runtime.Filter;
-import cambridge.runtime.TemplateBindings;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Map;
 
 /**
  * ExpressionNodes are nodes within the documents that are
@@ -113,11 +114,11 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(TemplateBindings bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
       try {
          Object value = expression.eval(bindings);
          if (value != null) {
-            out.append(applyFilters(value, bindings.getLocale()));
+            out.append(applyFilters(value, DefaultTemplateBindings.getLocaleFromBindings(bindings)));
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), value);

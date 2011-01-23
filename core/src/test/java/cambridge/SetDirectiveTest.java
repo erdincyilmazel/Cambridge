@@ -6,8 +6,9 @@ import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 import cambridge.runtime.DefaultTemplateBindings;
-import cambridge.runtime.TemplateBindings;
 import org.junit.Test;
+
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -23,7 +24,7 @@ public class SetDirectiveTest {
       TemplateParser parser = new TemplateParser(tokenizer);
       TemplateDocument doc = parser.parse();
       FragmentList fragmentList = doc.normalize();
-      TemplateBindings prop = new DefaultTemplateBindings();
+      Map<String, Object> prop = new DefaultTemplateBindings();
       StringBuilder out = new StringBuilder();
       for(Fragment f : fragmentList) {
          f.eval(prop, out);

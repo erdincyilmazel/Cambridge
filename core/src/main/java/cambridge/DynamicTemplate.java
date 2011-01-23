@@ -3,7 +3,6 @@ package cambridge;
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
 import cambridge.runtime.DefaultTemplateBindings;
-import cambridge.runtime.TemplateBindings;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Map;
@@ -27,7 +26,12 @@ public class DynamicTemplate implements Template {
       bindings = new DefaultTemplateBindings();
    }
 
-   private final TemplateBindings bindings;
+   public DynamicTemplate(FragmentList fragments, Map<String, Object> bindings) {
+      this.fragments = fragments;
+      this.bindings = bindings;
+   }
+
+   private final Map<String, Object> bindings;
 
    public void setProperty(String name, Object property) {
       bindings.put(name, property);

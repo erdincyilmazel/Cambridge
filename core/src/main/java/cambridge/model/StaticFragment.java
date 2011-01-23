@@ -1,8 +1,6 @@
 package cambridge.model;
-
-import cambridge.runtime.TemplateBindings;
-
 import java.io.IOException;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -36,7 +34,7 @@ public class StaticFragment implements AttributeFragment {
       return this;
    }
 
-   public void eval(TemplateBindings bindings, Appendable out) throws IOException {
+   public void eval(Map<String, Object> bindings, Appendable out) throws IOException {
       out.append(packedContents);
    }
 

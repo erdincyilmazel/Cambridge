@@ -3,6 +3,8 @@ package cambridge.runtime;
 import cambridge.ExpressionEvaluationException;
 import cambridge.parser.expressions.Expression;
 
+import java.util.Locale;
+import java.util.Map;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.text.MessageFormat;
@@ -14,9 +16,9 @@ import java.text.MessageFormat;
  */
 public class ResourceBundleFunction extends FunctionRunner {
    @Override
-   public Object eval(TemplateBindings p, Expression[] params) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> p, Expression[] params) throws ExpressionEvaluationException {
       try {
-         ResourceBundle bundle = ResourceBundle.getBundle("Cambridge", p.getLocale());
+         ResourceBundle bundle = ResourceBundle.getBundle("Cambridge", DefaultTemplateBindings.getLocaleFromBindings(p));
 
          if(params == null || params.length == 0) {
             return "";

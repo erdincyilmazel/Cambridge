@@ -48,9 +48,7 @@ public class RenderCambridgeTemplate extends Result {
 
       final String contentType = MimeTypes.getContentType(templateName, "text/plain");
 
-      Template template = tf.createTemplate();
-
-      template.setAllProperties(args);
+      Template template = tf.createTemplate(args);
 
       try {
          OutputStreamWriter out = new OutputStreamWriter(response.out);

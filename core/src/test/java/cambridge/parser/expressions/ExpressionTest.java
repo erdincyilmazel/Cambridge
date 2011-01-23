@@ -3,11 +3,11 @@ package cambridge.parser.expressions;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
 import cambridge.runtime.DefaultTemplateBindings;
-import cambridge.runtime.TemplateBindings;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -19,7 +19,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class ExpressionTest {
 
-   TemplateBindings bindings;
+   Map<String, Object> bindings;
 
    @Before
    public void setUp() {

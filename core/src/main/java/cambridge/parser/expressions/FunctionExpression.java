@@ -2,10 +2,10 @@ package cambridge.parser.expressions;
 
 import cambridge.Cambridge;
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.TemplateBindings;
 import cambridge.runtime.FunctionRunner;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -26,7 +26,7 @@ public class FunctionExpression implements Expression {
       parameters = params.toArray(new Expression[params.size()]);
    }
 
-   public Type getType(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
       Object o = eval(bindings);
       if (o instanceof Boolean) {
          return Type.Boolean;
@@ -49,19 +49,19 @@ public class FunctionExpression implements Expression {
       return o == null ? Type.Null : Type.Object;
    }
 
-   public Object eval(TemplateBindings p) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> p) throws ExpressionEvaluationException {
       if(runner == null) {
          throw new ExpressionEvaluationException("Unknown function " + functionName);
       }
       return runner.eval(p, parameters);
    }
 
-   public boolean asBoolean(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
       Object o = eval(bindings);
       return o instanceof Boolean && (Boolean) o;
    }
 
-   public int asInt(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
       Object o = eval(bindings);
       if (o instanceof Number) {
          return ((Number) o).intValue();
@@ -69,7 +69,7 @@ public class FunctionExpression implements Expression {
       return 0;
    }
 
-   public float asFloat(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
       Object o = eval(bindings);
       if (o instanceof Number) {
          return ((Number) o).floatValue();
@@ -78,7 +78,7 @@ public class FunctionExpression implements Expression {
       return 0;
    }
 
-   public double asDouble(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
       Object o = eval(bindings);
       if (o instanceof Number) {
          return ((Number) o).doubleValue();
@@ -86,7 +86,7 @@ public class FunctionExpression implements Expression {
       return 0;
    }
 
-   public long asLong(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
       Object o = eval(bindings);
       if (o instanceof Number) {
          return ((Number) o).longValue();
@@ -94,7 +94,7 @@ public class FunctionExpression implements Expression {
       return 0;
    }
 
-   public String asString(TemplateBindings bindings) throws ExpressionEvaluationException {
+   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
       return eval(bindings).toString();
    }
 }

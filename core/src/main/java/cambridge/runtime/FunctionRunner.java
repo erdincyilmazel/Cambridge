@@ -2,8 +2,7 @@ package cambridge.runtime;
 
 import cambridge.ExpressionEvaluationException;
 import cambridge.parser.expressions.Expression;
-
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User: erdinc
@@ -11,5 +10,5 @@ import java.util.HashMap;
  * Time: 11:53:59 PM
  */
 public abstract class FunctionRunner {
-   public abstract Object eval(TemplateBindings p, Expression[] params) throws ExpressionEvaluationException;
+   public abstract Object eval(Map<String, Object> p, Expression[] params) throws ExpressionEvaluationException;
 }

@@ -1,7 +1,6 @@
 package cambridge.behaviors;
 
 import cambridge.*;
-import cambridge.runtime.TemplateBindings;
 import cambridge.parser.expressions.Expression;
 import cambridge.model.ModifyableTag;
 import cambridge.model.SimpleAttribute;
@@ -22,7 +21,7 @@ public class SelectedBehavior extends ModifyingTagBehavior {
       this.expression = expression;
    }
 
-   public void modify(TemplateBindings bindings, ModifyableTag tag) throws ExpressionEvaluationException {
+   public void modify(Map<String, Object> bindings, ModifyableTag tag) throws ExpressionEvaluationException {
       if(expression.asBoolean(bindings)) {
          tag.getTagParts().add(new SimpleAttribute("selected", "selected"));
       }
