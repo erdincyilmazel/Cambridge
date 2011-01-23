@@ -23,6 +23,11 @@ public class IfBehavior extends ConditionalTagBehavior {
       return ConditionalTagBehavior.ConditionType.FIRST;
    }
 
+   @Override
+   public String getValidationError() {
+      return "";
+   }
+
    public static BehaviorProvider<IfBehavior> getProvider() {
       return new BehaviorProvider<IfBehavior>() {
          public IfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException {

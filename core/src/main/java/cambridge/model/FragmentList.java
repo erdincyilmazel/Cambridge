@@ -108,12 +108,7 @@ public class FragmentList extends ArrayList<Fragment> {
             }
 
             if (currentBlock == null && behavior.getType() != FIRST) {
-               switch (behavior.getType()) {
-                  case ALTERNATE:
-                     throw new TemplateParsingException("Elseif without if", nextTag.getBeginLine(), nextTag.getBeginColumn());
-                  case DEFAULT:
-                     throw new TemplateParsingException("Else without if", nextTag.getBeginLine(), nextTag.getBeginColumn());
-               }
+               throw new TemplateParsingException(behavior.getValidationError(), nextTag.getBeginLine(), nextTag.getBeginColumn());
             }
 
             if (nextTag == nextConditional) {

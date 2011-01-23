@@ -44,7 +44,7 @@ public class FromBehavior extends LoopingTagBehavior {
       return new BehaviorProvider<FromBehavior>() {
          public FromBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
             Expression from = keyAttribute.getExpression();
-            AttributeKey toKey = new AttributeKey(keyAttribute.getAttributeName(), "to");
+            AttributeKey toKey = new AttributeKey(keyAttribute.getAttributeNameSpace(), "to");
 
             Attribute toAttribute = attributes.get(toKey);
 

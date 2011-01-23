@@ -47,6 +47,7 @@ public class TemplateParser {
 
    private int readIndex = -1; // The last read index
    private int writeIndex = -1; // The last written index
+   private boolean firstTag = true;
 
    private int getIndex(int no) {
       return no % BUFFER_SIZE;
@@ -98,6 +99,14 @@ public class TemplateParser {
       }
 
       return Cambridge.getInstance().getDefaultNamespace(name);
+   }
+
+   private void putNamespaceMapping(String name, String uri) {
+      if (namespaceMappings == null) {
+         namespaceMappings = new HashMap<String, String>();
+      }
+
+      namespaceMappings.put(name, uri);
    }
 
    public TemplateDocument parse() throws IOException, TemplateParsingException {
@@ -362,6 +371,10 @@ public class TemplateParser {
                   }
                }
 
+               if (firstTag && "xmlns".equalsIgnoreCase(element.getAttributeNameSpace())) {
+                  putNamespaceMapping(element.getAttributeName(), element.getValue());
+               }
+
                node.addAttribute(element);
                break;
             case EXPRESSION:
@@ -393,6 +406,7 @@ public class TemplateParser {
                if (dynamicTag) {
                   ((DynamicTag) node).init();
                }
+               firstTag = false;
                return node;
             } else {
                break;
@@ -404,6 +418,7 @@ public class TemplateParser {
          ((DynamicTag) node).init();
       }
 
+      firstTag = false;
       return node;
    }
 
@@ -462,11 +477,7 @@ public class TemplateParser {
       String name = matcher.group(1);
       String uri = matcher.group(2);
 
-      if (namespaceMappings == null) {
-         namespaceMappings = new HashMap<String, String>();
-      }
-
-      namespaceMappings.put(name, uri);
+      putNamespaceMapping(name, uri);
 
       return new NamespaceDirective(name, uri);
    }

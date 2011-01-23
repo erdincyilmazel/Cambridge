@@ -23,6 +23,11 @@ public class ElseBehavior extends ConditionalTagBehavior {
       return ConditionType.DEFAULT;
    }
 
+   @Override
+   public String getValidationError() {
+      return "Else behaviour without if";
+   }
+
    public static BehaviorProvider<ElseBehavior> getProvider() {
       return new BehaviorProvider<ElseBehavior>() {
          public ElseBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException {

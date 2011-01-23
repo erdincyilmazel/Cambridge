@@ -21,8 +21,6 @@ public class EditTester {
             }
          });
 
-
-
          Template template = f.createTemplate();
          template.setProperty("a", 4);
 

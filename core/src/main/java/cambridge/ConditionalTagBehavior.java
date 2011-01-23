@@ -31,6 +31,8 @@ public abstract class ConditionalTagBehavior implements TagBehavior {
 
    public abstract ConditionType getType();
 
+   public abstract String getValidationError();
+
    public Expression getExpression() {
       return expression;
    }

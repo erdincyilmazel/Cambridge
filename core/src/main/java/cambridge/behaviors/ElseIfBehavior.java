@@ -27,6 +27,11 @@ public class ElseIfBehavior extends ConditionalTagBehavior {
       return ConditionType.ALTERNATE;
    }
 
+   @Override
+   public String getValidationError() {
+      return "Elseif behaviour without if";
+   }
+
    public static BehaviorProvider<ElseIfBehavior> getProvider() {
       return new BehaviorProvider<ElseIfBehavior>() {
          public ElseIfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException {
