@@ -1,11 +1,13 @@
 package cambridge;
 
+import cambridge.model.FragmentList;
+import cambridge.model.IncludeNode;
+import cambridge.model.StaticFragment;
+import cambridge.model.TemplateDocument;
 import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
-
-import cambridge.model.*;
 
 /**
  * User: erdinc
@@ -38,7 +40,7 @@ public class DirectoryTemplateLoaderTest {
          Template t = f.createTemplate();
 
          t.printTo(System.out);
-         
+
       } catch (TemplateLoadingException e) {
          e.printStackTrace();
       } catch (IOException e) {

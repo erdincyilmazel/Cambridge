@@ -27,14 +27,14 @@ public class ExpressionToken extends Token {
 
    @Override
    public String getFormattedString() {
-      if(filters == null) {
+      if (filters == null) {
          return "${" + value + "}";
       } else {
          StringBuilder builder = new StringBuilder();
          builder.append("${").append(value).append("}").append("(");
          for (int i = 0; i < filters.size(); i++) {
             String s = filters.get(i);
-            if(i != 0) {
+            if (i != 0) {
                builder.append("|");
             }
 

@@ -1,19 +1,19 @@
 package cambridge;
 
+import cambridge.parser.TemplateTokenizer;
+import cambridge.parser.Tokenizer;
+import cambridge.parser.tokens.Token;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.After;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 
-import cambridge.parser.tokens.Token;
-import cambridge.parser.Tokenizer;
-import cambridge.parser.TemplateTokenizer;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * User: erdinc

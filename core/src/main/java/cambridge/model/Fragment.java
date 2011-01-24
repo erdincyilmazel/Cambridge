@@ -1,6 +1,7 @@
 package cambridge.model;
 
 import cambridge.TemplateEvaluationException;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -11,5 +12,6 @@ import java.util.Map;
  */
 public interface Fragment {
    public abstract void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException;
+
    public void pack();
 }

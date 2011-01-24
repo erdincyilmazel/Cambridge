@@ -1,11 +1,16 @@
 package cambridge.behaviors;
 
-import cambridge.*;
-import cambridge.parser.expressions.Expression;
-import cambridge.model.ModifyableTag;
-import cambridge.model.DynamicAttribute;
+import cambridge.AttributeKey;
+import cambridge.BehaviorInstantiationException;
+import cambridge.BehaviorProvider;
+import cambridge.ExpressionEvaluationException;
+import cambridge.ExpressionParsingException;
+import cambridge.ModifyingTagBehavior;
 import cambridge.model.Attribute;
+import cambridge.model.DynamicAttribute;
+import cambridge.model.ModifyableTag;
 import cambridge.model.TagPart;
+import cambridge.parser.expressions.Expression;
 
 import java.util.Map;
 
@@ -14,7 +19,7 @@ import java.util.Map;
  * Date: Nov 1, 2009
  * Time: 3:04:10 PM
  */
-public class ConditionalAttributeBehavior extends  ModifyingTagBehavior {
+public class ConditionalAttributeBehavior extends ModifyingTagBehavior {
    private final Expression expression;
    private final DynamicAttribute attribute;
 
@@ -24,7 +29,7 @@ public class ConditionalAttributeBehavior extends  ModifyingTagBehavior {
    }
 
    public void modify(Map<String, Object> bindings, ModifyableTag tag) throws ExpressionEvaluationException {
-      if(!expression.asBoolean(bindings)) {
+      if (!expression.asBoolean(bindings)) {
          int remove = -1;
          boolean next = false;
          for (int i = 0; i < tag.getTagParts().size(); i++) {
@@ -43,7 +48,7 @@ public class ConditionalAttributeBehavior extends  ModifyingTagBehavior {
             }
          }
 
-         if(remove != -1) {
+         if (remove != -1) {
             tag.getTagParts().remove(remove);
          }
       }

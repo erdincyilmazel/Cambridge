@@ -26,7 +26,7 @@ public class SetDirectiveTest {
       FragmentList fragmentList = doc.normalize();
       Map<String, Object> prop = new DefaultTemplateBindings();
       StringBuilder out = new StringBuilder();
-      for(Fragment f : fragmentList) {
+      for (Fragment f : fragmentList) {
          f.eval(prop, out);
       }
 

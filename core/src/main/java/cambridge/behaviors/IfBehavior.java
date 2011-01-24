@@ -1,9 +1,12 @@
 package cambridge.behaviors;
 
-import cambridge.*;
-import cambridge.parser.expressions.Expression;
+import cambridge.AttributeKey;
+import cambridge.BehaviorProvider;
+import cambridge.ConditionalTagBehavior;
+import cambridge.ExpressionParsingException;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
+import cambridge.parser.expressions.Expression;
 
 import java.util.Map;
 

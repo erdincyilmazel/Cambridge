@@ -1,13 +1,22 @@
 package cambridge;
 
-import cambridge.model.*;
+import cambridge.model.Attribute;
+import cambridge.model.ComplexAttribute;
+import cambridge.model.ExpressionNode;
+import cambridge.model.Fragment;
+import cambridge.model.FragmentList;
+import cambridge.model.StaticFragment;
+import cambridge.model.TagNode;
+import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 import cambridge.runtime.DefaultTemplateBindings;
-import static org.junit.Assert.*;
 import org.junit.Test;
+
 import java.io.IOException;
 import java.util.Map;
+
+import static org.junit.Assert.*;
 
 /**
  * User: erdinc

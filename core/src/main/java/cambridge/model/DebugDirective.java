@@ -1,6 +1,8 @@
-package cambridge;
+package cambridge.model;
 
-import cambridge.model.*;
+import cambridge.BehaviorInstantiationException;
+import cambridge.ClassPathTemplateLoader;
+import cambridge.TemplateEvaluationException;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -55,19 +57,19 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
    }
 
    @Override
-   public void normalize(FragmentList fList) throws BehaviorInstantiationException {
+   void normalize(TemplateDocument doc, FragmentList fList) throws BehaviorInstantiationException {
       fList.addFragment(this);
    }
 
    @Override
-   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
+   boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
       if (reference == this) {
          if (inclusive) {
-            normalize(f);
+            normalize(doc, f);
          }
          return true;
       } else {
-         normalize(f);
+         normalize(doc, f);
          return false;
       }
    }
@@ -79,7 +81,7 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
 
    public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
       ArrayList<DebugElement> elements = new ArrayList<DebugElement>();
-      Set<Map.Entry<String,Object>> entries = bindings.entrySet();
+      Set<Map.Entry<String, Object>> entries = bindings.entrySet();
 
       for (Map.Entry<String, Object> e : entries) {
          String key = e.getKey();

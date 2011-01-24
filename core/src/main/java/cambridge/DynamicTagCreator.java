@@ -1,8 +1,8 @@
 package cambridge;
 
+import cambridge.model.TagNode;
 import cambridge.model.TemplateDocument;
 import cambridge.model.TemplateNode;
-import cambridge.model.TagNode;
 
 import java.io.File;
 import java.io.InputStream;

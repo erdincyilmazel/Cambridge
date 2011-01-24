@@ -2,7 +2,11 @@ package cambridge.parser;
 
 import cambridge.parser.tokens.Token;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 
 public abstract class Tokenizer {
    final static char EOL = 65535;
@@ -11,7 +15,7 @@ public abstract class Tokenizer {
    private final static int maxPeek = 40;
 
    private final Reader reader;
-  // protected InputStream input;
+   // protected InputStream input;
 
    private int lineNo = 1;
 

@@ -47,6 +47,7 @@ public interface Tag extends ParentNode {
 
    /**
     * Appends an expression node as a child of the Tag
+    *
     * @param expression The exression to be added
     * @return Returns the same Tag object
     * @throws ExpressionParsingException Thrown if the supplied expression can not be parsed
@@ -56,6 +57,7 @@ public interface Tag extends ParentNode {
    /**
     * Associates an iterative behavior with the tag. The value that will be iterated
     * over should be the result of the expression that is passed
+    *
     * @param expression The expression which will result a Collection object when evaluated
     * @return Returns the same Tag object
     * @throws ExpressionParsingException Thrown if the supplied expression can not be parsed

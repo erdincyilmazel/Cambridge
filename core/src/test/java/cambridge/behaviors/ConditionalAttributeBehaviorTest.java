@@ -1,20 +1,21 @@
 package cambridge.behaviors;
 
-import cambridge.runtime.DefaultTemplateBindings;
-import org.junit.Test;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertEquals;
-import cambridge.parser.TemplateTokenizer;
-import cambridge.parser.TemplateParser;
-import cambridge.TemplateParsingException;
 import cambridge.BehaviorInstantiationException;
 import cambridge.TemplateEvaluationException;
-import cambridge.model.TemplateDocument;
-import cambridge.model.FragmentList;
+import cambridge.TemplateParsingException;
 import cambridge.model.Fragment;
+import cambridge.model.FragmentList;
+import cambridge.model.TemplateDocument;
+import cambridge.parser.TemplateParser;
+import cambridge.parser.TemplateTokenizer;
+import cambridge.runtime.DefaultTemplateBindings;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.util.Map;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * User: erdinc

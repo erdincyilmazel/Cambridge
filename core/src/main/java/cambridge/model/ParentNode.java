@@ -29,4 +29,10 @@ public interface ParentNode {
    public TemplateNode getNextChild(TemplateNode node);
 
    public ArrayList<Tag> getElementsByTagName(String tagName);
+
+   public void removeChild(TemplateNode node);
+
+   public void replaceChild(TemplateNode search, TemplateNode replace);
+
+   public void removeAllChindren();
 }

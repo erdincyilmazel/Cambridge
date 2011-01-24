@@ -50,7 +50,7 @@ public class FunctionExpression implements Expression {
    }
 
    public Object eval(Map<String, Object> p) throws ExpressionEvaluationException {
-      if(runner == null) {
+      if (runner == null) {
          throw new ExpressionEvaluationException("Unknown function " + functionName);
       }
       return runner.eval(p, parameters);

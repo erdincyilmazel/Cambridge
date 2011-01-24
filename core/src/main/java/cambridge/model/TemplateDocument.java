@@ -3,9 +3,9 @@ package cambridge.model;
 import cambridge.BehaviorInstantiationException;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.StringTokenizer;
-import java.util.HashSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -26,7 +26,7 @@ public class TemplateDocument implements ParentNode {
    private HashSet<String> includes;
 
    public void addInclude(String include) {
-      if(includes == null) {
+      if (includes == null) {
          includes = new HashSet<String>();
       }
 
@@ -45,7 +45,19 @@ public class TemplateDocument implements ParentNode {
       children.remove(node);
    }
 
+   public void replaceChild(TemplateNode search, TemplateNode replace) {
+      int index = children.indexOf(search);
+      if (index != -1) {
+         children.set(index, replace);
+      }
+   }
+
+   public void removeAllChindren() {
+      children.clear();
+   }
+
    public void addChild(TemplateNode node) {
+      node.setParent(this);
       children.add(node);
    }
 
@@ -55,7 +67,10 @@ public class TemplateDocument implements ParentNode {
    }
 
    public void addChildren(List<TemplateNode> nodes) {
-      children.addAll(nodes);
+      for (TemplateNode n : nodes) {
+         n.setParent(this);
+         children.add(n);
+      }
    }
 
    public ArrayList<TemplateNode> getChildren() {
@@ -148,7 +163,7 @@ public class TemplateDocument implements ParentNode {
    public FragmentList normalize() throws BehaviorInstantiationException {
       FragmentList list = new FragmentList();
       for (TemplateNode t : children) {
-         t.normalize(list);
+         t.normalize(this, list);
       }
       list.pack();
       return list;
@@ -157,7 +172,7 @@ public class TemplateDocument implements ParentNode {
    public FragmentList normalizeUntil(TemplateNode n, boolean inclusive) throws BehaviorInstantiationException {
       FragmentList list = new FragmentList();
       for (TemplateNode t : children) {
-         if (t.normalizeUntil(n, list, inclusive)) {
+         if (t.normalizeUntil(this, n, list, inclusive)) {
             break;
          }
       }
@@ -229,7 +244,7 @@ public class TemplateDocument implements ParentNode {
       }
 
       public static Selector get(String s) {
-         if(s == null) {
+         if (s == null) {
             return Default;
          }
          for (Selector selector : values()) {
@@ -259,7 +274,7 @@ public class TemplateDocument implements ParentNode {
                boolean found = false;
                for (TemplateNode n : parent.getChildren()) {
                   if (found) {
-                     n.normalize(ret);
+                     n.normalize(this, ret);
                   }
 
                   if (n == node) {
@@ -279,7 +294,7 @@ public class TemplateDocument implements ParentNode {
             return ret;
          case From:
             ret = new FragmentList();
-            node.normalize(ret);
+            node.normalize(this, ret);
             while (true) {
                ParentNode parent = node.getParent();
                if (parent == null) {
@@ -288,7 +303,7 @@ public class TemplateDocument implements ParentNode {
                boolean found = false;
                for (TemplateNode n : parent.getChildren()) {
                   if (found) {
-                     n.normalize(ret);
+                     n.normalize(this, ret);
                   }
 
                   if (n == node) {
@@ -312,14 +327,14 @@ public class TemplateDocument implements ParentNode {
             return normalizeUntil(node, true);
          case Default:
             ret = new FragmentList();
-            node.normalize(ret);
+            node.normalize(this, ret);
             ret.pack();
             return ret;
          case Except:
             ret = new FragmentList();
             FragmentList before = normalizeUntil(node, false);
             ret.addAll(before);
-            
+
             while (true) {
                ParentNode parent = node.getParent();
                if (parent == null) {
@@ -328,7 +343,7 @@ public class TemplateDocument implements ParentNode {
                boolean found = false;
                for (TemplateNode n : parent.getChildren()) {
                   if (found) {
-                     n.normalize(ret);
+                     n.normalize(this, ret);
                   }
 
                   if (n == node) {
@@ -350,7 +365,7 @@ public class TemplateDocument implements ParentNode {
             ret = new FragmentList();
             if (node instanceof ParentNode) {
                for (TemplateNode t : ((ParentNode) node).getChildren()) {
-                  t.normalize(ret);
+                  t.normalize(this, ret);
                }
             }
             ret.pack();

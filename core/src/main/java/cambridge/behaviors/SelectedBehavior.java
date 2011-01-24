@@ -1,11 +1,16 @@
 package cambridge.behaviors;
 
-import cambridge.*;
-import cambridge.parser.expressions.Expression;
+import cambridge.AttributeKey;
+import cambridge.BehaviorInstantiationException;
+import cambridge.BehaviorProvider;
+import cambridge.ExpressionEvaluationException;
+import cambridge.ExpressionParsingException;
+import cambridge.ModifyingTagBehavior;
+import cambridge.model.Attribute;
+import cambridge.model.DynamicAttribute;
 import cambridge.model.ModifyableTag;
 import cambridge.model.SimpleAttribute;
-import cambridge.model.DynamicAttribute;
-import cambridge.model.Attribute;
+import cambridge.parser.expressions.Expression;
 
 import java.util.Map;
 
@@ -22,7 +27,7 @@ public class SelectedBehavior extends ModifyingTagBehavior {
    }
 
    public void modify(Map<String, Object> bindings, ModifyableTag tag) throws ExpressionEvaluationException {
-      if(expression.asBoolean(bindings)) {
+      if (expression.asBoolean(bindings)) {
          tag.getTagParts().add(new SimpleAttribute("selected", "selected"));
       }
    }

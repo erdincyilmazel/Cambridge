@@ -76,7 +76,7 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
          }
       }
 
-      if(filters.size() == 0) {
+      if (filters.size() == 0) {
          filters = null;
       }
    }
@@ -92,12 +92,12 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
    }
 
    @Override
-   public void normalize(FragmentList f) {
+   public void normalize(TemplateDocument doc, FragmentList f) {
       f.addFragment(this);
    }
 
    @Override
-   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) {
+   public boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) {
       if (reference == this) {
          if (inclusive) {
             f.addFragment(this);

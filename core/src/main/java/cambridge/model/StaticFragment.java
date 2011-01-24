@@ -1,4 +1,5 @@
 package cambridge.model;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -21,14 +22,14 @@ public class StaticFragment implements AttributeFragment {
    }
 
    public StaticFragment append(String c) {
-      if(!packed) {
+      if (!packed) {
          contents.append(c);
       }
       return this;
    }
 
    public StaticFragment append(StringBuilder c) {
-      if(!packed) {
+      if (!packed) {
          contents.append(c);
       }
       return this;
@@ -39,7 +40,7 @@ public class StaticFragment implements AttributeFragment {
    }
 
    public void pack() {
-      if(!packed) {
+      if (!packed) {
          packedContents = contents.toString();
          contents.setLength(0);
          contents = null;
@@ -48,7 +49,7 @@ public class StaticFragment implements AttributeFragment {
    }
 
    public String toString() {
-      if(packed) {
+      if (packed) {
          return packedContents;
       } else {
          return contents.toString();
@@ -64,7 +65,7 @@ public class StaticFragment implements AttributeFragment {
 
       String c = contents.toString();
       return c == null
-            || c.equals("")
-            || c.matches("\\s+");
+         || c.equals("")
+         || c.matches("\\s+");
    }
 }

@@ -1,6 +1,5 @@
 package cambridge.model;
 
-import java.io.IOException;
 import java.io.PrintStream;
 
 /**
@@ -19,14 +18,14 @@ public class CommentNode extends TextNode {
    }
 
    @Override
-   public void normalize(FragmentList f) {
+   void normalize(TemplateDocument doc, FragmentList f) {
       f.append(contents);
    }
 
    @Override
-   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) {
-      if(reference == this) {
-         if(inclusive) {
+   boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) {
+      if (reference == this) {
+         if (inclusive) {
             f.append(contents);
          }
          return true;

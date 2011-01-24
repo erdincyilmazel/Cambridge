@@ -41,7 +41,7 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
 
    /**
     * Creates a new TemplateFactory
-    *
+    * <p/>
     * The template lookup is made on the classpath. The template path
     * should be provided as com/yourcompany/packages/index.html
     *
@@ -63,7 +63,7 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
 
    /**
     * Creates a new TemplateFactory
-    *
+    * <p/>
     * The template lookup is made on the classpath. The template path
     * should be provided as com/yourcompany/packages/index.html
     *
@@ -85,10 +85,10 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
 
    /**
     * Creates a new TemplateFactory
-    *
+    * <p/>
     * The template lookup is made on the classpath. The template path
     * should be provided as com/yourcompany/packages/index.html
-    *
+    * <p/>
     * This method also accepts a TemplateModifier which will be called
     * right after the template parsing finishes.
     *
@@ -111,10 +111,10 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
 
    /**
     * Creates a new TemplateFactory
-    *
+    * <p/>
     * The template lookup is made on the classpath. The template path
     * should be provided as com/yourcompany/packages/index.html
-    *
+    * <p/>
     * This method also accepts a TemplateModifier which will be called
     * right after the template parsing finishes.
     *
@@ -136,7 +136,7 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
       }
    }
 
-   
+
    public TemplateDocument parseTemplate(String template) throws TemplateLoadingException {
       InputStream in = classLoader.getResourceAsStream(template);
       return parseTemplate(in);

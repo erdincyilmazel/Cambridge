@@ -5,9 +5,9 @@ import cambridge.BehaviorInstantiationException;
 import cambridge.Cambridge;
 import cambridge.ConditionalTagBehavior;
 import cambridge.DynamicAttributeKey;
-import cambridge.LoopingTagBehavior;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
+import cambridge.LoopingTagBehavior;
 import cambridge.ModifyingTagBehavior;
 import cambridge.StaticBehavior;
 import cambridge.TagBehavior;
@@ -18,9 +18,11 @@ import cambridge.TemplateParsingException;
 import cambridge.behaviors.ForeachBehavior;
 import cambridge.behaviors.IfBehavior;
 import cambridge.parser.expressions.Expressions;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -77,6 +79,21 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
    }
 
+   public void replaceChild(TemplateNode search, TemplateNode replace) {
+      if (children == null) {
+         return;
+      }
+
+      int index = children.indexOf(search);
+      if (index != -1) {
+         children.set(index, replace);
+      }
+   }
+
+   public void removeAllChindren() {
+      children = null;
+   }
+
    public void removeChild(int index) {
       if (children != null) {
          children.remove(index);
@@ -107,6 +124,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
    public void addChild(TemplateNode node) {
       if (children == null) children = new ArrayList<TemplateNode>();
+      node.setParent(this);
       children.add(node);
    }
 
@@ -122,7 +140,10 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
    public void addChildren(List<TemplateNode> nodes) {
       if (children == null) children = new ArrayList<TemplateNode>();
-      children.addAll(nodes);
+      for (TemplateNode n : nodes) {
+         n.setParent(this);
+         children.add(n);
+      }
    }
 
    public ArrayList<TemplateNode> getChildren() {
@@ -279,24 +300,38 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return dynamic;
    }
 
-   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
+   public boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
       if (reference == this) {
          if (inclusive) {
-            normalize(f);
+            normalize(doc, f);
          }
          return true;
       } else {
          if (attributes != null) {
             Cambridge bindings = Cambridge.getInstance();
+            boolean remove = false;
+            HashSet<AttributeKey> staticAttributes = new HashSet<AttributeKey>();
 
             for (Attribute a : attributes.values()) {
                if (a.isDynamic()) {
                   DynamicAttributeKey key = new DynamicAttributeKey(a.getNamespaceUri(), a.getAttributeNameSpace(), a.getAttributeName());
                   StaticBehavior sb = bindings.getStaticBehavior(key);
                   if (sb != null) {
-                     sb.modify(this);
+                     sb.modify(doc, a.getValue(), this);
+                     staticAttributes.add(new AttributeKey(a.getAttributeNameSpace(), a.getAttributeName()));
+                     if (sb.shouldRemove()) {
+                        remove = true;
+                     }
                   }
                }
+            }
+
+            for (AttributeKey key : staticAttributes) {
+               attributes.remove(key);
+            }
+
+            if (remove) {
+               return false;
             }
          }
 
@@ -318,7 +353,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             } else {
                fragments = new FragmentList();
                for (TemplateNode t : children) {
-                  if (t.normalizeUntil(reference, fragments, inclusive)) {
+                  if (t.normalizeUntil(doc, reference, fragments, inclusive)) {
                      fragments.pack();
                      f.addFragment(this);
                      return true;
@@ -388,7 +423,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
             if (children != null) {
                for (TemplateNode n : children) {
-                  if (n.normalizeUntil(reference, f, inclusive)) {
+                  if (n.normalizeUntil(doc, reference, f, inclusive)) {
                      return true;
                   }
                }
@@ -403,18 +438,32 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @Override
-   public void normalize(FragmentList f) throws BehaviorInstantiationException {
+   public void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
       if (attributes != null) {
          Cambridge bindings = Cambridge.getInstance();
+         boolean remove = false;
+         HashSet<AttributeKey> staticAttributes = new HashSet<AttributeKey>();
 
          for (Attribute a : attributes.values()) {
             if (a.isDynamic()) {
                DynamicAttributeKey key = new DynamicAttributeKey(a.getNamespaceUri(), a.getAttributeNameSpace(), a.getAttributeName());
                StaticBehavior sb = bindings.getStaticBehavior(key);
                if (sb != null) {
-                  sb.modify(this);
+                  sb.modify(doc, a.getValue(), this);
+                  staticAttributes.add(new AttributeKey(a.getAttributeNameSpace(), a.getAttributeName()));
+                  if (sb.shouldRemove()) {
+                     remove = true;
+                  }
                }
             }
+         }
+
+         for (AttributeKey key : staticAttributes) {
+            attributes.remove(key);
+         }
+
+         if (remove) {
+            return;
          }
       }
 
@@ -436,7 +485,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          } else {
             fragments = new FragmentList();
             for (TemplateNode t : children) {
-               t.normalize(fragments);
+               t.normalize(doc, fragments);
             }
 
             fragments.pack();
@@ -503,7 +552,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
          if (children != null) {
             for (TemplateNode n : children) {
-               n.normalize(f);
+               n.normalize(doc, f);
             }
          }
 

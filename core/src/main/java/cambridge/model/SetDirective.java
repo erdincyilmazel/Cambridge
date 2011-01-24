@@ -1,10 +1,10 @@
-package cambridge;
+package cambridge.model;
 
-import cambridge.model.AttributeFragment;
-import cambridge.model.FragmentList;
-import cambridge.model.Tag;
-import cambridge.model.TemplateNode;
+import cambridge.BehaviorInstantiationException;
+import cambridge.ExpressionEvaluationException;
+import cambridge.TemplateEvaluationException;
 import cambridge.parser.expressions.Expression;
+
 import java.io.IOException;
 import java.util.Map;
 
@@ -23,12 +23,12 @@ public class SetDirective extends TemplateNode implements AttributeFragment {
    }
 
    @Override
-   public void normalize(FragmentList f) throws BehaviorInstantiationException {
+   public void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
       f.addFragment(this);
    }
 
    @Override
-   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
+   public boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
       if (reference == this) {
          if (inclusive) {
             f.addFragment(this);

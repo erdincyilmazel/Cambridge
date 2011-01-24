@@ -1,6 +1,22 @@
 package cambridge.parser;
 
-import cambridge.parser.tokens.*;
+import cambridge.parser.tokens.AssignToken;
+import cambridge.parser.tokens.AttributeNameToken;
+import cambridge.parser.tokens.AttributeValueToken;
+import cambridge.parser.tokens.CDATAToken;
+import cambridge.parser.tokens.CloseTagToken;
+import cambridge.parser.tokens.CommentToken;
+import cambridge.parser.tokens.DocTypeToken;
+import cambridge.parser.tokens.EOFToken;
+import cambridge.parser.tokens.EOLToken;
+import cambridge.parser.tokens.ExpressionToken;
+import cambridge.parser.tokens.OpenTagToken;
+import cambridge.parser.tokens.ParserDirectiveToken;
+import cambridge.parser.tokens.StringToken;
+import cambridge.parser.tokens.TagEndToken;
+import cambridge.parser.tokens.TagStringToken;
+import cambridge.parser.tokens.Token;
+import cambridge.parser.tokens.WSToken;
 
 import java.io.IOException;
 import java.io.InputStream;

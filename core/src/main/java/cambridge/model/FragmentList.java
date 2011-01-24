@@ -139,7 +139,7 @@ public class FragmentList extends ArrayList<Fragment> {
          }
       }
 
-      for(ConditionalBlock block : blocks) {
+      for (ConditionalBlock block : blocks) {
          TagNode first = block.getFirstTag();
          TagNode last = block.getLastTag();
 

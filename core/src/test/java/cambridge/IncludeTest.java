@@ -1,7 +1,7 @@
 package cambridge;
 
-import cambridge.model.TemplateDocument;
 import cambridge.model.Tag;
+import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 import org.junit.Test;

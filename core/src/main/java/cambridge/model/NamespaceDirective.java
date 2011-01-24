@@ -1,8 +1,6 @@
-package cambridge;
+package cambridge.model;
 
-import cambridge.model.FragmentList;
-import cambridge.model.Tag;
-import cambridge.model.TemplateNode;
+import cambridge.BehaviorInstantiationException;
 
 /**
  * User: erdinc
@@ -19,12 +17,12 @@ public class NamespaceDirective extends TemplateNode {
    }
 
    @Override
-   public void normalize(FragmentList f) throws BehaviorInstantiationException {
+   void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
       //
    }
 
    @Override
-   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
+   boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
       return false;
    }
 

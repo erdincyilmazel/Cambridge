@@ -1,6 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -16,7 +17,7 @@ public class Range implements Iterable<Integer>, Expression {
    private int max;
 
    public Range(int min, int max) {
-      if(max < min) {
+      if (max < min) {
          throw new IllegalArgumentException("Invalid range");
       }
 
@@ -77,7 +78,7 @@ public class Range implements Iterable<Integer>, Expression {
 
    public static Range fromString(String str) {
       String[] parts = str.split("\\.\\.");
-      if(parts.length != 2) {
+      if (parts.length != 2) {
          throw new RuntimeException("Could not parse " + str);
       }
 
@@ -94,7 +95,7 @@ public class Range implements Iterable<Integer>, Expression {
 
    public List<Integer> toList() {
       ArrayList<Integer> ret = new ArrayList<Integer>(max - min + 1);
-      for(int i = min; i <= max; i++) {
+      for (int i = min; i <= max; i++) {
          ret.add(i);
       }
 
@@ -103,7 +104,7 @@ public class Range implements Iterable<Integer>, Expression {
 
    public int[] toArray() {
       int[] ret = new int[max - min + 1];
-      for(int i = 0; i < ret.length; i++) {
+      for (int i = 0; i < ret.length; i++) {
          ret[i] = min + i;
       }
 

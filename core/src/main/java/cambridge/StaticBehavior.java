@@ -1,6 +1,7 @@
 package cambridge;
 
 import cambridge.model.TagNode;
+import cambridge.model.TemplateDocument;
 
 /**
  * User: erdinc
@@ -8,5 +9,7 @@ import cambridge.model.TagNode;
  * Time: 3:49:35 PM
  */
 public interface StaticBehavior {
-   public void modify(TagNode t);
+   public void modify(TemplateDocument doc, String value, TagNode t);
+
+   public boolean shouldRemove();
 }

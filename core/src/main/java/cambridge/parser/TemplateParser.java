@@ -1,10 +1,42 @@
 package cambridge.parser;
 
-import cambridge.*;
-import cambridge.model.*;
+import cambridge.BehaviorInstantiationException;
+import cambridge.Cambridge;
+import cambridge.DynamicAttributeKey;
+import cambridge.DynamicTag;
+import cambridge.ExpressionParsingException;
+import cambridge.TemplateLoader;
+import cambridge.TemplateLoadingException;
+import cambridge.TemplateParsingException;
+import cambridge.model.Attribute;
+import cambridge.model.AttributeFragment;
+import cambridge.model.CommentNode;
+import cambridge.model.ComplexAttribute;
+import cambridge.model.DebugDirective;
+import cambridge.model.DynamicAttribute;
+import cambridge.model.ExpressionNode;
+import cambridge.model.ExpressionTagPart;
+import cambridge.model.IncludeNode;
+import cambridge.model.NamespaceDirective;
+import cambridge.model.SetDirective;
+import cambridge.model.SimpleAttribute;
+import cambridge.model.StaticFragment;
+import cambridge.model.TagNode;
+import cambridge.model.TagPart;
+import cambridge.model.TemplateDocument;
+import cambridge.model.TemplateNode;
+import cambridge.model.TextNode;
+import cambridge.model.TextTagPart;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.Expressions;
-import cambridge.parser.tokens.*;
+import cambridge.parser.tokens.AttributeNameToken;
+import cambridge.parser.tokens.AttributeValueToken;
+import cambridge.parser.tokens.CloseTagToken;
+import cambridge.parser.tokens.ExpressionToken;
+import cambridge.parser.tokens.OpenTagToken;
+import cambridge.parser.tokens.ParserDirectiveToken;
+import cambridge.parser.tokens.Token;
+import cambridge.parser.tokens.TokenType;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -352,7 +384,7 @@ public class TemplateParser {
                   if (exitLoop) break;
                }
 
-               if(element == null) {
+               if (element == null) {
                   throw new TemplateParsingException("Error parsing template file. Unterminated tag?", currentToken.getLineNo(), currentToken.getColumn());
                }
 
@@ -444,12 +476,12 @@ public class TemplateParser {
 
    private TemplateNode parseSetDirective(ParserDirectiveToken tok) {
       String args = tok.getArgs();
-      if(args == null) {
+      if (args == null) {
          throw new TemplateParsingException("Invalid set directive", currentToken.getLineNo(), currentToken.getColumn());
       }
 
       Matcher matcher = setDirectivePattern.matcher(args);
-      if(!matcher.find()) {
+      if (!matcher.find()) {
          throw new TemplateParsingException("Invalid set directive", currentToken.getLineNo(), currentToken.getColumn());
       }
 
@@ -465,12 +497,12 @@ public class TemplateParser {
 
    private TemplateNode parseNamespaceDirective(ParserDirectiveToken tok) {
       String args = tok.getArgs();
-      if(args == null) {
+      if (args == null) {
          throw new TemplateParsingException("Invalid namespace directive", currentToken.getLineNo(), currentToken.getColumn());
       }
 
       Matcher matcher = namespaceDirectivePattern.matcher(args);
-      if(!matcher.find()) {
+      if (!matcher.find()) {
          throw new TemplateParsingException("Invalid namespace directive", currentToken.getLineNo(), currentToken.getColumn());
       }
 
@@ -483,7 +515,7 @@ public class TemplateParser {
    }
 
    private TemplateNode parseIncludeNode(ParserDirectiveToken tok) {
-      if(tok.getArgs() == null) {
+      if (tok.getArgs() == null) {
          throw new TemplateParsingException("Invalid include directive", currentToken.getLineNo(), currentToken.getColumn());
       }
       Matcher matcher = TemplateDocument.selectorPattern.matcher(tok.getArgs());

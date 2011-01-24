@@ -49,6 +49,8 @@ class FileTemplateFactory extends TemplateFactory {
 
    @Override
    public Template createTemplate(Map<String, Object> bindings) {
+      checkForChanges();
+      
       return new DynamicTemplate(fragments, bindings);
    }
 

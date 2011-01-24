@@ -58,9 +58,9 @@ public abstract class TemplateNode {
       this.endColumn = endColumn;
    }
 
-   public abstract void normalize(FragmentList f) throws BehaviorInstantiationException;
+   abstract void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException;
 
-   public abstract boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException;
+   abstract boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException;
 
    public abstract Tag getElementById(String id);
 

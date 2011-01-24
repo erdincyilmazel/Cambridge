@@ -67,7 +67,7 @@ public class MapExpression extends HashMap<String, Object> implements Expression
       final Iterator<Map.Entry<String, Object>> entryIterator;
 
       public MapExpressionIterator() {
-         Set<Map.Entry<String,Object>> entries = MapExpression.this.entrySet();
+         Set<Map.Entry<String, Object>> entries = MapExpression.this.entrySet();
          entryIterator = entries.iterator();
       }
 

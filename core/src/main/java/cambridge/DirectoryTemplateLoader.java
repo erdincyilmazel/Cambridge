@@ -66,20 +66,20 @@ public class DirectoryTemplateLoader extends FileTemplateLoader {
 
    public HashSet<File> getFiles(HashSet<String> fileNames) {
       HashSet<File> files = new HashSet<File>();
-      for(String s : fileNames) {
+      for (String s : fileNames) {
          File f;
-         if(s.startsWith("/")) {
+         if (s.startsWith("/")) {
             f = new File(s);
          } else {
             f = new File(templateDirectory.getAbsolutePath() + fileSeperator + s);
          }
 
-         if(f.exists()) {
+         if (f.exists()) {
             files.add(f);
          }
       }
 
-      if(files.size() != 0) {
+      if (files.size() != 0) {
          return files;
       }
 

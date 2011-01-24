@@ -2,8 +2,9 @@ package cambridge.behaviors;
 
 import cambridge.StaticBehavior;
 import cambridge.model.SimpleAttribute;
-import cambridge.model.TagNode;
 import cambridge.model.Tag;
+import cambridge.model.TagNode;
+import cambridge.model.TemplateDocument;
 
 import java.util.ArrayList;
 
@@ -13,9 +14,9 @@ import java.util.ArrayList;
  * Time: 3:59:27 PM
  */
 public class AltAdderStaticBehavior implements StaticBehavior {
-   public void modify(TagNode t) {
+   public void modify(TemplateDocument doc, String value, TagNode t) {
       ArrayList<Tag> tags = t.getElementsByTagName("img");
-      for(Tag tag: tags) {
+      for (Tag tag : tags) {
          if (!tag.hasAttribute("alt")) {
             tag.addAttribute(new SimpleAttribute("alt", ""));
          }
@@ -25,5 +26,9 @@ public class AltAdderStaticBehavior implements StaticBehavior {
             t.addAttribute(new SimpleAttribute("alt", ""));
          }
       }
+   }
+
+   public boolean shouldRemove() {
+      return false;
    }
 }

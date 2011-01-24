@@ -1,13 +1,14 @@
-<html xmlns:b="http://cambridge.googlecode.com">
+<html xmlns:a="http://cambridge.googlecode.com" xmlns:b="http://cambridge.googlecode.com">
 <body>
-<!--$namespace x="http://cambridge.googlecode.com"-->
 <div id="email"></div>
 
 <div a:if="a == 3">
    3
 </div>
 <div a:elseif="a == 4">
-   <b>4</b><div a:if="a > 3">BUYUK</div>
+   <b>4</b>
+
+   <div a:if="a > 3">BUYUK</div>
 </div>
 <div a:elseif="a == 6">
    6
@@ -34,14 +35,34 @@ sdf
 
 <div b:if="test">test</div>
 
-<div a:if="a == 3">3</div><div a:else>8</div>
+<div a:if="a == 3">3</div>
+<div a:else>8</div>
 
-<div a:if="a == 3">444</div><div a:elseif="a == 4">5555</div>
+<div a:if="a == 3">444</div>
+<div a:elseif="a == 4">5555</div>
 
 <div a:macro="loginBox">
    <input name="username" type="text"/>
+   <input name="password" type="password"/>
 </div>
 
+<div>efdsff</div>
+
+<div a:extend="loginBox">
+
+</div>
+
+<span a:use="loginBox"/>
+
+<erdinc a:use="loginBox"/>
+
+<div a:abstract="content"></div>
+
+<!--$extends main.html-->
+
+<div a:implements="content">
+
+</div>
 
 
 </body>

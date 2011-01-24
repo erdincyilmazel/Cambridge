@@ -28,7 +28,7 @@ public class AttributeNameToken extends Token {
    }
 
    public void setNameSpace(String n) {
-      if(getNameSpace() == null) {
+      if (getNameSpace() == null) {
          value = n + ":" + value;
       }
    }

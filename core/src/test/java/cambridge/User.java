@@ -1,13 +1,13 @@
 package cambridge;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * User: erdinc
-* Date: Nov 3, 2009
-* Time: 6:05:40 PM
-*/
+ * Date: Nov 3, 2009
+ * Time: 6:05:40 PM
+ */
 public class User {
    String userName;
    String email;

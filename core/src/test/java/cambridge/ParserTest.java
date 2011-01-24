@@ -6,14 +6,13 @@ import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 import cambridge.runtime.DefaultTemplateBindings;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import org.junit.BeforeClass;
 import org.junit.Test;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Map;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * User: erdinc

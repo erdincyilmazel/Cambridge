@@ -21,16 +21,16 @@ public class TextNode extends TemplateNode {
    public void setContents(String contents) {
       this.contents = contents;
    }
-   
+
    @Override
-   public void normalize(FragmentList f) {
+   void normalize(TemplateDocument doc, FragmentList f) {
       f.append(contents);
    }
 
    @Override
-   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) {
-      if(reference == this) {
-         if(inclusive) {
+   boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) {
+      if (reference == this) {
+         if (inclusive) {
             f.append(contents);
          }
          return true;

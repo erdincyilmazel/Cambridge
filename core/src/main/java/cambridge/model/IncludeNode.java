@@ -19,7 +19,7 @@ public class IncludeNode extends TemplateNode {
 
    public IncludeNode(TemplateLoader templateLoader, String fileName, String selector) throws TemplateLoadingException, BehaviorInstantiationException {
       TemplateDocument doc = templateLoader.parseTemplate(fileName);
-      if(selector != null) {
+      if (selector != null) {
          fragments = doc.select(selector);
       } else {
          fragments = doc.normalize();
@@ -27,9 +27,9 @@ public class IncludeNode extends TemplateNode {
    }
 
    @Override
-   public void normalize(FragmentList list) throws BehaviorInstantiationException {
-      for(Fragment f : fragments) {
-         if(f instanceof StaticFragment) {
+   public void normalize(TemplateDocument doc, FragmentList list) throws BehaviorInstantiationException {
+      for (Fragment f : fragments) {
+         if (f instanceof StaticFragment) {
             list.append(f.toString());
          } else {
             list.addFragment(f);
@@ -38,14 +38,14 @@ public class IncludeNode extends TemplateNode {
    }
 
    @Override
-   public boolean normalizeUntil(TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
-      if(reference == this) {
-         if(inclusive) {
-            normalize(f);
+   public boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
+      if (reference == this) {
+         if (inclusive) {
+            normalize(doc, f);
          }
          return true;
       } else {
-         normalize(f);
+         normalize(doc, f);
          return false;
       }
    }
