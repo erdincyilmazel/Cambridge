@@ -48,10 +48,10 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
          ExpressionParser parser = new ExpressionParser(tokenStream);
          expression = parser.compilationUnit();
          if (parser.getErrors() != null) {
-            throw new ExpressionParsingException(parser.getErrors());
+            throw new ExpressionParsingException(value, parser.getErrors());
          }
       } catch (RecognitionException e) {
-         throw new ExpressionParsingException(e);
+         throw new ExpressionParsingException(value, e);
       }
    }
 
@@ -92,12 +92,12 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
    }
 
    @Override
-   public void normalize(TemplateDocument doc, FragmentList f) {
+   void normalize(TemplateDocument doc, FragmentList f) {
       f.addFragment(this);
    }
 
    @Override
-   public boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) {
+   boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) {
       if (reference == this) {
          if (inclusive) {
             f.addFragment(this);

@@ -27,7 +27,7 @@ public class IncludeNode extends TemplateNode {
    }
 
    @Override
-   public void normalize(TemplateDocument doc, FragmentList list) throws BehaviorInstantiationException {
+   void normalize(TemplateDocument doc, FragmentList list) throws BehaviorInstantiationException {
       for (Fragment f : fragments) {
          if (f instanceof StaticFragment) {
             list.append(f.toString());

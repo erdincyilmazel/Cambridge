@@ -1,6 +1,5 @@
 package cambridge.model;
 
-import cambridge.AttributeKey;
 import cambridge.BehaviorInstantiationException;
 import cambridge.Cambridge;
 import cambridge.ConditionalTagBehavior;
@@ -90,7 +89,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
    }
 
-   public void removeAllChindren() {
+   public void removeAllChildren() {
       children = null;
    }
 
@@ -245,6 +244,21 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return attributes.get(new AttributeKey(null, attributeName));
    }
 
+   public Attribute getDynamicAttribute(DynamicAttributeKey key) {
+      for(Attribute a : attributes.values()) {
+         if (a.getAttributeName().equals(key.getAttribute()) &&
+            key.getUri().equals(a.getNamespaceUri())) {
+            return a;
+         }
+      }
+
+      return null;
+   }
+
+   public List<Attribute> getAttributes() {
+      return null;
+   }
+
    public void removeTagPart(int e) {
       if (tagParts != null)
          tagParts.remove(e);
@@ -300,7 +314,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return dynamic;
    }
 
-   public boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
+   boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
       if (reference == this) {
          if (inclusive) {
             normalize(doc, f);
@@ -438,7 +452,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @Override
-   public void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
+   void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
       if (attributes != null) {
          Cambridge bindings = Cambridge.getInstance();
          boolean remove = false;

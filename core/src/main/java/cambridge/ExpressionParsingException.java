@@ -11,13 +11,24 @@ import java.util.List;
  */
 public class ExpressionParsingException extends RuntimeException {
    List<RecognitionException> errors;
+   String expression;
 
-   public ExpressionParsingException(Throwable cause) {
-      super(cause);
+   public ExpressionParsingException(String expression, Throwable cause) {
+      super("Error parsing expression: " + expression, cause);
+      this.expression = expression;
    }
 
-   public ExpressionParsingException(List<RecognitionException> errors) {
-      super(errors.get(errors.size() - 1));
+   public ExpressionParsingException(String expression, List<RecognitionException> errors) {
+      super("Error parsing expression: " + expression, errors.get(errors.size() - 1));
       this.errors = errors;
+      this.expression = expression;
+   }
+
+   public List<RecognitionException> getErrors() {
+      return errors;
+   }
+
+   public String getExpression() {
+      return expression;
    }
 }

@@ -1,5 +1,7 @@
 package cambridge;
 
+import cambridge.model.AttributeKey;
+
 /**
  * User: erdincyilmazel
  * Date: 1/18/11
@@ -11,8 +13,8 @@ public class DynamicAttributeKey {
    private final String namespace;
 
    public DynamicAttributeKey(String uri, String namespace, String attribute) {
-      if (uri == null || namespace == null || attribute == null) {
-         throw new IllegalArgumentException("URI or attribute name or namespace can not be null");
+      if (uri == null || namespace == null) {
+         throw new IllegalArgumentException("URI or namespace can not be null");
       }
       this.uri = uri;
       this.namespace = namespace;

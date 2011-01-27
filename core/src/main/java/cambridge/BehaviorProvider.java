@@ -1,6 +1,7 @@
 package cambridge;
 
 import cambridge.model.Attribute;
+import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 
 import java.util.Map;

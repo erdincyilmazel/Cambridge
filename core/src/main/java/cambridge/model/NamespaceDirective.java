@@ -18,7 +18,7 @@ public class NamespaceDirective extends TemplateNode {
 
    @Override
    void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
-      //
+
    }
 
    @Override

@@ -23,7 +23,7 @@ public class SetDirective extends TemplateNode implements AttributeFragment {
    }
 
    @Override
-   public void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
+   void normalize(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
       f.addFragment(this);
    }
 

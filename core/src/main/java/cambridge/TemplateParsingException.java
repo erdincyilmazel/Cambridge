@@ -28,4 +28,9 @@ public class TemplateParsingException extends RuntimeException {
    public int getCol() {
       return col;
    }
+
+   public String toString() {
+      return getMessage() + " (" +
+         "Line: " + line + ", Col: " + col + ")";
+   }
 }

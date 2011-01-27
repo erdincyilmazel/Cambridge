@@ -1,5 +1,6 @@
 package cambridge.model;
 
+import cambridge.DynamicAttributeKey;
 import cambridge.ExpressionParsingException;
 import cambridge.TagBehavior;
 
@@ -78,4 +79,8 @@ public interface Tag extends ParentNode {
    public Tag getLast(String tagName);
 
    public boolean hasAttribute(String attribute);
+
+   public Attribute getAttribute(String attribute);
+
+   public Attribute getDynamicAttribute(DynamicAttributeKey key);
 }

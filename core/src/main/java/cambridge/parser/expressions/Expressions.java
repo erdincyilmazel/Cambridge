@@ -21,12 +21,12 @@ public class Expressions {
          Expression e = parser.compilationUnit();
 
          if (parser.getErrors() != null) {
-            throw new ExpressionParsingException(parser.getErrors());
+            throw new ExpressionParsingException(ex, parser.getErrors());
          }
 
          return e;
       } catch (RecognitionException e) {
-         throw new ExpressionParsingException(e);
+         throw new ExpressionParsingException(ex, e);
       }
    }
 }

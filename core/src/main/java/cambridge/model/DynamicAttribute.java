@@ -75,10 +75,10 @@ public class DynamicAttribute implements Attribute {
             expression = parser.compilationUnit();
 
             if (parser.getErrors() != null) {
-               throw new ExpressionParsingException(parser.getErrors());
+               throw new ExpressionParsingException(value, parser.getErrors());
             }
          } catch (RecognitionException e) {
-            throw new ExpressionParsingException(e);
+            throw new ExpressionParsingException(value, e);
          }
       }
       return expression;

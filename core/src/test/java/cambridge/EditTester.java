@@ -15,14 +15,15 @@ public class EditTester {
    public static void main(String[] args) {
       try {
          final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
-         final TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
+         final TemplateFactory f = loader.newTemplateFactory("grandchild.html", new TemplateModifier() {
             public void modifyTemplate(TemplateDocument doc) {
 
             }
          });
 
          Template template = f.createTemplate();
-         template.setProperty("a", 4);
+         template.setProperty("x", true);
+         template.setProperty("y", false);
 
          template.printTo(System.out);
 

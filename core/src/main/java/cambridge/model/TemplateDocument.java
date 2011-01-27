@@ -52,7 +52,7 @@ public class TemplateDocument implements ParentNode {
       }
    }
 
-   public void removeAllChindren() {
+   public void removeAllChildren() {
       children.clear();
    }
 
@@ -78,7 +78,7 @@ public class TemplateDocument implements ParentNode {
    }
 
    public boolean hasChildren() {
-      return children != null;
+      return children != null && children.size() != 0;
    }
 
    public Tag getElementById(String id) {
@@ -162,8 +162,12 @@ public class TemplateDocument implements ParentNode {
 
    public FragmentList normalize() throws BehaviorInstantiationException {
       FragmentList list = new FragmentList();
-      for (TemplateNode t : children) {
-         t.normalize(this, list);
+      if (children.size() > 0 && children.get(0) instanceof ExtendsDirective) {
+         ((ExtendsDirective) children.get(0)).extend(this, list);
+      } else {
+         for (TemplateNode t : children) {
+            t.normalize(this, list);
+         }
       }
       list.pack();
       return list;

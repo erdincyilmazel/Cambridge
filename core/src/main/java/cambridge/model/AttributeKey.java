@@ -1,4 +1,4 @@
-package cambridge;
+package cambridge.model;
 
 /**
  * User: erdinc

@@ -8,10 +8,13 @@ import cambridge.behaviors.ForeachBehavior;
 import cambridge.behaviors.FromBehavior;
 import cambridge.behaviors.HideBehavior;
 import cambridge.behaviors.IfBehavior;
+import cambridge.behaviors.OverridesStaticBehavior;
 import cambridge.behaviors.RepeatBehavior;
 import cambridge.behaviors.SelectedBehavior;
 import cambridge.behaviors.WhileBehavior;
+import cambridge.behaviors.WithBehavior;
 import cambridge.model.Attribute;
+import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.runtime.FunctionRunner;
 import cambridge.runtime.IfFunction;
@@ -98,12 +101,14 @@ public class Cambridge {
       bind(DefaultNamespaceURI, "else").to(ElseBehavior.getProvider());
       bind(DefaultNamespaceURI, "foreach").to(ForeachBehavior.getProvider());
       bind(DefaultNamespaceURI, "while").to(WhileBehavior.getProvider());
+      bind(DefaultNamespaceURI, "with").to(WithBehavior.getProvider());
       bind(DefaultNamespaceURI, "from").to(FromBehavior.getProvider());
       bind(DefaultNamespaceURI, "repeat").to(RepeatBehavior.getProvider());
       bind(DefaultNamespaceURI, "selectedIf").to(SelectedBehavior.getProvider());
       bind(DefaultNamespaceURI, "next").to(ConditionalAttributeBehavior.getProvider());
       bindStatic(DefaultNamespaceURI, "addAlt").to(AltAdderStaticBehavior.class);
       bindStatic(DefaultNamespaceURI, "hide").to(HideBehavior.class);
+      bindStatic(DefaultNamespaceURI, "overrides").to(OverridesStaticBehavior.class);
       bindTag(DefaultNamespaceURI, "hidden", "span").to(DummyTag.class);
    }
 

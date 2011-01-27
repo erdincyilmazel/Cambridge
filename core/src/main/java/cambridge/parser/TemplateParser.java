@@ -16,6 +16,7 @@ import cambridge.model.DebugDirective;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.ExpressionNode;
 import cambridge.model.ExpressionTagPart;
+import cambridge.model.ExtendsDirective;
 import cambridge.model.IncludeNode;
 import cambridge.model.NamespaceDirective;
 import cambridge.model.SetDirective;
@@ -468,6 +469,13 @@ public class TemplateParser {
       if ("debug".equalsIgnoreCase(tok.getDirective())) {
          return new DebugDirective();
       }
+      if ("extend".equalsIgnoreCase(tok.getDirective()) || "extends".equalsIgnoreCase(tok.getDirective())) {
+         if (template.hasChildren()) {
+            throw new TemplateParsingException("extend directive should be the first element of the template", tok.getLineNo(), tok.getColumn());
+         }
+
+         return parseExtendsDirective(tok);
+      }
 
       return null;
    }
@@ -534,6 +542,29 @@ public class TemplateParser {
          throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
       } catch (BehaviorInstantiationException e) {
          throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
+      }
+   }
+
+   private TemplateNode parseExtendsDirective(ParserDirectiveToken tok) {
+      if (tok.getArgs() == null) {
+         throw new TemplateParsingException("Invalid extend directive", currentToken.getLineNo(), currentToken.getColumn());
+      }
+      Matcher matcher = TemplateDocument.selectorPattern.matcher(tok.getArgs());
+
+      String fileName = matcher.replaceAll("").trim();
+      String selector = null;
+      matcher.reset();
+      if (matcher.find()) {
+         selector = matcher.group(0);
+      }
+
+      try {
+         template.addInclude(fileName);
+         return new ExtendsDirective(templateLoader, fileName, selector);
+      } catch (TemplateLoadingException e) {
+         throw new TemplateParsingException("Could not load the extended template", e, currentToken.getLineNo(), currentToken.getColumn());
+      } catch (BehaviorInstantiationException e) {
+         throw new TemplateParsingException("Could not load the extended template", e, currentToken.getLineNo(), currentToken.getColumn());
       }
    }
 

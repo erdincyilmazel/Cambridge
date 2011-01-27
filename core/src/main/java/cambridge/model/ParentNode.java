@@ -30,9 +30,11 @@ public interface ParentNode {
 
    public ArrayList<Tag> getElementsByTagName(String tagName);
 
+   public Tag getElementById(String id);
+
    public void removeChild(TemplateNode node);
 
    public void replaceChild(TemplateNode search, TemplateNode replace);
 
-   public void removeAllChindren();
+   public void removeAllChildren();
 }

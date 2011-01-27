@@ -1,6 +1,6 @@
 package cambridge.behaviors;
 
-import cambridge.AttributeKey;
+import cambridge.model.AttributeKey;
 import cambridge.BehaviorInstantiationException;
 import cambridge.BehaviorProvider;
 import cambridge.ExpressionEvaluationException;

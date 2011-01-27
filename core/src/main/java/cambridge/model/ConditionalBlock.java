@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * @author Erdinc Yilmazel (eyilmazel@tripadvisor.com)
+ * @author Erdinc Yilmazel
  * @since 1/21/11
  */
 public class ConditionalBlock implements Fragment {

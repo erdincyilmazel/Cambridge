@@ -73,10 +73,10 @@ public class ExpressionTagPart implements TagPart, Fragment {
          ExpressionParser parser = new ExpressionParser(tokenStream);
          expression = parser.compilationUnit();
          if (parser.getErrors() != null) {
-            throw new ExpressionParsingException(parser.getErrors());
+            throw new ExpressionParsingException(textContent, parser.getErrors());
          }
       } catch (RecognitionException e) {
-         throw new ExpressionParsingException(e);
+         throw new ExpressionParsingException(textContent, e);
       }
    }
 
