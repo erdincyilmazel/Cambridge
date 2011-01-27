@@ -163,7 +163,7 @@ public class TemplateDocument implements ParentNode {
    public FragmentList normalize() throws BehaviorInstantiationException {
       FragmentList list = new FragmentList();
       if (children.size() > 0 && children.get(0) instanceof ExtendsDirective) {
-         ((ExtendsDirective) children.get(0)).extend(this, list);
+         ((ExtendsDirective) children.get(0)).extend(this, list, true);
       } else {
          for (TemplateNode t : children) {
             t.normalize(this, list);

@@ -23,14 +23,10 @@ public class ExtendsDirective extends TemplateNode {
       }
    }
 
-   public void extend(TemplateDocument doc, FragmentList f) throws BehaviorInstantiationException {
+   public void extend(TemplateDocument doc, FragmentList f, boolean normalize) throws BehaviorInstantiationException {
       ParentNode extended;
       if (extendedTag == null) {
          extended = extendedDocument;
-//
-//         if (extendedDocument.getChildren().size() > 0 && extendedDocument.getChildren().get(0) instanceof ExtendsDirective) {
-//            extendedDocument.getChildren().get(0).normalize(extendedDocument, f);
-//         }
       } else {
          extended = extendedTag;
       }
@@ -56,10 +52,16 @@ public class ExtendsDirective extends TemplateNode {
          }
       }
 
-      if (extendedTag != null) {
-         extendedTag.normalize(extendedDocument, f);
-      } else {
-         f.addAll(extendedDocument.normalize());
+      if (extendedDocument.getChildren().size() > 0 && extendedDocument.getChildren().get(0) instanceof ExtendsDirective) {
+         ((ExtendsDirective) extendedDocument.getChildren().get(0)).extend(extendedDocument, f, false);
+      }
+
+      if (normalize) {
+         if (extendedTag != null) {
+            extendedTag.normalize(extendedDocument, f);
+         } else {
+            f.addAll(extendedDocument.normalize());
+         }
       }
    }
 
