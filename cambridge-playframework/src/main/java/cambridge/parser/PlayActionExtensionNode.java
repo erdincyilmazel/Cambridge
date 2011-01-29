@@ -18,10 +18,12 @@ public class PlayActionExtensionNode extends ExtensionNode {
    String controller;
    String action;
    Expression expression;
+   String expr;
 
    public PlayActionExtensionNode(String controller, String action, String expr) {
       this.controller = controller;
       this.action = action;
+      this.expr = expr;
       expression = Expressions.parse(expr);
    }
 
@@ -39,8 +41,8 @@ public class PlayActionExtensionNode extends ExtensionNode {
          } else {
             param = expression.eval(bindings);
          }
-      } catch (ExpressionEvaluationException e1) {
-         e1.printStackTrace();
+      } catch (ExpressionEvaluationException ex) {
+         throw new TemplateEvaluationException("Could not execute the expression: " + ex.getMessage(), getBeginLine(), getBeginColumn(), expr);
       }
 
       out.append(ActionRoute.invoke(controller, action, param, false).toString());

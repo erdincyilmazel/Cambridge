@@ -1,7 +1,6 @@
 package cambridge.parser;
 
 import cambridge.model.ExtensionPoint;
-import cambridge.parser.expressions.Expressions;
 import cambridge.parser.tokens.ExtensionToken;
 
 import java.io.IOException;

@@ -2,6 +2,7 @@ package play.mvc;
 
 import cambridge.Cambridge;
 import cambridge.parser.PlayActionsExtensionPoint;
+import cambridge.parser.PlayMessagesExtensionPoint;
 import cambridge.parser.TemplateParser;
 import play.Play;
 import play.classloading.enhancers.LocalvariablesNamesEnhancer;
@@ -21,6 +22,7 @@ import java.util.Map;
 public class CambridgeController extends Controller {
    static {
       TemplateParser.registerExtensionPoint(new PlayActionsExtensionPoint());
+      TemplateParser.registerExtensionPoint(new PlayMessagesExtensionPoint());
 
       Cambridge cambridge = Cambridge.getInstance();
       cambridge.registerFunction("Action", new ActionFunction(false));
