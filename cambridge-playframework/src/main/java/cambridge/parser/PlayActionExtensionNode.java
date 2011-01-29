@@ -19,12 +19,16 @@ public class PlayActionExtensionNode extends ExtensionNode {
    String action;
    Expression expression;
    String expr;
+   boolean absolute;
 
-   public PlayActionExtensionNode(String controller, String action, String expr) {
+   public PlayActionExtensionNode(String controller, String action, String expr, boolean absolute) {
       this.controller = controller;
       this.action = action;
       this.expr = expr;
-      expression = Expressions.parse(expr);
+      this.absolute = absolute;
+      if (expr != null && !"".equals(expr)) {
+         expression = Expressions.parse(expr);
+      }
    }
 
    public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
@@ -38,13 +42,13 @@ public class PlayActionExtensionNode extends ExtensionNode {
                p[i] = e.get(i).eval(bindings);
             }
             param = p;
-         } else {
+         } else if (expression != null) {
             param = expression.eval(bindings);
          }
       } catch (ExpressionEvaluationException ex) {
          throw new TemplateEvaluationException("Could not execute the expression: " + ex.getMessage(), getBeginLine(), getBeginColumn(), expr);
       }
 
-      out.append(ActionRoute.invoke(controller, action, param, false).toString());
+      out.append(ActionRoute.invoke(controller, action, param, absolute).toString());
    }
 }

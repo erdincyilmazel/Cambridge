@@ -12,16 +12,18 @@ public class PlayActionToken extends ExtensionToken {
    String controller;
    String action;
    String expressions;
+   boolean absolute;
 
-   public PlayActionToken(int line, int c, String val, int nl, int nc, String controller, String action, String expressions) {
+   public PlayActionToken(int line, int c, String val, int nl, int nc, String controller, String action, String expressions, boolean absolute) {
       super(line, c, val, nl, nc);
       this.controller = controller;
       this.action = action;
       this.expressions = expressions;
+      this.absolute = absolute;
    }
 
    @Override
    public ExtensionNode createNode() throws TemplateParsingException {
-      return new PlayActionExtensionNode(controller, action, expressions);
+      return new PlayActionExtensionNode(controller, action, expressions, absolute);
    }
 }

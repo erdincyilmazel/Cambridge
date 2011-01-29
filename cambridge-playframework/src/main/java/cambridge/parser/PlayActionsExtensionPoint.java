@@ -10,8 +10,14 @@ import java.io.IOException;
  * @since 1/28/11
  */
 public class PlayActionsExtensionPoint implements ExtensionPoint {
+   boolean absolute;
+
+   public PlayActionsExtensionPoint(boolean absolute) {
+      this.absolute = absolute;
+   }
+
    public String getTagOpener() {
-      return "@{";
+      return absolute ? "@@{" : "@{";
    }
 
    public ExtensionToken getToken(TemplateTokenizer tokenizer, int col, int line) throws IOException {
@@ -22,9 +28,16 @@ public class PlayActionsExtensionPoint implements ExtensionPoint {
       String controller = null;
       String action = null;
 
+      if (c == '\'') {
+         c = tokenizer.nextChar();
+      }
 
       while (Character.isLetterOrDigit(c)) {
          builder.append(c);
+         c = tokenizer.nextChar();
+      }
+
+      if (c == '\'') {
          c = tokenizer.nextChar();
       }
 
@@ -72,7 +85,12 @@ public class PlayActionsExtensionPoint implements ExtensionPoint {
          c = tokenizer.nextChar();
       }
 
-      return new PlayActionToken(line, col, builder.toString(), tokenizer.getLineNo(), tokenizer.getColumn(), controller, action, builder.toString());
+      if (action == null) {
+         action = controller;
+         controller = null;
+      }
+
+      return new PlayActionToken(line, col, builder.toString(), tokenizer.getLineNo(), tokenizer.getColumn(), controller, action, builder.toString(), absolute);
    }
 
    private char eatWhitespace(TemplateTokenizer tokenizer, char c) throws IOException {

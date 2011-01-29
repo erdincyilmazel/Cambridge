@@ -21,7 +21,8 @@ import java.util.Map;
  */
 public class CambridgeController extends Controller {
    static {
-      TemplateParser.registerExtensionPoint(new PlayActionsExtensionPoint());
+      TemplateParser.registerExtensionPoint(new PlayActionsExtensionPoint(false));
+      TemplateParser.registerExtensionPoint(new PlayActionsExtensionPoint(true));
       TemplateParser.registerExtensionPoint(new PlayMessagesExtensionPoint());
 
       Cambridge cambridge = Cambridge.getInstance();
