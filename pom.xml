@@ -6,7 +6,10 @@
    <artifactId>cambridge</artifactId>
    <packaging>pom</packaging>
    <name>Cambridge Template Engine</name>
-   <version>0.2-SNAPSHOT</version>
+   <properties>
+       <cambridgeVersion>0.2</cambridgeVersion>
+   </properties>
+   <version>${cambridgeVersion}</version>
    <modules>
       <module>core</module>
       <module>components</module>

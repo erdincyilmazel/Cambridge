@@ -6,20 +6,20 @@
 
    <groupId>com.googlecode.cambridge</groupId>
    <artifactId>simplewebapp</artifactId>
-   <version>0.2-SNAPSHOT</version>
+   <version>${cambridgeVersion}</version>
    <packaging>war</packaging>
    <name>Cambridge Simple Web Application</name>
    <parent>
       <artifactId>cambridge</artifactId>
       <groupId>com.googlecode.cambridge</groupId>
-      <version>0.2-SNAPSHOT</version>
+      <version>${cambridgeVersion}</version>
       <relativePath>../../pom.xml</relativePath>
    </parent>
    <dependencies>
       <dependency>
          <groupId>com.googlecode.cambridge</groupId>
          <artifactId>core</artifactId>
-         <version>0.2-SNAPSHOT</version>
+         <version>${cambridgeVersion}</version>
          <scope>compile</scope>
       </dependency>
       <dependency>

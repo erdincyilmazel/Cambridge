@@ -40,37 +40,11 @@ sdf
 <div a:if="a == 3">444</div>
 <div a:elseif="a == 4">5555</div>
 
-<div a:macro="loginBox">
-   <input name="username" type="text"/>
-   <input name="password" type="password"/>
-</div>
-
 <div>efdsff</div>
 
-<div a:extend="loginBox">
-
-</div>
-
-<span a:use="loginBox"/>
-
-<erdinc a:use="loginBox"/>
-
-<div a:abstract="content"></div>
-
-<!--$extends main.html-->
-
-<div a:implements="content">
-
-</div>
-
-<div a:with="user.friend.x.b">
+<div b:with="user.friend.x.b">
    <a>${#this.name}</a>
 </div>
-
-%{ewwer}
-
-@{ersdf}
-
 
 </body>
 </html>

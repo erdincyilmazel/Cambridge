@@ -6,11 +6,11 @@
    <artifactId>cambridge-jaxrs</artifactId>
    <packaging>jar</packaging>
    <name>Cambridge Template JaxRS Integration</name>
-   <version>0.2-SNAPSHOT</version>
+   <version>${cambridgeVersion}</version>
    <parent>
       <artifactId>cambridge</artifactId>
       <groupId>com.googlecode.cambridge</groupId>
-      <version>0.2-SNAPSHOT</version>
+      <version>${cambridgeVersion}</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
    <dependencies>
@@ -29,7 +29,7 @@
       <dependency>
          <groupId>com.googlecode.cambridge</groupId>
          <artifactId>core</artifactId>
-         <version>0.2-SNAPSHOT</version>
+         <version>${cambridgeVersion}</version>
          <scope>compile</scope>
       </dependency>
    </dependencies>

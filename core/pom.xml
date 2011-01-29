@@ -6,11 +6,11 @@
    <artifactId>core</artifactId>
    <packaging>jar</packaging>
    <name>Cambridge Template Core</name>
-   <version>0.2-SNAPSHOT</version>
+   <version>${cambridgeVersion}</version>
    <parent>
       <artifactId>cambridge</artifactId>
       <groupId>com.googlecode.cambridge</groupId>
-      <version>0.2-SNAPSHOT</version>
+      <version>${cambridgeVersion}</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
    <dependencies>
