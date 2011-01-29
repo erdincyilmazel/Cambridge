@@ -1,5 +1,6 @@
 package cambridge.model;
 
+import cambridge.Cambridge;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
 import cambridge.TemplateEvaluationException;
@@ -52,7 +53,7 @@ public class ExpressionTagPart implements TagPart, Fragment {
             params = null;
          }
 
-         Filter filter = Filter.getInstance(name);
+         Filter filter = Cambridge.getInstance().getFilter(name);
          if (filter != null) {
             filters.add(new F(filter, params));
          }

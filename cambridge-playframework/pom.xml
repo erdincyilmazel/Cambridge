@@ -33,5 +33,10 @@
          <scope>system</scope>
          <systemPath>/Users/erdincyilmazel/tools/play-1.1/framework/play.jar</systemPath>
       </dependency>
+      <dependency>
+         <groupId>javassist</groupId>
+         <artifactId>javassist</artifactId>
+         <version>3.9.0.GA</version>
+      </dependency>
    </dependencies>
 </project>

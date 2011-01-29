@@ -8,36 +8,10 @@ import cambridge.ExpressionParsingException;
 import cambridge.TemplateLoader;
 import cambridge.TemplateLoadingException;
 import cambridge.TemplateParsingException;
-import cambridge.model.Attribute;
-import cambridge.model.AttributeFragment;
-import cambridge.model.CommentNode;
-import cambridge.model.ComplexAttribute;
-import cambridge.model.DebugDirective;
-import cambridge.model.DynamicAttribute;
-import cambridge.model.ExpressionNode;
-import cambridge.model.ExpressionTagPart;
-import cambridge.model.ExtendsDirective;
-import cambridge.model.IncludeNode;
-import cambridge.model.NamespaceDirective;
-import cambridge.model.SetDirective;
-import cambridge.model.SimpleAttribute;
-import cambridge.model.StaticFragment;
-import cambridge.model.TagNode;
-import cambridge.model.TagPart;
-import cambridge.model.TemplateDocument;
-import cambridge.model.TemplateNode;
-import cambridge.model.TextNode;
-import cambridge.model.TextTagPart;
+import cambridge.model.*;
 import cambridge.parser.expressions.Expression;
 import cambridge.parser.expressions.Expressions;
-import cambridge.parser.tokens.AttributeNameToken;
-import cambridge.parser.tokens.AttributeValueToken;
-import cambridge.parser.tokens.CloseTagToken;
-import cambridge.parser.tokens.ExpressionToken;
-import cambridge.parser.tokens.OpenTagToken;
-import cambridge.parser.tokens.ParserDirectiveToken;
-import cambridge.parser.tokens.Token;
-import cambridge.parser.tokens.TokenType;
+import cambridge.parser.tokens.*;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -75,12 +49,17 @@ public class TemplateParser {
 
    private final static int BUFFER_SIZE = 5;
    private final static int maxPeek = 3;
+   private static ArrayList<ExtensionPoint> extensionPoints;
 
    private final Token[] buf = new Token[BUFFER_SIZE];
 
    private int readIndex = -1; // The last read index
    private int writeIndex = -1; // The last written index
    private boolean firstTag = true;
+   private Token currentToken;
+   private List<TemplateNode> matchedNodes = new ArrayList<TemplateNode>();
+   private TemplateDocument template;
+   private HashMap<String, String> namespaceMappings;
 
    private int getIndex(int no) {
       return no % BUFFER_SIZE;
@@ -114,10 +93,17 @@ public class TemplateParser {
       return buf[getIndex(readIndex + p)];
    }
 
-   private Token currentToken;
-   private List<TemplateNode> matchedNodes = new ArrayList<TemplateNode>();
-   private TemplateDocument template;
-   private HashMap<String, String> namespaceMappings;
+
+   public static void registerExtensionPoint(ExtensionPoint ep) {
+      if (extensionPoints == null) {
+         extensionPoints = new ArrayList<ExtensionPoint>();
+      }
+      extensionPoints.add(ep);
+   }
+
+   static ArrayList<ExtensionPoint> getExtensionPoints() {
+      return extensionPoints;
+   }
 
    private String getNamespaceUri(String name) {
       if (name == null) {
@@ -181,6 +167,11 @@ public class TemplateParser {
             break;
          case EXPRESSION:
             node = expression();
+            matchedNodes.add(node);
+            break;
+         case EXTENSION:
+            ExtensionToken tok = (ExtensionToken) currentToken;
+            node = tok.createNode();
             matchedNodes.add(node);
             break;
          case OPEN_TAG:
@@ -315,6 +306,7 @@ public class TemplateParser {
                   if (peek(1).getType() == TokenType.EOF
                      || peek(1).getType() == TokenType.TAG_END
                      || peek(1).getType() == TokenType.EXPRESSION
+                     || peek(1).getType() == TokenType.EXTENSION
                      ) {
                      break;
                   }
@@ -355,6 +347,11 @@ public class TemplateParser {
                                     throw new TemplateParsingException("Error parsing expression", e1, currentToken.getLineNo(), currentToken.getColumn());
                                  }
 
+                                 break;
+                              case EXTENSION:
+                                 ExtensionToken extensionToken = (ExtensionToken) attrToken;
+                                 ExtensionNode extensionNode = extensionToken.createNode();
+                                 fragments.add(extensionNode);
                                  break;
                               case WS:
                               case STRING:
@@ -425,6 +422,11 @@ public class TemplateParser {
                } catch (ExpressionParsingException e1) {
                   throw new TemplateParsingException("Error parsing expression", e1, currentToken.getLineNo(), currentToken.getColumn());
                }
+               break;
+            case EXTENSION:
+               ExtensionToken extensionToken = (ExtensionToken) currentToken;
+               ExtensionNode extensionTagPart = extensionToken.createNode();
+               node.addTagPart(extensionTagPart);
                break;
             case TAG_END:
                node.setTagEndText(currentToken.getActualValue());

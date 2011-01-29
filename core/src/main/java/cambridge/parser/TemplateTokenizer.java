@@ -1,5 +1,6 @@
 package cambridge.parser;
 
+import cambridge.model.ExtensionPoint;
 import cambridge.parser.tokens.AssignToken;
 import cambridge.parser.tokens.AttributeNameToken;
 import cambridge.parser.tokens.AttributeValueToken;
@@ -17,7 +18,6 @@ import cambridge.parser.tokens.TagEndToken;
 import cambridge.parser.tokens.TagStringToken;
 import cambridge.parser.tokens.Token;
 import cambridge.parser.tokens.WSToken;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -194,6 +194,19 @@ public class TemplateTokenizer extends Tokenizer {
       if (c == '$' && peek(1) == '{') {
          return expressionToken(col, line);
       }
+
+      ArrayList<ExtensionPoint> extensionPoints = TemplateParser.getExtensionPoints();
+      if (extensionPoints != null) {
+         for (ExtensionPoint p : extensionPoints) {
+            String opener = p.getTagOpener();
+            int length = opener.length();
+            if (length > 1 && c == opener.charAt(0) && opener.substring(1).equals(peekString(length - 1))) {
+               nextChar(length - 1);
+               return p.getToken(this, col, line);
+            }
+         }
+      }
+
       if (c == '>') {
          state = State.INITIAL_STATE;
          return new TagEndToken(line, col, ">", getLineNo(), getColumn());
@@ -299,6 +312,18 @@ public class TemplateTokenizer extends Tokenizer {
 
          return new AttributeNameToken(line, col, builder.toString(), getLineNo(), getColumn());
       } else {
+         ArrayList<ExtensionPoint> extensionPoints = TemplateParser.getExtensionPoints();
+         if (extensionPoints != null) {
+            for (ExtensionPoint p : extensionPoints) {
+               String opener = p.getTagOpener();
+               int length = opener.length();
+               if (length > 1 && c == opener.charAt(0) && opener.substring(1).equals(peekString(length - 1))) {
+                  nextChar(length - 1);
+                  return p.getToken(this, col, line);
+               }
+            }
+         }
+
          StringBuilder builder = new StringBuilder();
          builder.append(c);
          while (!Character.isWhitespace(peek(1)) && peek(1) != '>' && !CharUtil.isName(peek(1))) {
@@ -450,6 +475,19 @@ public class TemplateTokenizer extends Tokenizer {
       } else if (c == '$' && peek(1) == '{') {
          return expressionToken(col, line);
       } else {
+
+         ArrayList<ExtensionPoint> extensionPoints = TemplateParser.getExtensionPoints();
+         if (extensionPoints != null) {
+            for (ExtensionPoint p : extensionPoints) {
+               String opener = p.getTagOpener();
+               int length = opener.length();
+               if (length > 1 && c == opener.charAt(0) && opener.substring(1).equals(peekString(length - 1))) {
+                  nextChar(length - 1);
+                  return p.getToken(this, col, line);
+               }
+            }
+         }
+
          StringBuilder builder = new StringBuilder();
          builder.append(c);
 

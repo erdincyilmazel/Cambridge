@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -43,7 +44,7 @@ public class ExpressionTest {
 
    @Test
    public void testList() {
-      String expression = "['a', 'b', 213]";
+      String expression = "['a', 'b', 213, aa]";
       try {
          Expression e = Expressions.parse(expression);
          assertEquals("Testing type", Expression.Type.Object, e.getType(bindings));

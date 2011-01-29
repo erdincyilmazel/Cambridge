@@ -10,7 +10,7 @@ import java.util.Map;
  * Date: Apr 12, 2010
  * Time: 11:52:13 PM
  */
-public class ListExpression extends ArrayList implements Expression {
+public class ListExpression extends ArrayList<Expression> implements Expression {
    public Type getType(Map<String, Object> globals) throws ExpressionEvaluationException {
       return Type.Object;
    }

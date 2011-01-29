@@ -182,7 +182,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return list;
    }
 
-   private void addTagPart(TagPart e) {
+   public void addTagPart(TagPart e) {
       if (tagParts == null) tagParts = new ArrayList<TagPart>();
       tagParts.add(e);
    }

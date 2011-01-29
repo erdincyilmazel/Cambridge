@@ -9,8 +9,7 @@ import java.util.Locale;
  * Date: Nov 8, 2009
  * Time: 5:16:47 PM
  */
-public class SimpleDateFormatFilter extends Filter {
-   @Override
+public class SimpleDateFormatFilter implements Filter {
    public String doFilter(Object o, String properties, Locale locale) {
       if (o instanceof Date) {
          SimpleDateFormat format = new SimpleDateFormat(properties, locale);

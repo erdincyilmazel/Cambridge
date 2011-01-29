@@ -1,5 +1,8 @@
 package play.mvc;
 
+import cambridge.Cambridge;
+import cambridge.parser.PlayActionsExtensionPoint;
+import cambridge.parser.TemplateParser;
 import play.Play;
 import play.classloading.enhancers.LocalvariablesNamesEnhancer;
 import play.data.validation.Validation;
@@ -16,6 +19,14 @@ import java.util.Map;
  * Time: 9:32 PM
  */
 public class CambridgeController extends Controller {
+   static {
+      TemplateParser.registerExtensionPoint(new PlayActionsExtensionPoint());
+
+      Cambridge cambridge = Cambridge.getInstance();
+      cambridge.registerFunction("Action", new ActionFunction(false));
+      cambridge.registerFunction("AAction", new ActionFunction(true));
+   }
+
    protected static void render(Object... args) {
       String templateName = null;
       if (args.length > 0 && args[0] instanceof String && LocalvariablesNamesEnhancer.LocalVariablesNamesTracer.getAllLocalVariableNames(args[0]).isEmpty()) {

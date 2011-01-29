@@ -19,5 +19,6 @@ public enum TokenType {
    CDATA,
    ATTRIBUTE_NAME,
    ATTRIBUTE_VALUE,
-   EXPRESSION
+   EXPRESSION,
+   EXTENSION
 }

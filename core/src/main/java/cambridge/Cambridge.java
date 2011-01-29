@@ -16,20 +16,25 @@ import cambridge.behaviors.WithBehavior;
 import cambridge.model.Attribute;
 import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
+import cambridge.model.ExtensionPoint;
+import cambridge.runtime.EscapeFilter;
+import cambridge.runtime.Filter;
 import cambridge.runtime.FunctionRunner;
 import cambridge.runtime.IfFunction;
+import cambridge.runtime.LowerCaseFilter;
 import cambridge.runtime.ResourceBundleFunction;
+import cambridge.runtime.SimpleDateFormatFilter;
+import cambridge.runtime.UpperCaseFilter;
 import cambridge.tags.DummyTag;
 
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
+import java.util.*;
 
 @SuppressWarnings("unchecked")
 public class Cambridge {
    public static String DefaultNamespaceURI = "http://cambridge.googlecode.com";
 
    private final HashMap<String, FunctionRunner> functions = new HashMap<String, FunctionRunner>();
+   private final HashMap<String, Filter> filters = new HashMap<String, Filter>();
 
    public void registerFunction(String name, FunctionRunner runner) {
       functions.put(name, runner);
@@ -37,6 +42,14 @@ public class Cambridge {
 
    public FunctionRunner getFunctionRunner(String name) {
       return functions.get(name);
+   }
+
+   public void registerFilter(String name, Filter filter) {
+      filters.put(name, filter);
+   }
+
+   public Filter getFilter(String name) {
+      return filters.get(name);
    }
 
    public class Bind {
@@ -95,6 +108,11 @@ public class Cambridge {
 
       registerFunction("text", new ResourceBundleFunction());
       registerFunction("if", new IfFunction());
+
+      registerFilter("lower", new LowerCaseFilter());
+      registerFilter("upper", new UpperCaseFilter());
+      registerFilter("escape", new EscapeFilter());
+      registerFilter("dateformat", new SimpleDateFormatFilter());
 
       bind(DefaultNamespaceURI, "if").to(IfBehavior.getProvider());
       bind(DefaultNamespaceURI, "elseif").to(ElseIfBehavior.getProvider());

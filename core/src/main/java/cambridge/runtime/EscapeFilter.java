@@ -7,8 +7,7 @@ import java.util.Locale;
  * Date: Nov 8, 2009
  * Time: 5:13:18 PM
  */
-public class EscapeFilter extends Filter {
-   @Override
+public class EscapeFilter implements Filter {
    public String doFilter(Object o, String properties, Locale locale) {
       String str = o.toString();
       StringBuffer sb = new StringBuffer(str.length());
