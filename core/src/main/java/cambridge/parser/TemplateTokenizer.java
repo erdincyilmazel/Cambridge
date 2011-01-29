@@ -233,11 +233,23 @@ public class TemplateTokenizer extends Tokenizer {
    }
 
    private Token expressionToken(int col, int line) throws IOException {
-      char c;
-      nextChar(); // Consume {
+      char c = nextChar(); // Consume {
       StringBuilder builder = new StringBuilder();
+      int state = 1;
+
       c = nextChar();
-      while (c != '}') {
+      while (state != 0) {
+         if (c == '{') {
+            state++;
+         }
+         else if(c == '}') {
+            state--;
+         }
+
+         if (state == 0) {
+            break;
+         }
+         
          builder.append(c);
          c = nextChar();
       }
