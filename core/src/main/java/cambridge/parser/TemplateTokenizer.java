@@ -18,6 +18,7 @@ import cambridge.parser.tokens.TagEndToken;
 import cambridge.parser.tokens.TagStringToken;
 import cambridge.parser.tokens.Token;
 import cambridge.parser.tokens.WSToken;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
@@ -242,15 +243,14 @@ public class TemplateTokenizer extends Tokenizer {
       while (state != 0) {
          if (c == '{') {
             state++;
-         }
-         else if(c == '}') {
+         } else if (c == '}') {
             state--;
          }
 
          if (state == 0) {
             break;
          }
-         
+
          builder.append(c);
          c = nextChar();
       }

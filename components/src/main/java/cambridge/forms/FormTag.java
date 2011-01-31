@@ -7,6 +7,7 @@ import cambridge.parser.expressions.Expression;
 import cambridge.runtime.Iter;
 import cambridge.runtime.Super;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -39,7 +40,7 @@ public class FormTag extends DynamicTag {
    }
 
    @Override
-   public void execute(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void execute(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
          Object f = formExpression.eval(bindings);
          if (f instanceof Form) {

@@ -1,6 +1,5 @@
 package cambridge.behaviors;
 
-import cambridge.model.AttributeKey;
 import cambridge.BehaviorInstantiationException;
 import cambridge.BehaviorProvider;
 import cambridge.ExpressionEvaluationException;
@@ -8,12 +7,14 @@ import cambridge.ExpressionParsingException;
 import cambridge.LoopingTagBehavior;
 import cambridge.TemplateEvaluationException;
 import cambridge.model.Attribute;
+import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.TagNode;
 import cambridge.parser.expressions.Expression;
 import cambridge.runtime.Iter;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 
@@ -30,7 +31,7 @@ public class WhileBehavior extends LoopingTagBehavior {
    }
 
    @Override
-   public void doExecute(Map<String, Object> bindings, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
+   public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
       try {
          Iter iter = new Iter();
          while (expression.asBoolean(bindings)) {

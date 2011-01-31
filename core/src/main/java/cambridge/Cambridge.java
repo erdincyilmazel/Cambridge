@@ -16,7 +16,6 @@ import cambridge.behaviors.WithBehavior;
 import cambridge.model.Attribute;
 import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
-import cambridge.model.ExtensionPoint;
 import cambridge.runtime.EscapeFilter;
 import cambridge.runtime.Filter;
 import cambridge.runtime.FunctionRunner;
@@ -27,7 +26,9 @@ import cambridge.runtime.SimpleDateFormatFilter;
 import cambridge.runtime.UpperCaseFilter;
 import cambridge.tags.DummyTag;
 
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
 
 @SuppressWarnings("unchecked")
 public class Cambridge {

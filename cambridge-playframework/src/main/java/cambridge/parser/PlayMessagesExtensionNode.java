@@ -8,6 +8,7 @@ import cambridge.parser.expressions.Expressions;
 import cambridge.parser.expressions.ListExpression;
 import play.i18n.Messages;
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -23,7 +24,7 @@ public class PlayMessagesExtensionNode extends ExtensionNode {
       this.expr = expr;
    }
 
-   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
          if (expression instanceof ListExpression) {
             ListExpression e = (ListExpression) expression;
@@ -35,7 +36,7 @@ public class PlayMessagesExtensionNode extends ExtensionNode {
                   params[i] = e.get(i + 1).eval(bindings);
                }
 
-               out.append(Messages.get(message, params));
+               out.write(Messages.get(message, params));
             }
          }
       } catch (ExpressionEvaluationException e) {

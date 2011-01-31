@@ -15,6 +15,7 @@ import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
@@ -85,7 +86,7 @@ public class ExpressionTagPart implements TagPart, Fragment {
       return false;
    }
 
-   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
          Object value = expression.eval(bindings);
          if (value != null) {
@@ -93,7 +94,7 @@ public class ExpressionTagPart implements TagPart, Fragment {
             if (locale == null) {
                locale = Locale.getDefault();
             }
-            out.append(applyFilters(value, locale));
+            out.write(applyFilters(value, locale));
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException(e);

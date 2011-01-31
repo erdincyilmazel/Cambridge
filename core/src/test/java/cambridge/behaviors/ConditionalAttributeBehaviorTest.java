@@ -12,6 +12,7 @@ import cambridge.runtime.DefaultTemplateBindings;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -37,7 +38,7 @@ public class ConditionalAttributeBehaviorTest {
          assertNotNull(t);
          FragmentList fragments = t.normalize();
 
-         StringBuilder builder = new StringBuilder();
+         StringWriter builder = new StringWriter();
 
          for (Fragment f : fragments) {
             f.eval(bindings, builder);

@@ -19,6 +19,7 @@ import cambridge.behaviors.IfBehavior;
 import cambridge.parser.expressions.Expressions;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -245,7 +246,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    public Attribute getDynamicAttribute(DynamicAttributeKey key) {
-      for(Attribute a : attributes.values()) {
+      for (Attribute a : attributes.values()) {
          if (a.getAttributeName().equals(key.getAttribute()) &&
             key.getUri().equals(a.getNamespaceUri())) {
             return a;
@@ -613,7 +614,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @SuppressWarnings("unchecked")
-   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
          if (!isDynamic()) {
             printFragments(bindings, out);
@@ -697,7 +698,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @SuppressWarnings("unchecked")
-   public void execute(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void execute(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       ModifyableTag tag;
       if (modifyingBehaviors != null) {
          tag = new ModifyableCopy(tagParts == null ? null : (ArrayList) tagParts.clone(), fragments == null ? null : (FragmentList) fragments.clone());
@@ -714,15 +715,16 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
 
       if (indented) {
-         out.append(indent);
+         out.write(indent);
       }
 
       if (!hidden) {
-         out.append("<");
+         out.write("<");
          if (nameSpace != null) {
-            out.append(nameSpace).append(":");
+            out.write(nameSpace);
+            out.write(":");
          }
-         out.append(tagName);
+         out.write(tagName);
          if (tag.getTagParts() != null) {
             boolean whiteSpace = false;
             for (TagPart t : tag.getTagParts()) {
@@ -732,7 +734,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                   if (!(t instanceof DynamicAttribute)) {
                      if (!t.isWhiteSpace()) {
                         if (!whiteSpace) {
-                           out.append(" ");
+                           out.write(" ");
                         }
                         whiteSpace = false;
                      } else {
@@ -742,22 +744,24 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
                   if (t instanceof Attribute) {
                      if (t instanceof SimpleAttribute) {
-                        out.append(t.getTextContent());
+                        out.write(t.getTextContent());
                      } else if (t instanceof ComplexAttribute) {
                         ComplexAttribute a = (ComplexAttribute) t;
                         if (a.attributeNameSpace != null) {
-                           out.append(a.attributeNameSpace).append(":");
+                           out.write(a.attributeNameSpace);
+                           out.write(":");
                         }
 
-                        out.append(a.attributeName).append("=");
+                        out.write(a.attributeName);
+                        out.write("=");
                         char q = a.getQuote();
                         if (q != 0) {
-                           out.append("" + q);
+                           out.write("" + q);
                         }
 
                         for (AttributeFragment af : a.getFragments()) {
                            if (af instanceof StaticFragment) {
-                              out.append(((StaticFragment) af).contents.toString());
+                              out.write(((StaticFragment) af).contents.toString());
                            } else if (af instanceof ExpressionNode) {
                               ExpressionNode ex = (ExpressionNode) af;
                               ex.eval(bindings, out);
@@ -765,17 +769,17 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                         }
 
                         if (q != 0) {
-                           out.append("" + q);
+                           out.write("" + q);
                         }
                      }
                   } else {
-                     out.append(t.getTextContent());
+                     out.write(t.getTextContent());
                   }
                }
             }
          }
 
-         out.append(tagEndText);
+         out.write(tagEndText);
       }
 
       if (tag.getFragments() != null) {
@@ -785,7 +789,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
 
       if (!hidden && closeText != null) {
-         out.append(closeText);
+         out.write(closeText);
       }
    }
 
@@ -899,7 +903,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return get(tagName, -1);
    }
 
-   private void printFragments(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   private void printFragments(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       if (fragments != null) {
          for (Fragment f : fragments) {
             f.eval(bindings, out);

@@ -5,6 +5,7 @@ import cambridge.ClassPathTemplateLoader;
 import cambridge.TemplateEvaluationException;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Set;
@@ -79,7 +80,7 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       ArrayList<DebugElement> elements = new ArrayList<DebugElement>();
       Set<Map.Entry<String, Object>> entries = bindings.entrySet();
 

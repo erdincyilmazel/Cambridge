@@ -14,6 +14,7 @@ import cambridge.runtime.DefaultTemplateBindings;
 import org.junit.Test;
 
 import java.io.IOException;
+import java.io.StringWriter;
 import java.util.Map;
 
 import static org.junit.Assert.*;
@@ -48,7 +49,7 @@ public class ComplexAttributeTest {
 
          assertEquals("${class}", node.getSource());
 
-         StringBuilder builder = new StringBuilder();
+         StringWriter builder = new StringWriter();
 
          FragmentList fragmentList = t.normalize();
 
@@ -109,7 +110,7 @@ public class ComplexAttributeTest {
          assertEquals("and ", st2.toString());
          assertEquals("${b}", node2.getSource());
 
-         StringBuilder builder = new StringBuilder();
+         StringWriter builder = new StringWriter();
 
          FragmentList fragmentList = t.normalize();
 
@@ -163,7 +164,7 @@ public class ComplexAttributeTest {
 
          assertEquals("${style}", node1.getSource());
 
-         StringBuilder builder = new StringBuilder();
+         StringWriter builder = new StringWriter();
 
          FragmentList fragmentList = t.normalize();
 

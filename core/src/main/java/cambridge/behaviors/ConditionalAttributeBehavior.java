@@ -1,12 +1,12 @@
 package cambridge.behaviors;
 
-import cambridge.model.AttributeKey;
 import cambridge.BehaviorInstantiationException;
 import cambridge.BehaviorProvider;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
 import cambridge.ModifyingTagBehavior;
 import cambridge.model.Attribute;
+import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.ModifyableTag;
 import cambridge.model.TagPart;

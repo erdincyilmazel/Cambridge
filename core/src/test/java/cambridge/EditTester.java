@@ -4,6 +4,7 @@ import cambridge.model.TemplateDocument;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 
 /**
  * User: erdinc
@@ -25,7 +26,7 @@ public class EditTester {
          template.setProperty("x", true);
          template.setProperty("y", false);
 
-         template.printTo(System.out);
+         template.printTo(new OutputStreamWriter(System.out));
 
       } catch (TemplateLoadingException e) {
          e.printStackTrace();

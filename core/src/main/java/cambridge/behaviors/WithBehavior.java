@@ -13,6 +13,7 @@ import cambridge.model.TagNode;
 import cambridge.parser.expressions.Expression;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -27,7 +28,7 @@ public class WithBehavior extends LoopingTagBehavior {
    }
 
    @Override
-   protected void doExecute(Map<String, Object> bindings, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
+   protected void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
       try {
          bindings.put("#this", expression.eval(bindings));
          tag.execute(bindings, out);

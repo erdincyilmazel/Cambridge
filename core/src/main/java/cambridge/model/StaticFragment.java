@@ -1,6 +1,7 @@
 package cambridge.model;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -35,8 +36,8 @@ public class StaticFragment implements AttributeFragment {
       return this;
    }
 
-   public void eval(Map<String, Object> bindings, Appendable out) throws IOException {
-      out.append(packedContents);
+   public void eval(Map<String, Object> bindings, Writer out) throws IOException {
+      out.write(packedContents);
    }
 
    public void pack() {

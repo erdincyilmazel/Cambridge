@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
 
 /**
  * User: erdinc
@@ -44,7 +45,7 @@ public class IncludeTest {
 
          Template t = f.createTemplate();
 
-         t.printTo(System.out);
+         t.printTo(new OutputStreamWriter(System.out));
 
       } catch (TemplateLoadingException e) {
          e.printStackTrace();

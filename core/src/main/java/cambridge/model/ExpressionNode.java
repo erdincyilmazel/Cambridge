@@ -16,6 +16,7 @@ import org.antlr.runtime.TokenStream;
 
 import java.io.IOException;
 import java.io.PrintStream;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Map;
@@ -115,11 +116,11 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
          Object value = expression.eval(bindings);
          if (value != null) {
-            out.append(applyFilters(value, DefaultTemplateBindings.getLocaleFromBindings(bindings)));
+            out.write(applyFilters(value, DefaultTemplateBindings.getLocaleFromBindings(bindings)));
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), value);

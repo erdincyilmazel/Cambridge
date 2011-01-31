@@ -1,6 +1,7 @@
 package cambridge;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -15,7 +16,7 @@ public interface Template {
 
    public void clearProperties();
 
-   public void printTo(Appendable out) throws IOException, TemplateEvaluationException;
+   public void printTo(Writer out) throws IOException, TemplateEvaluationException;
 
    public String asString() throws TemplateEvaluationException;
 }

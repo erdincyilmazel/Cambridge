@@ -5,6 +5,7 @@ import cambridge.TemplateEvaluationException;
 import cambridge.parser.expressions.Expression;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -68,7 +69,7 @@ public class ConditionalBlock implements Fragment {
          || defaultCondition != null;
    }
 
-   public void eval(Map<String, Object> bindings, Appendable out) throws IOException, TemplateEvaluationException {
+   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       if (firstCondition == null) {
          return;
       }

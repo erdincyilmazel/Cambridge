@@ -9,6 +9,7 @@ import cambridge.parser.TemplateTokenizer;
 import cambridge.runtime.DefaultTemplateBindings;
 import org.junit.Test;
 
+import java.io.StringWriter;
 import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
@@ -35,7 +36,7 @@ public class WithBehaviorTest {
       assertNotNull(t);
       FragmentList fragments = t.normalize();
 
-      StringBuilder builder = new StringBuilder();
+      StringWriter builder = new StringWriter();
 
       for (Fragment f : fragments) {
          f.eval(bindings, builder);

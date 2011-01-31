@@ -1,6 +1,5 @@
 package cambridge.behaviors;
 
-import cambridge.model.AttributeKey;
 import cambridge.BehaviorInstantiationException;
 import cambridge.BehaviorProvider;
 import cambridge.ExpressionEvaluationException;
@@ -8,12 +7,14 @@ import cambridge.ExpressionParsingException;
 import cambridge.LoopingTagBehavior;
 import cambridge.TemplateEvaluationException;
 import cambridge.model.Attribute;
+import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.TagNode;
 import cambridge.parser.expressions.Expression;
 import cambridge.runtime.Iter;
 
 import java.io.IOException;
+import java.io.Writer;
 import java.util.Map;
 
 /**
@@ -29,7 +30,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
    }
 
    @Override
-   public void doExecute(Map<String, Object> bindings, TagNode tag, Appendable out) throws TemplateEvaluationException, IOException {
+   public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
       try {
          Object o = iterable.eval(bindings);
          if (o == null) {
@@ -62,7 +63,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
       }
    }
 
-   private void iterateIterable(Map<String, Object> bindings, TagNode tag, Appendable out, Iterable o) throws IOException, TemplateEvaluationException {
+   private void iterateIterable(Map<String, Object> bindings, TagNode tag, Writer out, Iterable o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (Object o1 : o) {
          bindings.put("#this", o1);
@@ -72,7 +73,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
       }
    }
 
-   private void iterateArray(Map<String, Object> bindings, TagNode tag, Appendable out, Object[] o) throws IOException, TemplateEvaluationException {
+   private void iterateArray(Map<String, Object> bindings, TagNode tag, Writer out, Object[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (Object o1 : o) {
          bindings.put("#this", o1);
@@ -82,7 +83,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
       }
    }
 
-   private void iterateInt(Map<String, Object> bindings, TagNode tag, Appendable out, int[] o) throws IOException, TemplateEvaluationException {
+   private void iterateInt(Map<String, Object> bindings, TagNode tag, Writer out, int[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (int o1 : o) {
          bindings.put("#this", o1);
@@ -92,7 +93,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
       }
    }
 
-   private void iterateFloat(Map<String, Object> bindings, TagNode tag, Appendable out, float[] o) throws IOException, TemplateEvaluationException {
+   private void iterateFloat(Map<String, Object> bindings, TagNode tag, Writer out, float[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (float o1 : o) {
          bindings.put("#this", o1);
@@ -102,7 +103,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
       }
    }
 
-   private void iterateDouble(Map<String, Object> bindings, TagNode tag, Appendable out, double[] o) throws IOException, TemplateEvaluationException {
+   private void iterateDouble(Map<String, Object> bindings, TagNode tag, Writer out, double[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (double o1 : o) {
          bindings.put("#this", o1);
@@ -112,7 +113,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
       }
    }
 
-   private void iterateByte(Map<String, Object> bindings, TagNode tag, Appendable out, byte[] o) throws IOException, TemplateEvaluationException {
+   private void iterateByte(Map<String, Object> bindings, TagNode tag, Writer out, byte[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (byte o1 : o) {
          bindings.put("#this", o1);
@@ -122,7 +123,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
       }
    }
 
-   private void iterateChar(Map<String, Object> bindings, TagNode tag, Appendable out, char[] o) throws IOException, TemplateEvaluationException {
+   private void iterateChar(Map<String, Object> bindings, TagNode tag, Writer out, char[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (char o1 : o) {
          bindings.put("#this", o1);
@@ -132,7 +133,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
       }
    }
 
-   private void iterateBoolean(Map<String, Object> bindings, TagNode tag, Appendable out, boolean[] o) throws IOException, TemplateEvaluationException {
+   private void iterateBoolean(Map<String, Object> bindings, TagNode tag, Writer out, boolean[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
       for (boolean o1 : o) {
          bindings.put("#this", o1);

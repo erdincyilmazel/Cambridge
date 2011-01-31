@@ -2,15 +2,18 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
    <modelVersion>4.0.0</modelVersion>
+   <properties>
+       <cambridgeVersion>0.2</cambridgeVersion>
+   </properties>
    <groupId>com.googlecode.cambridge</groupId>
    <artifactId>cambridge-jaxrs</artifactId>
    <packaging>jar</packaging>
    <name>Cambridge Template JaxRS Integration</name>
-   <version>${cambridgeVersion}</version>
+   <version>0.2</version>
    <parent>
       <artifactId>cambridge</artifactId>
       <groupId>com.googlecode.cambridge</groupId>
-      <version>${cambridgeVersion}</version>
+      <version>0.2</version>
       <relativePath>../pom.xml</relativePath>
    </parent>
    <dependencies>
@@ -29,7 +32,7 @@
       <dependency>
          <groupId>com.googlecode.cambridge</groupId>
          <artifactId>core</artifactId>
-         <version>${cambridgeVersion}</version>
+         <version>0.2</version>
          <scope>compile</scope>
       </dependency>
    </dependencies>

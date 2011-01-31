@@ -8,6 +8,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
 
 /**
  * User: erdinc
@@ -24,8 +26,9 @@ public class FragmentSelectorTest {
                try {
                   FragmentList fragmentList = doc.select("except #s");
 
+                  Writer writer = new OutputStreamWriter(System.out);
                   for (Fragment f : fragmentList) {
-                     f.eval(new DefaultTemplateBindings(), System.out);
+                     f.eval(new DefaultTemplateBindings(), writer);
                   }
 
                } catch (BehaviorInstantiationException e) {

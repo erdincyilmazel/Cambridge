@@ -3,7 +3,6 @@ package cambridge.model;
 /**
  * @author Erdinc YILMAZEL
  * @since 1/28/11
- *
  */
 public abstract class ExtensionNode extends TemplateNode implements AttributeFragment, TagPart, Fragment {
    final public void pack() {
@@ -33,6 +32,7 @@ public abstract class ExtensionNode extends TemplateNode implements AttributeFra
    }
 
    String textContent;
+
    public String getTextContent() {
       return textContent;
    }

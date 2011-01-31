@@ -4,7 +4,10 @@ import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
 import cambridge.runtime.DefaultTemplateBindings;
 
+import java.io.BufferedWriter;
 import java.io.IOException;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.Locale;
 import java.util.Map;
 
@@ -46,20 +49,21 @@ public class DynamicTemplate implements Template {
       bindings.clear();
    }
 
-   public void printTo(Appendable out) throws IOException, TemplateEvaluationException {
+   public void printTo(Writer out) throws IOException, TemplateEvaluationException {
+      BufferedWriter writer = new BufferedWriter(out);
       bindings.remove("#this");
       bindings.remove("#super");
       bindings.remove("#iter");
       for (Fragment f : fragments) {
-         f.eval(bindings, out);
+         f.eval(bindings, writer);
       }
    }
 
    public String asString() throws TemplateEvaluationException {
-      StringBuilder builder = new StringBuilder();
+      StringWriter writer = new StringWriter();
       try {
-         printTo(builder);
-         return builder.toString();
+         printTo(writer);
+         return writer.toString();
       } catch (IOException e) {
          return "";
       }
