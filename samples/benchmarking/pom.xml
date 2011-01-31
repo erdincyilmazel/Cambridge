@@ -9,7 +9,7 @@
    <groupId>com.googlecode.cambridge</groupId>
    <artifactId>benchmarking</artifactId>
 
-   <packaging>war</packaging>
+   <packaging>jar</packaging>
    <name>Benchmarking App</name>
    <parent>
       <artifactId>cambridge</artifactId>

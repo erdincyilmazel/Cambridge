@@ -18,5 +18,7 @@ public interface Template {
 
    public void printTo(Writer out) throws IOException, TemplateEvaluationException;
 
+   public void printTo(Writer out, boolean buffered) throws IOException, TemplateEvaluationException;
+
    public String asString() throws TemplateEvaluationException;
 }

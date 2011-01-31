@@ -7,6 +7,7 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * User: erdinc
@@ -51,10 +52,10 @@ public class PropertyUtils {
    }
 
    private PropertyUtils() {
-      //accessors = new HashMap<Property, Method>();
    }
 
-   //HashMap<Property, Method> accessors;
+   ConcurrentHashMap<Property, Method> methodCache = new ConcurrentHashMap<Property, Method>();
+   ConcurrentHashMap<Property, Field> fieldCache = new ConcurrentHashMap<Property, Field>();
 
    public Object getBeanProperty(Object bean, String property) throws PropertyAccessException {
       try {
@@ -70,6 +71,10 @@ public class PropertyUtils {
 
          Method m;
          Property p = new Property(beanClass, property);
+         m = methodCache.get(p);
+         if (m != null) {
+            return m.invoke(bean);
+         }
 
          BeanInfo beanInfo = Introspector.getBeanInfo(beanClass);
 
@@ -78,30 +83,41 @@ public class PropertyUtils {
          for (PropertyDescriptor d : descriptors) {
             if (property.equals(d.getName())) {
                m = d.getReadMethod();
-               //m.setAccessible(true);
-               //accessors.put(p, m);
+               methodCache.putIfAbsent(p, m);
                return m.invoke(bean);
             }
          }
 
          try {
-            Field f = beanClass.getField(property);
-            return f.get(bean);
-         } catch (NoSuchFieldException e) {
-            //
-         }
-
-
-         try {
             m = beanClass.getMethod(property);
-            //accessors.put(p, m);
-
-            return m.invoke(bean);
+            if (m != null) {
+               methodCache.putIfAbsent(p, m);
+               return m.invoke(bean);
+            }
          } catch (NoSuchMethodException e) {
             throw new PropertyAccessException("Unknown property " + property + " on bean " + beanClass.getName(), bean, property);
          } catch (Exception e) {
             throw new PropertyAccessException("Inaccessible property " + property + " on bean " + beanClass.getName(), bean, property);
          }
+
+         Field f = fieldCache.get(p);
+
+         try {
+            if (f != null) {
+               return f.get(bean);
+            }
+
+            f = beanClass.getField(property);
+            if (f != null) {
+               fieldCache.putIfAbsent(p, f);
+               return f.get(bean);
+            }
+
+         } catch (NoSuchFieldException e) {
+            //
+         }
+
+         return null;
       } catch (IntrospectionException e) {
          throw new PropertyAccessException(e.getMessage(), bean, property);
       } catch (InvocationTargetException e) {
