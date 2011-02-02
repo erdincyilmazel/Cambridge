@@ -3,16 +3,10 @@ package cambridge.model;
 import cambridge.Cambridge;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
+import cambridge.Expressions;
 import cambridge.TemplateEvaluationException;
-import cambridge.parser.expressions.Expression;
-import cambridge.parser.expressions.ExpressionLexer;
-import cambridge.parser.expressions.ExpressionParser;
 import cambridge.runtime.DefaultTemplateBindings;
 import cambridge.runtime.Filter;
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.TokenStream;
 
 import java.io.IOException;
 import java.io.PrintStream;
@@ -43,18 +37,7 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
 
    public ExpressionNode(String value) throws ExpressionParsingException {
       this.value = value;
-      try {
-         ANTLRStringStream stream = new ANTLRStringStream(value);
-         ExpressionLexer lexer = new ExpressionLexer(stream);
-         TokenStream tokenStream = new CommonTokenStream(lexer);
-         ExpressionParser parser = new ExpressionParser(tokenStream);
-         expression = parser.compilationUnit();
-         if (parser.getErrors() != null) {
-            throw new ExpressionParsingException(value, parser.getErrors());
-         }
-      } catch (RecognitionException e) {
-         throw new ExpressionParsingException(value, e);
-      }
+      expression = Expressions.parse(value);
    }
 
    public void setFilters(ArrayList<String> f) {

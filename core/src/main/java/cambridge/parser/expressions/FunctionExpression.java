@@ -2,7 +2,6 @@ package cambridge.parser.expressions;
 
 import cambridge.Cambridge;
 import cambridge.ExpressionEvaluationException;
-import cambridge.runtime.FunctionRunner;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -12,9 +11,9 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 1:29:09 AM
  */
-public class FunctionExpression implements Expression {
+public class FunctionExpression implements CambridgeExpression {
    private final String functionName;
-   private Expression[] parameters;
+   private CambridgeExpression[] parameters;
    private final FunctionRunner runner;
 
    public FunctionExpression(String functionName) {
@@ -22,8 +21,8 @@ public class FunctionExpression implements Expression {
       runner = Cambridge.getInstance().getFunctionRunner(functionName);
    }
 
-   public void setParameters(ArrayList<Expression> params) {
-      parameters = params.toArray(new Expression[params.size()]);
+   public void setParameters(ArrayList<CambridgeExpression> params) {
+      parameters = params.toArray(new CambridgeExpression[params.size()]);
    }
 
    public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {

@@ -9,7 +9,7 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 1:08:21 AM
  */
-public class LongLiteral implements Expression {
+public class LongLiteral implements CambridgeExpression {
    private final long value;
 
    public LongLiteral(long value) {

@@ -1,7 +1,6 @@
-package cambridge.runtime;
+package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.parser.expressions.Expression;
 
 import java.util.Map;
 
@@ -12,7 +11,7 @@ import java.util.Map;
  */
 public class IfFunction extends FunctionRunner {
    @Override
-   public Object eval(Map<String, Object> p, Expression[] params) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> p, CambridgeExpression[] params) throws ExpressionEvaluationException {
       if (params.length != 3) {
          throw new ExpressionEvaluationException("Invalid number of arguments for if statement");
       }

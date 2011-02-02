@@ -1,17 +1,9 @@
 package play.mvc;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.parser.expressions.Expression;
-import cambridge.runtime.FunctionRunner;
-import play.classloading.enhancers.LocalvariablesNamesEnhancer;
-import play.data.binding.Unbinder;
-import play.exceptions.ActionNotFoundException;
-import play.exceptions.NoRouteFoundException;
-import play.exceptions.PlayException;
-import play.exceptions.UnexpectedException;
+import cambridge.parser.expressions.CambridgeExpression;
+import cambridge.parser.expressions.FunctionRunner;
 
-import java.lang.reflect.Method;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -30,7 +22,7 @@ public class ActionFunction extends FunctionRunner {
    }
 
    @Override
-   public Object eval(Map<String, Object> p, Expression[] params) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> p, CambridgeExpression[] params) throws ExpressionEvaluationException {
       if (params == null || params.length == 0) {
          throw new ExpressionEvaluationException("Action name error");
       }

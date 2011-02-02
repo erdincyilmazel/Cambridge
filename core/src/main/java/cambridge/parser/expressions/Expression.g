@@ -163,9 +163,9 @@ primary returns [Expression value]
     |   e=listExpression {$value = e;}
     |	e=mapExpression {$value = e;}
     |   e=function {$value = e;}
-    |   '#super' {$value = new VarExpression("#super");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
-    |   '#this' {$value = new VarExpression("#this");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
-    |   '#iter' {$value = new VarExpression("#iter");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
+    |   'parent' {$value = new VarExpression("parent");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
+    |   'self' {$value = new VarExpression("self");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
+    |   'iter' {$value = new VarExpression("iter");} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
     |   IDENTIFIER {$value = new VarExpression($IDENTIFIER.text);} (p=identifierSuffix {((VarExpression)$value).addProperty(p);})*
     |   l=literal {$value = l;}
     ;

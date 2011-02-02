@@ -18,27 +18,27 @@ public abstract class LoopingTagBehavior implements TagBehavior {
    }
 
    public final void execute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
-      Object t = bindings.get("#this");
-      Super ts = (Super) bindings.get("#super");
-      Iter iter = (Iter) bindings.get("#iter");
+      Object t = bindings.get(Expressions.CURRENT_OBJECT);
+      Super ts = (Super) bindings.get(Expressions.PARENT_OBJECT);
+      Iter iter = (Iter) bindings.get(Expressions.ITER_OBJECT);
 
       Super s = null;
 
       if (t != null) {
          s = new Super(t, ts, iter);
-         bindings.put("#super", s);
+         bindings.put(Expressions.PARENT_OBJECT, s);
       }
 
       doExecute(bindings, tag, out);
 
       if (t != null) {
-         bindings.put("#this", s.get());
-         bindings.put("#super", s.getSuper());
-         bindings.put("#iter", s.getIter());
+         bindings.put(Expressions.CURRENT_OBJECT, s.get());
+         bindings.put(Expressions.PARENT_OBJECT, s.getSuper());
+         bindings.put(Expressions.ITER_OBJECT, s.getIter());
       } else {
-         bindings.put("#this", t);
-         bindings.put("#super", ts);
-         bindings.put("#iter", iter);
+         bindings.put(Expressions.CURRENT_OBJECT, t);
+         bindings.put(Expressions.PARENT_OBJECT, ts);
+         bindings.put(Expressions.ITER_OBJECT, iter);
       }
    }
 

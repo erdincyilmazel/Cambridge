@@ -2,9 +2,9 @@ package cambridge.parser;
 
 import cambridge.ExpressionEvaluationException;
 import cambridge.TemplateEvaluationException;
+import cambridge.model.Expression;
+import cambridge.Expressions;
 import cambridge.model.ExtensionNode;
-import cambridge.parser.expressions.Expression;
-import cambridge.parser.expressions.Expressions;
 import cambridge.parser.expressions.ListExpression;
 import play.i18n.Messages;
 import java.io.IOException;

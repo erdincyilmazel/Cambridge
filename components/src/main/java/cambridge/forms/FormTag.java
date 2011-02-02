@@ -3,7 +3,7 @@ package cambridge.forms;
 import cambridge.*;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
-import cambridge.parser.expressions.Expression;
+import cambridge.model.Expression;
 import cambridge.runtime.Iter;
 import cambridge.runtime.Super;
 import java.io.IOException;
@@ -22,7 +22,7 @@ public class FormTag extends DynamicTag {
 
    Expression formExpression;
 
-   //action="${#this.action}" name="${#this.name}" method="${#this.method}" enctype="${#this.encType}"
+   //action="${self.action}" name="${self.name}" method="${self.method}" enctype="${self.encType}"
    @Override
    public void init() throws TemplateParsingException {
       Attribute a = getAttribute(nameSpace, "form");
@@ -46,28 +46,28 @@ public class FormTag extends DynamicTag {
          if (f instanceof Form) {
             Form form = (Form) f;
 
-            Object t = bindings.get("#this");
-            Super ts = (Super) bindings.get("#super");
-            Iter iter = (Iter) bindings.get("#iter");
+            Object t = bindings.get(Expressions.CURRENT_OBJECT);
+            Super ts = (Super) bindings.get(Expressions.PARENT_OBJECT);
+            Iter iter = (Iter) bindings.get(Expressions.ITER_OBJECT);
 
             Super s = null;
 
             if (t != null) {
                s = new Super(t, ts, iter);
-               bindings.put("#super", s);
+               bindings.put(Expressions.PARENT_OBJECT, s);
             }
 
-            bindings.put("#this", form);
+            bindings.put(Expressions.CURRENT_OBJECT, form);
             super.execute(bindings, out);
 
             if (t != null) {
-               bindings.put("#this", s.get());
-               bindings.put("#super", s.getSuper());
-               bindings.put("#iter", s.getIter());
+               bindings.put(Expressions.CURRENT_OBJECT, s.get());
+               bindings.put(Expressions.PARENT_OBJECT, s.getSuper());
+               bindings.put(Expressions.ITER_OBJECT, s.getIter());
             } else {
-               bindings.put("#this", t);
-               bindings.put("#super", ts);
-               bindings.put("#iter", iter);
+               bindings.put(Expressions.CURRENT_OBJECT, t);
+               bindings.put(Expressions.PARENT_OBJECT, ts);
+               bindings.put(Expressions.ITER_OBJECT, iter);
             }
 
          }

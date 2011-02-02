@@ -1,13 +1,7 @@
 package cambridge.model;
 
 import cambridge.ExpressionParsingException;
-import cambridge.parser.expressions.Expression;
-import cambridge.parser.expressions.ExpressionLexer;
-import cambridge.parser.expressions.ExpressionParser;
-import org.antlr.runtime.ANTLRStringStream;
-import org.antlr.runtime.CommonTokenStream;
-import org.antlr.runtime.RecognitionException;
-import org.antlr.runtime.TokenStream;
+import cambridge.Expressions;
 
 /**
  * DynamicAttributes are attributes which are registered with the {@link cambridge.Cambridge}
@@ -67,19 +61,7 @@ public class DynamicAttribute implements Attribute {
 
    public Expression getExpression() throws ExpressionParsingException {
       if (expression == null) {
-         try {
-            ANTLRStringStream stream = new ANTLRStringStream(value);
-            ExpressionLexer lexer = new ExpressionLexer(stream);
-            TokenStream tokenStream = new CommonTokenStream(lexer);
-            ExpressionParser parser = new ExpressionParser(tokenStream);
-            expression = parser.compilationUnit();
-
-            if (parser.getErrors() != null) {
-               throw new ExpressionParsingException(value, parser.getErrors());
-            }
-         } catch (RecognitionException e) {
-            throw new ExpressionParsingException(value, e);
-         }
+         expression = Expressions.parse(value);
       }
       return expression;
    }

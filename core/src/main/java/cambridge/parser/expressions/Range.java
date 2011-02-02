@@ -12,7 +12,7 @@ import java.util.Map;
  * Date: Apr 12, 2010
  * Time: 11:00:39 PM
  */
-public class Range implements Iterable<Integer>, Expression {
+public class Range implements Iterable<Integer>, CambridgeExpression {
    private int min;
    private int max;
 

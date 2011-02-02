@@ -9,7 +9,7 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 1:09:41 AM
  */
-public class BooleanLiteral implements Expression {
+public class BooleanLiteral implements CambridgeExpression {
    private final boolean value;
 
    public BooleanLiteral(boolean value) {

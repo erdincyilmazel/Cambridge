@@ -13,7 +13,7 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 1:29:09 AM
  */
-public class VarExpression implements Expression {
+public class VarExpression implements CambridgeExpression {
    private final String varName;
    private ArrayList<VarProperty> properties;
 
@@ -53,10 +53,11 @@ public class VarExpression implements Expression {
    }
 
    public Object eval(Map<String, Object> p) throws ExpressionEvaluationException {
-      PropertyUtils utils = PropertyUtils.instance();
       if (properties == null) {
          return p.get(varName);
       }
+
+      PropertyUtils utils = PropertyUtils.instance();
 
       Object object = p.get(varName);
       if (object == null) {

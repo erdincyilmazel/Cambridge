@@ -6,14 +6,14 @@ import java.util.Map;
 
 
 /**
- * An Expression with two operands
+ * An CambridgeExpression with two operands
  */
-public class BinaryExpression implements Expression {
+public class BinaryExpression implements CambridgeExpression {
    private final Operator operator;
-   private final Expression left;
-   private final Expression right;
+   private final CambridgeExpression left;
+   private final CambridgeExpression right;
 
-   public BinaryExpression(Operator operator, Expression left, Expression right) {
+   public BinaryExpression(Operator operator, CambridgeExpression left, CambridgeExpression right) {
       this.operator = operator;
       this.left = left;
       this.right = right;
@@ -172,7 +172,6 @@ public class BinaryExpression implements Expression {
             return left.asBoolean(bindings) || right.asBoolean(bindings);
          case Equal:
             return areEqual(bindings);
-
          case GT:
             return left.asDouble(bindings) > right.asDouble(bindings);
          case GTE:

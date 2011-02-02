@@ -11,4 +11,8 @@ class IdentifierVarProperty implements VarProperty {
    public IdentifierVarProperty(String name) {
       this.name = name;
    }
+
+   public String toString() {
+      return name;
+   }
 }

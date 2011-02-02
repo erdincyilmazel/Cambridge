@@ -1,6 +1,6 @@
 package cambridge;
 
-import cambridge.parser.expressions.Expression;
+import cambridge.model.Expression;
 
 import java.util.Map;
 

@@ -50,9 +50,6 @@ public class DynamicTemplate implements Template {
    }
 
    public void printTo(Writer out) throws IOException, TemplateEvaluationException {
-      bindings.remove("#this");
-      bindings.remove("#super");
-      bindings.remove("#iter");
       for (Fragment f : fragments) {
          f.eval(bindings, out);
       }
@@ -61,9 +58,6 @@ public class DynamicTemplate implements Template {
    public void printTo(Writer out, boolean buffered) throws IOException, TemplateEvaluationException {
       if (buffered) {
          BufferedWriter writer = new BufferedWriter(out);
-         bindings.remove("#this");
-         bindings.remove("#super");
-         bindings.remove("#iter");
          for (Fragment f : fragments) {
             f.eval(bindings, writer);
          }

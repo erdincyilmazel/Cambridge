@@ -9,7 +9,7 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 1:09:06 AM
  */
-public class DoubleLiteral implements Expression {
+public class DoubleLiteral implements CambridgeExpression {
    private final double value;
 
    public DoubleLiteral(double value) {

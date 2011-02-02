@@ -4,13 +4,14 @@ import cambridge.BehaviorInstantiationException;
 import cambridge.BehaviorProvider;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
+import cambridge.Expressions;
 import cambridge.LoopingTagBehavior;
 import cambridge.TemplateEvaluationException;
 import cambridge.model.Attribute;
 import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
+import cambridge.model.Expression;
 import cambridge.model.TagNode;
-import cambridge.parser.expressions.Expression;
 import cambridge.runtime.Iter;
 
 import java.io.IOException;
@@ -36,8 +37,8 @@ public class FromBehavior extends LoopingTagBehavior {
       try {
          Iter iter = new Iter();
          for (int i = from.asInt(bindings); i <= to.asInt(bindings); i++) {
-            bindings.put("#this", i);
-            bindings.put("#iter", iter);
+            bindings.put(Expressions.CURRENT_OBJECT, i);
+            bindings.put(Expressions.ITER_OBJECT, iter);
             tag.execute(bindings, out);
             iter.next();
          }

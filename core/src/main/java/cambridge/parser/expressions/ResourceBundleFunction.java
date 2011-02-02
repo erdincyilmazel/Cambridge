@@ -1,7 +1,7 @@
-package cambridge.runtime;
+package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.parser.expressions.Expression;
+import cambridge.runtime.DefaultTemplateBindings;
 
 import java.text.MessageFormat;
 import java.util.Map;
@@ -15,7 +15,7 @@ import java.util.ResourceBundle;
  */
 public class ResourceBundleFunction extends FunctionRunner {
    @Override
-   public Object eval(Map<String, Object> p, Expression[] params) throws ExpressionEvaluationException {
+   public Object eval(Map<String, Object> p, CambridgeExpression[] params) throws ExpressionEvaluationException {
       try {
          ResourceBundle bundle = ResourceBundle.getBundle("Cambridge", DefaultTemplateBindings.getLocaleFromBindings(p));
 

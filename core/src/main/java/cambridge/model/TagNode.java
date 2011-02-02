@@ -6,6 +6,7 @@ import cambridge.ConditionalTagBehavior;
 import cambridge.DynamicAttributeKey;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
+import cambridge.Expressions;
 import cambridge.LoopingTagBehavior;
 import cambridge.ModifyingTagBehavior;
 import cambridge.StaticBehavior;
@@ -16,7 +17,6 @@ import cambridge.TemplateLoadingException;
 import cambridge.TemplateParsingException;
 import cambridge.behaviors.ForeachBehavior;
 import cambridge.behaviors.IfBehavior;
-import cambridge.parser.expressions.Expressions;
 
 import java.io.IOException;
 import java.io.Writer;

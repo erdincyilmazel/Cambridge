@@ -9,11 +9,11 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 12:35:27 AM
  */
-public class UnaryExpression implements Expression {
+public class UnaryExpression implements CambridgeExpression {
    private final Operator operator;
-   private final Expression expression;
+   private final CambridgeExpression expression;
 
-   public UnaryExpression(Operator operator, Expression expression) {
+   public UnaryExpression(Operator operator, CambridgeExpression expression) {
       this.operator = operator;
       this.expression = expression;
    }

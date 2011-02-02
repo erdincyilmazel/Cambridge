@@ -3,6 +3,7 @@ package cambridge.runtime;
 import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
+import java.beans.MethodDescriptor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -88,16 +89,14 @@ public class PropertyUtils {
             }
          }
 
-         try {
-            m = beanClass.getMethod(property);
-            if (m != null) {
+         MethodDescriptor[] methodDescriptors = beanInfo.getMethodDescriptors();
+
+         for (MethodDescriptor d : methodDescriptors) {
+            if (property.equals(d.getName())) {
+               m = d.getMethod();
                methodCache.putIfAbsent(p, m);
                return m.invoke(bean);
             }
-         } catch (NoSuchMethodException e) {
-            throw new PropertyAccessException("Unknown property " + property + " on bean " + beanClass.getName(), bean, property);
-         } catch (Exception e) {
-            throw new PropertyAccessException("Inaccessible property " + property + " on bean " + beanClass.getName(), bean, property);
          }
 
          Field f = fieldCache.get(p);

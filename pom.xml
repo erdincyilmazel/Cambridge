@@ -13,6 +13,8 @@
    <modules>
       <module>core</module>
       <module>components</module>
+      <module>cambridge-mvel</module>
+      <module>cambridge-ognl</module>
       <module>cambridge-jaxrs</module>
       <module>cambridge-playframework</module>
       <module>cambridge-spring</module>

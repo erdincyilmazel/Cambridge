@@ -8,9 +8,9 @@ import cambridge.ModifyingTagBehavior;
 import cambridge.model.Attribute;
 import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
+import cambridge.model.Expression;
 import cambridge.model.ModifyableTag;
 import cambridge.model.SimpleAttribute;
-import cambridge.parser.expressions.Expression;
 
 import java.util.Map;
 

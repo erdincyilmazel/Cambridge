@@ -6,9 +6,9 @@ package cambridge.parser.expressions;
  * Time: 1:31:05 AM
  */
 class MapVarProperty implements VarProperty {
-   final Expression expression;
+   final CambridgeExpression expression;
 
-   public MapVarProperty(Expression expression) {
+   public MapVarProperty(CambridgeExpression expression) {
       this.expression = expression;
    }
 }

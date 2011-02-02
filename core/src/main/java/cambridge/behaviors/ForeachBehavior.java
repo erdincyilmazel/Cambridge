@@ -4,13 +4,14 @@ import cambridge.BehaviorInstantiationException;
 import cambridge.BehaviorProvider;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
+import cambridge.Expressions;
 import cambridge.LoopingTagBehavior;
 import cambridge.TemplateEvaluationException;
 import cambridge.model.Attribute;
 import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
+import cambridge.model.Expression;
 import cambridge.model.TagNode;
-import cambridge.parser.expressions.Expression;
 import cambridge.runtime.Iter;
 
 import java.io.IOException;
@@ -65,9 +66,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateIterable(Map<String, Object> bindings, TagNode tag, Writer out, Iterable o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put("#iter", iter);
+      bindings.put(Expressions.ITER_OBJECT, iter);
       for (Object o1 : o) {
-         bindings.put("#this", o1);
+         bindings.put(Expressions.CURRENT_OBJECT, o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -75,9 +76,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateArray(Map<String, Object> bindings, TagNode tag, Writer out, Object[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put("#iter", iter);
+      bindings.put(Expressions.ITER_OBJECT, iter);
       for (Object o1 : o) {
-         bindings.put("#this", o1);
+         bindings.put(Expressions.CURRENT_OBJECT, o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -85,9 +86,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateInt(Map<String, Object> bindings, TagNode tag, Writer out, int[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put("#iter", iter);
+      bindings.put(Expressions.ITER_OBJECT, iter);
       for (int o1 : o) {
-         bindings.put("#this", o1);
+         bindings.put(Expressions.CURRENT_OBJECT, o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -95,9 +96,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateFloat(Map<String, Object> bindings, TagNode tag, Writer out, float[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put("#iter", iter);
+      bindings.put(Expressions.ITER_OBJECT, iter);
       for (float o1 : o) {
-         bindings.put("#this", o1);
+         bindings.put(Expressions.CURRENT_OBJECT, o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -105,9 +106,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateDouble(Map<String, Object> bindings, TagNode tag, Writer out, double[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put("#iter", iter);
+      bindings.put(Expressions.ITER_OBJECT, iter);
       for (double o1 : o) {
-         bindings.put("#this", o1);
+         bindings.put(Expressions.CURRENT_OBJECT, o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -115,9 +116,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateByte(Map<String, Object> bindings, TagNode tag, Writer out, byte[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put("#iter", iter);
+      bindings.put(Expressions.ITER_OBJECT, iter);
       for (byte o1 : o) {
-         bindings.put("#this", o1);
+         bindings.put(Expressions.CURRENT_OBJECT, o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -125,9 +126,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateChar(Map<String, Object> bindings, TagNode tag, Writer out, char[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put("#iter", iter);
+      bindings.put(Expressions.ITER_OBJECT, iter);
       for (char o1 : o) {
-         bindings.put("#this", o1);
+         bindings.put(Expressions.CURRENT_OBJECT, o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -135,9 +136,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateBoolean(Map<String, Object> bindings, TagNode tag, Writer out, boolean[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put("#iter", iter);
+      bindings.put(Expressions.ITER_OBJECT, iter);
       for (boolean o1 : o) {
-         bindings.put("#this", o1);
+         bindings.put(Expressions.CURRENT_OBJECT, o1);
          tag.execute(bindings, out);
          iter.next();
       }

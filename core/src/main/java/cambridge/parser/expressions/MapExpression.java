@@ -12,7 +12,7 @@ import java.util.Set;
  * Date: Apr 12, 2010
  * Time: 11:53:23 PM
  */
-public class MapExpression extends HashMap<String, Object> implements Expression, Iterable<MapExpression.MapEntry> {
+public class MapExpression extends HashMap<String, Object> implements CambridgeExpression, Iterable<MapExpression.MapEntry> {
    public Type getType(Map<String, Object> globals) throws ExpressionEvaluationException {
       return Type.Object;
    }

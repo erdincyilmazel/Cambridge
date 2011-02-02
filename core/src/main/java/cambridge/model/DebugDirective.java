@@ -2,6 +2,7 @@ package cambridge.model;
 
 import cambridge.BehaviorInstantiationException;
 import cambridge.ClassPathTemplateLoader;
+import cambridge.Expressions;
 import cambridge.TemplateEvaluationException;
 
 import java.io.IOException;
@@ -87,7 +88,7 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
       for (Map.Entry<String, Object> e : entries) {
          String key = e.getKey();
          Object value = e.getValue();
-         if ("#this".equals(key) || "#super".equals(key) || "#iter".equals(key)) {
+         if (Expressions.CURRENT_OBJECT.equals(key) || Expressions.PARENT_OBJECT.equals(key) || Expressions.ITER_OBJECT.equals(key)) {
             if (value != null) {
                elements.add(new DebugElement(key, value, value.getClass().getName()));
             }

@@ -6,7 +6,7 @@ import cambridge.ExpressionParsingException;
 import cambridge.model.Attribute;
 import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
-import cambridge.parser.expressions.Expression;
+import cambridge.model.Expression;
 
 import java.util.Map;
 

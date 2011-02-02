@@ -7,9 +7,9 @@
         <td style="background-color:#333333; color:white; font-weight:bold">Value</td>
     </tr>
     <tr a:foreach="___DebugAllValues___">
-        <td style="background-color:${if(#iter.even, '#FFFFFF', '#EEEEEE')};">${#this.type}</td>
-        <td style="background-color:${if(#iter.even, '#FFFFFF', '#EEEEEE')};">${#this.key}</td>
-        <td style="background-color:${if(#iter.even, '#FFFFFF', '#EEEEEE')};">${#this.value}</td>
+        <td style="background-color:${if(iter.even, '#FFFFFF', '#EEEEEE')};">${self.type}</td>
+        <td style="background-color:${if(iter.even, '#FFFFFF', '#EEEEEE')};">${self.key}</td>
+        <td style="background-color:${if(iter.even, '#FFFFFF', '#EEEEEE')};">${self.value}</td>
     </tr>
 </table>
 <!----------------- Debug ----------------------->

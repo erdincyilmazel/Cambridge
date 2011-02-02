@@ -10,7 +10,7 @@ import java.util.Map;
  * Date: Oct 31, 2009
  * Time: 1:09:57 AM
  */
-public class NullLiteral implements Expression {
+public class NullLiteral implements CambridgeExpression {
    public static final NullLiteral instance = new NullLiteral();
 
    private NullLiteral() {
