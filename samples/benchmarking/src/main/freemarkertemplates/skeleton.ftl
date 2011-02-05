@@ -15,7 +15,7 @@
 <#if (entries.size() > 0)>
 <#list entries as entry>
 <div>
-    Entry Id: ${entry.entryId}, Date ${entry.entryDate?datetime}
+    Entry Id: ${entry.entryId}, Date: ${entry.entryDate?date}
     <h2>${entry.title}</h2>
     <div>Submitted By: ${entry.owner.userName} - ${entry.owner.email}</div>
     <div>${entry.body}</div>

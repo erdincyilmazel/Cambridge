@@ -11,7 +11,7 @@ import java.util.HashMap;
  * Time: 1:42:15 AM
  */
 public class Expressions {
-   private static ExpressionLanguage expressionLanguage = new CambridgeExpressionLanguage();
+   private static ExpressionLanguage cambridgeExpressionLanguage = new CambridgeExpressionLanguage();
 
    public static final String CURRENT_OBJECT = "self";
    public static final String PARENT_OBJECT = "parent";
@@ -26,11 +26,16 @@ public class Expressions {
    }
 
    public static Expression parse(String ex) throws ExpressionParsingException {
-      return expressionLanguage.parse(ex);
+      return cambridgeExpressionLanguage.parse(ex);
+   }
+
+   public static Expression parse(String ex, String expressionLanguage) throws ExpressionParsingException {
+      ExpressionLanguage language = getExpressionLanguageByName(expressionLanguage);
+      return language.parse(ex);
    }
 
    public static ExpressionLanguage getDefaultExpressionLanguage() {
-      return expressionLanguage;
+      return cambridgeExpressionLanguage;
    }
 
    public static synchronized void registerExpressionLanguage(String name, Class<? extends ExpressionLanguage> clazz) {

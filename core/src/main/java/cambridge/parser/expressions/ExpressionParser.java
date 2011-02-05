@@ -3,7 +3,6 @@
 package cambridge.parser.expressions;
 
 
-import cambridge.parser.expressions.CambridgeExpression;
 import org.antlr.runtime.BaseRecognizer;
 import org.antlr.runtime.BitSet;
 import org.antlr.runtime.DFA;

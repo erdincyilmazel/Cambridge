@@ -17,10 +17,10 @@ import cambridge.model.Attribute;
 import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.parser.expressions.FunctionRunner;
+import cambridge.parser.expressions.IfFunction;
 import cambridge.parser.expressions.ResourceBundleFunction;
 import cambridge.runtime.EscapeFilter;
 import cambridge.runtime.Filter;
-import cambridge.parser.expressions.IfFunction;
 import cambridge.runtime.LowerCaseFilter;
 import cambridge.runtime.SimpleDateFormatFilter;
 import cambridge.runtime.UpperCaseFilter;
@@ -46,11 +46,11 @@ public class Cambridge {
    }
 
    public void registerFilter(String name, Filter filter) {
-      filters.put(name, filter);
+      filters.put(name.toLowerCase(), filter);
    }
 
    public Filter getFilter(String name) {
-      return filters.get(name);
+      return filters.get(name.toLowerCase());
    }
 
    public class Bind {

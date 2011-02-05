@@ -4,9 +4,13 @@ package cambridge.benchmarking;
 import cambridge.DirectoryTemplateLoader;
 import cambridge.Template;
 import cambridge.TemplateFactory;
+import cambridge.mvel.MvelExpressionLanguage;
+import cambridge.ognl.OgnlExpression;
+import cambridge.ognl.OgnlExpressionLanguage;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
+import ognl.Ognl;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -108,6 +112,9 @@ public class Benchmarking {
    }
 
    public static void main(String[] args) {
+      MvelExpressionLanguage.register();
+      OgnlExpressionLanguage.register();
+      int iterations = 1;
       System.err.println("Preparing random data...");
       DataModel dataModel = new DataModel(100, 1000, 1500);
       System.err.println("Done.");
@@ -122,7 +129,7 @@ public class Benchmarking {
 
       Timer timer = new Timer();
       timer.start();
-      benchmarking.renderCambridge(100, "simple");
+      benchmarking.renderCambridge(iterations, "simple");
 
       try {
          Thread.sleep(500);
@@ -138,7 +145,7 @@ public class Benchmarking {
       System.err.println();
 
       timer.start();
-      benchmarking.renderCambridge(100, "mvel");
+      benchmarking.renderCambridge(iterations, "mvel");
 
       try {
          Thread.sleep(500);
@@ -153,8 +160,21 @@ public class Benchmarking {
       System.err.println("--------------------------------------------------------");
       System.err.println();
 
-      timer.start();
-      benchmarking.renderCambridge(100, "ognl");
+//      timer.start();
+//      benchmarking.renderCambridge(iterations, "ognl");
+//
+//      try {
+//         Thread.sleep(500);
+//      } catch (InterruptedException e) {
+//         e.printStackTrace();
+//      }
+//
+//      long cambridgeOgnl = timer.elapsed();
+//
+//      System.err.println();
+//      System.err.println("--------------------------------------------------------");
+//      System.err.println("--------------------------------------------------------");
+//      System.err.println();
 
       try {
          Thread.sleep(500);
@@ -162,21 +182,8 @@ public class Benchmarking {
          e.printStackTrace();
       }
 
-      long cambridgeOgnl = timer.elapsed();
-
-      System.err.println();
-      System.err.println("--------------------------------------------------------");
-      System.err.println("--------------------------------------------------------");
-      System.err.println();
-
-      try {
-         Thread.sleep(500);
-      } catch (InterruptedException e) {
-         e.printStackTrace();
-      }
-
       timer.start();
-      benchmarking.renderFreemarkerTemplate(100);
+      benchmarking.renderFreemarkerTemplate(iterations);
       long freemarkerElapsed = timer.elapsed();
 
       System.err.println();
@@ -186,7 +193,7 @@ public class Benchmarking {
       
       System.err.println("Cambridge Simple took :" + (cambridgeSimple) + " ms");
       System.err.println("Cambridge Mvel took :" + (cambridgeMvel) + " ms");
-      System.err.println("Cambridge Ognl took :" + (cambridgeOgnl) + " ms");
+      //System.err.println("Cambridge Ognl took :" + (cambridgeOgnl) + " ms");
       System.err.println("Freemarker took :" + (freemarkerElapsed) + " ms");
    }
 }

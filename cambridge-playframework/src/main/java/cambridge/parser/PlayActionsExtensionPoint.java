@@ -65,7 +65,6 @@ public class PlayActionsExtensionPoint implements ExtensionPoint {
       }
 
       if (c == '(') {
-         builder.append("[");
          int state = 1;
          c = tokenizer.nextChar();
          while (state != 0) {
@@ -77,8 +76,6 @@ public class PlayActionsExtensionPoint implements ExtensionPoint {
                state++;
             }
          }
-
-         builder.append("]");
       }
 
       while (c != '}') {

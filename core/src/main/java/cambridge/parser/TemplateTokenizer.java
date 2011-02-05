@@ -370,7 +370,7 @@ public class TemplateTokenizer extends Tokenizer {
                      return new CommentToken(line, col, builder.toString(), getLineNo(), getColumn());
                   }
 
-                  if (directive == null && Character.isWhitespace(peek(1))) {
+                  if ("".equals(directive) && Character.isWhitespace(peek(1))) {
                      directive = builder.substring(5);
                   }
 

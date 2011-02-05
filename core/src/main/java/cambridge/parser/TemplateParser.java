@@ -71,12 +71,12 @@ public class TemplateParser {
 
    public TemplateParser(TemplateTokenizer tokenizer) {
       this.tokenizer = tokenizer;
+      this.expressionLanguage = Expressions.getDefaultExpressionLanguage();
    }
 
    public TemplateParser(TemplateTokenizer tokenizer, TemplateLoader loader) {
-      this.tokenizer = tokenizer;
+      this(tokenizer);
       this.templateLoader = loader;
-      this.expressionLanguage = Expressions.getDefaultExpressionLanguage();
    }
 
    private final static int BUFFER_SIZE = 5;
@@ -566,12 +566,12 @@ public class TemplateParser {
 
    private TemplateNode parseExpressionLanguageDirective(ParserDirectiveToken tok) {
       String args = tok.getArgs();
-      if (args == null || args.equals("")) {
+      if (args == null || args.trim().equals("")) {
          throw new TemplateParsingException("Invalid expression language directive", currentToken.getLineNo(), currentToken.getColumn());
       }
 
-      expressionLanguage = Expressions.getExpressionLanguageByName(args);
-      return new ExpressionLanguageDirective(args);
+      expressionLanguage = Expressions.getExpressionLanguageByName(args.trim());
+      return new ExpressionLanguageDirective(args.trim());
    }
 
    private TemplateNode parseIncludeNode(ParserDirectiveToken tok) {

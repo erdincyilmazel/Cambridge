@@ -5,11 +5,11 @@ import cambridge.ExpressionLanguage;
 import cambridge.TemplateEvaluationException;
 import cambridge.model.Expression;
 import cambridge.model.ExtensionNode;
-import cambridge.parser.expressions.ListExpression;
 import play.i18n.Messages;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -27,14 +27,15 @@ public class PlayMessagesExtensionNode extends ExtensionNode {
 
    public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
-         if (expression instanceof ListExpression) {
-            ListExpression e = (ListExpression) expression;
+         Object list = expression.eval(bindings);
+         if (list instanceof List) {
+            List l = (List) list;
+            if (l.size() > 1) {
+               Object message = l.get(0);
+               Object[] params = new Object[l.size() - 1];
 
-            if (e.size() > 1) {
-               Object message = e.get(0).eval(bindings);
-               Object[] params = new Object[e.size() - 1];
                for (int i = 0; i < params.length; i++) {
-                  params[i] = e.get(i + 1).eval(bindings);
+                  params[i] = l.get(i);
                }
 
                out.write(Messages.get(message, params));

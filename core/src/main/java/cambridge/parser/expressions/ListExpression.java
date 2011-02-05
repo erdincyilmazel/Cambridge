@@ -1,6 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.model.Expression;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -16,7 +17,11 @@ public class ListExpression extends ArrayList<CambridgeExpression> implements Ca
    }
 
    public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException {
-      return this;
+      ArrayList<Object> list = new ArrayList<Object>();
+      for (Expression e : this) {
+         list.add(e.eval(globals));
+      }
+      return list;
    }
 
    public boolean asBoolean(Map<String, Object> globals) throws ExpressionEvaluationException {

@@ -3,7 +3,6 @@ package cambridge.model;
 import cambridge.Cambridge;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
-import cambridge.Expressions;
 import cambridge.TemplateEvaluationException;
 import cambridge.runtime.DefaultTemplateBindings;
 import cambridge.runtime.Filter;

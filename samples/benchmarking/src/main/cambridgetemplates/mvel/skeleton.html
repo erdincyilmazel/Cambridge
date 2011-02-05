@@ -12,7 +12,7 @@
 
 <h1>Entries</h1>
 <div a:foreach="entries" a:if="entries.size() > 0">
-    Entry Id: ${self.entryId}, Date ${self.entryDate}(dateFormat)
+    Entry Id: ${self.entryId}, Date: ${self.entryDate}(dateformat:EEE, d MMM yyyy)
     <h2>${self.title}</h2>
     <div>Submitted By: ${self.owner.userName} - ${self.owner.email}</div>
     <div>${self.body}</div>

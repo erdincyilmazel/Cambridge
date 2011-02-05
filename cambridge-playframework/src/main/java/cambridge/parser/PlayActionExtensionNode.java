@@ -5,11 +5,11 @@ import cambridge.ExpressionLanguage;
 import cambridge.TemplateEvaluationException;
 import cambridge.model.Expression;
 import cambridge.model.ExtensionNode;
-import cambridge.parser.expressions.ListExpression;
 import play.mvc.ActionRoute;
 
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -34,18 +34,11 @@ public class PlayActionExtensionNode extends ExtensionNode {
    }
 
    public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
-      Object param = null;
+      Object param;
       try {
-         if (expression instanceof ListExpression) {
-            ListExpression e = (ListExpression) expression;
-
-            Object[] p = new Object[e.size()];
-            for (int i = 0; i < p.length; i++) {
-               p[i] = e.get(i).eval(bindings);
-            }
-            param = p;
-         } else if (expression != null) {
-            param = expression.eval(bindings);
+         param = expression.eval(bindings);
+         if (expression instanceof List) {
+            param = ((List) param).toArray();
          }
       } catch (ExpressionEvaluationException ex) {
          throw new TemplateEvaluationException("Could not execute the expression: " + ex.getMessage(), getBeginLine(), getBeginColumn(), expr);

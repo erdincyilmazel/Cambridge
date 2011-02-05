@@ -6,7 +6,6 @@ import cambridge.ConditionalTagBehavior;
 import cambridge.DynamicAttributeKey;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
-import cambridge.Expressions;
 import cambridge.LoopingTagBehavior;
 import cambridge.ModifyingTagBehavior;
 import cambridge.StaticBehavior;
