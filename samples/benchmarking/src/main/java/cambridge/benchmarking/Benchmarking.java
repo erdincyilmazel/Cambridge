@@ -95,13 +95,12 @@ public class Benchmarking {
    }
 
    public static void main(String[] args) {
-      Expressions.expressionLanguage = new CambridgeExpressionLanguage();
       System.err.println("Preparing random data...");
       Benchmarking benchmarking = new Benchmarking(new DataModel(100, 1000, 1500));
       System.err.println("Done.");
 
       long start = System.currentTimeMillis();
-      benchmarking.renderCambridge(1);
+      benchmarking.renderCambridge(10);
       long end = System.currentTimeMillis();
 
       try {
@@ -129,7 +128,7 @@ public class Benchmarking {
       }
 
       start = System.currentTimeMillis();
-      benchmarking.renderFreemarkerTemplate(0);
+      benchmarking.renderFreemarkerTemplate(10);
       end = System.currentTimeMillis();
 
       System.err.println("Cambridge took :" + (cambridgeElapsed) + " ms");

@@ -594,18 +594,18 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return null;
    }
 
-   public Tag addCondition(String expression) throws ExpressionParsingException {
-      addBehavior(new IfBehavior(Expressions.parse(expression)));
+   public Tag addCondition(Expression expression) throws ExpressionParsingException {
+      addBehavior(new IfBehavior(expression));
       return this;
    }
 
-   public Tag addExpression(String expression) throws ExpressionParsingException {
-      addChild(new ExpressionNode(expression));
+   public Tag addExpression(Expression expression) throws ExpressionParsingException {
+      addChild(new ExpressionNode("", expression));
       return this;
    }
 
-   public Tag iterateOver(String expression) throws ExpressionParsingException {
-      addBehavior(new ForeachBehavior(Expressions.parse(expression)));
+   public Tag iterateOver(Expression expression) throws ExpressionParsingException {
+      addBehavior(new ForeachBehavior(expression));
       return this;
    }
 

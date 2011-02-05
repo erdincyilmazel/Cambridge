@@ -10,4 +10,6 @@ import java.util.Map;
  */
 public interface ExpressionLanguage {
    public Expression parse(String value) throws ExpressionParsingException;
+
+   public String wrapExpressionAsList(String expr);
 }

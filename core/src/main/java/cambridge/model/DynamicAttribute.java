@@ -1,7 +1,6 @@
 package cambridge.model;
 
 import cambridge.ExpressionParsingException;
-import cambridge.Expressions;
 
 /**
  * DynamicAttributes are attributes which are registered with the {@link cambridge.Cambridge}
@@ -13,6 +12,7 @@ public class DynamicAttribute implements Attribute {
    private String attributeNameSpace;
    private String value;
    private final String namespaceUri;
+   private Expression expression;
 
    public DynamicAttribute(String namespaceUri) {
       this.namespaceUri = namespaceUri;
@@ -42,8 +42,9 @@ public class DynamicAttribute implements Attribute {
       return value;
    }
 
-   public void setValue(String value) {
+   public void setValue(String value, Expression expression) {
       this.value = value;
+      this.expression = expression;
    }
 
    public boolean isDynamic() {
@@ -57,12 +58,7 @@ public class DynamicAttribute implements Attribute {
    public void setTextContent(String textContent) {
    }
 
-   private Expression expression;
-
    public Expression getExpression() throws ExpressionParsingException {
-      if (expression == null) {
-         expression = Expressions.parse(value);
-      }
       return expression;
    }
 

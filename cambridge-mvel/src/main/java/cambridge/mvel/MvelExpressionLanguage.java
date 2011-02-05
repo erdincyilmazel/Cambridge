@@ -17,4 +17,8 @@ public class MvelExpressionLanguage implements ExpressionLanguage {
 
       return new MVELExpression(compiledExpression, value);
    }
+
+   public String wrapExpressionAsList(String expr) {
+      return "[" + expr + "]";
+   }
 }

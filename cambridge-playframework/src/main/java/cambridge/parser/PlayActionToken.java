@@ -1,5 +1,6 @@
 package cambridge.parser;
 
+import cambridge.ExpressionLanguage;
 import cambridge.TemplateParsingException;
 import cambridge.model.ExtensionNode;
 import cambridge.parser.tokens.ExtensionToken;
@@ -23,7 +24,7 @@ public class PlayActionToken extends ExtensionToken {
    }
 
    @Override
-   public ExtensionNode createNode() throws TemplateParsingException {
-      return new PlayActionExtensionNode(controller, action, expressions, absolute);
+   public ExtensionNode createNode(ExpressionLanguage language) throws TemplateParsingException {
+      return new PlayActionExtensionNode(language, controller, action, expressions, absolute);
    }
 }

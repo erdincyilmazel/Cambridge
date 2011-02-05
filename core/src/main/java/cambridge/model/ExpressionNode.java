@@ -35,9 +35,9 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
       }
    }
 
-   public ExpressionNode(String value) throws ExpressionParsingException {
+   public ExpressionNode(String value, Expression expression) throws ExpressionParsingException {
       this.value = value;
-      expression = Expressions.parse(value);
+      this.expression = expression;
    }
 
    public void setFilters(ArrayList<String> f) {

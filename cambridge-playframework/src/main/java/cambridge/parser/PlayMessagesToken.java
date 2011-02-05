@@ -1,5 +1,6 @@
 package cambridge.parser;
 
+import cambridge.ExpressionLanguage;
 import cambridge.TemplateParsingException;
 import cambridge.model.ExtensionNode;
 import cambridge.parser.tokens.ExtensionToken;
@@ -17,7 +18,7 @@ public class PlayMessagesToken extends ExtensionToken {
    }
 
    @Override
-   public ExtensionNode createNode() throws TemplateParsingException {
-      return new PlayMessagesExtensionNode(expressions);
+   public ExtensionNode createNode(ExpressionLanguage language) throws TemplateParsingException {
+      return new PlayMessagesExtensionNode(language, expressions);
    }
 }

@@ -4,6 +4,7 @@ import cambridge.BehaviorInstantiationException;
 import cambridge.Cambridge;
 import cambridge.DynamicAttributeKey;
 import cambridge.DynamicTag;
+import cambridge.ExpressionLanguage;
 import cambridge.ExpressionParsingException;
 import cambridge.Expressions;
 import cambridge.TemplateLoader;
@@ -16,6 +17,7 @@ import cambridge.model.ComplexAttribute;
 import cambridge.model.DebugDirective;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.Expression;
+import cambridge.model.ExpressionLanguageDirective;
 import cambridge.model.ExpressionNode;
 import cambridge.model.ExpressionTagPart;
 import cambridge.model.ExtendsDirective;
@@ -74,6 +76,7 @@ public class TemplateParser {
    public TemplateParser(TemplateTokenizer tokenizer, TemplateLoader loader) {
       this.tokenizer = tokenizer;
       this.templateLoader = loader;
+      this.expressionLanguage = Expressions.getDefaultExpressionLanguage();
    }
 
    private final static int BUFFER_SIZE = 5;
@@ -89,6 +92,12 @@ public class TemplateParser {
    private List<TemplateNode> matchedNodes = new ArrayList<TemplateNode>();
    private TemplateDocument template;
    private HashMap<String, String> namespaceMappings;
+
+   private ExpressionLanguage expressionLanguage;
+
+   public ExpressionLanguage getExpressionLanguage() {
+      return expressionLanguage;
+   }
 
    private int getIndex(int no) {
       return no % BUFFER_SIZE;
@@ -121,7 +130,6 @@ public class TemplateParser {
       if (p > maxPeek) throw new IllegalArgumentException("Can not peek " + p + " tokens");
       return buf[getIndex(readIndex + p)];
    }
-
 
    public static void registerExtensionPoint(ExtensionPoint ep) {
       if (extensionPoints == null) {
@@ -200,7 +208,7 @@ public class TemplateParser {
             break;
          case EXTENSION:
             ExtensionToken tok = (ExtensionToken) currentToken;
-            node = tok.createNode();
+            node = tok.createNode(expressionLanguage);
             matchedNodes.add(node);
             break;
          case OPEN_TAG:
@@ -264,7 +272,7 @@ public class TemplateParser {
    private ExpressionNode expression() throws TemplateParsingException {
       try {
          ExpressionToken tok = (ExpressionToken) currentToken;
-         ExpressionNode node = new ExpressionNode(currentToken.value);
+         ExpressionNode node = new ExpressionNode(currentToken.value, expressionLanguage.parse(currentToken.value));
          if (tok.getFilters() != null) {
             node.setFilters(tok.getFilters());
          }
@@ -352,7 +360,7 @@ public class TemplateParser {
                         textContent.append(currentToken.getActualValue());
 
                         if (element instanceof DynamicAttribute) {
-                           ((DynamicAttribute) element).setValue(currentToken.value);
+                           ((DynamicAttribute) element).setValue(currentToken.value, expressionLanguage.parse(currentToken.value));
                            exitLoop = true;
                            break;
                         }
@@ -366,7 +374,7 @@ public class TemplateParser {
                               case EXPRESSION:
                                  ExpressionToken expTok = (ExpressionToken) attrToken;
                                  try {
-                                    ExpressionNode expNode = new ExpressionNode(attrToken.value);
+                                    ExpressionNode expNode = new ExpressionNode(attrToken.value, expressionLanguage.parse(attrToken.value));
 
                                     if (expTok.getFilters() != null) {
                                        expNode.setFilters(expTok.getFilters());
@@ -379,7 +387,7 @@ public class TemplateParser {
                                  break;
                               case EXTENSION:
                                  ExtensionToken extensionToken = (ExtensionToken) attrToken;
-                                 ExtensionNode extensionNode = extensionToken.createNode();
+                                 ExtensionNode extensionNode = extensionToken.createNode(expressionLanguage);
                                  fragments.add(extensionNode);
                                  break;
                               case WS:
@@ -440,7 +448,7 @@ public class TemplateParser {
                try {
 
                   ExpressionToken t = (ExpressionToken) currentToken;
-                  ExpressionTagPart p = new ExpressionTagPart(currentToken.value);
+                  ExpressionTagPart p = new ExpressionTagPart(currentToken.value, expressionLanguage.parse(currentToken.value));
 
                   if (t.getFilters() != null) {
                      p.setFilters(t.getFilters());
@@ -454,7 +462,7 @@ public class TemplateParser {
                break;
             case EXTENSION:
                ExtensionToken extensionToken = (ExtensionToken) currentToken;
-               ExtensionNode extensionTagPart = extensionToken.createNode();
+               ExtensionNode extensionTagPart = extensionToken.createNode(expressionLanguage);
                node.addTagPart(extensionTagPart);
                break;
             case TAG_END:
@@ -497,6 +505,9 @@ public class TemplateParser {
       if ("namespace".equalsIgnoreCase(tok.getDirective())) {
          return parseNamespaceDirective(tok);
       }
+      if ("expressionLanguage".equalsIgnoreCase(tok.getDirective())) {
+         return parseExpressionLanguageDirective(tok);
+      }
       if ("debug".equalsIgnoreCase(tok.getDirective())) {
          return new DebugDirective();
       }
@@ -527,7 +538,7 @@ public class TemplateParser {
       String varName = matcher.group(1);
       String expression = matcher.group(2);
 
-      Expression ex = Expressions.parse(expression);
+      Expression ex = expressionLanguage.parse(expression);
 
       return new SetDirective(varName, ex);
    }
@@ -551,6 +562,25 @@ public class TemplateParser {
       putNamespaceMapping(name, uri);
 
       return new NamespaceDirective(name, uri);
+   }
+
+   private static final Pattern expressionLanguagePattern = Pattern.compile("\\s?=\"([a-zA-Z0-9\\.]+)\"");
+
+   private TemplateNode parseExpressionLanguageDirective(ParserDirectiveToken tok) {
+      String args = tok.getArgs();
+      if (args == null) {
+         throw new TemplateParsingException("Invalid expression language directive", currentToken.getLineNo(), currentToken.getColumn());
+      }
+
+      Matcher matcher = expressionLanguagePattern.matcher(args);
+      if (!matcher.find()) {
+         throw new TemplateParsingException("Invalid expressionLanguage directive", currentToken.getLineNo(), currentToken.getColumn());
+      }
+
+      String name = matcher.group(1);
+
+      expressionLanguage = Expressions.getExpressionLanguageByName(name);
+      return new ExpressionLanguageDirective(name);
    }
 
    private TemplateNode parseIncludeNode(ParserDirectiveToken tok) {

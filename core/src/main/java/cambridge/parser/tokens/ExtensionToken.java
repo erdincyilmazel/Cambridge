@@ -1,5 +1,6 @@
 package cambridge.parser.tokens;
 
+import cambridge.ExpressionLanguage;
 import cambridge.TemplateParsingException;
 import cambridge.model.ExtensionNode;
 
@@ -20,5 +21,5 @@ public abstract class ExtensionToken extends Token {
       return getFormattedString();
    }
 
-   public abstract ExtensionNode createNode() throws TemplateParsingException;
+   public abstract ExtensionNode createNode(ExpressionLanguage language) throws TemplateParsingException;
 }

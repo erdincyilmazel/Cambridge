@@ -59,9 +59,9 @@ public class ExpressionTagPart implements TagPart, Fragment {
       }
    }
 
-   public ExpressionTagPart(String textContent) throws ExpressionParsingException {
+   public ExpressionTagPart(String textContent, Expression expression) throws ExpressionParsingException {
       this.textContent = textContent;
-      expression = Expressions.parse(textContent);
+      this.expression = expression;
    }
 
    public boolean isWhiteSpace() {

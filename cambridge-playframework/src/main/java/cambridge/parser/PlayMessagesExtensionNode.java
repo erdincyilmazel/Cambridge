@@ -1,12 +1,13 @@
 package cambridge.parser;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.ExpressionLanguage;
 import cambridge.TemplateEvaluationException;
 import cambridge.model.Expression;
-import cambridge.Expressions;
 import cambridge.model.ExtensionNode;
 import cambridge.parser.expressions.ListExpression;
 import play.i18n.Messages;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
@@ -19,8 +20,8 @@ public class PlayMessagesExtensionNode extends ExtensionNode {
    Expression expression;
    String expr;
 
-   public PlayMessagesExtensionNode(String expr) {
-      expression = Expressions.parse(expr);
+   public PlayMessagesExtensionNode(ExpressionLanguage language, String expr) {
+      expression = language.parse(language.wrapExpressionAsList(expr));
       this.expr = expr;
    }
 

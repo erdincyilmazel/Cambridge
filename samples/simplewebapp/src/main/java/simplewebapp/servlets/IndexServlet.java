@@ -39,7 +39,7 @@ public class IndexServlet extends HttpServlet {
          public void modifyTemplate(TemplateDocument doc) {
             Tag li = doc.getElementsByTagName("li").get(1);
             try {
-               li.addExpression("message");
+               li.addExpression(Expressions.parse("message"));
             } catch (ExpressionParsingException e) {
                e.printStackTrace();
             }

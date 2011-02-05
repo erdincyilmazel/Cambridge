@@ -5,6 +5,7 @@ import cambridge.model.Expression;
 import ognl.Ognl;
 import ognl.OgnlException;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**

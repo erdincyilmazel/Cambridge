@@ -18,4 +18,8 @@ public class OgnlExpressionLanguage implements ExpressionLanguage {
          throw new ExpressionParsingException("Error parsing expression: " + value, e);
       }
    }
+
+   public String wrapExpressionAsList(String expr) {
+      return "{" + expr + "}";
+   }
 }

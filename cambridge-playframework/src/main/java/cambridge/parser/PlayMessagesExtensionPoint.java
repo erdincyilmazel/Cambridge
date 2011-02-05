@@ -19,8 +19,7 @@ public class PlayMessagesExtensionPoint implements ExtensionPoint {
       char c = tokenizer.nextChar();
 
       int state = 1;
-      builder.append("[");
-      while (state != 0) {
+      while (true) {
          if (c == '{') {
             state++;
          } else if (c == '}') {
@@ -34,7 +33,6 @@ public class PlayMessagesExtensionPoint implements ExtensionPoint {
          builder.append(c);
          c = tokenizer.nextChar();
       }
-      builder.append("]");
 
       return new PlayMessagesToken(line, col, builder.toString(), tokenizer.getLineNo(), tokenizer.getColumn(), builder.toString());
    }

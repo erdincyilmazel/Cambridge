@@ -1,12 +1,13 @@
 package cambridge.parser;
 
 import cambridge.ExpressionEvaluationException;
-import cambridge.Expressions;
+import cambridge.ExpressionLanguage;
 import cambridge.TemplateEvaluationException;
 import cambridge.model.Expression;
 import cambridge.model.ExtensionNode;
 import cambridge.parser.expressions.ListExpression;
 import play.mvc.ActionRoute;
+
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
@@ -22,13 +23,13 @@ public class PlayActionExtensionNode extends ExtensionNode {
    String expr;
    boolean absolute;
 
-   public PlayActionExtensionNode(String controller, String action, String expr, boolean absolute) {
+   public PlayActionExtensionNode(ExpressionLanguage language, String controller, String action, String expr, boolean absolute) {
       this.controller = controller;
       this.action = action;
       this.expr = expr;
       this.absolute = absolute;
       if (expr != null && !"".equals(expr)) {
-         expression = Expressions.parse(expr);
+         expression = language.parse(language.wrapExpressionAsList(expr));
       }
    }
 

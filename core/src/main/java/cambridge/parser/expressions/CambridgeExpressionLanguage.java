@@ -3,14 +3,10 @@ package cambridge.parser.expressions;
 import cambridge.ExpressionLanguage;
 import cambridge.ExpressionParsingException;
 import cambridge.model.Expression;
-import cambridge.runtime.Iter;
-import cambridge.runtime.Super;
 import org.antlr.runtime.ANTLRStringStream;
 import org.antlr.runtime.CommonTokenStream;
 import org.antlr.runtime.RecognitionException;
 import org.antlr.runtime.TokenStream;
-
-import java.util.Map;
 
 /**
  * @author Erdinc YILMAZEL
@@ -33,5 +29,9 @@ public class CambridgeExpressionLanguage implements ExpressionLanguage {
       } catch (RecognitionException e) {
          throw new CambridgeExpressionParsingException(ex, e);
       }
+   }
+
+   public String wrapExpressionAsList(String expr) {
+      return "[" + expr + "]";
    }
 }
