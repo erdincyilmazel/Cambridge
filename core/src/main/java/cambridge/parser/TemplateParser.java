@@ -564,23 +564,14 @@ public class TemplateParser {
       return new NamespaceDirective(name, uri);
    }
 
-   private static final Pattern expressionLanguagePattern = Pattern.compile("\\s?=\"([a-zA-Z0-9\\.]+)\"");
-
    private TemplateNode parseExpressionLanguageDirective(ParserDirectiveToken tok) {
       String args = tok.getArgs();
-      if (args == null) {
+      if (args == null || args.equals("")) {
          throw new TemplateParsingException("Invalid expression language directive", currentToken.getLineNo(), currentToken.getColumn());
       }
 
-      Matcher matcher = expressionLanguagePattern.matcher(args);
-      if (!matcher.find()) {
-         throw new TemplateParsingException("Invalid expressionLanguage directive", currentToken.getLineNo(), currentToken.getColumn());
-      }
-
-      String name = matcher.group(1);
-
-      expressionLanguage = Expressions.getExpressionLanguageByName(name);
-      return new ExpressionLanguageDirective(name);
+      expressionLanguage = Expressions.getExpressionLanguageByName(args);
+      return new ExpressionLanguageDirective(args);
    }
 
    private TemplateNode parseIncludeNode(ParserDirectiveToken tok) {

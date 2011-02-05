@@ -2,6 +2,7 @@ package cambridge.ognl;
 
 import cambridge.ExpressionLanguage;
 import cambridge.ExpressionParsingException;
+import cambridge.Expressions;
 import cambridge.model.Expression;
 import ognl.Ognl;
 import ognl.OgnlException;
@@ -11,6 +12,10 @@ import ognl.OgnlException;
  * @since 2/1/11
  */
 public class OgnlExpressionLanguage implements ExpressionLanguage {
+   public static void register() {
+      Expressions.registerExpressionLanguage("ognl", OgnlExpressionLanguage.class);
+   }
+
    public Expression parse(String value) throws ExpressionParsingException {
       try {
          return new OgnlExpression(Ognl.parseExpression(value), value);

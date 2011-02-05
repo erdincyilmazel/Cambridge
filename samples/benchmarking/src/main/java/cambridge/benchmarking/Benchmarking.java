@@ -2,12 +2,8 @@ package cambridge.benchmarking;
 
 
 import cambridge.DirectoryTemplateLoader;
-import cambridge.Expressions;
 import cambridge.Template;
 import cambridge.TemplateFactory;
-import cambridge.mvel.MvelExpressionLanguage;
-import cambridge.ognl.OgnlExpressionLanguage;
-import cambridge.parser.expressions.CambridgeExpressionLanguage;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
@@ -32,19 +28,23 @@ public class Benchmarking {
 
    public Benchmarking(DataModel model) {
       this.model = model;
-//      try {
-//
-//         writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream("/dev/null")));
-//      } catch (FileNotFoundException ex) {
-//         Logger.getLogger(Benchmarking.class.getName()).log(Level.SEVERE, null, ex);
-//      }
 
       writer = new BufferedWriter(new OutputStreamWriter(System.out));
    }
 
-   public void renderCambridge(int loop) {
+   public Benchmarking(DataModel model, String outputFile) {
+      this.model = model;
+      try {
+
+         writer = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(outputFile)));
+      } catch (FileNotFoundException ex) {
+         Logger.getLogger(Benchmarking.class.getName()).log(Level.SEVERE, null, ex);
+      }
+   }
+
+   public void renderCambridge(int loop, String expressionLanguage) {
       DirectoryTemplateLoader templateLoader = new DirectoryTemplateLoader(
-         new File("src/main/cambridgetemplates"), "utf-8", -1);
+         new File("src/main/cambridgetemplates/" + expressionLanguage), "utf-8", -1);
 
       TemplateFactory tf = templateLoader.newTemplateFactory("skeleton.html");
 
@@ -94,44 +94,99 @@ public class Benchmarking {
       }
    }
 
+   static class Timer {
+      long start;
+      long stop;
+
+      public void start() {
+         start = System.currentTimeMillis();
+      }
+
+      public long elapsed() {
+         return System.currentTimeMillis() - start;
+      }
+   }
+
    public static void main(String[] args) {
       System.err.println("Preparing random data...");
-      Benchmarking benchmarking = new Benchmarking(new DataModel(100, 1000, 1500));
+      DataModel dataModel = new DataModel(100, 1000, 1500);
       System.err.println("Done.");
 
-      long start = System.currentTimeMillis();
-      benchmarking.renderCambridge(10);
-      long end = System.currentTimeMillis();
+      Benchmarking benchmarking;
+
+      if (args.length == 0) {
+         benchmarking = new Benchmarking(dataModel);
+      } else {
+         benchmarking = new Benchmarking(dataModel, args[0]);
+      }
+
+      Timer timer = new Timer();
+      timer.start();
+      benchmarking.renderCambridge(100, "simple");
 
       try {
-         Thread.sleep(1000);
+         Thread.sleep(500);
       } catch (InterruptedException e) {
          e.printStackTrace();
       }
 
-      long cambridgeElapsed = end - start;
+      long cambridgeSimple = timer.elapsed();
 
+      System.err.println();
       System.err.println("--------------------------------------------------------");
       System.err.println("--------------------------------------------------------");
-      System.err.println("--------------------------------------------------------");
-      System.err.println("--------------------------------------------------------");
-      System.err.println("--------------------------------------------------------");
-      System.err.println("--------------------------------------------------------");
-      System.err.println("--------------------------------------------------------");
-      System.err.println("--------------------------------------------------------");
-      System.err.println("--------------------------------------------------------");
+      System.err.println();
+
+      timer.start();
+      benchmarking.renderCambridge(100, "mvel");
 
       try {
-         Thread.sleep(1000);
+         Thread.sleep(500);
       } catch (InterruptedException e) {
          e.printStackTrace();
       }
 
-      start = System.currentTimeMillis();
-      benchmarking.renderFreemarkerTemplate(10);
-      end = System.currentTimeMillis();
+      long cambridgeMvel = timer.elapsed();
 
-      System.err.println("Cambridge took :" + (cambridgeElapsed) + " ms");
-      System.err.println("Freemarker took :" + (end - start) + " ms");
+      System.err.println();
+      System.err.println("--------------------------------------------------------");
+      System.err.println("--------------------------------------------------------");
+      System.err.println();
+
+      timer.start();
+      benchmarking.renderCambridge(100, "ognl");
+
+      try {
+         Thread.sleep(500);
+      } catch (InterruptedException e) {
+         e.printStackTrace();
+      }
+
+      long cambridgeOgnl = timer.elapsed();
+
+      System.err.println();
+      System.err.println("--------------------------------------------------------");
+      System.err.println("--------------------------------------------------------");
+      System.err.println();
+
+      try {
+         Thread.sleep(500);
+      } catch (InterruptedException e) {
+         e.printStackTrace();
+      }
+
+      timer.start();
+      benchmarking.renderFreemarkerTemplate(100);
+      long freemarkerElapsed = timer.elapsed();
+
+      System.err.println();
+      System.err.println("--------------------------------------------------------");
+      System.err.println("--------------------------------------------------------");
+      System.err.println();
+      
+      System.err.println("Cambridge Simple took :" + (cambridgeSimple) + " ms");
+      System.err.println("Cambridge Mvel took :" + (cambridgeMvel) + " ms");
+      System.err.println("Cambridge Ognl took :" + (cambridgeOgnl) + " ms");
+      System.err.println("Freemarker took :" + (freemarkerElapsed) + " ms");
    }
 }

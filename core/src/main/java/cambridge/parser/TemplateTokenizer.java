@@ -362,7 +362,7 @@ public class TemplateTokenizer extends Tokenizer {
                // Comment block
                builder.append("!--");
 
-               String directive = null;
+               String directive = "";
                String args;
 
                while (true) {

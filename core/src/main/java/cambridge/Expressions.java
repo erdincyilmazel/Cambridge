@@ -14,14 +14,15 @@ public class Expressions {
    private static ExpressionLanguage expressionLanguage = new CambridgeExpressionLanguage();
 
    public static final String CURRENT_OBJECT = "self";
-   public static final String PARENT_OBJECT = "pafent";
+   public static final String PARENT_OBJECT = "parent";
    public static final String ITER_OBJECT = "iter";
 
    private static final HashMap<String, ExpressionLanguage> expressionLanguages = new HashMap<String, ExpressionLanguage>();
-   private static final HashMap<String, Class<ExpressionLanguage>> expressionLanguageClasses = new HashMap<String, Class<ExpressionLanguage>>();
+   private static final HashMap<String, Class<? extends ExpressionLanguage>> expressionLanguageClasses =
+      new HashMap<String, Class<? extends ExpressionLanguage>>();
 
    static {
-      expressionLanguages.put("Cambridge", new CambridgeExpressionLanguage());
+      expressionLanguages.put("cambridge", new CambridgeExpressionLanguage());
    }
 
    public static Expression parse(String ex) throws ExpressionParsingException {
@@ -32,13 +33,17 @@ public class Expressions {
       return expressionLanguage;
    }
 
+   public static synchronized void registerExpressionLanguage(String name, Class<? extends ExpressionLanguage> clazz) {
+      expressionLanguageClasses.put(name, clazz);
+   }
+
    public static synchronized ExpressionLanguage getExpressionLanguageByName(String name) throws ExpressionParsingException {
       ExpressionLanguage language = expressionLanguages.get(name);
       if (language != null) {
          return language;
       }
 
-      Class<ExpressionLanguage> expressionLangClass = expressionLanguageClasses.get(name);
+      Class<? extends ExpressionLanguage> expressionLangClass = expressionLanguageClasses.get(name);
 
       if (expressionLangClass == null) {
          throw new ExpressionParsingException("Unknown expression language: " + name);
