@@ -51,9 +51,9 @@ public class ExpressionTest {
 //         assertEquals("Testing type", CambridgeExpression.Type.Object, e.getType(bindings));
          assertTrue(e.eval(bindings) instanceof List);
          List l = (List) e.eval(bindings);
-         assertEquals(new StringLiteral("a"), l.get(0));
-         assertEquals(new StringLiteral("b"), l.get(1));
-         assertEquals(new IntLiteral(213), l.get(2));
+         assertEquals("a", l.get(0));
+         assertEquals("b", l.get(1));
+         assertEquals(213, l.get(2));
       } catch (ExpressionParsingException e) {
          e.printStackTrace();
       } catch (ExpressionEvaluationException e) {
