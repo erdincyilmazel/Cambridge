@@ -8,7 +8,10 @@ import java.util.Locale;
  * Time: 5:13:18 PM
  */
 public class EscapeFilter implements Filter {
-   public String doFilter(Object o, String properties, Locale locale) {
+   public void init(String parameters) {
+   }
+
+   public String doFilter(Object o, Locale locale) {
       String str = o.toString();
       StringBuffer sb = new StringBuffer(str.length());
       // true if last char was blank

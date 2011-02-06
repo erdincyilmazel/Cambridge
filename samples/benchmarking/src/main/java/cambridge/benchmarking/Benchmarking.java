@@ -5,12 +5,12 @@ import cambridge.DirectoryTemplateLoader;
 import cambridge.Template;
 import cambridge.TemplateFactory;
 import cambridge.mvel.MvelExpressionLanguage;
-import cambridge.ognl.OgnlExpression;
 import cambridge.ognl.OgnlExpressionLanguage;
 import freemarker.ext.beans.BeansWrapper;
 import freemarker.template.Configuration;
 import freemarker.template.TemplateException;
-import ognl.Ognl;
+import org.apache.velocity.VelocityContext;
+import org.apache.velocity.app.Velocity;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -98,6 +98,32 @@ public class Benchmarking {
       }
    }
 
+   public void renderVelocityTemplate(int loop) {
+
+      Velocity.setProperty(Velocity.RESOURCE_LOADER, "file");
+      Velocity.setProperty(Velocity.FILE_RESOURCE_LOADER_CACHE, true);
+      Velocity.setProperty(Velocity.FILE_RESOURCE_LOADER_PATH, "/Users/erdincyilmazel/projects/cambridge/samples/benchmarking/src/main/velocitytemplates");
+      Velocity.init();
+
+      for (int i = 0; i < loop; i++) {
+         VelocityContext context = new VelocityContext();
+
+         DataModel.User loggedInUser = model.getLoggedInUser();
+         context.put("title", "Entries");
+         context.put("loggedInUser", loggedInUser);
+         context.put("entries", model.getEntries());
+
+         org.apache.velocity.Template template = Velocity.getTemplate("skeleton.vm");
+
+         template.merge(context, writer);
+         try {
+            writer.flush();
+         } catch (IOException e) {
+            e.printStackTrace();
+         }
+      }
+   }
+
    static class Timer {
       long start;
       long stop;
@@ -122,10 +148,12 @@ public class Benchmarking {
       Benchmarking benchmarking;
 
       if (args.length == 0) {
-         benchmarking = new Benchmarking(dataModel);
+         iterations = 100;
       } else {
-         benchmarking = new Benchmarking(dataModel, args[0]);
+         iterations = Integer.parseInt(args[0]);
       }
+
+      benchmarking = new Benchmarking(dataModel);
 
       Timer timer = new Timer();
       timer.start();
@@ -160,21 +188,21 @@ public class Benchmarking {
       System.err.println("--------------------------------------------------------");
       System.err.println();
 
-//      timer.start();
-//      benchmarking.renderCambridge(iterations, "ognl");
-//
-//      try {
-//         Thread.sleep(500);
-//      } catch (InterruptedException e) {
-//         e.printStackTrace();
-//      }
-//
-//      long cambridgeOgnl = timer.elapsed();
-//
-//      System.err.println();
-//      System.err.println("--------------------------------------------------------");
-//      System.err.println("--------------------------------------------------------");
-//      System.err.println();
+      timer.start();
+      benchmarking.renderCambridge(iterations, "ognl");
+
+      try {
+         Thread.sleep(500);
+      } catch (InterruptedException e) {
+         e.printStackTrace();
+      }
+
+      long cambridgeOgnl = timer.elapsed();
+
+      System.err.println();
+      System.err.println("--------------------------------------------------------");
+      System.err.println("--------------------------------------------------------");
+      System.err.println();
 
       try {
          Thread.sleep(500);
@@ -190,10 +218,26 @@ public class Benchmarking {
       System.err.println("--------------------------------------------------------");
       System.err.println("--------------------------------------------------------");
       System.err.println();
-      
+
+      try {
+         Thread.sleep(500);
+      } catch (InterruptedException e) {
+         e.printStackTrace();
+      }
+
+      timer.start();
+      benchmarking.renderVelocityTemplate(iterations);
+      long velocityElapsed = timer.elapsed();
+
+      System.err.println();
+      System.err.println("--------------------------------------------------------");
+      System.err.println("--------------------------------------------------------");
+      System.err.println();
+
       System.err.println("Cambridge Simple took :" + (cambridgeSimple) + " ms");
       System.err.println("Cambridge Mvel took :" + (cambridgeMvel) + " ms");
-      //System.err.println("Cambridge Ognl took :" + (cambridgeOgnl) + " ms");
+      System.err.println("Cambridge Ognl took :" + (cambridgeOgnl) + " ms");
       System.err.println("Freemarker took :" + (freemarkerElapsed) + " ms");
+      System.err.println("Velocity took :" + (velocityElapsed) + " ms");
    }
 }

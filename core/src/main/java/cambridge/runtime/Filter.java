@@ -8,5 +8,6 @@ import java.util.Locale;
  * Time: 5:11:59 PM
  */
 public interface Filter {
-   public abstract String doFilter(Object o, String properties, Locale locale);
+   public abstract void init(String parameters);
+   public abstract String doFilter(Object o, Locale locale);
 }

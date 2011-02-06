@@ -8,7 +8,10 @@ import java.util.Locale;
  * Time: 5:13:18 PM
  */
 public class UpperCaseFilter implements Filter {
-   public String doFilter(Object o, String properties, Locale locale) {
+   public void init(String parameters) {
+   }
+
+   public String doFilter(Object o, Locale locale) {
       return o.toString().toUpperCase(locale);
    }
 }

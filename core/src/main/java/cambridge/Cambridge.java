@@ -35,7 +35,7 @@ public class Cambridge {
    public static String DefaultNamespaceURI = "http://cambridge.googlecode.com";
 
    private final HashMap<String, FunctionRunner> functions = new HashMap<String, FunctionRunner>();
-   private final HashMap<String, Filter> filters = new HashMap<String, Filter>();
+   private final HashMap<String, Class<? extends Filter>> filters = new HashMap<String, Class<? extends Filter>>();
 
    public void registerFunction(String name, FunctionRunner runner) {
       functions.put(name, runner);
@@ -45,12 +45,18 @@ public class Cambridge {
       return functions.get(name);
    }
 
-   public void registerFilter(String name, Filter filter) {
+   public void registerFilter(String name, Class<? extends Filter> filter) {
       filters.put(name.toLowerCase(), filter);
    }
 
    public Filter getFilter(String name) {
-      return filters.get(name.toLowerCase());
+      try {
+         return filters.get(name.toLowerCase()).newInstance();
+      } catch (InstantiationException e) {
+         return null;
+      } catch (IllegalAccessException e) {
+         return null;
+      }
    }
 
    public class Bind {
@@ -110,10 +116,10 @@ public class Cambridge {
       registerFunction("text", new ResourceBundleFunction());
       registerFunction("if", new IfFunction());
 
-      registerFilter("lower", new LowerCaseFilter());
-      registerFilter("upper", new UpperCaseFilter());
-      registerFilter("escape", new EscapeFilter());
-      registerFilter("dateformat", new SimpleDateFormatFilter());
+      registerFilter("lower", LowerCaseFilter.class);
+      registerFilter("upper", UpperCaseFilter.class);
+      registerFilter("escape", EscapeFilter.class);
+      registerFilter("dateformat", SimpleDateFormatFilter.class);
 
       bind(DefaultNamespaceURI, "if").to(IfBehavior.getProvider());
       bind(DefaultNamespaceURI, "elseif").to(ElseIfBehavior.getProvider());

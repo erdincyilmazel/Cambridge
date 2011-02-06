@@ -22,17 +22,7 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
    final String value;
    Expression expression;
 
-   ArrayList<F> filters;
-
-   class F {
-      final Filter filter;
-      final String parameters;
-
-      F(Filter filter, String parameters) {
-         this.filter = filter;
-         this.parameters = parameters;
-      }
-   }
+   ArrayList<Filter> filters;
 
    public ExpressionNode(String value, Expression expression) throws ExpressionParsingException {
       this.value = value;
@@ -40,7 +30,7 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
    }
 
    public void setFilters(ArrayList<String> f) {
-      filters = new ArrayList<F>();
+      filters = new ArrayList<Filter>();
       for (String s : f) {
          String name;
          String params;
@@ -56,7 +46,8 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
 
          Filter filter = Cambridge.getInstance().getFilter(name);
          if (filter != null) {
-            filters.add(new F(filter, params));
+            filter.init(params);
+            filters.add(filter);
          }
       }
 
@@ -120,11 +111,11 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
       if (filters == null) return o.toString();
       String val = "";
       for (int i = 0; i < filters.size(); i++) {
-         F f = filters.get(i);
+         Filter f = filters.get(i);
          if (i == 0) {
-            val = f.filter.doFilter(o, f.parameters, locale);
+            val = f.doFilter(o, locale);
          } else {
-            val = f.filter.doFilter(val, f.parameters, locale);
+            val = f.doFilter(val, locale);
          }
       }
 

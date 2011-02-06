@@ -17,6 +17,7 @@ public class OgnlExpressionLanguage implements ExpressionLanguage {
    }
 
    public Expression parse(String value) throws ExpressionParsingException {
+
       try {
          return new OgnlExpression(Ognl.parseExpression(value), value);
       } catch (OgnlException e) {
