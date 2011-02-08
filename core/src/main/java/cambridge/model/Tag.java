@@ -63,7 +63,7 @@ public interface Tag extends ParentNode {
     * @return Returns the same Tag object
     * @throws ExpressionParsingException Thrown if the supplied expression can not be parsed
     */
-   public Tag iterateOver(Expression expression) throws ExpressionParsingException;
+   public Tag iterateOver(Expression expression, String as) throws ExpressionParsingException;
 
    public Tag addAttribute(Attribute a);
 

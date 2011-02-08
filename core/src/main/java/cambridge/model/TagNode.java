@@ -603,8 +603,8 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return this;
    }
 
-   public Tag iterateOver(Expression expression) throws ExpressionParsingException {
-      addBehavior(new ForeachBehavior(expression));
+   public Tag iterateOver(Expression expression, String as) throws ExpressionParsingException {
+      addBehavior(new ForeachBehavior(expression, as, null));
       return this;
    }
 

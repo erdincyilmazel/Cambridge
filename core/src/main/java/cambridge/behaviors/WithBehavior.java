@@ -23,26 +23,40 @@ import java.util.Map;
  */
 public class WithBehavior extends LoopingTagBehavior {
    private final Expression expression;
+   private final String currentObjectName;
 
-   public WithBehavior(Expression expression) {
+   public WithBehavior(Expression expression, String currentObjectName) {
       this.expression = expression;
+      this.currentObjectName = currentObjectName;
+   }
+
+   @Override
+   public String getCurrentObjectName() {
+      if (currentObjectName == null) {
+         return super.getCurrentObjectName();
+      }
+
+      return currentObjectName;
    }
 
    @Override
    protected void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
       try {
-         bindings.put(Expressions.CURRENT_OBJECT, expression.eval(bindings));
+         bindings.put(getCurrentObjectName(), expression.eval(bindings));
          tag.execute(bindings, out);
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
       }
    }
 
-
    public static BehaviorProvider<WithBehavior> getProvider() {
       return new BehaviorProvider<WithBehavior>() {
          public WithBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
-            return new WithBehavior(keyAttribute.getExpression());
+
+            AttributeKey asKey = new AttributeKey(keyAttribute.getAttributeNameSpace(), "as");
+            Attribute asAttribute = attributes.get(asKey);
+
+            return new WithBehavior(keyAttribute.getExpression(), asAttribute == null ? null : asAttribute.getValue());
          }
       };
    }

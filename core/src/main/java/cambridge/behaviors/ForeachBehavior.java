@@ -25,9 +25,31 @@ import java.util.Map;
  */
 public class ForeachBehavior extends LoopingTagBehavior {
    private final Expression iterable;
+   private final String currentObjectName;
+   private final String iterObjectName;
 
-   public ForeachBehavior(Expression iterable) {
+   public ForeachBehavior(Expression iterable, String currentObjectName, String iterObjectName) {
       this.iterable = iterable;
+      this.currentObjectName = currentObjectName;
+      this.iterObjectName = iterObjectName;
+   }
+
+   @Override
+   public String getCurrentObjectName() {
+      if (currentObjectName == null) {
+         return super.getCurrentObjectName();
+      }
+
+      return currentObjectName;
+   }
+
+   @Override
+   public String getIterObjectName() {
+      if (iterObjectName == null) {
+         return super.getIterObjectName();
+      }
+
+      return iterObjectName;
    }
 
    @Override
@@ -66,9 +88,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateIterable(Map<String, Object> bindings, TagNode tag, Writer out, Iterable o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put(Expressions.ITER_OBJECT, iter);
+      bindings.put(getIterObjectName(), iter);
       for (Object o1 : o) {
-         bindings.put(Expressions.CURRENT_OBJECT, o1);
+         bindings.put(getCurrentObjectName(), o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -76,9 +98,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateArray(Map<String, Object> bindings, TagNode tag, Writer out, Object[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put(Expressions.ITER_OBJECT, iter);
+      bindings.put(getIterObjectName(), iter);
       for (Object o1 : o) {
-         bindings.put(Expressions.CURRENT_OBJECT, o1);
+         bindings.put(getCurrentObjectName(), o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -86,9 +108,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateInt(Map<String, Object> bindings, TagNode tag, Writer out, int[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put(Expressions.ITER_OBJECT, iter);
+      bindings.put(getIterObjectName(), iter);
       for (int o1 : o) {
-         bindings.put(Expressions.CURRENT_OBJECT, o1);
+         bindings.put(getCurrentObjectName(), o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -96,9 +118,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateFloat(Map<String, Object> bindings, TagNode tag, Writer out, float[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put(Expressions.ITER_OBJECT, iter);
+      bindings.put(getIterObjectName(), iter);
       for (float o1 : o) {
-         bindings.put(Expressions.CURRENT_OBJECT, o1);
+         bindings.put(getCurrentObjectName(), o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -106,9 +128,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateDouble(Map<String, Object> bindings, TagNode tag, Writer out, double[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put(Expressions.ITER_OBJECT, iter);
+      bindings.put(getIterObjectName(), iter);
       for (double o1 : o) {
-         bindings.put(Expressions.CURRENT_OBJECT, o1);
+         bindings.put(getCurrentObjectName(), o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -116,9 +138,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateByte(Map<String, Object> bindings, TagNode tag, Writer out, byte[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put(Expressions.ITER_OBJECT, iter);
+      bindings.put(getIterObjectName(), iter);
       for (byte o1 : o) {
-         bindings.put(Expressions.CURRENT_OBJECT, o1);
+         bindings.put(getCurrentObjectName(), o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -126,9 +148,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateChar(Map<String, Object> bindings, TagNode tag, Writer out, char[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put(Expressions.ITER_OBJECT, iter);
+      bindings.put(getIterObjectName(), iter);
       for (char o1 : o) {
-         bindings.put(Expressions.CURRENT_OBJECT, o1);
+         bindings.put(getCurrentObjectName(), o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -136,9 +158,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
    private void iterateBoolean(Map<String, Object> bindings, TagNode tag, Writer out, boolean[] o) throws IOException, TemplateEvaluationException {
       Iter iter = new Iter();
-      bindings.put(Expressions.ITER_OBJECT, iter);
+      bindings.put(getIterObjectName(), iter);
       for (boolean o1 : o) {
-         bindings.put(Expressions.CURRENT_OBJECT, o1);
+         bindings.put(getCurrentObjectName(), o1);
          tag.execute(bindings, out);
          iter.next();
       }
@@ -147,8 +169,15 @@ public class ForeachBehavior extends LoopingTagBehavior {
    public static BehaviorProvider<ForeachBehavior> getProvider() {
       return new BehaviorProvider<ForeachBehavior>() {
          public ForeachBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
+
+            AttributeKey asKey = new AttributeKey(keyAttribute.getAttributeNameSpace(), "as");
+            Attribute asAttribute = attributes.get(asKey);
+
+            AttributeKey iterKey = new AttributeKey(keyAttribute.getAttributeNameSpace(), "iter");
+            Attribute iterAttribute = attributes.get(iterKey);
+
             Expression e = keyAttribute.getExpression();
-            return new ForeachBehavior(e);
+            return new ForeachBehavior(e, asAttribute == null ? null : asAttribute.getValue(), iterAttribute == null ? null : iterAttribute.getValue());
          }
       };
    }
