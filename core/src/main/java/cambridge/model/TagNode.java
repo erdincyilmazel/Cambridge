@@ -90,6 +90,9 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    public void removeAllChildren() {
+      if (children != null) {
+         children.clear();
+      }
       children = null;
    }
 

@@ -9,5 +9,5 @@ import java.util.Locale;
  */
 public interface Filter {
    public abstract void init(String parameters);
-   public abstract String doFilter(Object o, Locale locale);
+   public abstract Object doFilter(Object o, Locale locale);
 }

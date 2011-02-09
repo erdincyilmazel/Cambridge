@@ -1,9 +1,9 @@
 package cambridge;
 
 /**
- * User: erdinc
- * Date: Nov 1, 2009
- * Time: 1:20:40 AM
+ * BehaviorInstantiationException is thrown when the behavior that is associated
+ * with a tag could not be initialized. This usually means the expression in the
+ * corresponding tag attribute could not be parsed
  */
 public class BehaviorInstantiationException extends Exception {
    public BehaviorInstantiationException() {
@@ -24,10 +24,18 @@ public class BehaviorInstantiationException extends Exception {
    private int line;
    private int col;
 
+   /**
+    * Returns the column number of the tag element which caused the problem
+    * @return Column number
+    */
    public int getCol() {
       return col;
    }
 
+   /**
+    * Returns the line number of the tag element which caused the problem
+    * @return Line number
+    */
    public int getLine() {
       return line;
    }

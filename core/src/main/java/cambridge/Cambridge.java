@@ -25,11 +25,17 @@ import cambridge.runtime.LowerCaseFilter;
 import cambridge.runtime.SimpleDateFormatFilter;
 import cambridge.runtime.UpperCaseFilter;
 import cambridge.tags.DummyTag;
-
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 
+/**
+ * <p>Cambridge is a singleton which holds mappings of names to behaviors, functions, filters
+ * etc.</p>
+ *
+ * <p>If new behaviors are to be added or the default ones are to be overridden, this
+ * can be achieved by getting an instance of Cambridge first</p>
+ */
 @SuppressWarnings("unchecked")
 public class Cambridge {
    public static String DefaultNamespaceURI = "http://cambridge.googlecode.com";
@@ -37,6 +43,17 @@ public class Cambridge {
    private final HashMap<String, FunctionRunner> functions = new HashMap<String, FunctionRunner>();
    private final HashMap<String, Class<? extends Filter>> filters = new HashMap<String, Class<? extends Filter>>();
 
+   /**
+    * <p>Maps the provided function name to the Function implementation.</p>
+    *
+    * <p>These registered functions are only available if you use the built-in expression language.
+    * If you decide to use MVEL or OGNL as your expression language, you should consult
+    * the documentation of that project in defining functions</p>
+    *
+    * @see FunctionRunner The implementation of a function
+    * @param name Function name
+    * @param runner Function runner
+    */
    public void registerFunction(String name, FunctionRunner runner) {
       functions.put(name, runner);
    }
@@ -225,10 +242,6 @@ public class Cambridge {
       }
 
       return instance;
-   }
-
-   public static void registerInstance(Cambridge b) {
-      instance = b;
    }
 
    public Cambridge() {
