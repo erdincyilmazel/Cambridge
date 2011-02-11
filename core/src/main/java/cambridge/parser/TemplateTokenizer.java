@@ -150,11 +150,6 @@ public class TemplateTokenizer extends Tokenizer {
          tok.setQuotes(AttributeValueToken.DOUBLE_QUOTES);
          return tok;
       }
-//
-//      if (c == '$' && peek(1) == '{') {
-//         return expressionToken(col, line);
-//      }
-
       builder.append(c);
       while (true) {
          c = nextChar();
@@ -164,14 +159,6 @@ public class TemplateTokenizer extends Tokenizer {
             nextChar();
             builder.append("\"");
          } else {
-//            if (c == '$' && peek(1) == '{') {
-//               return expressionToken(col, line);
-//            }
-//
-//            if (peek(1) == '$' && peek(2) == '{') {
-//               builder.append(c);
-//               break;
-//            }
             builder.append(c);
          }
       }
@@ -192,8 +179,13 @@ public class TemplateTokenizer extends Tokenizer {
          state = State.TAG_EXPECTING_DQ;
          return expectingDQHandler(nextChar(), col, line);
       }
+
       if (c == '$' && peek(1) == '{') {
-         return expressionToken(col, line);
+         return expressionToken(col, line, false);
+      }
+
+      if (c == '%' && peek(1) == '{') {
+         return expressionToken(col, line, true);
       }
 
       ArrayList<ExtensionPoint> extensionPoints = TemplateParser.getExtensionPoints();
@@ -233,7 +225,7 @@ public class TemplateTokenizer extends Tokenizer {
       return tok;
    }
 
-   private Token expressionToken(int col, int line) throws IOException {
+   private Token expressionToken(int col, int line, boolean raw) throws IOException {
       char c;
       nextChar(); // Consume {
       StringBuilder builder = new StringBuilder();
@@ -276,10 +268,10 @@ public class TemplateTokenizer extends Tokenizer {
             filters.add(filter.toString());
          }
 
-         return new ExpressionToken(line, col, builder.toString(), getLineNo(), getColumn(), filters);
+         return new ExpressionToken(line, col, builder.toString(), getLineNo(), getColumn(), raw, filters);
       }
 
-      return new ExpressionToken(line, col, builder.toString(), getLineNo(), getColumn());
+      return new ExpressionToken(line, col, builder.toString(), getLineNo(), getColumn(), raw);
    }
 
    private Token tagHandler(char c, int col, int line) throws IOException {
@@ -300,7 +292,9 @@ public class TemplateTokenizer extends Tokenizer {
          state = State.INITIAL_STATE;
          return new TagEndToken(line, col, ">", getLineNo(), getColumn());
       } else if (c == '$' && peek(1) == '{') {
-         return expressionToken(col, line);
+         return expressionToken(col, line, false);
+      } else if (c == '%' && peek(1) == '{') {
+         return expressionToken(col, line, true);
       } else if (c == '=') {
          state = State.TAG_EXPECTING_ATT_VALUE;
          return new AssignToken(line, col, "=", getLineNo(), getColumn());
@@ -486,7 +480,9 @@ public class TemplateTokenizer extends Tokenizer {
          }
          // Expression
       } else if (c == '$' && peek(1) == '{') {
-         return expressionToken(col, line);
+         return expressionToken(col, line, false);
+      } else if (c == '%' && peek(1) == '{') {
+         return expressionToken(col, line, true);
       } else {
 
          ArrayList<ExtensionPoint> extensionPoints = TemplateParser.getExtensionPoints();
@@ -519,7 +515,9 @@ public class TemplateTokenizer extends Tokenizer {
                   || (peek(1) == '<' && CharUtil.isName(peek(2)))
                   || (peek(1) == '<' && peek(2) == '!')
                   || (peek(1) == '<' && peek(2) == '/' && CharUtil.isName(peek(3)))
-                  || (peek(1) == '$' && peek(2) == '{')) {
+                  || (peek(1) == '$' && peek(2) == '{')
+                  || (peek(1) == '%' && peek(2) == '{')
+                  ) {
                   break;
                }
                builder.append(nextChar());

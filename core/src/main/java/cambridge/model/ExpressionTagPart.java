@@ -5,6 +5,7 @@ import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
 import cambridge.TemplateEvaluationException;
 import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.runtime.EscapeFilter;
 import cambridge.runtime.Filter;
 
 import java.io.IOException;
@@ -19,6 +20,7 @@ import java.util.Map;
 public class ExpressionTagPart implements TagPart, Fragment {
    String textContent;
    private Expression expression;
+   private boolean raw;
 
    ArrayList<Filter> filters;
 
@@ -49,9 +51,10 @@ public class ExpressionTagPart implements TagPart, Fragment {
       }
    }
 
-   public ExpressionTagPart(String textContent, Expression expression) throws ExpressionParsingException {
+   public ExpressionTagPart(String textContent, Expression expression, boolean raw) throws ExpressionParsingException {
       this.textContent = textContent;
       this.expression = expression;
+      this.raw = raw;
    }
 
    public boolean isWhiteSpace() {
@@ -66,7 +69,12 @@ public class ExpressionTagPart implements TagPart, Fragment {
             if (locale == null) {
                locale = Locale.getDefault();
             }
-            out.write(applyFilters(value, locale));
+            String str = applyFilters(value, locale);
+            if (raw) {
+               out.write(str);
+            } else {
+               out.write(EscapeFilter.doFilter(str));
+            }
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException(e);
@@ -78,7 +86,7 @@ public class ExpressionTagPart implements TagPart, Fragment {
 
    private String applyFilters(Object o, Locale locale) {
       if (filters == null) return o.toString();
-      String val = "";
+      Object val = o;
       for (int i = 0; i < filters.size(); i++) {
          Filter f = filters.get(i);
          if (i == 0) {
@@ -88,7 +96,7 @@ public class ExpressionTagPart implements TagPart, Fragment {
          }
       }
 
-      return val;
+      return val.toString();
    }
 
    public String getTextContent() {

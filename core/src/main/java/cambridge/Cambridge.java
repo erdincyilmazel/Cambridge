@@ -135,7 +135,6 @@ public class Cambridge {
 
       registerFilter("lower", LowerCaseFilter.class);
       registerFilter("upper", UpperCaseFilter.class);
-      registerFilter("escape", EscapeFilter.class);
       registerFilter("dateformat", SimpleDateFormatFilter.class);
 
       bind(DefaultNamespaceURI, "if").to(IfBehavior.getProvider());

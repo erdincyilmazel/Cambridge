@@ -272,7 +272,7 @@ public class TemplateParser {
    private ExpressionNode expression() throws TemplateParsingException {
       try {
          ExpressionToken tok = (ExpressionToken) currentToken;
-         ExpressionNode node = new ExpressionNode(currentToken.value, expressionLanguage.parse(currentToken.value));
+         ExpressionNode node = new ExpressionNode(currentToken.value, expressionLanguage.parse(currentToken.value), tok.isRawExpression());
          if (tok.getFilters() != null) {
             node.setFilters(tok.getFilters());
          }
@@ -374,7 +374,7 @@ public class TemplateParser {
                               case EXPRESSION:
                                  ExpressionToken expTok = (ExpressionToken) attrToken;
                                  try {
-                                    ExpressionNode expNode = new ExpressionNode(attrToken.value, expressionLanguage.parse(attrToken.value));
+                                    ExpressionNode expNode = new ExpressionNode(attrToken.value, expressionLanguage.parse(attrToken.value), expTok.isRawExpression());
 
                                     if (expTok.getFilters() != null) {
                                        expNode.setFilters(expTok.getFilters());
@@ -448,7 +448,7 @@ public class TemplateParser {
                try {
 
                   ExpressionToken t = (ExpressionToken) currentToken;
-                  ExpressionTagPart p = new ExpressionTagPart(currentToken.value, expressionLanguage.parse(currentToken.value));
+                  ExpressionTagPart p = new ExpressionTagPart(currentToken.value, expressionLanguage.parse(currentToken.value), t.isRawExpression());
 
                   if (t.getFilters() != null) {
                      p.setFilters(t.getFilters());

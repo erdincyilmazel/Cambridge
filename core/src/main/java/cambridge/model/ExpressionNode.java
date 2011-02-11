@@ -5,6 +5,7 @@ import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
 import cambridge.TemplateEvaluationException;
 import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.runtime.EscapeFilter;
 import cambridge.runtime.Filter;
 
 import java.io.IOException;
@@ -20,13 +21,19 @@ import java.util.Map;
  */
 public class ExpressionNode extends TemplateNode implements AttributeFragment {
    final String value;
+   boolean raw;
    Expression expression;
 
    ArrayList<Filter> filters;
 
    public ExpressionNode(String value, Expression expression) throws ExpressionParsingException {
+      this(value, expression, false);
+   }
+
+   public ExpressionNode(String value, Expression expression, boolean raw) throws ExpressionParsingException {
       this.value = value;
       this.expression = expression;
+      this.raw = raw;
    }
 
    public void setFilters(ArrayList<String> f) {
@@ -57,11 +64,11 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
    }
 
    public String getSource() {
-      return "${" + value + "}";
+      return (raw ? "%{" : "${") + value + "}";
    }
 
    public void print(PrintStream out) {
-      out.print("${");
+      out.print((raw ? "%{" : "${"));
       out.print(value);
       out.print("}");
    }
@@ -93,7 +100,12 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
       try {
          Object value = expression.eval(bindings);
          if (value != null) {
-            out.write(applyFilters(value, DefaultTemplateBindings.getLocaleFromBindings(bindings)));
+            String str = applyFilters(value, DefaultTemplateBindings.getLocaleFromBindings(bindings));
+            if (raw) {
+               out.write(str);
+            } else {
+               out.write(EscapeFilter.doFilter(str));
+            }
          }
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), value);
@@ -109,7 +121,7 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
 
    private String applyFilters(Object o, Locale locale) {
       if (filters == null) return o.toString();
-      String val = "";
+      Object val = o;
       for (int i = 0; i < filters.size(); i++) {
          Filter f = filters.get(i);
          if (i == 0) {
@@ -119,6 +131,6 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
          }
       }
 
-      return val;
+      return val.toString();
    }
 }
