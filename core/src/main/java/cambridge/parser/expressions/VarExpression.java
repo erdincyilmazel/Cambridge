@@ -77,6 +77,8 @@ public class VarExpression implements CambridgeExpression {
                object = ((Map) object).get(m.expression.eval(p));
             } else if (object instanceof List) {
                object = ((List) object).get(m.expression.asInt(p));
+            } else if (object instanceof Object[]) {
+               object = ((Object[]) object)[m.expression.asInt(p)];
             }
          }
       }
