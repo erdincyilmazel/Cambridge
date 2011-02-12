@@ -4,6 +4,7 @@ import java.beans.BeanInfo;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.MethodDescriptor;
+import java.beans.ParameterDescriptor;
 import java.beans.PropertyDescriptor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
@@ -92,7 +93,8 @@ public class PropertyUtils {
          MethodDescriptor[] methodDescriptors = beanInfo.getMethodDescriptors();
 
          for (MethodDescriptor d : methodDescriptors) {
-            if (property.equals(d.getName())) {
+            ParameterDescriptor[] parameterDescriptors = d.getParameterDescriptors();
+            if (property.equals(d.getName()) && parameterDescriptors == null || parameterDescriptors.length == 0) {
                m = d.getMethod();
                methodCache.putIfAbsent(p, m);
                return m.invoke(bean);
