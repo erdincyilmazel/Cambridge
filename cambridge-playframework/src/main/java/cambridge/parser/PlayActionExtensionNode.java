@@ -34,11 +34,13 @@ public class PlayActionExtensionNode extends ExtensionNode {
    }
 
    public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
-      Object param;
+      Object param = null;
       try {
-         param = expression.eval(bindings);
-         if (expression instanceof List) {
-            param = ((List) param).toArray();
+         if (expression != null) {
+            param = expression.eval(bindings);
+            if (expression instanceof List) {
+               param = ((List) param).toArray();
+            }
          }
       } catch (ExpressionEvaluationException ex) {
          throw new TemplateEvaluationException("Could not execute the expression: " + ex.getMessage(), getBeginLine(), getBeginColumn(), expr);
