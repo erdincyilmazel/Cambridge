@@ -67,6 +67,11 @@ public class PlayActionsExtensionPoint implements ExtensionPoint {
       if (c == '(') {
          int state = 1;
          c = tokenizer.nextChar();
+         if (c == ')') {
+            c = tokenizer.nextChar();
+            state = 0;
+         }
+         
          while (state != 0) {
             builder.append(c);
             c = tokenizer.nextChar();
