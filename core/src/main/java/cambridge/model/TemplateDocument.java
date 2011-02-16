@@ -184,7 +184,7 @@ public class TemplateDocument implements ParentNode {
       return list;
    }
 
-   public static final Pattern selectorPattern = Pattern.compile("(before|after|endof|from|except|inside)?\\s*(((/|#)([^/#\\s]+)(\\[\\d+\\])?)+)$");
+   public static final Pattern selectorPattern = Pattern.compile("(before|after|until|from|except|inside)?\\s*(((/|#)([^/#\\s]+)(\\[\\d+\\])?)+)$");
    private static final Pattern indexPattern = Pattern.compile("([^/#\\s]+)\\[(\\d+)\\]");
 
    public TagNode locateTag(String selector) {
@@ -235,7 +235,7 @@ public class TemplateDocument implements ParentNode {
    public enum Selector {
       Default(""),
       Before("before"),
-      EndOf("endof"),
+      Until("until"),
       After("after"),
       From("from"),
       Except("except"),
@@ -327,7 +327,7 @@ public class TemplateDocument implements ParentNode {
             return ret;
          case Before:
             return normalizeUntil(node, false);
-         case EndOf:
+         case Until:
             return normalizeUntil(node, true);
          case Default:
             ret = new FragmentList();
