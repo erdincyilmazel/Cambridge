@@ -94,7 +94,7 @@ public class PropertyUtils {
 
          for (MethodDescriptor d : methodDescriptors) {
             ParameterDescriptor[] parameterDescriptors = d.getParameterDescriptors();
-            if (property.equals(d.getName()) && parameterDescriptors == null || parameterDescriptors.length == 0) {
+            if (property.equals(d.getName()) && (parameterDescriptors == null || parameterDescriptors.length == 0)) {
                m = d.getMethod();
                methodCache.putIfAbsent(p, m);
                return m.invoke(bean);

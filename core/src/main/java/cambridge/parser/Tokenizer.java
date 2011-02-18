@@ -9,7 +9,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 
 public abstract class Tokenizer {
-   final static char EOL = 65535;
+   public final static char EOL = 65535;
 
    private final static int BUFFER_SIZE = 50;
    private final static int maxPeek = 40;

@@ -244,6 +244,11 @@ public class TemplateTokenizer extends Tokenizer {
          }
 
          builder.append(c);
+
+         if (peek(1) == Tokenizer.EOL) {
+            break;
+         }
+
          c = nextChar();
       }
 
@@ -261,6 +266,11 @@ public class TemplateTokenizer extends Tokenizer {
             } else {
                filter.append(c);
             }
+
+            if (peek(1) == Tokenizer.EOL) {
+               break;
+            }
+
             c = nextChar();
          }
 
@@ -432,9 +442,15 @@ public class TemplateTokenizer extends Tokenizer {
             } else {
                while (c != '>') {
                   builder.append(c);
+                  if (peek(1) == Tokenizer.EOL) {
+                     break;
+                  }
                   c = nextChar();
                }
-               builder.append(c);
+
+               if (c == '>') {
+                  builder.append(c);
+               }
                return new DocTypeToken(line, col, builder.toString(), getLineNo(), getColumn());
             }
             // TAG CLOSE </X>
@@ -444,6 +460,9 @@ public class TemplateTokenizer extends Tokenizer {
             String tagName = null;
             while (c != '>') {
                builder.append(c);
+               if (peek(1) == Tokenizer.EOL) {
+                  break;
+               }
                c = nextChar();
 
                if (tagName == null && (Character.isWhitespace(c) || c == '>')) {
@@ -451,7 +470,9 @@ public class TemplateTokenizer extends Tokenizer {
                }
             }
 
-            builder.append(c);
+            if (c == '>') {
+               builder.append(c);
+            }
 
             state = State.INITIAL_STATE;
             CloseTagToken tok = new CloseTagToken(line, col, builder.toString(), getLineNo(), getColumn());

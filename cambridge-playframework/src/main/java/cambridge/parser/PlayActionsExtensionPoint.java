@@ -1,5 +1,6 @@
 package cambridge.parser;
 
+import cambridge.TemplateParsingException;
 import cambridge.model.ExtensionPoint;
 import cambridge.parser.tokens.ExtensionToken;
 
@@ -79,6 +80,8 @@ public class PlayActionsExtensionPoint implements ExtensionPoint {
                state--;
             } else if (c == '(') {
                state++;
+            } else if (c == Tokenizer.EOL) {
+               throw new TemplateParsingException("Unexpected end of file", tokenizer.getLineNo(), tokenizer.getColumn());
             }
          }
       }
