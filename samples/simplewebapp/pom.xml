@@ -8,20 +8,20 @@
     </properties>
     <groupId>com.googlecode.cambridge</groupId>
     <artifactId>simplewebapp</artifactId>
-    <version>0.2</version>
+    <version>0.2.rc</version>
     <packaging>war</packaging>
     <name>Cambridge Simple Web Application</name>
     <parent>
         <artifactId>cambridge</artifactId>
         <groupId>com.googlecode.cambridge</groupId>
-        <version>0.2</version>
+        <version>0.2.rc</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
     <dependencies>
         <dependency>
             <groupId>com.googlecode.cambridge</groupId>
-            <artifactId>core</artifactId>
-            <version>0.2</version>
+            <artifactId>cambridge-core</artifactId>
+            <version>0.2.rc</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -31,4 +31,20 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>2.3.2</version>
+                <configuration>
+                    <source>1.5</source>
+                    <target>1.5</target>
+                    <optimize>true</optimize>
+                    <encoding>utf-8</encoding>
+                    <debug>true</debug>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>

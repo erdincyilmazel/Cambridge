@@ -48,6 +48,10 @@ public abstract class Tokenizer {
    private char previousChar;
 
    char nextChar() throws IOException {
+      if (previousChar == EOL) {
+         throw new IOException("Unexpected end of file");
+      }
+
       if (readIndex + (BUFFER_SIZE - maxPeek) == writeIndex && (int) buf[getIndex(writeIndex)] != -1) {
          fillBuffer();
       }
