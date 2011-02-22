@@ -9,6 +9,8 @@ import java.util.List;
  * @see TemplateNode
  */
 public interface ParentNode {
+   public void insertChild(int index, TemplateNode node);
+
    /**
     * Adds a new child to this node
     *

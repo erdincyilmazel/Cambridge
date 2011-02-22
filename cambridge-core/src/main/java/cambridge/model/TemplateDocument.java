@@ -56,6 +56,11 @@ public class TemplateDocument implements ParentNode {
       children.clear();
    }
 
+   public void insertChild(int index, TemplateNode node) {
+      node.setParent(this);
+      children.add(index, node);
+   }
+
    public void addChild(TemplateNode node) {
       node.setParent(this);
       children.add(node);

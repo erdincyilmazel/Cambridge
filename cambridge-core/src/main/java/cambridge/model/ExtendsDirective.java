@@ -50,6 +50,14 @@ public class ExtendsDirective extends TemplateNode {
                overriden.getParent().replaceChild((TemplateNode) overriden, (TemplateNode) tag);
             }
          }
+         else if (node instanceof SetDirective) {
+            int index = 0;
+            if (extended == extendedDocument && extendedDocument.getChildren().size() > 0 && extendedDocument.getChildren().get(0) instanceof ExtendsDirective) {
+               index = 1;
+            }
+            
+            extended.insertChild(index, node);
+         }
       }
 
       if (extendedDocument.getChildren().size() > 0 && extendedDocument.getChildren().get(0) instanceof ExtendsDirective) {

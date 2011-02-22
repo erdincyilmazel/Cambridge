@@ -124,6 +124,12 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       children.add(index, node);
    }
 
+   public void insertChild(int index, TemplateNode node) {
+      if (children == null) children = new ArrayList<TemplateNode>();
+      node.setParent(this);
+      children.add(index, node);
+   }
+
    public void addChild(TemplateNode node) {
       if (children == null) children = new ArrayList<TemplateNode>();
       node.setParent(this);
