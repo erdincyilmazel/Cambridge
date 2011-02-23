@@ -27,6 +27,7 @@ import cambridge.model.IncludeNode;
 import cambridge.model.NamespaceDirective;
 import cambridge.model.SetDirective;
 import cambridge.model.SimpleAttribute;
+import cambridge.model.StaticAttribute;
 import cambridge.model.StaticFragment;
 import cambridge.model.TagNode;
 import cambridge.model.TagPart;
@@ -333,10 +334,19 @@ public class TemplateParser {
                Attribute element = null;
                StringBuilder textContent = new StringBuilder();
                textContent.append(tok.getActualValue());
+               boolean dynamic = false;
+               boolean staticAttribute = false;
 
                String namespaceUri = getNamespaceUri(tok.getNameSpace());
                if (namespaceUri != null && bindings.isRegisteredNamespace(namespaceUri)) {
-                  element = new DynamicAttribute(namespaceUri);
+
+                  dynamic = true;
+                  if (bindings.isStaticAttribute(namespaceUri, tok.getAttributeName())) {
+                     staticAttribute = true;
+                     element = new StaticAttribute(namespaceUri);
+                  } else {
+                     element = new DynamicAttribute(namespaceUri);
+                  }
                }
 
                while (true) {
@@ -359,8 +369,13 @@ public class TemplateParser {
                      case ATTRIBUTE_VALUE:
                         textContent.append(currentToken.getActualValue());
 
-                        if (element instanceof DynamicAttribute) {
-                           ((DynamicAttribute) element).setValue(currentToken.value, expressionLanguage.parse(currentToken.value));
+                        if (dynamic) {
+                           if (staticAttribute) {
+                              ((StaticAttribute) element).setValue(currentToken.value);
+                           } else {
+                              ((DynamicAttribute) element).setValue(currentToken.value, expressionLanguage.parse(currentToken.value));
+                           }
+
                            exitLoop = true;
                            break;
                         }

@@ -44,4 +44,8 @@ public abstract class ExtensionNode extends TemplateNode implements AttributeFra
    public boolean isWhiteSpace() {
       return false;
    }
+
+   public boolean preserveWhitespace() {
+      return true;
+   }
 }

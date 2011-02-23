@@ -165,6 +165,11 @@ public class Cambridge {
       return new BindStatic(key);
    }
 
+   public boolean isStaticAttribute(String uri, String attribute) {
+      DynamicAttributeKey key = new DynamicAttributeKey(uri, "", attribute);
+      return staticBehaviorClasses.containsKey(key);
+   }
+
    public BindTag bindTag(String uri, String... attribute) {
       namespaces.add(uri);
 

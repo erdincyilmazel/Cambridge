@@ -10,5 +10,7 @@ public interface TagPart {
 
    public void setTextContent(String textContent);
 
-   public abstract boolean isWhiteSpace();
+   public boolean isWhiteSpace();
+
+   public boolean preserveWhitespace();
 }

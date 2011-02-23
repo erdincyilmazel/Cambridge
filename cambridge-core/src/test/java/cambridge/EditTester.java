@@ -19,7 +19,7 @@ public class EditTester {
          final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
          final TemplateFactory f = loader.newTemplateFactory("grandchild.html", new TemplateModifier() {
             public void modifyTemplate(TemplateDocument doc) {
-
+               System.out.println();
             }
          });
 

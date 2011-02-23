@@ -70,4 +70,8 @@ public class SimpleAttribute implements Attribute {
    public boolean isWhiteSpace() {
       return false;
    }
+
+   public boolean preserveWhitespace() {
+      return true;
+   }
 }

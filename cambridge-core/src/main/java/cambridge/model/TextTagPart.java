@@ -22,5 +22,9 @@ public class TextTagPart implements TagPart {
       return whitespace;
    }
 
+   public boolean preserveWhitespace() {
+      return true;
+   }
+
    public boolean whitespace;
 }

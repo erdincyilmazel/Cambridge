@@ -1,20 +1,17 @@
 package cambridge.model;
 
-import cambridge.ExpressionParsingException;
-
 /**
- * DynamicAttributes are attributes which are registered with the {@link cambridge.Cambridge}
- * class and which carry a dynamic behavior on.
+ * StaticAttribute are attributes which are registered with the {@link cambridge.Cambridge}
+ * class and which is associated with a static behavior
  */
-public class DynamicAttribute implements Attribute {
+public class StaticAttribute implements Attribute {
 
    private String attributeName;
    private String attributeNameSpace;
    private String value;
    private final String namespaceUri;
-   private Expression expression;
 
-   public DynamicAttribute(String namespaceUri) {
+   public StaticAttribute(String namespaceUri) {
       this.namespaceUri = namespaceUri;
    }
 
@@ -42,9 +39,8 @@ public class DynamicAttribute implements Attribute {
       return value;
    }
 
-   public void setValue(String value, Expression expression) {
+   public void setValue(String value) {
       this.value = value;
-      this.expression = expression;
    }
 
    public boolean isDynamic() {
@@ -56,10 +52,6 @@ public class DynamicAttribute implements Attribute {
    }
 
    public void setTextContent(String textContent) {
-   }
-
-   public Expression getExpression() throws ExpressionParsingException {
-      return expression;
    }
 
    public boolean isWhiteSpace() {

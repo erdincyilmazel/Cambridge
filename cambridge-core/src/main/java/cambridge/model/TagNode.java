@@ -528,13 +528,15 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                if (t instanceof ExpressionTagPart) {
                   f.addFragment((ExpressionTagPart) t);
                } else {
-                  if (!t.isWhiteSpace()) {
-                     if (!whiteSpace) {
-                        f.append(" ");
+                  if (t.preserveWhitespace()) {
+                     if (!t.isWhiteSpace()) {
+                        if (!whiteSpace) {
+                           f.append(" ");
+                        }
+                        whiteSpace = false;
+                     } else {
+                        whiteSpace = true;
                      }
-                     whiteSpace = false;
-                  } else {
-                     whiteSpace = true;
                   }
 
                   if (t instanceof Attribute) {
@@ -739,7 +741,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                if (t instanceof ExpressionTagPart) {
                   ((ExpressionTagPart) t).eval(bindings, out);
                } else {
-                  if (!(t instanceof DynamicAttribute)) {
+                  if (t.preserveWhitespace()) {
                      if (!t.isWhiteSpace()) {
                         if (!whiteSpace) {
                            out.write(" ");

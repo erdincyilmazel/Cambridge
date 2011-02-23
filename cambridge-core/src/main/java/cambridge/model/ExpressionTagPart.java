@@ -61,6 +61,10 @@ public class ExpressionTagPart implements TagPart, Fragment {
       return false;
    }
 
+   public boolean preserveWhitespace() {
+      return true;
+   }
+
    public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
          Object value = expression.eval(bindings);
