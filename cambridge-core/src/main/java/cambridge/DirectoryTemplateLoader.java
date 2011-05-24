@@ -6,9 +6,10 @@ import java.io.File;
 import java.util.HashSet;
 
 /**
- * User: erdinc
- * Date: Nov 3, 2009
- * Time: 6:15:47 PM
+ * If you have a base directory where you put all your template files,
+ * this TemplateLoader implementation can be used. All the templateName
+ * parameters sent to this class's methods are considered relative to the
+ * base template directory.
  */
 public class DirectoryTemplateLoader extends FileTemplateLoader {
    private final File templateDirectory;
@@ -64,6 +65,12 @@ public class DirectoryTemplateLoader extends FileTemplateLoader {
       return parseTemplate(templateFile, encoding);
    }
 
+   /**
+    * Returns a Set of File objects for the given set of file names. The input set
+    * should have relative paths to the base template directory.
+    * @param fileNames Set of file names (Relative to the base template directory)
+    * @return Returns a set of absolute File paths for the input file names.
+    */
    public HashSet<File> getFiles(HashSet<String> fileNames) {
       HashSet<File> files = new HashSet<File>();
       for (String s : fileNames) {

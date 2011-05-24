@@ -5,9 +5,15 @@ import cambridge.model.TemplateDocument;
 import java.io.InputStream;
 
 /**
- * User: erdinc
- * Date: Nov 6, 2009
- * Time: 11:35:46 PM
+ * A Template Loader is what you need to parse a template file and create
+ * either a TemplateFactory or a TemplateDocument.
+ *
+ * A TemplateFactory basically is a parsed and compiled template file,
+ * whereas a TemplateDocument is the DOM like tree that represent the
+ * template file.
+ *
+ * @see TemplateDocument
+ * @see TemplateFactory
  */
 public interface TemplateLoader {
    /**

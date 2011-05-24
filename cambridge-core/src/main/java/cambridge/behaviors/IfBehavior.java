@@ -1,7 +1,6 @@
 package cambridge.behaviors;
 
 import cambridge.BehaviorProvider;
-import cambridge.ConditionalTagBehavior;
 import cambridge.ExpressionParsingException;
 import cambridge.model.Attribute;
 import cambridge.model.AttributeKey;

@@ -9,11 +9,11 @@
     <artifactId>cambridge-struts</artifactId>
     <packaging>jar</packaging>
     <name>Cambridge Template Struts Integration</name>
-    <version>0.2.rc</version>
+    <version>1.0</version>
     <parent>
         <artifactId>cambridge</artifactId>
         <groupId>com.googlecode.cambridge</groupId>
-        <version>0.2.rc</version>
+        <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <dependencies>
@@ -26,7 +26,7 @@
         <dependency>
             <groupId>com.googlecode.cambridge</groupId>
             <artifactId>cambridge-core</artifactId>
-            <version>0.2.rc</version>
+            <version>1.0</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>

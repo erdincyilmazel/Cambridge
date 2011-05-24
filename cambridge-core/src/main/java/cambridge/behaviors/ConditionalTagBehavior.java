@@ -1,5 +1,7 @@
-package cambridge;
+package cambridge.behaviors;
 
+import cambridge.ExpressionEvaluationException;
+import cambridge.TagBehavior;
 import cambridge.model.Expression;
 
 import java.util.Map;

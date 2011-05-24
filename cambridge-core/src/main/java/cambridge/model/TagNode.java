@@ -2,7 +2,7 @@ package cambridge.model;
 
 import cambridge.BehaviorInstantiationException;
 import cambridge.Cambridge;
-import cambridge.ConditionalTagBehavior;
+import cambridge.behaviors.ConditionalTagBehavior;
 import cambridge.DynamicAttributeKey;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;

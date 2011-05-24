@@ -1,12 +1,12 @@
 package cambridge.model;
 
-import cambridge.ConditionalTagBehavior;
+import cambridge.behaviors.ConditionalTagBehavior;
 import cambridge.TemplateParsingException;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 
-import static cambridge.ConditionalTagBehavior.ConditionType.FIRST;
+import static cambridge.behaviors.ConditionalTagBehavior.ConditionType.FIRST;
 
 /**
  * User: erdinc

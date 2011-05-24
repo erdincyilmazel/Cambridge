@@ -7,15 +7,15 @@ import cambridge.model.DynamicAttribute;
 import java.util.Map;
 
 /**
- * User: erdinc
- * Date: Nov 1, 2009
- * Time: 12:36:42 PM
+ * BehaviorProvider is an interface for TagBehavior factories.
+ * Classes that create an instance of TagBehavior should implement this interface
+ * and register themselves with Cambridge singleton.
+ *
+ * @see Cambridge
  */
 public interface BehaviorProvider<T extends TagBehavior> {
    /**
-    * Creates an instance of a TagBehavior. The TagBehavior implementations
-    * should also provide a BehaviorProvider which will create
-    * an instance of the TagBehavior when needed.
+    * Creates an instance of a TagBehavior and returns it.
     *
     * @param keyAttribute The attribute that was mapped to the TagBehavior
     * @param attributes Other attributes of the same tag. If the behavior needs

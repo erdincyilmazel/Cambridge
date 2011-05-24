@@ -136,14 +136,34 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
       }
    }
 
-
-   public TemplateDocument parseTemplate(String template) throws TemplateLoadingException {
-      InputStream in = classLoader.getResourceAsStream(template);
+   /**
+    * <p>Parses the template in the specified template path and returns the TemplateDocument
+    * which is the root node of the template object model</p>
+    *
+    * <p>This method uses systems default encoding while reading the file</p>
+    *
+    * @param templatePath Template path (Example: /com/example/xyz.html)
+    * @return Returns the parsed template as a TemplateDocument object
+    * @throws TemplateLoadingException Thrown if the template could not be parsed or loaded
+    */
+   public TemplateDocument parseTemplate(String templatePath) throws TemplateLoadingException {
+      InputStream in = classLoader.getResourceAsStream(templatePath);
       return parseTemplate(in);
    }
 
-   public TemplateDocument parseTemplate(String template, String encoding) throws TemplateLoadingException {
-      InputStream in = classLoader.getResourceAsStream(template);
+   /**
+    * <p>Parses the template in the specified template path and returns the TemplateDocument
+    * which is the root node of the template object model</p>
+    *
+    * <p>This method uses provided encoding while reading the file</p>
+    *
+    * @param templatePath Template path (Example: /com/example/xyz.html)
+    * @param  encoding Template file character encoding
+    * @return Returns the parsed template as a TemplateDocument object
+    * @throws TemplateLoadingException Thrown if the template could not be parsed or loaded
+    */
+   public TemplateDocument parseTemplate(String templatePath, String encoding) throws TemplateLoadingException {
+      InputStream in = classLoader.getResourceAsStream(templatePath);
       return parseTemplate(in, encoding);
    }
 }
