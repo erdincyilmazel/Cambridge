@@ -1,9 +1,7 @@
 package cambridge;
 
 /**
- * User: erdinc
- * Date: Oct 31, 2009
- * Time: 5:31:31 PM
+ * This exception gets thrown if there is a problem evaluating an expression.
  */
 public class ExpressionEvaluationException extends Exception {
    public ExpressionEvaluationException(String message) {

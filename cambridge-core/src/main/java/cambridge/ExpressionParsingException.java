@@ -1,9 +1,8 @@
 package cambridge;
 
 /**
- * User: erdinc
- * Date: Nov 2, 2009
- * Time: 6:44:14 PM
+ * This exception gets thrown during template parsing if there is a problem with an expression
+ * syntax. This exception generally gets wrapped in a {@link TemplateParsingException}
  */
 public class ExpressionParsingException extends RuntimeException {
    String expression;

@@ -3,9 +3,9 @@ package cambridge;
 import cambridge.model.AttributeKey;
 
 /**
- * User: erdincyilmazel
- * Date: 1/18/11
- * Time: 12:38 AM
+ * DynamicAttributeKey is a simple java bean to identify a dynamic tag attribute.
+ *
+ * It holds the attribute namespace uri, attribute name and the namespace short name (Eg: a: )
  */
 public class DynamicAttributeKey {
    private final String uri;
