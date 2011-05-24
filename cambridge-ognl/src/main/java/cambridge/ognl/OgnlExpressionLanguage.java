@@ -16,12 +16,12 @@ public class OgnlExpressionLanguage implements ExpressionLanguage {
       Expressions.registerExpressionLanguage("ognl", OgnlExpressionLanguage.class);
    }
 
-   public Expression parse(String value) throws ExpressionParsingException {
+   public Expression parse(String expressionString) throws ExpressionParsingException {
 
       try {
-         return new OgnlExpression(Ognl.parseExpression(value), value);
+         return new OgnlExpression(Ognl.parseExpression(expressionString), expressionString);
       } catch (OgnlException e) {
-         throw new ExpressionParsingException("Error parsing expression: " + value, e);
+         throw new ExpressionParsingException("Error parsing expression: " + expressionString, e);
       }
    }
 

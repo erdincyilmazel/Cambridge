@@ -12,9 +12,8 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * User: erdinc
- * Date: Oct 13, 2009
- * Time: 3:38:35 PM
+ * Default Template implementation. The built in TemplateFactory classes creates an
+ * instance of DynamicTemplate whenever needed.
  */
 public class DynamicTemplate implements Template {
 
@@ -55,14 +54,16 @@ public class DynamicTemplate implements Template {
       }
    }
 
-   public void printTo(Writer out, boolean buffered) throws IOException, TemplateEvaluationException {
-      if (buffered) {
-         BufferedWriter writer = new BufferedWriter(out);
-         for (Fragment f : fragments) {
-            f.eval(bindings, writer);
-         }
+   public void printBuffered(Writer out) throws IOException, TemplateEvaluationException {
+      BufferedWriter writer;
+      if (out instanceof BufferedWriter) {
+         writer = (BufferedWriter) out;
       } else {
-         printTo(out);
+         writer = new BufferedWriter(out);
+      }
+
+      for (Fragment f : fragments) {
+         f.eval(bindings, writer);
       }
    }
 

@@ -13,21 +13,21 @@ import org.antlr.runtime.TokenStream;
  * @since 1/31/11
  */
 public class CambridgeExpressionLanguage implements ExpressionLanguage {
-   public Expression parse(String ex) throws ExpressionParsingException {
+   public Expression parse(String expressionString) throws ExpressionParsingException {
       try {
-         ANTLRStringStream stream = new ANTLRStringStream(ex);
+         ANTLRStringStream stream = new ANTLRStringStream(expressionString);
          ExpressionLexer lexer = new ExpressionLexer(stream);
          TokenStream tokenStream = new CommonTokenStream(lexer);
          ExpressionParser parser = new ExpressionParser(tokenStream);
          CambridgeExpression e = parser.compilationUnit();
 
          if (parser.getErrors() != null) {
-            throw new CambridgeExpressionParsingException(ex, parser.getErrors());
+            throw new CambridgeExpressionParsingException(expressionString, parser.getErrors());
          }
 
          return e;
       } catch (RecognitionException e) {
-         throw new CambridgeExpressionParsingException(ex, e);
+         throw new CambridgeExpressionParsingException(expressionString, e);
       }
    }
 
