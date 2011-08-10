@@ -69,7 +69,7 @@ public class VarExpression implements CambridgeExpression {
             try {
                object = utils.getBeanProperty(object, id.name);
             } catch (PropertyAccessException e) {
-               throw new ExpressionEvaluationException(e.getMessage());
+               throw new ExpressionEvaluationException(e);
             }
          } else {
             MapVarProperty m = (MapVarProperty) property;
