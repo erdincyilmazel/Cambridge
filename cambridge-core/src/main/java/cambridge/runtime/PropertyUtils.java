@@ -61,6 +61,11 @@ public class PropertyUtils {
 
    public Object getBeanProperty(Object bean, String property) throws PropertyAccessException {
       try {
+         if (bean == null)
+         {
+            return null;
+         }
+
          Class beanClass = bean.getClass();
          if (beanClass.equals(Super.class)) {
             if (property.equals("super")) {
