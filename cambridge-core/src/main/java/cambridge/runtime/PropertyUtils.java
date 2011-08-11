@@ -125,11 +125,11 @@ public class PropertyUtils {
 
          return null;
       } catch (IntrospectionException e) {
-         throw new PropertyAccessException(e.getMessage(), bean, property);
+         throw new PropertyAccessException(e, bean, property);
       } catch (InvocationTargetException e) {
-         throw new PropertyAccessException(e.getMessage(), bean, property);
+         throw new PropertyAccessException(e, bean, property);
       } catch (IllegalAccessException e) {
-         throw new PropertyAccessException(e.getMessage(), bean, property);
+         throw new PropertyAccessException(e, bean, property);
       }
    }
 
@@ -151,7 +151,7 @@ public class PropertyUtils {
 
          return false;
       } catch (IntrospectionException e) {
-         throw new PropertyAccessException(e.getMessage(), bean, property);
+         throw new PropertyAccessException(e, bean, property);
       }
    }
 }

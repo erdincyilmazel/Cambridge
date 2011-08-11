@@ -9,8 +9,8 @@ public class PropertyAccessException extends Exception {
    private final Object o;
    private final String property;
 
-   public PropertyAccessException(String message, Object o, String property) {
-      super(message);
+   public PropertyAccessException(Throwable t, Object o, String property) {
+      super(t);
 
       this.o = o;
       this.property = property;
