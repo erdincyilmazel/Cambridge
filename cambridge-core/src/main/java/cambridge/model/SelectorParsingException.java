@@ -6,7 +6,7 @@ package cambridge.model;
  * Time: 10:09:42 AM
  */
 class SelectorParsingException extends RuntimeException {
-   public SelectorParsingException(String message) {
-      super(message);
-   }
+    public SelectorParsingException(String message) {
+        super(message);
+    }
 }

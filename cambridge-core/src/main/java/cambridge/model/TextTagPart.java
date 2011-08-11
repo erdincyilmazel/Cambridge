@@ -4,27 +4,42 @@ package cambridge.model;
  * Arbitrary text within a tag element
  */
 public class TextTagPart implements TagPart {
-   private String textContent;
+    private String textContent;
+    private final int line;
+    private final int col;
 
-   public TextTagPart(String textContent) {
-      this.textContent = textContent;
-   }
+    public TextTagPart(String textContent, int line, int col) {
+        this.textContent = textContent;
+        this.line = line;
+        this.col = col;
+    }
 
-   public String getTextContent() {
-      return textContent;
-   }
+    @Override
+    public int getLine() {
+        return line;
+    }
 
-   public void setTextContent(String textContent) {
-      this.textContent = textContent;
-   }
+    @Override
+    public int getColumn() {
+        return col;
+    }
 
-   public boolean isWhiteSpace() {
-      return whitespace;
-   }
+    public String getTextContent() {
+        return textContent;
+    }
 
-   public boolean preserveWhitespace() {
-      return true;
-   }
+    @Override
+    public void setTextContent(String textContent) {
+        this.textContent = textContent;
+    }
 
-   public boolean whitespace;
+    public boolean isWhiteSpace() {
+        return whitespace;
+    }
+
+    public boolean preserveWhitespace() {
+        return true;
+    }
+
+    public boolean whitespace;
 }

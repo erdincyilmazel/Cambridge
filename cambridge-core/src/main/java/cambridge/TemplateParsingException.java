@@ -10,13 +10,13 @@ public class TemplateParsingException extends RuntimeException {
    private final int col;
 
    public TemplateParsingException(String message, int line, int col) {
-      super(message);
+      super(message + " - On line: " + line + ", column: " + col);
       this.line = line;
       this.col = col;
    }
 
    public TemplateParsingException(String message, Throwable cause, int line, int col) {
-      super(message, cause);
+      super(message + " - On line: " + line + ", column: " + col, cause);
       this.line = line;
       this.col = col;
    }
@@ -25,7 +25,7 @@ public class TemplateParsingException extends RuntimeException {
       return line;
    }
 
-   public int getCol() {
+   public int getColumn() {
       return col;
    }
 

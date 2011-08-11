@@ -33,7 +33,7 @@ public class ExpressionTest {
    public void testBoolean() {
       String expression = "true || false";
       try {
-         Expression e = Expressions.parse(expression);
+         Expression e = Expressions.parse(expression, 0, 0);
          //assertEquals("Testing type", CambridgeExpression.Type.Boolean, e.getType(bindings));
          assertTrue(e.asBoolean(bindings));
       } catch (ExpressionParsingException e) {
@@ -47,7 +47,7 @@ public class ExpressionTest {
    public void testList() {
       String expression = "['a', 'b', 213, aa]";
       try {
-         Expression e = Expressions.parse(expression);
+         Expression e = Expressions.parse(expression, 0, 0);
 //         assertEquals("Testing type", CambridgeExpression.Type.Object, e.getType(bindings));
          assertTrue(e.eval(bindings) instanceof List);
          List l = (List) e.eval(bindings);

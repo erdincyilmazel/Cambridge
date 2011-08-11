@@ -16,7 +16,7 @@ public interface ExpressionLanguage {
     * @return Returns compiled Expression.
     * @throws ExpressionParsingException Might be thrown if something is wrong in expression syntax that is to be parsed.
     */
-   public Expression parse(String expressionString) throws ExpressionParsingException;
+   public Expression parse(String expressionString, int line, int column) throws ExpressionParsingException;
 
    /**
     * Every expression language has a different way of defining list literals. This utility method

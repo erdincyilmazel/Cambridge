@@ -24,34 +24,37 @@ import java.util.Map;
  * Time: 3:57:11 PM
  */
 public class RepeatBehavior extends LoopingTagBehavior {
-   private final Expression number;
+    private final Expression number;
 
-   public RepeatBehavior(Expression number) {
-      this.number = number;
-   }
+    public RepeatBehavior(Expression number, int line, int col) {
+        super(line, col);
+        this.number = number;
+    }
 
-   @Override
-   public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
-      try {
-         Iter iter = new Iter();
-         int n = number.asInt(bindings);
-         for (int i = 0; i != n; i++) {
-            bindings.put(Expressions.CURRENT_OBJECT, i);
-            bindings.put(Expressions.ITER_OBJECT, iter);
-            tag.execute(bindings, out);
-            iter.next();
-         }
-      } catch (ExpressionEvaluationException e) {
-         throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
-      }
-   }
+    @Override
+    public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
+        try {
+            Iter iter = new Iter();
+            int n = number.asInt(bindings);
+            for (int i = 0; i != n; i++) {
+                bindings.put(Expressions.CURRENT_OBJECT, i);
+                bindings.put(Expressions.ITER_OBJECT, iter);
+                tag.execute(bindings, out);
+                iter.next();
+            }
+        } catch (ExpressionEvaluationException e) {
+            throw new TemplateEvaluationException(e, "Could not execute the expression: " +
+                    e.getMessage() + ", on line: " + tag.getBeginLine() + ", column: " +
+                    tag.getBeginColumn(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
+        }
+    }
 
-   public static BehaviorProvider<RepeatBehavior> getProvider() {
-      return new BehaviorProvider<RepeatBehavior>() {
-         public RepeatBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
-            Expression number = keyAttribute.getExpression();
-            return new RepeatBehavior(number);
-         }
-      };
-   }
+    public static BehaviorProvider<RepeatBehavior> getProvider() {
+        return new BehaviorProvider<RepeatBehavior>() {
+            public RepeatBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes, int line, int col) throws ExpressionParsingException, BehaviorInstantiationException {
+                Expression number = keyAttribute.getExpression();
+                return new RepeatBehavior(number, line, col);
+            }
+        };
+    }
 }

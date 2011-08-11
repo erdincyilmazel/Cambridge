@@ -387,7 +387,7 @@ public class TemplateDocument implements ParentNode {
    public FragmentList select(String query) throws SelectorParsingException, BehaviorInstantiationException {
       Matcher matcher = selectorPattern.matcher(query);
       if (!matcher.find()) {
-         throw new SelectorParsingException("Could not parse the selector query");
+         throw new SelectorParsingException("Could not parse the selector query: " + query);
       }
 
       String q = matcher.group(2);

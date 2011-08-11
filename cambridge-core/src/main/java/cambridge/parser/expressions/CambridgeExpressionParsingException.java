@@ -10,18 +10,18 @@ import java.util.List;
  * @since 1/31/11
  */
 public class CambridgeExpressionParsingException extends ExpressionParsingException {
-   List<RecognitionException> errors;
+    List<RecognitionException> errors;
 
-   public CambridgeExpressionParsingException(String expression, Throwable cause) {
-      super(expression, cause);
-   }
+    public CambridgeExpressionParsingException(int line, int column, String expression, Throwable cause) {
+        super(line, column, expression, cause);
+    }
 
-   public CambridgeExpressionParsingException(String expression, List<RecognitionException> errors) {
-      super(expression);
-      this.errors = errors;
-   }
+    public CambridgeExpressionParsingException(int line, int column, String expression, List<RecognitionException> errors) {
+        super(line, column, expression);
+        this.errors = errors;
+    }
 
-   public List<RecognitionException> getErrors() {
-      return errors;
-   }
+    public List<RecognitionException> getErrors() {
+        return errors;
+    }
 }

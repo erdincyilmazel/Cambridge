@@ -263,15 +263,17 @@ public class Cambridge {
     *
     * @param key The attribute key which identifies the attribute with the namespace uri and attribute name.
     * @param attributes Other attributes of the tag that has this dynamic attribute.
+    * @param line Line number of the tag attribute that is initiating this behavior
+    * @param col Column number of the tag attribute that is initiating this behavior
     * @return Returns an instance of TagBehavior for the matching behavior implementation.
     * @throws BehaviorInstantiationException
     * @throws ExpressionParsingException
     */
-   public TagBehavior getBehavior(DynamicAttributeKey key, Map<AttributeKey, Attribute> attributes) throws BehaviorInstantiationException, ExpressionParsingException {
+   public TagBehavior getBehavior(DynamicAttributeKey key, Map<AttributeKey, Attribute> attributes, int line, int col) throws BehaviorInstantiationException, ExpressionParsingException {
       BehaviorProvider provider = providers.get(key);
 
       if (provider != null) {
-         return provider.get((DynamicAttribute) attributes.get(key.toAttributeKey()), attributes);
+         return provider.get((DynamicAttribute) attributes.get(key.toAttributeKey()), attributes, line, col);
       }
 
       return null;

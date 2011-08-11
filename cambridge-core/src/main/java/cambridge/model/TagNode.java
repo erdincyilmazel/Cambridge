@@ -605,7 +605,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    public Tag addCondition(Expression expression) throws ExpressionParsingException {
-      addBehavior(new IfBehavior(expression));
+      addBehavior(new IfBehavior(expression, getBeginLine(), getBeginColumn()));
       return this;
    }
 
@@ -615,7 +615,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    public Tag iterateOver(Expression expression, String as) throws ExpressionParsingException {
-      addBehavior(new ForeachBehavior(expression, as, null));
+      addBehavior(new ForeachBehavior(expression, as, null, getBeginLine(), getBeginColumn()));
       return this;
    }
 
@@ -638,7 +638,9 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             }
          }
       } catch (ExpressionEvaluationException e) {
-         throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), getTagName());
+         throw new TemplateEvaluationException(e, "Could not execute the expression: " +
+                 e.getMessage() + ", on line: " + getBeginLine() + ", column: " +
+                 getBeginColumn(), getBeginLine(), getBeginColumn(), getTagName());
       }
    }
 
@@ -717,7 +719,9 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             try {
                b.modify(bindings, tag);
             } catch (ExpressionEvaluationException e) {
-               throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), getBeginLine(), getBeginColumn(), getTagName());
+               throw new TemplateEvaluationException(e, "Could not execute the expression: " +
+                       e.getMessage() + ", on line: " + getBeginLine() + ", column: " +
+                       getBeginColumn(), getBeginLine(), getBeginColumn(), getTagName());
             }
          }
       } else {
@@ -827,7 +831,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                DynamicAttributeKey key = new DynamicAttributeKey(a.getNamespaceUri(), a.getAttributeNameSpace(), a.getAttributeName());
                TagBehavior behavior;
                try {
-                  behavior = bindings.getBehavior(key, attributes);
+                  behavior = bindings.getBehavior(key, attributes, a.getLine(), a.getColumn());
                } catch (ExpressionParsingException e) {
                   throw new BehaviorInstantiationException("Error in parsing expression", e, getBeginLine(), getBeginColumn());
                }

@@ -15,8 +15,8 @@ import java.util.Map;
  * Time: 10:27:01 AM
  */
 public class IfBehavior extends ConditionalTagBehavior {
-   public IfBehavior(Expression e) {
-      super(e);
+   public IfBehavior(Expression e, int line, int col) {
+      super(e, line, col);
    }
 
    @Override
@@ -31,8 +31,8 @@ public class IfBehavior extends ConditionalTagBehavior {
 
    public static BehaviorProvider<IfBehavior> getProvider() {
       return new BehaviorProvider<IfBehavior>() {
-         public IfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException {
-            return new IfBehavior(keyAttribute.getExpression());
+         public IfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes, int line, int col) throws ExpressionParsingException {
+            return new IfBehavior(keyAttribute.getExpression(), line, col);
          }
       };
    }

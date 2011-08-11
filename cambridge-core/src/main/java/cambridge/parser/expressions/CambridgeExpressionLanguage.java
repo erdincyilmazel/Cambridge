@@ -13,7 +13,7 @@ import org.antlr.runtime.TokenStream;
  * @since 1/31/11
  */
 public class CambridgeExpressionLanguage implements ExpressionLanguage {
-   public Expression parse(String expressionString) throws ExpressionParsingException {
+   public Expression parse(String expressionString, int line, int column) throws ExpressionParsingException {
       try {
          ANTLRStringStream stream = new ANTLRStringStream(expressionString);
          ExpressionLexer lexer = new ExpressionLexer(stream);
@@ -22,12 +22,12 @@ public class CambridgeExpressionLanguage implements ExpressionLanguage {
          CambridgeExpression e = parser.compilationUnit();
 
          if (parser.getErrors() != null) {
-            throw new CambridgeExpressionParsingException(expressionString, parser.getErrors());
+            throw new CambridgeExpressionParsingException(line, column, expressionString, parser.getErrors());
          }
 
          return e;
       } catch (RecognitionException e) {
-         throw new CambridgeExpressionParsingException(expressionString, e);
+         throw new CambridgeExpressionParsingException(line, column, expressionString, e);
       }
    }
 

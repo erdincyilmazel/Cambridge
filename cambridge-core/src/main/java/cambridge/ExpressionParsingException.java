@@ -5,18 +5,18 @@ package cambridge;
  * syntax. This exception generally gets wrapped in a {@link TemplateParsingException}
  */
 public class ExpressionParsingException extends RuntimeException {
-   String expression;
+    String expression;
 
-   public ExpressionParsingException(String expression, Throwable cause) {
-      super("Error parsing expression: " + expression, cause);
-      this.expression = expression;
-   }
+    public ExpressionParsingException(int line, int column, String expression, Throwable cause) {
+        super("Error parsing expression on line: " + line + ", column: " + column + ", expression: " + expression, cause);
+        this.expression = expression;
+    }
 
-   public ExpressionParsingException(String expression) {
-      super("Error parsing expression: " + expression);
-   }
+    public ExpressionParsingException(int line, int column, String expression) {
+        super("Error parsing expression on line: " + line + ", column: " + column + ", expression: " + expression);
+    }
 
-   public String getExpression() {
-      return expression;
-   }
+    public String getExpression() {
+        return expression;
+    }
 }

@@ -15,8 +15,8 @@ import java.util.Map;
  * Time: 01:20:01 PM
  */
 public class ElseIfBehavior extends ConditionalTagBehavior {
-   public ElseIfBehavior(Expression e) {
-      super(e);
+   public ElseIfBehavior(Expression e, int line, int col) {
+      super(e, line, col);
    }
 
    @Override
@@ -31,8 +31,8 @@ public class ElseIfBehavior extends ConditionalTagBehavior {
 
    public static BehaviorProvider<ElseIfBehavior> getProvider() {
       return new BehaviorProvider<ElseIfBehavior>() {
-         public ElseIfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException {
-            return new ElseIfBehavior(keyAttribute.getExpression());
+         public ElseIfBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes, int line, int col) throws ExpressionParsingException {
+            return new ElseIfBehavior(keyAttribute.getExpression(), line, col);
          }
       };
    }

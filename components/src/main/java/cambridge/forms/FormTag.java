@@ -73,7 +73,7 @@ public class FormTag extends DynamicTag {
          }
 
       } catch (ExpressionEvaluationException e) {
-         throw new TemplateEvaluationException("Error evaluating expression", getBeginLine(), getBeginColumn());
+         throw new TemplateEvaluationException(e, "Error evaluating expression", getBeginLine(), getBeginColumn());
       }
    }
 

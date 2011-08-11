@@ -16,7 +16,7 @@ public class PropertyAccessException extends Exception {
       this.property = property;
    }
 
-   public Object getO() {
+   public Object getObject() {
       return o;
    }
 

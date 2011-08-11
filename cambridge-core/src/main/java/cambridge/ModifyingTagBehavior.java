@@ -10,5 +10,21 @@ import java.util.Map;
  * Time: 3:29:42 PM
  */
 public abstract class ModifyingTagBehavior implements TagBehavior {
-   public abstract void modify(Map<String, Object> bindings, ModifyableTag tag) throws ExpressionEvaluationException;
+    protected final int line;
+    protected final int col;
+
+    protected ModifyingTagBehavior(int line, int col) {
+        this.line = line;
+        this.col = col;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
+    public abstract void modify(Map<String, Object> bindings, ModifyableTag tag) throws ExpressionEvaluationException;
 }

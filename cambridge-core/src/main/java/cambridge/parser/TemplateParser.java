@@ -273,7 +273,7 @@ public class TemplateParser {
    private ExpressionNode expression() throws TemplateParsingException {
       try {
          ExpressionToken tok = (ExpressionToken) currentToken;
-         ExpressionNode node = new ExpressionNode(currentToken.value, expressionLanguage.parse(currentToken.value), tok.isRawExpression());
+         ExpressionNode node = new ExpressionNode(currentToken.value, expressionLanguage.parse(currentToken.value, currentToken.getLineNo(), currentToken.getColumn()), tok.isRawExpression());
          if (tok.getFilters() != null) {
             node.setFilters(tok.getFilters());
          }
@@ -316,13 +316,13 @@ public class TemplateParser {
          switch (currentToken.getType()) {
             case WS:
             case EOL:
-               TextTagPart e = new TextTagPart(currentToken.getActualValue());
+               TextTagPart e = new TextTagPart(currentToken.getActualValue(), currentToken.getLineNo(), currentToken.getColumn());
                e.whitespace = true;
                node.addText(e);
                break;
             case TAG_STRING:
             case ASSIGN:
-               node.addText(new TextTagPart(currentToken.getActualValue()));
+               node.addText(new TextTagPart(currentToken.getActualValue(), currentToken.getLineNo(), currentToken.getColumn()));
                break;
             case ATTRIBUTE_NAME:
                AttributeNameToken tok = (AttributeNameToken) currentToken;
@@ -343,9 +343,9 @@ public class TemplateParser {
                   dynamic = true;
                   if (bindings.isStaticAttribute(namespaceUri, tok.getAttributeName())) {
                      staticAttribute = true;
-                     element = new StaticAttribute(namespaceUri);
+                     element = new StaticAttribute(namespaceUri, tok.getLineNo(), tok.getColumn());
                   } else {
-                     element = new DynamicAttribute(namespaceUri);
+                     element = new DynamicAttribute(namespaceUri, tok.getLineNo(), tok.getColumn());
                   }
                }
 
@@ -373,7 +373,7 @@ public class TemplateParser {
                            if (staticAttribute) {
                               ((StaticAttribute) element).setValue(currentToken.value);
                            } else {
-                              ((DynamicAttribute) element).setValue(currentToken.value, expressionLanguage.parse(currentToken.value));
+                              ((DynamicAttribute) element).setValue(currentToken.value, expressionLanguage.parse(currentToken.value, currentToken.getLineNo(), currentToken.getColumn()));
                            }
 
                            exitLoop = true;
@@ -389,7 +389,7 @@ public class TemplateParser {
                               case EXPRESSION:
                                  ExpressionToken expTok = (ExpressionToken) attrToken;
                                  try {
-                                    ExpressionNode expNode = new ExpressionNode(attrToken.value, expressionLanguage.parse(attrToken.value), expTok.isRawExpression());
+                                    ExpressionNode expNode = new ExpressionNode(attrToken.value, expressionLanguage.parse(attrToken.value, attrToken.getLineNo(), attrToken.getColumn()), expTok.isRawExpression());
 
                                     if (expTok.getFilters() != null) {
                                        expNode.setFilters(expTok.getFilters());
@@ -414,10 +414,10 @@ public class TemplateParser {
                         }
 
                         if (fragments.size() == 0 || fragments.size() == 1 && fragments.get(0) instanceof StaticFragment) {
-                           element = new SimpleAttribute();
+                           element = new SimpleAttribute(currentToken.getLineNo(), currentToken.getColumn());
                            ((SimpleAttribute) element).setValue(currentToken.value);
                         } else {
-                           element = new ComplexAttribute();
+                           element = new ComplexAttribute(currentToken.getLineNo(), currentToken.getColumn());
                            ((ComplexAttribute) element).setFragments(fragments);
                            AttributeValueToken aTok = (AttributeValueToken) currentToken;
                            if (aTok.getQuotes() == -2) {
@@ -463,7 +463,9 @@ public class TemplateParser {
                try {
 
                   ExpressionToken t = (ExpressionToken) currentToken;
-                  ExpressionTagPart p = new ExpressionTagPart(currentToken.value, expressionLanguage.parse(currentToken.value), t.isRawExpression());
+                  ExpressionTagPart p = new ExpressionTagPart(currentToken.value,
+                          expressionLanguage.parse(currentToken.value, currentToken.getLineNo(), currentToken.getColumn()),
+                          t.isRawExpression(), currentToken.getLineNo(), currentToken.getColumn());
 
                   if (t.getFilters() != null) {
                      p.setFilters(t.getFilters());
@@ -553,7 +555,7 @@ public class TemplateParser {
       String varName = matcher.group(1);
       String expression = matcher.group(2);
 
-      Expression ex = expressionLanguage.parse(expression);
+      Expression ex = expressionLanguage.parse(expression, currentToken.getLineNo(), currentToken.getColumn());
 
       return new SetDirective(varName, ex);
    }

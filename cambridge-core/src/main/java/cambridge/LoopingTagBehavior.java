@@ -14,45 +14,58 @@ import java.util.Map;
  * Time: 7:16:27 PM
  */
 public abstract class LoopingTagBehavior implements TagBehavior {
-   protected LoopingTagBehavior() {
-   }
+    protected final int line;
+    protected final int col;
 
-   public final void execute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
-      Object t = bindings.get(getCurrentObjectName());
-      Super ts = (Super) bindings.get(getParentObjectName());
-      Iter iter = (Iter) bindings.get(getIterObjectName());
+    protected LoopingTagBehavior(int line, int col) {
+        this.line = line;
+        this.col = col;
+    }
 
-      Super s = null;
+    public final void execute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
+        Object t = bindings.get(getCurrentObjectName());
+        Super ts = (Super) bindings.get(getParentObjectName());
+        Iter iter = (Iter) bindings.get(getIterObjectName());
 
-      if (t != null) {
-         s = new Super(t, ts, iter);
-         bindings.put(getParentObjectName(), s);
-      }
+        Super s = null;
 
-      doExecute(bindings, tag, out);
+        if (t != null) {
+            s = new Super(t, ts, iter);
+            bindings.put(getParentObjectName(), s);
+        }
 
-      if (t != null) {
-         bindings.put(getCurrentObjectName(), s.get());
-         bindings.put(getParentObjectName(), s.getSuper());
-         bindings.put(getIterObjectName(), s.getIter());
-      } else {
-         bindings.put(getCurrentObjectName(), t);
-         bindings.put(getParentObjectName(), ts);
-         bindings.put(getIterObjectName(), iter);
-      }
-   }
+        doExecute(bindings, tag, out);
 
-   protected abstract void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException;
+        if (t != null) {
+            bindings.put(getCurrentObjectName(), s.get());
+            bindings.put(getParentObjectName(), s.getSuper());
+            bindings.put(getIterObjectName(), s.getIter());
+        } else {
+            bindings.put(getCurrentObjectName(), t);
+            bindings.put(getParentObjectName(), ts);
+            bindings.put(getIterObjectName(), iter);
+        }
+    }
 
-   public String getCurrentObjectName() {
-      return Expressions.CURRENT_OBJECT;
-   }
+    protected abstract void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException;
 
-   public String getParentObjectName() {
-      return Expressions.PARENT_OBJECT;
-   }
+    public String getCurrentObjectName() {
+        return Expressions.CURRENT_OBJECT;
+    }
 
-   public String getIterObjectName() {
-      return Expressions.ITER_OBJECT;
-   }
+    public String getParentObjectName() {
+        return Expressions.PARENT_OBJECT;
+    }
+
+    public String getIterObjectName() {
+        return Expressions.ITER_OBJECT;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public int getCol() {
+        return col;
+    }
 }

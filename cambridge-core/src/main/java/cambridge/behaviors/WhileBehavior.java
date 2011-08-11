@@ -25,31 +25,34 @@ import java.util.Map;
  * Time: 2:36:22 PM
  */
 public class WhileBehavior extends LoopingTagBehavior {
-   private final Expression expression;
+    private final Expression expression;
 
-   public WhileBehavior(Expression expression) {
-      this.expression = expression;
-   }
+    public WhileBehavior(Expression expression, int line, int col) {
+        super(line, col);
+        this.expression = expression;
+    }
 
-   @Override
-   public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
-      try {
-         Iter iter = new Iter();
-         while (expression.asBoolean(bindings)) {
-            bindings.put(Expressions.ITER_OBJECT, iter);
-            tag.execute(bindings, out);
-            iter.next();
-         }
-      } catch (ExpressionEvaluationException e) {
-         throw new TemplateEvaluationException("Could not execute the expression: " + e.getMessage(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
-      }
-   }
+    @Override
+    public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
+        try {
+            Iter iter = new Iter();
+            while (expression.asBoolean(bindings)) {
+                bindings.put(Expressions.ITER_OBJECT, iter);
+                tag.execute(bindings, out);
+                iter.next();
+            }
+        } catch (ExpressionEvaluationException e) {
+            throw new TemplateEvaluationException(e, "Could not execute the expression: " +
+                    e.getMessage() + ", on line: " + tag.getBeginLine() + ", column: " +
+                    tag.getBeginColumn(), tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
+        }
+    }
 
-   public static BehaviorProvider<WhileBehavior> getProvider() {
-      return new BehaviorProvider<WhileBehavior>() {
-         public WhileBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes) throws ExpressionParsingException, BehaviorInstantiationException {
-            return new WhileBehavior(keyAttribute.getExpression());
-         }
-      };
-   }
+    public static BehaviorProvider<WhileBehavior> getProvider() {
+        return new BehaviorProvider<WhileBehavior>() {
+            public WhileBehavior get(DynamicAttribute keyAttribute, Map<AttributeKey, Attribute> attributes, int line, int col) throws ExpressionParsingException, BehaviorInstantiationException {
+                return new WhileBehavior(keyAttribute.getExpression(), line, col);
+            }
+        };
+    }
 }

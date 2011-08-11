@@ -17,10 +17,10 @@ public class MvelExpressionLanguage implements ExpressionLanguage {
       Expressions.registerExpressionLanguage("mvel", MvelExpressionLanguage.class);
    }
 
-   public Expression parse(String expressionString) throws ExpressionParsingException {
+   public Expression parse(String expressionString, int line, int column) throws ExpressionParsingException {
       Serializable compiledExpression = MVEL.compileExpression(expressionString);
 
-      return new MVELExpression(compiledExpression, expressionString);
+      return new MVELExpression(compiledExpression, expressionString, line, column);
    }
 
    public String wrapExpressionAsList(String expr) {

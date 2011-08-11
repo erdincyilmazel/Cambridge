@@ -28,11 +28,25 @@ public class Expressions {
     * object.
     *
     * @param ex Expression string to be parsed
+    * @param line Line no of the expression on the template
+    * @param column Column no of the expression on the template
+    * @return Returns compiled expression object.
+    * @throws ExpressionParsingException Thrown if the expression can not be parsed
+    */
+   public static Expression parse(String ex, int line, int column) throws ExpressionParsingException {
+      return cambridgeExpressionLanguage.parse(ex, line, column);
+   }
+
+   /**
+    * Parses the expression string using the built in expression language engine and creates an Expression
+    * object.
+    *
+    * @param ex Expression string to be parsed
     * @return Returns compiled expression object.
     * @throws ExpressionParsingException Thrown if the expression can not be parsed
     */
    public static Expression parse(String ex) throws ExpressionParsingException {
-      return cambridgeExpressionLanguage.parse(ex);
+      return cambridgeExpressionLanguage.parse(ex, 0, 0);
    }
 
    /**
@@ -40,12 +54,14 @@ public class Expressions {
     *
     * @param ex Expression string to be parsed
     * @param expressionLanguage The name of the expression language to be used.
+    * @param line Line no of the expression on the template
+    * @param column Column no of the expression on the template
     * @return Returns compiled expression object.
     * @throws ExpressionParsingException Thrown if the expression can not be parsed
     */
-   public static Expression parse(String ex, String expressionLanguage) throws ExpressionParsingException {
+   public static Expression parse(String ex, String expressionLanguage, int line, int column) throws ExpressionParsingException {
       ExpressionLanguage language = getExpressionLanguageByName(expressionLanguage);
-      return language.parse(ex);
+      return language.parse(ex, line, column);
    }
 
    /**
@@ -70,7 +86,7 @@ public class Expressions {
     * @param name Name of the expression language
     * @return Returns the instance of Expression language
     */
-   public static synchronized ExpressionLanguage getExpressionLanguageByName(String name) throws ExpressionParsingException {
+   public static synchronized ExpressionLanguage getExpressionLanguageByName(String name) {
       ExpressionLanguage language = expressionLanguages.get(name);
       if (language != null) {
          return language;
@@ -79,7 +95,7 @@ public class Expressions {
       Class<? extends ExpressionLanguage> expressionLangClass = expressionLanguageClasses.get(name);
 
       if (expressionLangClass == null) {
-         throw new ExpressionParsingException("Unknown expression language: " + name);
+         throw new RuntimeException("Unknown expression language: " + name);
       }
 
       try {
@@ -87,7 +103,7 @@ public class Expressions {
          expressionLanguages.put(name, language);
          return language;
       } catch (Exception e) {
-         throw new ExpressionParsingException("Unable to initialize expression language " + name, e);
+         throw new RuntimeException("Unable to initialize expression language " + name, e);
       }
    }
 }

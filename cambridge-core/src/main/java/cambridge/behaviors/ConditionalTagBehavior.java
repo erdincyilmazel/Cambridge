@@ -12,31 +12,35 @@ import java.util.Map;
  * Time: 7:10:31 PM
  */
 public abstract class ConditionalTagBehavior implements TagBehavior {
-   public enum ConditionType {
-      FIRST,
-      ALTERNATE,
-      DEFAULT
-   }
+    public enum ConditionType {
+        FIRST,
+        ALTERNATE,
+        DEFAULT
+    }
 
-   final Expression expression;
+    final Expression expression;
+    final int line;
+    final int col;
 
-   public ConditionalTagBehavior(Expression e) {
-      expression = e;
-   }
+    public ConditionalTagBehavior(Expression e, int line, int col) {
+        expression = e;
+        this.line = line;
+        this.col = col;
+    }
 
-   public ConditionalTagBehavior() {
-      expression = null;
-   }
+    public ConditionalTagBehavior(int line, int col) {
+        this(null, line, col);
+    }
 
-   public boolean conditionMet(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      return expression == null || expression.asBoolean(bindings);
-   }
+    public boolean conditionMet(Map<String, Object> bindings) throws ExpressionEvaluationException {
+        return expression == null || expression.asBoolean(bindings);
+    }
 
-   public abstract ConditionType getType();
+    public abstract ConditionType getType();
 
-   public abstract String getValidationError();
+    public abstract String getValidationError();
 
-   public Expression getExpression() {
-      return expression;
-   }
+    public Expression getExpression() {
+        return expression;
+    }
 }

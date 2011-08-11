@@ -6,11 +6,15 @@ package cambridge.model;
  * TagParts.
  */
 public interface TagPart {
-   public String getTextContent();
+    public int getLine();
 
-   public void setTextContent(String textContent);
+    public int getColumn();
 
-   public boolean isWhiteSpace();
+    public String getTextContent();
 
-   public boolean preserveWhitespace();
+    public void setTextContent(String textContent);
+
+    public boolean isWhiteSpace();
+
+    public boolean preserveWhitespace();
 }
