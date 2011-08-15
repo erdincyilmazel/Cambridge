@@ -525,6 +525,7 @@ public class TemplateTokenizer extends Tokenizer {
             while (true) {
                if (peek(1) == Tokenizer.EOL
                   || ("</script".equalsIgnoreCase(peekString(8)))
+                  || (peek(1) == '%' && peek(2) == '{')
                   || (peek(1) == '$' && peek(2) == '{')) {
                   break;
                }
