@@ -37,6 +37,10 @@ public class RepeatBehavior extends LoopingTagBehavior {
             Iter iter = new Iter();
             int n = number.asInt(bindings);
             for (int i = 0; i != n; i++) {
+            	if (i == n - 1) {
+            		iter.setLast();
+                }
+
                 bindings.put(Expressions.CURRENT_OBJECT, i);
                 bindings.put(Expressions.ITER_OBJECT, iter);
                 tag.execute(bindings, out);

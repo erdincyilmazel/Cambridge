@@ -38,6 +38,9 @@ public class FromBehavior extends LoopingTagBehavior {
         try {
             Iter iter = new Iter();
             for (int i = from.asInt(bindings); i <= to.asInt(bindings); i++) {
+            	if (i == to.asInt(bindings))
+            		iter.setLast();
+
                 bindings.put(Expressions.CURRENT_OBJECT, i);
                 bindings.put(Expressions.ITER_OBJECT, iter);
                 tag.execute(bindings, out);
