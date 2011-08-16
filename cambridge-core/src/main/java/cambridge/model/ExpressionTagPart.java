@@ -41,7 +41,7 @@ public class ExpressionTagPart implements TagPart, Fragment {
                 params = null;
             }
 
-            Filter filter = Cambridge.getInstance().getFilter(name);
+            Filter filter = Cambridge.getInstance().getFilter(name, line, col);
             if (filter != null) {
                 filter.init(params);
                 filters.add(filter);

@@ -51,7 +51,7 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
                 params = null;
             }
 
-            Filter filter = Cambridge.getInstance().getFilter(name);
+            Filter filter = Cambridge.getInstance().getFilter(name, getBeginLine(), getBeginColumn());
             if (filter != null) {
                 filter.init(params);
                 filters.add(filter);
