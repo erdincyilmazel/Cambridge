@@ -50,6 +50,7 @@ public class Cambridge {
     private final HashMap<DynamicAttributeKey, Class<? extends StaticBehavior>> staticBehaviorClasses;
     private final HashMap<DynamicAttributeKey, StaticBehavior> staticBehaviors;
     private final HashMap<DynamicAttributeKey, Class<? extends DynamicTag>> dynamicTagClasses;
+    private final HashMap<DynamicAttributeKey, DynamicTagProvider> dynamicTagProviders;
 
     /**
      * This is an internal class to support the builder pattern for binding behaviors
@@ -94,6 +95,12 @@ public class Cambridge {
         public void to(Class<? extends DynamicTag> tagClass) {
             for (DynamicAttributeKey k : keys) {
                 dynamicTagClasses.put(k, tagClass);
+            }
+        }
+
+        public void toProvider(DynamicTagProvider provider) {
+            for (DynamicAttributeKey k : keys) {
+                dynamicTagProviders.put(k, provider);
             }
         }
     }
@@ -337,6 +344,12 @@ public class Cambridge {
     public DynamicTag getDynamicTag(DynamicAttributeKey key) {
         Class<? extends DynamicTag> clazz = dynamicTagClasses.get(key);
         if (clazz == null) {
+            DynamicTagProvider provider = dynamicTagProviders.get(key);
+
+            if (provider != null) {
+                return provider.getInstance();
+            }
+
             return null;
         }
 
@@ -376,6 +389,7 @@ public class Cambridge {
         staticBehaviorClasses = new HashMap<DynamicAttributeKey, Class<? extends StaticBehavior>>();
         staticBehaviors = new HashMap<DynamicAttributeKey, StaticBehavior>();
         dynamicTagClasses = new HashMap<DynamicAttributeKey, Class<? extends DynamicTag>>();
+        dynamicTagProviders = new HashMap<DynamicAttributeKey, DynamicTagProvider>();
 
         /**
          * Setup defaults.
