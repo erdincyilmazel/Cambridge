@@ -1,6 +1,7 @@
 package cambridge.runtime;
 
 import java.beans.BeanInfo;
+import java.beans.IndexedPropertyDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.MethodDescriptor;
@@ -89,17 +90,20 @@ public class PropertyUtils {
             for (PropertyDescriptor d : descriptors) {
                 if (property.equals(d.getName())) {
                     m = d.getReadMethod();
-                    m.setAccessible(true);
-                    methodCache.putIfAbsent(p, m);
-                    return m.invoke(bean);
+                    if (m != null) {
+                        m.setAccessible(true);
+                        methodCache.putIfAbsent(p, m);
+                        return m.invoke(bean);
+                    }
                 }
             }
 
             MethodDescriptor[] methodDescriptors = beanInfo.getMethodDescriptors();
 
             for (MethodDescriptor d : methodDescriptors) {
+
                 ParameterDescriptor[] parameterDescriptors = d.getParameterDescriptors();
-                if (property.equals(d.getName()) && (parameterDescriptors == null || parameterDescriptors.length == 0)) {
+                if (property.equals(d.getName()) && (d.getMethod().getParameterTypes() == null || d.getMethod().getParameterTypes().length == 0) && ( parameterDescriptors == null || parameterDescriptors.length == 0)) {
                     m = d.getMethod();
                     methodCache.putIfAbsent(p, m);
                     return m.invoke(bean);
