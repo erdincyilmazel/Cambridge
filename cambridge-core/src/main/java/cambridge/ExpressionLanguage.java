@@ -13,6 +13,8 @@ public interface ExpressionLanguage {
    /**
     * Parses the passed in text and returns a compiled Expression object.
     * @param expressionString The expression to be parsed.
+    * @param line The line number which contains the expression. (Needed for better error reporting)
+    * @param column The column number which contains the expression. (Needed for better error reporting)
     * @return Returns compiled Expression.
     * @throws ExpressionParsingException Might be thrown if something is wrong in expression syntax that is to be parsed.
     */

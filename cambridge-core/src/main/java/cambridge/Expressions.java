@@ -10,6 +10,7 @@ import java.util.HashMap;
  */
 public class Expressions {
    private static ExpressionLanguage cambridgeExpressionLanguage = new CambridgeExpressionLanguage();
+   private static ExpressionLanguage defaultExpressionLanguage = cambridgeExpressionLanguage;
 
    public static final String CURRENT_OBJECT = "self";
    public static final String PARENT_OBJECT = "parent";
@@ -24,7 +25,7 @@ public class Expressions {
    }
 
    /**
-    * Parses the expression string using the built in expression language engine and creates an Expression
+    * Parses the expression string using the default expression language engine and creates an Expression
     * object.
     *
     * @param ex Expression string to be parsed
@@ -34,11 +35,11 @@ public class Expressions {
     * @throws ExpressionParsingException Thrown if the expression can not be parsed
     */
    public static Expression parse(String ex, int line, int column) throws ExpressionParsingException {
-      return cambridgeExpressionLanguage.parse(ex, line, column);
+      return defaultExpressionLanguage.parse(ex, line, column);
    }
 
    /**
-    * Parses the expression string using the built in expression language engine and creates an Expression
+    * Parses the expression string using the default expression language engine and creates an Expression
     * object.
     *
     * @param ex Expression string to be parsed
@@ -46,7 +47,7 @@ public class Expressions {
     * @throws ExpressionParsingException Thrown if the expression can not be parsed
     */
    public static Expression parse(String ex) throws ExpressionParsingException {
-      return cambridgeExpressionLanguage.parse(ex, 0, 0);
+      return defaultExpressionLanguage.parse(ex, 0, 0);
    }
 
    /**
@@ -68,7 +69,15 @@ public class Expressions {
     * @return Returns the built in expression language implementation
     */
    public static ExpressionLanguage getDefaultExpressionLanguage() {
-      return cambridgeExpressionLanguage;
+      return defaultExpressionLanguage;
+   }
+
+    /**
+     * Changes the default expression language that is global
+     * @param el Expression language
+     */
+   public static void setDefaultExpressionLanguage(ExpressionLanguage el) {
+       defaultExpressionLanguage = el;
    }
 
    /**
