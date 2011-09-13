@@ -5,6 +5,7 @@ import cambridge.ExpressionParsingException;
 import cambridge.Expressions;
 import cambridge.model.Expression;
 import org.mvel2.MVEL;
+import org.mvel2.ParserContext;
 
 import java.io.Serializable;
 
@@ -13,17 +14,23 @@ import java.io.Serializable;
  * @since 2/1/11
  */
 public class MvelExpressionLanguage implements ExpressionLanguage {
-   public static void register() {
-      Expressions.registerExpressionLanguage("mvel", MvelExpressionLanguage.class);
-   }
+    public static void register() {
+        Expressions.registerExpressionLanguage("mvel", MvelExpressionLanguage.class);
+    }
+    
+    ParserContext context = ParserContext.create();
 
-   public Expression parse(String expressionString, int line, int column) throws ExpressionParsingException {
-      Serializable compiledExpression = MVEL.compileExpression(expressionString);
+    public ParserContext getParserContext() {
+        return context;
+    }
 
-      return new MVELExpression(compiledExpression, expressionString, line, column);
-   }
+    public Expression parse(String expressionString, int line, int column) throws ExpressionParsingException {
+        Serializable compiledExpression = MVEL.compileExpression(expressionString, context);
 
-   public String wrapExpressionAsList(String expr) {
-      return "[" + expr + "]";
-   }
+        return new MVELExpression(compiledExpression, expressionString, line, column);
+    }
+
+    public String wrapExpressionAsList(String expr) {
+        return "[" + expr + "]";
+    }
 }
