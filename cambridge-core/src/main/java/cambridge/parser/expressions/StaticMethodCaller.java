@@ -34,9 +34,9 @@ public class StaticMethodCaller extends FunctionRunner {
 
             for (int i = 0, paramsLength = params.length; i < paramsLength; i++) {
                 CambridgeExpression e = params[i];
-                args[i] = e.eval(bindings);
 
-                if (parameterTypes != null && parameterTypes[i].isArray() && !(parameterTypes[i].isAssignableFrom(args[i].getClass()))) {
+                args[i] = e.eval(bindings);
+                if (method.isVarArgs() && i == params.length - 1 && parameterTypes != null && !(parameterTypes[i].isAssignableFrom(args[i].getClass()))) {
                     args[i] = new Object[] {args[i]};
                 }
             }
