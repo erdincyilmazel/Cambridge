@@ -4,6 +4,7 @@ import cambridge.ExpressionEvaluationException;
 
 import java.lang.reflect.Array;
 import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
 import java.util.Map;
 
 /**
@@ -14,6 +15,9 @@ public class StaticMethodCaller extends FunctionRunner {
     Method method;
 
     public StaticMethodCaller(Method method) {
+        if ((method.getModifiers() & Modifier.STATIC) == 0) {
+            throw new IllegalArgumentException(method.toString() + " should be static");
+        }
         method.setAccessible(true);
         this.method = method;
     }
