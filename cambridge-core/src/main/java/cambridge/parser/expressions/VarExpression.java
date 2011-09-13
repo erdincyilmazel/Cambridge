@@ -95,7 +95,11 @@ public class VarExpression implements CambridgeExpression {
       if (o instanceof Number) {
          return ((Number) o).intValue() != 0;
       }
-      return o instanceof String && !"".equals(o);
+      if (o instanceof String) {
+          return !"".equals(o);
+      }
+
+      return o != null;
    }
 
    public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
