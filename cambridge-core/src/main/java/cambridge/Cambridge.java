@@ -403,7 +403,7 @@ public class Cambridge {
         try {
             registerFunction("format", new StaticMethodCaller(String.class.getMethod("format", String.class, Object[].class)));
         } catch (NoSuchMethodException e) {
-            e.printStackTrace();
+            // Never going to happen
         }
 
         registerFilter("lower", LowerCaseFilter.class);

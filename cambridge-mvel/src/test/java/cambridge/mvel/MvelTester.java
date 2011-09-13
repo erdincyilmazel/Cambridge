@@ -29,7 +29,7 @@ public class MvelTester {
             MvelExpressionLanguage mvel = new MvelExpressionLanguage();
 
             try {
-                mvel.getParserConfiguration().addImport("hello", Erdinc.class.getMethod("hello"));
+                mvel.getParserConfiguration().addImport("format", String.class.getMethod("format", String.class, Object[].class));
             } catch (NoSuchMethodException e) {
                 e.printStackTrace();
             }
