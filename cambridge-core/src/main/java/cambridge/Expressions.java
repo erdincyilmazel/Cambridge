@@ -74,9 +74,11 @@ public class Expressions {
 
     /**
      * Changes the default expression language that is global
+     * @param name Name of the expression language
      * @param el Expression language
      */
-   public static void setDefaultExpressionLanguage(ExpressionLanguage el) {
+   public static void setDefaultExpressionLanguage(String name, ExpressionLanguage el) {
+       expressionLanguages.put(name, el);
        defaultExpressionLanguage = el;
    }
 
