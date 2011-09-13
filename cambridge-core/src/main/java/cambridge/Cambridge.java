@@ -19,6 +19,7 @@ import cambridge.model.DynamicAttribute;
 import cambridge.parser.expressions.FunctionRunner;
 import cambridge.parser.expressions.IfFunction;
 import cambridge.parser.expressions.ResourceBundleFunction;
+import cambridge.parser.expressions.StaticMethodCaller;
 import cambridge.runtime.Filter;
 import cambridge.runtime.LowerCaseFilter;
 import cambridge.runtime.SimpleDateFormatFilter;
@@ -398,6 +399,12 @@ public class Cambridge {
 
         registerFunction("text", new ResourceBundleFunction());
         registerFunction("if", new IfFunction());
+
+        try {
+            registerFunction("format", new StaticMethodCaller(String.class.getMethod("format", String.class, Object[].class)));
+        } catch (NoSuchMethodException e) {
+            e.printStackTrace();
+        }
 
         registerFilter("lower", LowerCaseFilter.class);
         registerFilter("upper", UpperCaseFilter.class);
