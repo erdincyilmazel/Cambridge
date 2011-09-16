@@ -23,7 +23,7 @@ public abstract class Tokenizer {
 
    private int readIndex = -1; // The last read index
    private int writeIndex = -1; // The last written index
-   private int column = 1;
+   private int column = 0;
 
    private int getIndex(int no) {
       return no % BUFFER_SIZE;
@@ -59,10 +59,10 @@ public abstract class Tokenizer {
       char c = buf[getIndex(++readIndex)];
       if (c == '\n' && previousChar != '\r') {
          lineNo++;
-         column = 1;
+         column = 0;
       } else if (c == '\r') {
          lineNo++;
-         column = 1;
+         column = 0;
       } else {
          column++;
       }

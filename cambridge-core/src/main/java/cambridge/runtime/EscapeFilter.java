@@ -7,7 +7,7 @@ package cambridge.runtime;
  */
 public class EscapeFilter {
    public static String doFilter(String str) {
-      StringBuffer sb = new StringBuffer(str.length());
+      StringBuilder sb = new StringBuilder(str.length());
       // true if last char was blank
       boolean lastWasBlankChar = false;
       int len = str.length();

@@ -133,6 +133,8 @@ public class ParserTest {
             f.eval(bindings, builder);
          }
 
+         full = full.replaceAll("\\n", (String) System.getProperties().get("line.separator"));
+
          assertEquals(full, builder.toString());
 
       } catch (IOException e) {
@@ -159,6 +161,8 @@ public class ParserTest {
          for (Fragment f : fragments) {
             f.eval(bindings, builder);
          }
+
+         before = before.replaceAll("\\n", (String) System.getProperties().get("line.separator"));
 
          assertEquals(before, builder.toString());
 
@@ -187,6 +191,7 @@ public class ParserTest {
             f.eval(bindings, builder);
          }
 
+         after = after.replaceAll("\\n", (String) System.getProperties().get("line.separator"));
          assertEquals(after, builder.toString());
 
       } catch (IOException e) {
@@ -214,6 +219,7 @@ public class ParserTest {
             f.eval(bindings, builder);
          }
 
+         inside = inside.replaceAll("\\n", (String) System.getProperties().get("line.separator"));
          assertEquals(inside, builder.toString());
 
       } catch (IOException e) {

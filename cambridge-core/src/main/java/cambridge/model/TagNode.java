@@ -48,7 +48,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
    private FragmentList fragments;
 
-   private static final Pattern indentPattern = Pattern.compile(".*(\n[ \t]*)$");
+   private static final Pattern indentPattern = Pattern.compile(".*(\r?\n[ \t]*)$");
 
    private ArrayList<ModifyingTagBehavior> modifyingBehaviors;
    private ConditionalTagBehavior conditionalBehavior;

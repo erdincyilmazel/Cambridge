@@ -16,7 +16,7 @@ import java.util.Map;
  * Time: 1:37:42 PM
  */
 public class FormTag extends DynamicTag {
-   public FormTag() {
+   public FormTag() {   
       hidden = true;
    }
 
@@ -75,16 +75,5 @@ public class FormTag extends DynamicTag {
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException(e, "Error evaluating expression", getBeginLine(), getBeginColumn());
       }
-   }
-
-   public static FormTag getInstance() {
-      DynamicTagCreator creator = new DynamicTagCreator();
-      try {
-         return creator.createTag(FormTag.class.getResourceAsStream("form.html"), FormTag.class);
-      } catch (TemplateLoadingException e) {
-         e.printStackTrace();
-      }
-
-      return null;
    }
 }
