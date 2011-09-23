@@ -7,10 +7,10 @@ import cambridge.FileTemplateLoader;
 import cambridge.Template;
 import cambridge.TemplateFactory;
 import cambridge.TemplateLoadingException;
-import cambridge.parser.TemplateParser;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 
 /**
  * Author: Erdinc Yilmazel
@@ -45,6 +45,10 @@ public class FormTagProvider implements DynamicTagProvider {
         form.setAction("/test");
         form.setMethod(Form.Method.Post);
         form.setName("testForm");
+
+        ArrayList<FormInput> formInputs = new ArrayList<FormInput>();
+        formInputs.add(new TextFormInput("username", "text", "username", "User Name"));
+        form.setInputs(formInputs);
 
         t.setProperty("f", form);
 

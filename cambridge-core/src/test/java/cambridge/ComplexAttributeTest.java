@@ -20,7 +20,7 @@ import java.util.Map;
 import static org.junit.Assert.*;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Oct 13, 2009
  * Time: 10:55:06 AM
  */

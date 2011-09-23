@@ -14,7 +14,7 @@ import java.util.Map;
 import static org.junit.Assert.assertEquals;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: May 18, 2010
  * Time: 9:17:38 AM
  */

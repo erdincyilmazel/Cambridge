@@ -11,7 +11,7 @@ import java.io.InputStreamReader;
 import java.io.StringReader;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: May 18, 2010
  * Time: 7:08:57 PM
  */

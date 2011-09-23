@@ -4,7 +4,7 @@ import cambridge.model.TagNode;
 import cambridge.model.TemplateDocument;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 2, 2009
  * Time: 3:49:35 PM
  */

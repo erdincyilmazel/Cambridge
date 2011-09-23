@@ -12,7 +12,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Oct 13, 2009
  * Time: 11:48:01 AM
  */

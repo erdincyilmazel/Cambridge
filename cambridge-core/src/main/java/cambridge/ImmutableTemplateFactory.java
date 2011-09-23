@@ -6,7 +6,7 @@ import java.util.Locale;
 import java.util.Map;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: May 19, 2010
  * Time: 9:03:28 AM
  */

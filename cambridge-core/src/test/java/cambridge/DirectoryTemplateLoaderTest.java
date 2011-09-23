@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 3, 2009
  * Time: 6:27:33 PM
  */

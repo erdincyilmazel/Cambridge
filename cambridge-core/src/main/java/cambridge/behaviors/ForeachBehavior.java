@@ -19,7 +19,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Oct 31, 2009
  * Time: 7:18:33 PM
  */
@@ -65,7 +65,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
             if (o instanceof Object[]) {
                 iterateArray(bindings, tag, out, (Object[]) o);
             } else if (o instanceof Iterable) {
-                iterateIterable(bindings, tag, out, (Iterable) o);
+                iterateIterable(bindings, tag, out, (Iterable<Object>) o);
             } else if (o instanceof int[]) {
                 iterateInt(bindings, tag, out, (int[]) o);
             } else if (o instanceof float[]) {

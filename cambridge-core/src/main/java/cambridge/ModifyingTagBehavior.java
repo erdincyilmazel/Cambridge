@@ -5,7 +5,7 @@ import cambridge.model.ModifyableTag;
 import java.util.Map;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 1, 2009
  * Time: 3:29:42 PM
  */

@@ -27,7 +27,7 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
     *
     * @param c The class that will be used to get a class loader from
     */
-   public ClassPathTemplateLoader(Class c) {
+   public ClassPathTemplateLoader(Class<?> c) {
       classLoader = c.getClassLoader();
    }
 

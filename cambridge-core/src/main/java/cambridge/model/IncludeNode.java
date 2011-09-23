@@ -5,7 +5,7 @@ import cambridge.TemplateLoader;
 import cambridge.TemplateLoadingException;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 6, 2009
  * Time: 6:45:33 PM
  */

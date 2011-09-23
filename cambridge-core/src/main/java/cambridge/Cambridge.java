@@ -37,7 +37,6 @@ import java.util.Map;
  * <p>If new behaviors are to be added or the default ones are to be overridden, this
  * can be achieved by getting an instance of Cambridge first</p>
  */
-@SuppressWarnings("unchecked")
 public class Cambridge {
     private static Cambridge instance;
 
@@ -47,7 +46,7 @@ public class Cambridge {
     private final HashMap<String, Class<? extends Filter>> filters = new HashMap<String, Class<? extends Filter>>();
     private final HashSet<String> namespaces;
     private final HashMap<String, String> namespaceMappings;
-    private final HashMap<DynamicAttributeKey, BehaviorProvider> providers;
+    private final HashMap<DynamicAttributeKey, BehaviorProvider<? extends TagBehavior>> providers;
     private final HashMap<DynamicAttributeKey, Class<? extends StaticBehavior>> staticBehaviorClasses;
     private final HashMap<DynamicAttributeKey, StaticBehavior> staticBehaviors;
     private final HashMap<DynamicAttributeKey, Class<? extends DynamicTag>> dynamicTagClasses;
@@ -295,7 +294,7 @@ public class Cambridge {
      * @throws ExpressionParsingException
      */
     public TagBehavior getBehavior(DynamicAttributeKey key, Map<AttributeKey, Attribute> attributes, int line, int col) throws BehaviorInstantiationException, ExpressionParsingException {
-        BehaviorProvider provider = providers.get(key);
+        BehaviorProvider<? extends TagBehavior> provider = providers.get(key);
 
         if (provider != null) {
             return provider.get((DynamicAttribute) attributes.get(key.toAttributeKey()), attributes, line, col);
@@ -386,7 +385,7 @@ public class Cambridge {
     protected Cambridge() {
         namespaces = new HashSet<String>();
         namespaceMappings = new HashMap<String, String>();
-        providers = new HashMap<DynamicAttributeKey, BehaviorProvider>();
+        providers = new HashMap<DynamicAttributeKey, BehaviorProvider<? extends TagBehavior>>();
         staticBehaviorClasses = new HashMap<DynamicAttributeKey, Class<? extends StaticBehavior>>();
         staticBehaviors = new HashMap<DynamicAttributeKey, StaticBehavior>();
         dynamicTagClasses = new HashMap<DynamicAttributeKey, Class<? extends DynamicTag>>();

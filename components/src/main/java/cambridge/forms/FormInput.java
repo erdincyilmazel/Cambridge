@@ -1,11 +1,11 @@
 package cambridge.forms;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 13, 2009
  * Time: 3:42:32 PM
  */
-public interface FormElement {
+public interface FormInput {
    public String getName();
    public String getId();
    public String getType();

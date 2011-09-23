@@ -1,7 +1,7 @@
 package cambridge;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 2, 2009
  * Time: 6:12:17 PM
  */

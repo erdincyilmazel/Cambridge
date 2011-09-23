@@ -10,7 +10,7 @@ import cambridge.model.Expression;
 import java.util.Map;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Jan 22 2011
  * Time: 01:20:01 PM
  */

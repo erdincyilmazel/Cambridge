@@ -13,13 +13,13 @@ import java.lang.reflect.Method;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Oct 31, 2009
  * Time: 9:58:38 AM
  */
 public class PropertyUtils {
     class Property {
-        final Class beanClass;
+        final Class<?> beanClass;
         final String name;
 
         @Override
@@ -141,8 +141,6 @@ public class PropertyUtils {
     public boolean hasBeanProperty(Object bean, String property) throws PropertyAccessException {
         try {
             Method m;
-            Property p = new Property(bean.getClass(), property);
-
             BeanInfo beanInfo = Introspector.getBeanInfo(bean.getClass());
             PropertyDescriptor[] descriptors = beanInfo.getPropertyDescriptors();
             for (PropertyDescriptor d : descriptors) {

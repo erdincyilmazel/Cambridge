@@ -11,7 +11,7 @@ import java.io.Writer;
 import java.util.Map;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 11, 2009
  * Time: 1:37:42 PM
  */

@@ -15,7 +15,7 @@ import cambridge.model.TagPart;
 import java.util.Map;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 1, 2009
  * Time: 3:04:10 PM
  */

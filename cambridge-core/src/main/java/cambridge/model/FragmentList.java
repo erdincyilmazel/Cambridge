@@ -9,7 +9,7 @@ import java.util.Iterator;
 import static cambridge.behaviors.ConditionalTagBehavior.ConditionType.FIRST;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Oct 13, 2009
  * Time: 1:01:56 PM
  */

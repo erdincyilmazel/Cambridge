@@ -13,7 +13,7 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * User: erdincyilmazel
+ * @author Erdinc Yilmazelyilmazel
  * Date: 1/7/11
  * Time: 10:48 PM
  */

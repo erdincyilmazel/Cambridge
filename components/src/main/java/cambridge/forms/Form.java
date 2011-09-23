@@ -3,7 +3,7 @@ package cambridge.forms;
 import java.util.ArrayList;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 13, 2009
  * Time: 3:41:19 PM
  */
@@ -20,7 +20,7 @@ public class Form {
 
     Method method;
 
-    ArrayList<FormElement> elements;
+    ArrayList<FormInput> inputs;
 
     public String getId() {
         return id;
@@ -62,11 +62,11 @@ public class Form {
         this.method = method;
     }
 
-    public void setElements(ArrayList<FormElement> elements) {
-        this.elements = elements;
+    public void setInputs(ArrayList<FormInput> inputs) {
+        this.inputs = inputs;
     }
 
-    public ArrayList<FormElement> getElements() {
-        return elements;
+    public ArrayList<FormInput> getInputs() {
+        return inputs;
     }
 }

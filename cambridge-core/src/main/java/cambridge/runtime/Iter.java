@@ -1,7 +1,7 @@
 package cambridge.runtime;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 4, 2009
  * Time: 1:14:40 AM
  */

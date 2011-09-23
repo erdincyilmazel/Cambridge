@@ -1,7 +1,7 @@
 package simplewebapp.model;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: May 6, 2010
  * Time: 8:51:53 AM
  */

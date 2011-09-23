@@ -5,7 +5,7 @@ import cambridge.ExpressionEvaluationException;
 import java.util.Map;
 
 /**
- * User: erdincyilmazel
+ * @author Erdinc Yilmazelyilmazel
  * Date: 1/7/11
  * Time: 12:41 AM
  */

@@ -9,7 +9,7 @@ import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 9, 2009
  * Time: 11:58:12 PM
  */

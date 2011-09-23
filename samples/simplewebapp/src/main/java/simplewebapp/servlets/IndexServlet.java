@@ -14,7 +14,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: May 6, 2010
  * Time: 8:50:52 AM
  */

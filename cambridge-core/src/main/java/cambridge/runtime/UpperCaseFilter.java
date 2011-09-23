@@ -3,7 +3,7 @@ package cambridge.runtime;
 import java.util.Locale;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 8, 2009
  * Time: 5:13:18 PM
  */

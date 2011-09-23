@@ -3,7 +3,7 @@ package cambridge.model;
 import cambridge.BehaviorInstantiationException;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: May 18, 2010
  * Time: 9:35:44 AM
  */

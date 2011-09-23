@@ -12,7 +12,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 6, 2009
  * Time: 2:07:51 PM
  */

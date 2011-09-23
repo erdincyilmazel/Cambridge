@@ -28,7 +28,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * User: erdincyilmazel
+ * @author Erdinc Yilmazelyilmazel
  * Date: Aug 17, 2008
  * Time: 8:12:49 PM
  */
@@ -713,7 +713,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    public void execute(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       ModifyableTag tag;
       if (modifyingBehaviors != null) {
-         tag = new ModifyableCopy(tagParts == null ? null : (ArrayList) tagParts.clone(), fragments == null ? null : (FragmentList) fragments.clone());
+         tag = new ModifyableCopy(tagParts == null ? null : (ArrayList<TagPart>) tagParts.clone(), fragments == null ? null : (FragmentList) fragments.clone());
 
          for (ModifyingTagBehavior b : modifyingBehaviors) {
             try {

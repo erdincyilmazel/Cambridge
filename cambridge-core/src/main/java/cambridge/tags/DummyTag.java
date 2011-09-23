@@ -3,7 +3,7 @@ package cambridge.tags;
 import cambridge.DynamicTag;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 6, 2009
  * Time: 12:07:33 AM
  */

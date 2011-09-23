@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Apr 23, 2010
  * Time: 8:07:30 AM
  */
@@ -50,7 +50,7 @@ public class ExpressionTest {
          Expression e = Expressions.parse(expression, 0, 0);
 //         assertEquals("Testing type", CambridgeExpression.Type.Object, e.getType(bindings));
          assertTrue(e.eval(bindings) instanceof List);
-         List l = (List) e.eval(bindings);
+         List<?> l = (List<?>) e.eval(bindings);
          assertEquals("a", l.get(0));
          assertEquals("b", l.get(1));
          assertEquals(213, l.get(2));

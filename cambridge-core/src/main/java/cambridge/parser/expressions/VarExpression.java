@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Oct 31, 2009
  * Time: 1:29:09 AM
  */
@@ -74,9 +74,9 @@ public class VarExpression implements CambridgeExpression {
          } else {
             MapVarProperty m = (MapVarProperty) property;
             if (object instanceof Map) {
-               object = ((Map) object).get(m.expression.eval(p));
+               object = ((Map<?,?>) object).get(m.expression.eval(p));
             } else if (object instanceof List) {
-               object = ((List) object).get(m.expression.asInt(p));
+               object = ((List<?>) object).get(m.expression.asInt(p));
             } else if (object instanceof Object[]) {
                object = ((Object[]) object)[m.expression.asInt(p)];
             }

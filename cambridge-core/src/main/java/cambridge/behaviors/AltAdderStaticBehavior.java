@@ -9,7 +9,7 @@ import cambridge.model.TemplateDocument;
 import java.util.ArrayList;
 
 /**
- * User: erdinc
+ * @author Erdinc Yilmazel
  * Date: Nov 2, 2009
  * Time: 3:59:27 PM
  */
