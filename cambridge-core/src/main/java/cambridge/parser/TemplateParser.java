@@ -369,6 +369,7 @@ public class TemplateParser {
                                 || peek(1).getType() == TokenType.TAG_END
                                 || peek(1).getType() == TokenType.EXPRESSION
                                 || peek(1).getType() == TokenType.EXTENSION
+                                || peek(1).getType() == TokenType.ATTRIBUTE_NAME
                                 ) {
                             break;
                         }

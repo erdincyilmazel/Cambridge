@@ -15,7 +15,6 @@ import java.util.Map;
  */
 public class ElseBehavior extends ConditionalTagBehavior {
 
-
     public ElseBehavior(int line, int col) {
         super(line, col);
     }
