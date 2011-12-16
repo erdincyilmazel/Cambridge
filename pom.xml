@@ -17,6 +17,7 @@
       <module>cambridge-jexl</module>
       <module>cambridge-ognl</module>
       <module>cambridge-jaxrs</module>
+      <module>cambridge-janino</module>
       <module>cambridge-playframework</module>
       <module>cambridge-spring</module>
       <module>cambridge-struts</module>
