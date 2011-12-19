@@ -3,9 +3,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.googlecode.cambridge</groupId>
-    <artifactId>cambridge-ognl</artifactId>
+    <artifactId>cambridge-components</artifactId>
     <packaging>jar</packaging>
-    <name>Cambridge OGNL Expression Language Integration</name>
+    <name>Cambridge Template Engine Components</name>
     <parent>
         <artifactId>cambridge</artifactId>
         <groupId>com.googlecode.cambridge</groupId>
@@ -15,20 +15,16 @@
     <version>${parent.version}</version>
     <dependencies>
         <dependency>
-            <groupId>com.googlecode.cambridge</groupId>
-            <artifactId>cambridge-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.6</version>
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>ognl</groupId>
-            <artifactId>ognl</artifactId>
-            <version>3.0.1</version>
+            <groupId>com.googlecode.cambridge</groupId>
+            <artifactId>cambridge-core</artifactId>
+            <version>${project.version}</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
     <build>

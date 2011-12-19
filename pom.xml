@@ -6,13 +6,10 @@
    <artifactId>cambridge</artifactId>
    <packaging>pom</packaging>
    <name>Cambridge Template Engine</name>
-   <properties>
-       <cambridgeVersion>1.0</cambridgeVersion>
-   </properties>
    <version>1.0</version>
    <modules>
       <module>cambridge-core</module>
-      <module>components</module>
+      <module>cambridge-components</module>
       <module>cambridge-mvel</module>
       <module>cambridge-jexl</module>
       <module>cambridge-ognl</module>

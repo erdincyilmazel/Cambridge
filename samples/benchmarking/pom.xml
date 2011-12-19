@@ -3,9 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
    <modelVersion>4.0.0</modelVersion>
-   <properties>
-       <cambridgeVersion>0.2</cambridgeVersion>
-   </properties>
    <groupId>com.googlecode.cambridge</groupId>
    <artifactId>benchmarking</artifactId>
 
@@ -17,24 +14,24 @@
       <version>1.0</version>
       <relativePath>../../pom.xml</relativePath>
    </parent>
-    <version>1.0</version>
+   <version>${parent.version}</version>
    <dependencies>
       <dependency>
          <groupId>com.googlecode.cambridge</groupId>
          <artifactId>cambridge-core</artifactId>
-         <version>1.0</version>
+         <version>${project.version}</version>
          <scope>compile</scope>
       </dependency>
       <dependency>
           <groupId>com.googlecode.cambridge</groupId>
           <artifactId>cambridge-mvel</artifactId>
-          <version>1.0</version>
+          <version>${project.version}</version>
           <scope>compile</scope>
       </dependency>
       <dependency>
           <groupId>com.googlecode.cambridge</groupId>
           <artifactId>cambridge-ognl</artifactId>
-          <version>1.0</version>
+          <version>${project.version}</version>
           <scope>compile</scope>
       </dependency>
       <dependency>

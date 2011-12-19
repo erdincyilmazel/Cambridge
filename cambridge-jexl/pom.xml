@@ -6,18 +6,18 @@
     <artifactId>cambridge-jexl</artifactId>
     <packaging>jar</packaging>
     <name>Cambridge JEXL Expression Language Integration</name>
-    <version>1.0</version>
     <parent>
         <artifactId>cambridge</artifactId>
         <groupId>com.googlecode.cambridge</groupId>
         <version>1.0</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
+    <version>${parent.version}</version>
     <dependencies>
         <dependency>
             <groupId>com.googlecode.cambridge</groupId>
             <artifactId>cambridge-core</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.antlr</groupId>
