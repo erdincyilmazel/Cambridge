@@ -4,8 +4,7 @@ Pure markup syntax, performance, extensibility and simplicity are the key featur
 
 # Show me the code
 
-`
-<div id="loginBox" a:if="!loggedIn">
+`<div id="loginBox" a:if="!loggedIn">
    Username: <input type="text" name="username"/>
    Password: <input type="password" name="password"/>
 </div>
@@ -16,8 +15,7 @@ Pure markup syntax, performance, extensibility and simplicity are the key featur
    <ul>
       <li a:foreach="user.onlineFriends" a:as="friend">${friend.name}</li>
    </ul>
-</div>
-`
+</div>`
 
 ## Join the mailing list and get support
 
