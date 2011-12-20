@@ -20,11 +20,17 @@ Pure markup syntax, performance, extensibility and simplicity are the key featur
        </ul>
     </div>
 
-If you're wondering what the html code above means, here is what it tells Cambridge to do.
-The first div #loginBox will be displayed only if the loggedIn variable in the data model is false. Otherwise,
-the immediately following div will be rendered instead. If you look at the `${user.name}` syntax, that is how you
-render expressions in Cambridge. In this case it is printing the name property of a User object. Finally if the user
-is already logged in, we want to display online friends of the current user as a bunch of `<li>` elements.
+If you're wondering what the html code above is doing, here is what it tells Cambridge to do.
+Lets start with the `a:if` attribute in the first line. It basically says, the div #loginBox should only be rendered
+if the loggedIn property in our data model is false. That is how you would do if blocks in Cambridge. It uses the scope
+of your html tag for defining where the if logic should be applied. The next tag which immediatelly follows the div with
+id #loginBox has another attribute named `a:else` which says this div should be rendered if the condition in the first tag
+was not met.
+
+If you look at the `${user.name}` syntax, that is how you write expressions in Cambridge.
+In this case it is printing the name property of a User object.
+
+Finally if the user is already logged in, we want to display online friends of the current user as a bunch of `<li>` elements.
 You don't need to wrap the `<li>` tags with some looping code in cambridge. All you need to do is to define an
 `a:foreach` attribute which will iterate over the onlineFriends property of the user object and render a
 separate `<li>` for every online friend of `user`.
@@ -54,6 +60,10 @@ Play Framework. Once parsed, Cambridge templates get converted to highly efficie
 
 ### Rich web framework support
 Cambridge comes with out of the box support for many of the MVC style popular web frameworks.
+
+### Java API to manipulate your templates
+With Cambridge, you can start with 100% pure html templates without any custom tags or attributes and attach dynamic behavior to
+them by just using a Java API.
 
 ## Join the mailing list and get support
 
