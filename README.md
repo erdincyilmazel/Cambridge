@@ -1,3 +1,5 @@
+![Cambridge Template Engine](https://github.com/erdincyilmazel/Cambridge/raw/master/docs/site/img/logo.png)
+
 # Simple is the keyword
 
 Cambridge is a template engine for the java platform which can be used with your web framework of choice. It currently supports servlets, JAX-RS, Play Framework. (Spring MVC and Struts 2.0 support is in development.)
