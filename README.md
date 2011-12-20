@@ -8,6 +8,7 @@ Pure markup syntax, performance, extensibility and simplicity are the key featur
     <div id="loginBox" a:if="!loggedIn">
        Username: <input type="text" name="username"/>
        Password: <input type="password" name="password"/>
+       <input type="button" onclick="login();" value="Sign in"/>
     </div>
     <div a:else>
        <div>Hello ${user.name}!</div>
