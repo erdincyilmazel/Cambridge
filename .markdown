@@ -1,0 +1,1 @@
+Cambridge is a template engine for the java platform which can be used your web framework of choice. It currently supports servlets, JAX-RS, Play Framework. (Spring MVC and Struts 2.0 support is in development.)
