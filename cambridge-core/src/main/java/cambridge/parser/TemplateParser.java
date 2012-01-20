@@ -280,12 +280,9 @@ public class TemplateParser {
 
             node.setEndLine(currentToken.getLineNo() + lines.length);
 
-            if (lines.length == 0)
-            {
+            if (lines.length == 0) {
                 node.setEndColumn(currentToken.getColumn() + node.getSource().length());
-            }
-            else
-            {
+            } else {
                 node.setEndColumn(currentToken.getColumn() + lines[lines.length - 1].replaceAll("\r", "").length());
             }
 
@@ -366,11 +363,11 @@ public class TemplateParser {
 
                     while (true) {
                         if (peek(1).getType() == TokenType.EOF
-                                || peek(1).getType() == TokenType.TAG_END
-                                || peek(1).getType() == TokenType.EXPRESSION
-                                || peek(1).getType() == TokenType.EXTENSION
-                                || peek(1).getType() == TokenType.ATTRIBUTE_NAME
-                                ) {
+                            || peek(1).getType() == TokenType.TAG_END
+                            || peek(1).getType() == TokenType.EXPRESSION
+                            || peek(1).getType() == TokenType.EXTENSION
+                            || peek(1).getType() == TokenType.ATTRIBUTE_NAME
+                            ) {
                             break;
                         }
                         nextToken();
@@ -480,8 +477,8 @@ public class TemplateParser {
 
                         ExpressionToken t = (ExpressionToken) currentToken;
                         ExpressionTagPart p = new ExpressionTagPart(currentToken.value,
-                                expressionLanguage.parse(currentToken.value, currentToken.getLineNo(), currentToken.getColumn()),
-                                t.isRawExpression(), currentToken.getLineNo(), currentToken.getColumn());
+                            expressionLanguage.parse(currentToken.value, currentToken.getLineNo(), currentToken.getColumn()),
+                            t.isRawExpression(), currentToken.getLineNo(), currentToken.getColumn());
 
                         if (t.getFilters() != null) {
                             p.setFilters(t.getFilters());
@@ -608,16 +605,32 @@ public class TemplateParser {
     }
 
     private TemplateNode parseIncludeNode(ParserDirectiveToken tok) {
-        if (tok.getArgs() == null) {
+        String args = tok.getArgs();
+        if (args == null) {
             throw new TemplateParsingException("Invalid include directive", currentToken.getLineNo(), currentToken.getColumn());
         }
-        Matcher matcher = TemplateDocument.selectorPattern.matcher(tok.getArgs());
 
-        String fileName = matcher.replaceAll("").trim();
+        args = args.trim();
+
+        int separatorIndex = args.indexOf('@');
+        String fileName;
         String selector = null;
-        matcher.reset();
-        if (matcher.find()) {
-            selector = matcher.group(0);
+
+        if (separatorIndex == -1) {
+            fileName = args;
+        } else if (separatorIndex > 0) {
+            fileName = args.substring(0, separatorIndex - 1);
+            if (args.length() > separatorIndex) {
+                selector = args.substring(separatorIndex + 1).trim();
+
+                Matcher matcher = TemplateDocument.selectorPattern.matcher(selector);
+
+                if (matcher.find()) {
+                    selector = matcher.group(0);
+                }
+            }
+        } else {
+            throw new TemplateParsingException("Invalid extend directive", currentToken.getLineNo(), currentToken.getColumn());
         }
 
         try {
@@ -631,16 +644,32 @@ public class TemplateParser {
     }
 
     private TemplateNode parseExtendsDirective(ParserDirectiveToken tok) {
-        if (tok.getArgs() == null) {
+        String args = tok.getArgs();
+        if (args == null) {
             throw new TemplateParsingException("Invalid extend directive", currentToken.getLineNo(), currentToken.getColumn());
         }
-        Matcher matcher = TemplateDocument.selectorPattern.matcher(tok.getArgs());
 
-        String fileName = matcher.replaceAll("").trim();
+        args = args.trim();
+
+        int separatorIndex = args.indexOf('@');
+        String fileName;
         String selector = null;
-        matcher.reset();
-        if (matcher.find()) {
-            selector = matcher.group(0);
+
+        if (separatorIndex == -1) {
+            fileName = args;
+        } else if (separatorIndex > 0) {
+            fileName = args.substring(0, separatorIndex - 1);
+            if (args.length() > separatorIndex) {
+                selector = args.substring(separatorIndex + 1).trim();
+
+                Matcher matcher = TemplateDocument.selectorPattern.matcher(selector);
+
+                if (matcher.find()) {
+                    selector = matcher.group(0);
+                }
+            }
+        } else {
+            throw new TemplateParsingException("Invalid extend directive", currentToken.getLineNo(), currentToken.getColumn());
         }
 
         try {
@@ -669,8 +698,8 @@ public class TemplateParser {
 
             TokenType type = peek(1).getType();
             if (type == TokenType.CDATA
-                    || type == TokenType.DOC_TYPE || type == TokenType.EOL
-                    || type == TokenType.STRING || type == TokenType.WS) {
+                || type == TokenType.DOC_TYPE || type == TokenType.EOL
+                || type == TokenType.STRING || type == TokenType.WS) {
                 nextToken();
             } else {
                 node.setEndLine(peek(1).getLineNo());
