@@ -12,7 +12,7 @@ import org.codehaus.janino.Scanner;
 
 /**
  * @author Tom Carchrae
- * 
+ *
  *         See http://docs.codehaus.org/display/JANINO/Basic#Basic-
  *         expressionevaluator
  */
@@ -23,7 +23,7 @@ public class JaninoExpression implements Expression {
 	final int col;
 	ExpressionEvaluator expressionEvaluator;
 	private String[] parameterNames;
-	private Class[] parameterTypes;
+	private Class<?>[] parameterTypes;
 	private Boolean isValue;
 
 	public JaninoExpression(String expression, int line, int col) {
@@ -38,7 +38,7 @@ public class JaninoExpression implements Expression {
 			if (expressionEvaluator == null && isValue == null)
 				compileExpressionEvaluator(globals);
 
-			// don't bother compiling expressions when returning values 
+			// don't bother compiling expressions when returning values
 			if (isValue)
 				return globals.get(expression);
 
@@ -72,7 +72,7 @@ public class JaninoExpression implements Expression {
 	}
 
 	private void compileExpressionEvaluator(Map<String, Object> globals)
-            throws Scanner.ScanException, CompileException, Parser.ParseException {
+			throws Scanner.ScanException, CompileException, Parser.ParseException {
 
 		if (globals.containsKey(expression)) {
 			isValue=true;
@@ -89,7 +89,7 @@ public class JaninoExpression implements Expression {
 			 * when you return 1 and it wanted a double (eg, 1.0) - the use of
 			 * (Number).doubleValue() avoids this
 			 */
-			Class expressionType = Object.class;
+			Class<?> expressionType = Object.class;
 
 			/**
 			 * TODO: is there an optimization to check the expression and avoid

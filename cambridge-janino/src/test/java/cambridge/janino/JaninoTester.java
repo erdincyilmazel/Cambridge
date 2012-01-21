@@ -6,7 +6,6 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Map;
 import java.util.Map.Entry;
 
 import cambridge.DirectoryTemplateLoader;
@@ -42,7 +41,7 @@ public class JaninoTester {
 			map.put("a", 3);
 			map.put("test", true);
 			map.put("list", Arrays.asList("Hi", "Mom"));
-			
+
 			testFile(loader, "test.html", map);
 
 			testFile(loader, "kitchensink.html", map);

@@ -29,7 +29,7 @@ public class PlayMessagesExtensionNode extends ExtensionNode {
         try {
             Object list = expression.eval(bindings);
             if (list instanceof List) {
-                List l = (List) list;
+                List<?> l = (List<?>) list;
                 if (l.size() > 1) {
                     Object message = l.get(0);
                     Object[] params = new Object[l.size() - 1];

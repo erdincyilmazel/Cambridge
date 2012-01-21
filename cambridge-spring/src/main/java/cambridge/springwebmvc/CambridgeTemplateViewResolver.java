@@ -15,7 +15,7 @@ public class CambridgeTemplateViewResolver extends AbstractTemplateViewResolver 
     * Requires {@link org.springframework.web.servlet.view.freemarker.FreeMarkerView}.
     */
    @Override
-   protected Class requiredViewClass() {
+   protected Class<?> requiredViewClass() {
       return CambridgeTemplateView.class;
    }
 }

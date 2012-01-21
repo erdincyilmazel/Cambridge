@@ -1,7 +1,5 @@
 package cambridge;
 
-import cambridge.model.TemplateDocument;
-
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -77,7 +75,7 @@ public class EditTester {
     public static void main(String[] args) {
         try {
             final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
-            TemplateDocument templateDocument = loader.parseTemplate("kitchensink.html");
+            loader.parseTemplate("kitchensink.html");
             final TemplateFactory f = loader.newTemplateFactory("kitchensink.html");
             Template template = f.createTemplate();
 
@@ -91,7 +89,7 @@ public class EditTester {
             Model model = new Model(members);
 
             Auth auth = new Auth(members.get(2l));
-            
+
             template.setProperty("model", model);
             template.setProperty("auth", auth);
 

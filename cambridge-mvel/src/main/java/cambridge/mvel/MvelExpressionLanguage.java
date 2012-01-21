@@ -1,15 +1,15 @@
 package cambridge.mvel;
 
-import cambridge.ExpressionLanguage;
-import cambridge.ExpressionParsingException;
-import cambridge.Expressions;
-import cambridge.model.Expression;
+import java.io.Serializable;
+
 import org.mvel2.MVEL;
 import org.mvel2.ParserConfiguration;
 import org.mvel2.ParserContext;
 
-import java.io.Serializable;
-import java.util.Map;
+import cambridge.ExpressionLanguage;
+import cambridge.ExpressionParsingException;
+import cambridge.Expressions;
+import cambridge.model.Expression;
 
 /**
  * @author Erdinc YILMAZEL
@@ -19,7 +19,7 @@ public class MvelExpressionLanguage implements ExpressionLanguage {
     public static void register() {
         Expressions.registerExpressionLanguage("mvel", MvelExpressionLanguage.class);
     }
-    
+
     ParserConfiguration configuration = new ParserConfiguration();
 
     public ParserConfiguration getParserConfiguration() {

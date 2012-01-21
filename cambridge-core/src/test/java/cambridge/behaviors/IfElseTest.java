@@ -1,22 +1,19 @@
 package cambridge.behaviors;
 
-import cambridge.BehaviorInstantiationException;
-import cambridge.TemplateEvaluationException;
-import cambridge.TemplateParsingException;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+
+import java.io.StringWriter;
+import java.util.Map;
+
+import org.junit.Test;
+
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
 import cambridge.runtime.DefaultTemplateBindings;
-import org.junit.Test;
-
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.Map;
-
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Erdinc Yilmazel
