@@ -62,7 +62,7 @@ public class Cambridge {
             this.k = k;
         }
 
-        public void to(BehaviorProvider provider) {
+        public void to(BehaviorProvider<? extends TagBehavior> provider) {
             providers.put(k, provider);
         }
     }

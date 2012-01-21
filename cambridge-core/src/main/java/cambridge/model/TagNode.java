@@ -623,7 +623,6 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return "<" + (nameSpace == null ? tagName : nameSpace + ":" + tagName) + "> @ " + getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn();
    }
 
-   @SuppressWarnings("unchecked")
    public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
          if (!isDynamic()) {

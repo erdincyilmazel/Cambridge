@@ -1,12 +1,11 @@
 package cambridge.ognl;
 
-import cambridge.ExpressionEvaluationException;
-import cambridge.model.Expression;
+import java.util.Map;
+
 import ognl.Ognl;
 import ognl.OgnlException;
-
-import java.util.HashMap;
-import java.util.Map;
+import cambridge.ExpressionEvaluationException;
+import cambridge.model.Expression;
 
 /**
  * @author Erdinc YILMAZEL

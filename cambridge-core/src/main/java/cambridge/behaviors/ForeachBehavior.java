@@ -53,6 +53,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
         return iterObjectName;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
         try {
@@ -89,10 +90,10 @@ public class ForeachBehavior extends LoopingTagBehavior {
         }
     }
 
-    private void iterateIterable(Map<String, Object> bindings, TagNode tag, Writer out, Iterable o) throws IOException, TemplateEvaluationException {
+    private void iterateIterable(Map<String, Object> bindings, TagNode tag, Writer out, Iterable<Object> o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
         bindings.put(getIterObjectName(), iter);
-        Iterator it = o.iterator();
+        Iterator<?> it = o.iterator();
         while (it.hasNext()) {
         	Object o1 = it.next();
 

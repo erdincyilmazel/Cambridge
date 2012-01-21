@@ -71,7 +71,7 @@ public class ActionRoute {
         }
     }
 
-    private static boolean isSimpleParam(Class type) {
+    private static boolean isSimpleParam(Class<?> type) {
         return Number.class.isAssignableFrom(type) || type.equals(String.class) || type.isPrimitive();
     }
 }

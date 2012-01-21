@@ -40,7 +40,7 @@ public class PlayActionExtensionNode extends ExtensionNode {
             if (expression != null) {
                 param = expression.eval(bindings);
                 if (expression instanceof List) {
-                    param = ((List) param).toArray();
+                    param = ((List<?>) param).toArray();
                 }
             }
         } catch (ExpressionEvaluationException ex) {
