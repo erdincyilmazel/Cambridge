@@ -13,22 +13,23 @@ import cambridge.model.Expression;
  * @author Jon Scott Stevens
  */
 public class JexlExpressionLanguage implements ExpressionLanguage {
-    public static void register() {
-        Expressions.registerExpressionLanguage("jexl", JexlExpressionLanguage.class);
-    }
-
-    private JexlEngine engine = new JexlEngine();
-
-    public JexlExpressionLanguage() {
-		engine.setLenient(false);
+	public static void register() {
+		Expressions.registerExpressionLanguage("jexl", JexlExpressionLanguage.class);
 	}
 
-    public JexlEngine getEngine() {
+	private JexlEngine engine = new JexlEngine();
+
+	public JexlExpressionLanguage() {
+		engine.setLenient(true);
+		engine.setSilent(false);
+	}
+
+	public JexlEngine getEngine() {
 		return engine;
 	}
 
-    public Expression parse(String expressionString, int line, int column) throws ExpressionParsingException {
-    	org.apache.commons.jexl2.Expression compiledExpression;
+	public Expression parse(String expressionString, int line, int column) throws ExpressionParsingException {
+		org.apache.commons.jexl2.Expression compiledExpression;
 		try {
 			DebugInfo debug = new DebugInfo(expressionString, line, column);
 			compiledExpression = engine.createExpression(expressionString, debug);
@@ -36,10 +37,10 @@ public class JexlExpressionLanguage implements ExpressionLanguage {
 			throw new ExpressionParsingException(line, column, expressionString, e);
 		}
 
-        return new JEXLExpression(compiledExpression, expressionString, line, column);
-    }
+		return new JEXLExpression(compiledExpression, expressionString, line, column);
+	}
 
-    public String wrapExpressionAsList(String expr) {
-        return "[" + expr + "]";
-    }
+	public String wrapExpressionAsList(String expr) {
+		return "[" + expr + "]";
+	}
 }
