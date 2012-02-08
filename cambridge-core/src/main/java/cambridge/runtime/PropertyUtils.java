@@ -1,7 +1,6 @@
 package cambridge.runtime;
 
 import java.beans.BeanInfo;
-import java.beans.IndexedPropertyDescriptor;
 import java.beans.IntrospectionException;
 import java.beans.Introspector;
 import java.beans.MethodDescriptor;
@@ -38,7 +37,7 @@ public class PropertyUtils {
             return result;
         }
 
-        Property(Class beanClass, String name) {
+        Property(Class<?> beanClass, String name) {
             this.beanClass = beanClass;
             this.name = name;
         }
@@ -66,7 +65,7 @@ public class PropertyUtils {
                 return null;
             }
 
-            Class beanClass = bean.getClass();
+            Class<?> beanClass = bean.getClass();
             if (beanClass.equals(Super.class)) {
                 if (property.equals("super")) {
                     return ((Super) bean).getSuper();
