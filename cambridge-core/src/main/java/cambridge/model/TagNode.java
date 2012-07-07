@@ -269,8 +269,9 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    public void removeTagPart(int e) {
-      if (tagParts != null)
+      if (tagParts != null) {
          tagParts.remove(e);
+      }
    }
 
    public String getCloseText() {

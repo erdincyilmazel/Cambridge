@@ -81,5 +81,7 @@ public interface Tag extends ParentNode {
 
    public Attribute getAttribute(String attribute);
 
+   public Attribute getAttribute(String namespace, String attribute);
+
    public Attribute getDynamicAttribute(DynamicAttributeKey key);
 }

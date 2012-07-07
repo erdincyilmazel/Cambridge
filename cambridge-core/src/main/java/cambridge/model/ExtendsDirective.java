@@ -42,6 +42,10 @@ public class ExtendsDirective extends TemplateNode {
                overriden = extendedDocument.locateTag(overrides.getValue());
             } else {
                Attribute id = tag.getAttribute("id");
+               if (id == null && tag.isDynamic()) {
+                   id = tag.getAttribute(tag.getNameSpace(), "id");
+               }
+
                if (id != null) {
                   overriden = extended.getElementById(id.getValue());
                }
