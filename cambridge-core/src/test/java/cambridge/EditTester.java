@@ -77,6 +77,7 @@ public class EditTester {
             final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
             loader.parseTemplate("kitchensink.html");
             final TemplateFactory f = loader.newTemplateFactory("kitchensink.html");
+
             Template template = f.createTemplate();
 
             HashMap<Long, Member> members = new HashMap<Long, Member>();
