@@ -1,6 +1,7 @@
 package cambridge;
 
 import cambridge.model.FragmentList;
+import cambridge.runtime.ExpressionContext;
 
 import java.util.Locale;
 import java.util.Map;
@@ -26,7 +27,7 @@ class ImmutableTemplateFactory extends TemplateFactory {
    }
 
    @Override
-   public Template createTemplate(Map<String, Object> bindings) {
-      return new DynamicTemplate(fragments, bindings);
+   public Template createTemplate(ExpressionContext context) {
+      return new DynamicTemplate(fragments, context);
    }
 }

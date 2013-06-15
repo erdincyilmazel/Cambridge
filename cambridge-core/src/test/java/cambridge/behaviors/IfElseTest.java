@@ -4,8 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.io.StringWriter;
-import java.util.Map;
 
+import cambridge.parser.expressions.MapExpressionContext;
+import cambridge.runtime.ExpressionContext;
 import org.junit.Test;
 
 import cambridge.model.Fragment;
@@ -13,7 +14,6 @@ import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.runtime.DefaultTemplateBindings;
 
 /**
  * @author Erdinc Yilmazel
@@ -32,8 +32,8 @@ public class IfElseTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(IfElseTest.class.getResourceAsStream("ifelse.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         Map<String, Object> bindings = new DefaultTemplateBindings();
-         bindings.put("var1", true);
+         ExpressionContext context = new MapExpressionContext();
+         context.set("var1", true);
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -42,7 +42,7 @@ public class IfElseTest {
          StringWriter builder = new StringWriter();
 
          for (Fragment f : fragments) {
-            f.eval(bindings, builder);
+            f.eval(context, builder);
          }
 
          assertEquals(first, builder.toString().trim());
@@ -57,8 +57,8 @@ public class IfElseTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(IfElseTest.class.getResourceAsStream("ifelse.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         Map<String, Object> bindings = new DefaultTemplateBindings();
-         bindings.put("var2", true);
+         ExpressionContext context = new MapExpressionContext();
+         context.set("var2", true);
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -67,7 +67,7 @@ public class IfElseTest {
          StringWriter builder = new StringWriter();
 
          for (Fragment f : fragments) {
-            f.eval(bindings, builder);
+            f.eval(context, builder);
          }
 
          assertEquals(second, builder.toString().trim());
@@ -82,8 +82,8 @@ public class IfElseTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(IfElseTest.class.getResourceAsStream("ifelse.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         Map<String, Object> bindings = new DefaultTemplateBindings();
-         bindings.put("var3", true);
+         ExpressionContext context = new MapExpressionContext();
+         context.set("var3", true);
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -92,7 +92,7 @@ public class IfElseTest {
          StringWriter builder = new StringWriter();
 
          for (Fragment f : fragments) {
-            f.eval(bindings, builder);
+            f.eval(context, builder);
          }
 
          assertEquals(third, builder.toString().trim());
@@ -107,7 +107,7 @@ public class IfElseTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(IfElseTest.class.getResourceAsStream("ifelse.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         Map<String, Object> bindings = new DefaultTemplateBindings();
+         ExpressionContext context = new MapExpressionContext();
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -116,7 +116,7 @@ public class IfElseTest {
          StringWriter builder = new StringWriter();
 
          for (Fragment f : fragments) {
-            f.eval(bindings, builder);
+            f.eval(context, builder);
          }
 
          assertEquals(f, builder.toString().trim());

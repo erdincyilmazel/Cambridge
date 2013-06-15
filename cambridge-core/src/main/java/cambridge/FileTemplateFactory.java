@@ -2,11 +2,11 @@ package cambridge;
 
 import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
+import cambridge.runtime.ExpressionContext;
 
 import java.io.File;
 import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -18,7 +18,7 @@ class FileTemplateFactory extends TemplateFactory {
    private final File templateFile;
    private final String encoding;
    private final TemplateModifier modifier;
-   private long lastCheck;
+   private long lastReload;
    private HashSet<File> includes;
 
    private final int changeDetectionInterval;
@@ -30,7 +30,7 @@ class FileTemplateFactory extends TemplateFactory {
       this.modifier = modifier;
       this.includes = includes;
       this.changeDetectionInterval = changeDetectionInterval;
-      lastCheck = System.currentTimeMillis();
+      lastReload = System.currentTimeMillis();
    }
 
    @Override
@@ -48,30 +48,28 @@ class FileTemplateFactory extends TemplateFactory {
    }
 
    @Override
-   public Template createTemplate(Map<String, Object> bindings) {
+   public Template createTemplate(ExpressionContext context) {
       checkForChanges();
 
-      return new DynamicTemplate(fragments, bindings);
+      return new DynamicTemplate(fragments, context);
    }
 
    private void checkForChanges() {
-      if (changeDetectionInterval != -1 && !reloading && lastCheck + changeDetectionInterval < System.currentTimeMillis()) {
-         if (templateFile.lastModified() > lastCheck) {
+      if (changeDetectionInterval != -1 && !reloading && lastReload + changeDetectionInterval < System.currentTimeMillis()) {
+         if (templateFile.lastModified() > lastReload) {
             reload();
          } else if (includes != null) {
             for (File f : includes) {
-               if (f.exists() && f.lastModified() > lastCheck) {
+               if (f.exists() && f.lastModified() > lastReload) {
                   reload();
                   break;
                }
             }
          }
-
-         lastCheck = System.currentTimeMillis();
       }
    }
 
-   private boolean reloading;
+   private volatile boolean reloading;
 
    private synchronized void reload() {
       reloading = true;
@@ -88,6 +86,7 @@ class FileTemplateFactory extends TemplateFactory {
 
          fragments = doc.normalize();
 
+          lastReload = System.currentTimeMillis();
       } catch (TemplateLoadingException e) {
          throw new TemplateReloadingException(e);
       } catch (BehaviorInstantiationException e) {

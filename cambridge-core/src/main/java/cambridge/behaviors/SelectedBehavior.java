@@ -11,6 +11,7 @@ import cambridge.model.DynamicAttribute;
 import cambridge.model.Expression;
 import cambridge.model.ModifyableTag;
 import cambridge.model.SimpleAttribute;
+import cambridge.runtime.ExpressionContext;
 
 import java.util.Map;
 
@@ -27,8 +28,8 @@ public class SelectedBehavior extends ModifyingTagBehavior {
         this.expression = expression;
     }
 
-    public void modify(Map<String, Object> bindings, ModifyableTag tag) throws ExpressionEvaluationException {
-        if (expression.asBoolean(bindings)) {
+    public void modify(ExpressionContext context, ModifyableTag tag) throws ExpressionEvaluationException {
+        if (expression.asBoolean(context)) {
             tag.getTagParts().add(new SimpleAttribute("selected", "selected", getLine(), getCol()));
         }
     }

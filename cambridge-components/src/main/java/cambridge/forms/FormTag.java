@@ -4,11 +4,11 @@ import cambridge.*;
 import cambridge.model.Attribute;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.Expression;
+import cambridge.runtime.ExpressionContext;
 import cambridge.runtime.Iter;
 import cambridge.runtime.Super;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -40,7 +40,7 @@ public class FormTag extends DynamicTag {
    }
 
    @Override
-   public void execute(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+   public void execute(ExpressionContext bindings, Writer out) throws IOException, TemplateEvaluationException {
       try {
          Object f = formExpression.eval(bindings);
          if (f instanceof Form) {
@@ -54,20 +54,20 @@ public class FormTag extends DynamicTag {
 
             if (t != null) {
                s = new Super(t, ts, iter);
-               bindings.put(Expressions.PARENT_OBJECT, s);
+               bindings.set(Expressions.PARENT_OBJECT, s);
             }
 
-            bindings.put(Expressions.CURRENT_OBJECT, form);
+            bindings.set(Expressions.CURRENT_OBJECT, form);
             super.execute(bindings, out);
 
             if (t != null) {
-               bindings.put(Expressions.CURRENT_OBJECT, s.get());
-               bindings.put(Expressions.PARENT_OBJECT, s.getSuper());
-               bindings.put(Expressions.ITER_OBJECT, s.getIter());
+               bindings.set(Expressions.CURRENT_OBJECT, s.get());
+               bindings.set(Expressions.PARENT_OBJECT, s.getSuper());
+               bindings.set(Expressions.ITER_OBJECT, s.getIter());
             } else {
-               bindings.put(Expressions.CURRENT_OBJECT, t);
-               bindings.put(Expressions.PARENT_OBJECT, ts);
-               bindings.put(Expressions.ITER_OBJECT, iter);
+               bindings.set(Expressions.CURRENT_OBJECT, t);
+               bindings.set(Expressions.PARENT_OBJECT, ts);
+               bindings.set(Expressions.ITER_OBJECT, iter);
             }
 
          }

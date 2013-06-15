@@ -1,12 +1,12 @@
 package cambridge;
 
 import cambridge.model.TagNode;
+import cambridge.runtime.ExpressionContext;
 import cambridge.runtime.Iter;
 import cambridge.runtime.Super;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -22,32 +22,32 @@ public abstract class LoopingTagBehavior implements TagBehavior {
         this.col = col;
     }
 
-    public final void execute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
-        Object t = bindings.get(getCurrentObjectName());
-        Super ts = (Super) bindings.get(getParentObjectName());
-        Iter iter = (Iter) bindings.get(getIterObjectName());
+    public final void execute(ExpressionContext context, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
+        Object t = context.get(getCurrentObjectName());
+        Super ts = (Super) context.get(getParentObjectName());
+        Iter iter = (Iter) context.get(getIterObjectName());
 
         Super s = null;
 
         if (t != null) {
             s = new Super(t, ts, iter);
-            bindings.put(getParentObjectName(), s);
+            context.set(getParentObjectName(), s);
         }
 
-        doExecute(bindings, tag, out);
+        doExecute(context, tag, out);
 
         if (t != null) {
-            bindings.put(getCurrentObjectName(), s.get());
-            bindings.put(getParentObjectName(), s.getSuper());
-            bindings.put(getIterObjectName(), s.getIter());
+            context.set(getCurrentObjectName(), s.get());
+            context.set(getParentObjectName(), s.getSuper());
+            context.set(getIterObjectName(), s.getIter());
         } else {
-            bindings.put(getCurrentObjectName(), t);
-            bindings.put(getParentObjectName(), ts);
-            bindings.put(getIterObjectName(), iter);
+            context.set(getCurrentObjectName(), t);
+            context.set(getParentObjectName(), ts);
+            context.set(getIterObjectName(), iter);
         }
     }
 
-    protected abstract void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException;
+    protected abstract void doExecute(ExpressionContext context, TagNode tag, Writer out) throws TemplateEvaluationException, IOException;
 
     public String getCurrentObjectName() {
         return Expressions.CURRENT_OBJECT;

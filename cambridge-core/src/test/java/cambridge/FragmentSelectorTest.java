@@ -3,7 +3,6 @@ package cambridge;
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
-import cambridge.runtime.DefaultTemplateBindings;
 import org.junit.Test;
 
 import java.io.File;
@@ -28,7 +27,7 @@ public class FragmentSelectorTest {
 
                   Writer writer = new OutputStreamWriter(System.out);
                   for (Fragment f : fragmentList) {
-                     f.eval(new DefaultTemplateBindings(), writer);
+                     f.eval(Expressions.getDefaultExpressionLanguage().createNewContext(), writer);
                   }
 
                } catch (BehaviorInstantiationException e) {

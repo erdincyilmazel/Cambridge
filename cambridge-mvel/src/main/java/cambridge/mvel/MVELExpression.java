@@ -2,10 +2,10 @@ package cambridge.mvel;
 
 import cambridge.ExpressionEvaluationException;
 import cambridge.model.Expression;
+import cambridge.runtime.ExpressionContext;
 import org.mvel2.MVEL;
 
 import java.io.Serializable;
-import java.util.Map;
 
 /**
  * @author Erdinc YILMAZEL
@@ -24,17 +24,17 @@ public class MVELExpression implements Expression {
         this.col = col;
     }
 
-    public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException {
+    public Object eval(ExpressionContext context) throws ExpressionEvaluationException {
         //VariableResolverFactory factory = new MapVariableResolverFactory(globals);
         try {
-            return MVEL.executeExpression(compiledExpression, globals);
+            return MVEL.executeExpression(compiledExpression, context.asMap());
         } catch (Exception e) {
             throw new ExpressionEvaluationException("Error evaluating exception on line: " + line + ", column: " + col + ", expression: " + expression, e);
         }
     }
 
-    public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
 
         if (o instanceof Boolean) {
             return (Boolean) o;
@@ -45,16 +45,16 @@ public class MVELExpression implements Expression {
         return o instanceof String && !"".equals(o);
     }
 
-    public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public int asInt(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
         if (o instanceof Number) {
             return ((Number) o).intValue();
         }
         return 0;
     }
 
-    public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public float asFloat(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
         if (o instanceof Number) {
             return ((Number) o).floatValue();
         }
@@ -62,23 +62,23 @@ public class MVELExpression implements Expression {
         return 0;
     }
 
-    public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public double asDouble(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
         if (o instanceof Number) {
             return ((Number) o).doubleValue();
         }
         return 0;
     }
 
-    public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public long asLong(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
         if (o instanceof Number) {
             return ((Number) o).longValue();
         }
         return 0;
     }
 
-    public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        return eval(bindings).toString();
+    public String asString(ExpressionContext context) throws ExpressionEvaluationException {
+        return eval(context).toString();
     }
 }

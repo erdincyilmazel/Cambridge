@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.ExpressionContext;
 
 /**
  * @author Erdinc Yilmazel
@@ -26,19 +25,19 @@ public class StringLiteral implements CambridgeExpression {
       }
    }
 
-   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public Type getType(ExpressionContext context) throws ExpressionEvaluationException {
       return Type.String;
    }
 
-   public String eval(Map<String, Object> bindings) {
+   public String eval(ExpressionContext context) {
       return value;
    }
 
-   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException {
       return !value.equals("");
    }
 
-   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public int asInt(ExpressionContext context) throws ExpressionEvaluationException {
       try {
          return Integer.parseInt(value);
       } catch (NumberFormatException e) {
@@ -46,7 +45,7 @@ public class StringLiteral implements CambridgeExpression {
       }
    }
 
-   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public float asFloat(ExpressionContext context) throws ExpressionEvaluationException {
       try {
          return Float.parseFloat(value);
       } catch (NumberFormatException e) {
@@ -54,7 +53,7 @@ public class StringLiteral implements CambridgeExpression {
       }
    }
 
-   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public double asDouble(ExpressionContext context) throws ExpressionEvaluationException {
       try {
          return Double.parseDouble(value);
       } catch (NumberFormatException e) {
@@ -62,7 +61,7 @@ public class StringLiteral implements CambridgeExpression {
       }
    }
 
-   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public long asLong(ExpressionContext context) throws ExpressionEvaluationException {
       try {
          return Long.parseLong(value);
       } catch (NumberFormatException e) {
@@ -70,7 +69,7 @@ public class StringLiteral implements CambridgeExpression {
       }
    }
 
-   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public String asString(ExpressionContext context) throws ExpressionEvaluationException {
       return value;
    }
 

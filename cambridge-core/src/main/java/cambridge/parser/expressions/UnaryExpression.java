@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.ExpressionContext;
 
 /**
  * @author Erdinc Yilmazel
@@ -18,69 +17,69 @@ public class UnaryExpression implements CambridgeExpression {
       this.expression = expression;
    }
 
-   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public Type getType(ExpressionContext context) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
          return Type.Boolean;
       }
       return Type.Int;
    }
 
-   public Object eval(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public Object eval(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case Not:
-            return !expression.asBoolean(bindings);
+            return !expression.asBoolean(context);
          case Tilde:
-            return ~expression.asInt(bindings);
+            return ~expression.asInt(context);
       }
 
       return null;
    }
 
-   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(bindings);
+         return !expression.asBoolean(context);
       }
 
-      return ~expression.asInt(bindings) != 0;
+      return ~expression.asInt(context) != 0;
    }
 
-   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public int asInt(ExpressionContext context) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(bindings) ? 1 : 0;
+         return !expression.asBoolean(context) ? 1 : 0;
       }
 
-      return ~expression.asInt(bindings);
+      return ~expression.asInt(context);
    }
 
-   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public float asFloat(ExpressionContext context) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(bindings) ? 1 : 0;
+         return !expression.asBoolean(context) ? 1 : 0;
       }
 
-      return ~expression.asInt(bindings);
+      return ~expression.asInt(context);
    }
 
-   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public double asDouble(ExpressionContext context) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(bindings) ? 1 : 0;
+         return !expression.asBoolean(context) ? 1 : 0;
       }
 
-      return ~expression.asInt(bindings);
+      return ~expression.asInt(context);
    }
 
-   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public long asLong(ExpressionContext context) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(bindings) ? 1 : 0;
+         return !expression.asBoolean(context) ? 1 : 0;
       }
 
-      return ~expression.asInt(bindings);
+      return ~expression.asInt(context);
    }
 
-   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public String asString(ExpressionContext context) throws ExpressionEvaluationException {
       if (operator == Operator.Not) {
-         return !expression.asBoolean(bindings) ? "true" : "false";
+         return !expression.asBoolean(context) ? "true" : "false";
       }
 
-      return ~expression.asInt(bindings) + "";
+      return ~expression.asInt(context) + "";
    }
 }

@@ -96,10 +96,6 @@ public class TemplateParser {
 
     private ExpressionLanguage expressionLanguage;
 
-    public ExpressionLanguage getExpressionLanguage() {
-        return expressionLanguage;
-    }
-
     private int getIndex(int no) {
         return no % BUFFER_SIZE;
     }

@@ -4,12 +4,11 @@ import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
 import cambridge.Expressions;
 import cambridge.model.Expression;
-import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.runtime.ExpressionContext;
 import org.junit.Before;
 import org.junit.Test;
 
 import java.util.List;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -21,11 +20,11 @@ import static org.junit.Assert.assertTrue;
  */
 public class ExpressionTest {
 
-   Map<String, Object> bindings;
+   ExpressionContext context;
 
    @Before
    public void setUp() {
-      bindings = new DefaultTemplateBindings();
+      context = new MapExpressionContext();
 
    }
 
@@ -35,7 +34,7 @@ public class ExpressionTest {
       try {
          Expression e = Expressions.parse(expression, 0, 0);
          //assertEquals("Testing type", CambridgeExpression.Type.Boolean, e.getType(bindings));
-         assertTrue(e.asBoolean(bindings));
+         assertTrue(e.asBoolean(context));
       } catch (ExpressionParsingException e) {
          e.printStackTrace();
       } catch (ExpressionEvaluationException e) {
@@ -49,8 +48,8 @@ public class ExpressionTest {
       try {
          Expression e = Expressions.parse(expression, 0, 0);
 //         assertEquals("Testing type", CambridgeExpression.Type.Object, e.getType(bindings));
-         assertTrue(e.eval(bindings) instanceof List);
-         List<?> l = (List<?>) e.eval(bindings);
+         assertTrue(e.eval(context) instanceof List);
+         List<?> l = (List<?>) e.eval(context);
          assertEquals("a", l.get(0));
          assertEquals("b", l.get(1));
          assertEquals(213, l.get(2));

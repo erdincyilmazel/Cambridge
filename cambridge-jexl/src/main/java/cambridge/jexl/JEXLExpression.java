@@ -1,7 +1,7 @@
 package cambridge.jexl;
 
-import java.util.Map;
-
+import cambridge.runtime.ExpressionContext;
+import org.apache.commons.jexl2.JexlContext;
 import org.apache.commons.jexl2.MapContext;
 
 import cambridge.ExpressionEvaluationException;
@@ -23,16 +23,16 @@ public class JEXLExpression implements Expression {
         this.col = col;
     }
 
-    public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException {
+    public Object eval(ExpressionContext context) throws ExpressionEvaluationException {
         try {
-        	return this.compiledExpression.evaluate(new MapContext(globals));
+        	return this.compiledExpression.evaluate((JexlContext) context);
         } catch (Exception e) {
             throw new ExpressionEvaluationException("Error evaluating exception on line: " + line + ", column: " + col + ", expression: " + expression, e);
         }
     }
 
-    public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
 
         if (o instanceof Boolean) {
             return (Boolean) o;
@@ -43,16 +43,16 @@ public class JEXLExpression implements Expression {
         return o instanceof String && !"".equals(o);
     }
 
-    public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public int asInt(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
         if (o instanceof Number) {
             return ((Number) o).intValue();
         }
         return 0;
     }
 
-    public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public float asFloat(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
         if (o instanceof Number) {
             return ((Number) o).floatValue();
         }
@@ -60,23 +60,23 @@ public class JEXLExpression implements Expression {
         return 0;
     }
 
-    public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public double asDouble(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
         if (o instanceof Number) {
             return ((Number) o).doubleValue();
         }
         return 0;
     }
 
-    public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        Object o = eval(bindings);
+    public long asLong(ExpressionContext context) throws ExpressionEvaluationException {
+        Object o = eval(context);
         if (o instanceof Number) {
             return ((Number) o).longValue();
         }
         return 0;
     }
 
-    public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        return eval(bindings).toString();
+    public String asString(ExpressionContext context) throws ExpressionEvaluationException {
+        return eval(context).toString();
     }
 }

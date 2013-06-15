@@ -6,13 +6,13 @@ import cambridge.ExpressionParsingException;
 import cambridge.TemplateEvaluationException;
 import cambridge.runtime.DefaultTemplateBindings;
 import cambridge.runtime.EscapeFilter;
+import cambridge.runtime.ExpressionContext;
 import cambridge.runtime.Filter;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * Represents cambridge expressions that are used inside an HTML tag.
@@ -69,11 +69,11 @@ public class ExpressionTagPart implements TagPart, Fragment {
         return true;
     }
 
-    public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+    public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
         try {
-            Object value = expression.eval(bindings);
+            Object value = expression.eval(context);
             if (value != null) {
-                Locale locale = (Locale) bindings.get(DefaultTemplateBindings.LocaleVariable);
+                Locale locale = (Locale) context.get(DefaultTemplateBindings.LocaleVariable);
                 if (locale == null) {
                     locale = Locale.getDefault();
                 }

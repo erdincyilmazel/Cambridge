@@ -1,8 +1,7 @@
 package cambridge.model;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.ExpressionContext;
 
 /**
  * @author Erdinc Yilmazel
@@ -10,17 +9,17 @@ import java.util.Map;
  * Time: 12:34:28 AM
  */
 public interface Expression {
-    public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException;
+    public Object eval(ExpressionContext context) throws ExpressionEvaluationException;
 
-    public boolean asBoolean(Map<String, Object> globals) throws ExpressionEvaluationException;
+    public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException;
 
-    public int asInt(Map<String, Object> globals) throws ExpressionEvaluationException;
+    public int asInt(ExpressionContext context) throws ExpressionEvaluationException;
 
-    public float asFloat(Map<String, Object> globals) throws ExpressionEvaluationException;
+    public float asFloat(ExpressionContext context) throws ExpressionEvaluationException;
 
-    public double asDouble(Map<String, Object> globals) throws ExpressionEvaluationException;
+    public double asDouble(ExpressionContext context) throws ExpressionEvaluationException;
 
-    public long asLong(Map<String, Object> globals) throws ExpressionEvaluationException;
+    public long asLong(ExpressionContext context) throws ExpressionEvaluationException;
 
-    public String asString(Map<String, Object> globals) throws ExpressionEvaluationException;
+    public String asString(ExpressionContext context) throws ExpressionEvaluationException;
 }

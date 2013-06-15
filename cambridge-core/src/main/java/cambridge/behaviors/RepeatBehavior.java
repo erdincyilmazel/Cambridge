@@ -12,6 +12,7 @@ import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.Expression;
 import cambridge.model.TagNode;
+import cambridge.runtime.ExpressionContext;
 import cambridge.runtime.Iter;
 
 import java.io.IOException;
@@ -32,18 +33,18 @@ public class RepeatBehavior extends LoopingTagBehavior {
     }
 
     @Override
-    public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
+    public void doExecute(ExpressionContext context, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
         try {
             Iter iter = new Iter();
-            int n = number.asInt(bindings);
+            int n = number.asInt(context);
             for (int i = 0; i != n; i++) {
             	if (i == n - 1) {
             		iter.setLast();
                 }
 
-                bindings.put(Expressions.CURRENT_OBJECT, i);
-                bindings.put(Expressions.ITER_OBJECT, iter);
-                tag.execute(bindings, out);
+                context.set(Expressions.CURRENT_OBJECT, i);
+                context.set(Expressions.ITER_OBJECT, iter);
+                tag.execute(context, out);
                 iter.next();
             }
         } catch (ExpressionEvaluationException e) {

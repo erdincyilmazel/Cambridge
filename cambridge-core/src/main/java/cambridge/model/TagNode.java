@@ -16,6 +16,7 @@ import cambridge.TemplateLoadingException;
 import cambridge.TemplateParsingException;
 import cambridge.behaviors.ForeachBehavior;
 import cambridge.behaviors.IfBehavior;
+import cambridge.runtime.ExpressionContext;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -624,16 +624,16 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return "<" + (nameSpace == null ? tagName : nameSpace + ":" + tagName) + "> @ " + getBeginLine() + ":" + getBeginColumn() + " - " + getEndLine() + ":" + getEndColumn();
    }
 
-   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+   public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
       try {
          if (!isDynamic()) {
-            printFragments(bindings, out);
+            printFragments(context, out);
          } else {
-            if (conditionsMet(bindings)) {
+            if (conditionsMet(context)) {
                if (looping == null) {
-                  execute(bindings, out);
+                  execute(context, out);
                } else {
-                  looping.execute(bindings, this, out);
+                  looping.execute(context, this, out);
                }
             }
          }
@@ -710,14 +710,14 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
    }
 
    @SuppressWarnings("unchecked")
-   public void execute(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+   public void execute(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
       ModifyableTag tag;
       if (modifyingBehaviors != null) {
          tag = new ModifyableCopy(tagParts == null ? null : (ArrayList<TagPart>) tagParts.clone(), fragments == null ? null : (FragmentList) fragments.clone());
 
          for (ModifyingTagBehavior b : modifyingBehaviors) {
             try {
-               b.modify(bindings, tag);
+               b.modify(context, tag);
             } catch (ExpressionEvaluationException e) {
                throw new TemplateEvaluationException(e, "Could not execute the expression: " +
                        e.getMessage() + ", on line: " + getBeginLine() + ", column: " +
@@ -743,7 +743,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             boolean whiteSpace = false;
             for (TagPart t : tag.getTagParts()) {
                if (t instanceof ExpressionTagPart) {
-                  ((ExpressionTagPart) t).eval(bindings, out);
+                  ((ExpressionTagPart) t).eval(context, out);
                } else {
                   if (t.preserveWhitespace()) {
                      if (!t.isWhiteSpace()) {
@@ -778,7 +778,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
                               out.write(((StaticFragment) af).contents.toString());
                            } else if (af instanceof ExpressionNode) {
                               ExpressionNode ex = (ExpressionNode) af;
-                              ex.eval(bindings, out);
+                              ex.eval(context, out);
                            }
                         }
 
@@ -798,7 +798,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
 
       if (tag.getFragments() != null) {
          for (Fragment f : tag.getFragments()) {
-            f.eval(bindings, out);
+            f.eval(context, out);
          }
       }
 
@@ -819,8 +819,8 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       }
    }
 
-   private boolean conditionsMet(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      return conditionalBehavior == null || conditionalBehavior.conditionMet(bindings);
+   private boolean conditionsMet(ExpressionContext context) throws ExpressionEvaluationException {
+      return conditionalBehavior == null || conditionalBehavior.conditionMet(context);
    }
 
    private void assignBehaviors() throws BehaviorInstantiationException {
@@ -917,10 +917,10 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
       return get(tagName, -1);
    }
 
-   private void printFragments(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+   private void printFragments(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
       if (fragments != null) {
          for (Fragment f : fragments) {
-            f.eval(bindings, out);
+            f.eval(context, out);
          }
       }
    }

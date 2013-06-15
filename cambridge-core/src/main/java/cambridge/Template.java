@@ -31,11 +31,6 @@ public interface Template {
    public void setAllProperties(Map<String, Object> properties);
 
    /**
-    * Removes all of the previously added properties
-    */
-   public void clearProperties();
-
-   /**
     * Renders the page writing to the given writer. If the passed in writer is not buffered,
     * you might want to call the alternate method {@link #printBuffered(java.io.Writer)} that creates
     * a BufferedWriter that wraps the Writer you passed in. Using a BufferedWriter generally gives

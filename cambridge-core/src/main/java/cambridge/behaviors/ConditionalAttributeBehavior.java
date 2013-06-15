@@ -11,6 +11,7 @@ import cambridge.model.DynamicAttribute;
 import cambridge.model.Expression;
 import cambridge.model.ModifyableTag;
 import cambridge.model.TagPart;
+import cambridge.runtime.ExpressionContext;
 
 import java.util.Map;
 
@@ -29,8 +30,8 @@ public class ConditionalAttributeBehavior extends ModifyingTagBehavior {
         this.attribute = attribute;
     }
 
-    public void modify(Map<String, Object> bindings, ModifyableTag tag) throws ExpressionEvaluationException {
-        if (!expression.asBoolean(bindings)) {
+    public void modify(ExpressionContext context, ModifyableTag tag) throws ExpressionEvaluationException {
+        if (!expression.asBoolean(context)) {
             int remove = -1;
             boolean next = false;
             for (int i = 0; i < tag.getTagParts().size(); i++) {

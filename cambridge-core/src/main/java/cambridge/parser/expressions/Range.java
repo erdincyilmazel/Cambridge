@@ -1,11 +1,11 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.runtime.ExpressionContext;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -25,35 +25,35 @@ public class Range implements Iterable<Integer>, CambridgeExpression {
       this.max = max;
    }
 
-   public Type getType(Map<String, Object> globals) throws ExpressionEvaluationException {
+   public Type getType( ExpressionContext context) throws ExpressionEvaluationException {
       return Type.Object;
    }
 
-   public Object eval(Map<String, Object> globals) throws ExpressionEvaluationException {
+   public Object eval( ExpressionContext context) throws ExpressionEvaluationException {
       return this;
    }
 
-   public boolean asBoolean(Map<String, Object> globals) throws ExpressionEvaluationException {
+   public boolean asBoolean( ExpressionContext context) throws ExpressionEvaluationException {
       return true;
    }
 
-   public int asInt(Map<String, Object> globals) throws ExpressionEvaluationException {
+   public int asInt( ExpressionContext context) throws ExpressionEvaluationException {
       return min;
    }
 
-   public float asFloat(Map<String, Object> globals) throws ExpressionEvaluationException {
+   public float asFloat( ExpressionContext context) throws ExpressionEvaluationException {
       return min;
    }
 
-   public double asDouble(Map<String, Object> globals) throws ExpressionEvaluationException {
+   public double asDouble( ExpressionContext context) throws ExpressionEvaluationException {
       return min;
    }
 
-   public long asLong(Map<String, Object> globals) throws ExpressionEvaluationException {
+   public long asLong( ExpressionContext context) throws ExpressionEvaluationException {
       return min;
    }
 
-   public String asString(Map<String, Object> globals) throws ExpressionEvaluationException {
+   public String asString( ExpressionContext context) throws ExpressionEvaluationException {
       return toString();
    }
 

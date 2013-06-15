@@ -2,6 +2,7 @@ package cambridge.janino;
 
 import java.util.Map;
 
+import cambridge.runtime.ExpressionContext;
 import org.codehaus.janino.CompileException;
 import org.codehaus.janino.ExpressionEvaluator;
 
@@ -32,17 +33,17 @@ public class JaninoExpression implements Expression {
 		this.col = col;
 	}
 
-	public Object eval(Map<String, Object> globals)
+	public Object eval(ExpressionContext context)
 			throws ExpressionEvaluationException {
 		try {
 			if (expressionEvaluator == null && isValue == null)
-				compileExpressionEvaluator(globals);
+				compileExpressionEvaluator(context);
 
 			// don't bother compiling expressions when returning values
 			if (isValue)
-				return globals.get(expression);
+				return context.get(expression);
 
-			return expressionEvaluator.evaluate(getArguments(globals));
+			return expressionEvaluator.evaluate(getArguments(context));
 		} catch (Exception e) {
 			throw new ExpressionEvaluationException(getErrorMsg(), e);
 		}
@@ -53,11 +54,11 @@ public class JaninoExpression implements Expression {
 				+ col + ", expression: " + expression;
 	}
 
-	private Object[] getArguments(Map<String, Object> globals) {
+	private Object[] getArguments(ExpressionContext context) {
 		Object[] arguments = new Object[parameterNames.length];
 		for (int i = 0; i < parameterNames.length; i++) {
 			String name = parameterNames[i];
-			Object argument = globals.get(name);
+			Object argument = context.get(name);
 			if (argument != null) {
 				if (!parameterTypes[i].isAssignableFrom(argument.getClass())) {
 					if (PRINT_ERRORS) System.err.println("Wrong argument type passed for "
@@ -71,10 +72,10 @@ public class JaninoExpression implements Expression {
 		return arguments;
 	}
 
-	private void compileExpressionEvaluator(Map<String, Object> globals)
+	private void compileExpressionEvaluator(ExpressionContext context)
 			throws Scanner.ScanException, CompileException, Parser.ParseException {
 
-		if (globals.containsKey(expression)) {
+		if (context.has(expression)) {
 			isValue=true;
 		}
 		else {
@@ -95,7 +96,8 @@ public class JaninoExpression implements Expression {
 			 * TODO: is there an optimization to check the expression and avoid
 			 * passing names that are not in the expression?
 			 */
-			parameterNames = new String[globals.size()];
+            Map<String, Object> globals = context.asMap();
+            parameterNames = new String[globals.size()];
 			parameterTypes = new Class[globals.size()];
 			int i = 0;
 			for (String name : globals.keySet()) {
@@ -116,9 +118,9 @@ public class JaninoExpression implements Expression {
 		}
 	}
 
-	public boolean asBoolean(Map<String, Object> bindings)
+	public boolean asBoolean(ExpressionContext context)
 			throws ExpressionEvaluationException {
-		Object o = eval(bindings);
+		Object o = eval(context);
 
 		if (o instanceof Boolean) {
 			return (Boolean) o;
@@ -129,18 +131,18 @@ public class JaninoExpression implements Expression {
 		return o instanceof String && !"".equals(o);
 	}
 
-	public int asInt(Map<String, Object> bindings)
+	public int asInt(ExpressionContext context)
 			throws ExpressionEvaluationException {
-		Object o = eval(bindings);
+		Object o = eval(context);
 		if (o instanceof Number) {
 			return ((Number) o).intValue();
 		}
 		return 0;
 	}
 
-	public float asFloat(Map<String, Object> bindings)
+	public float asFloat(ExpressionContext context)
 			throws ExpressionEvaluationException {
-		Object o = eval(bindings);
+		Object o = eval(context);
 		if (o instanceof Number) {
 			return ((Number) o).floatValue();
 		}
@@ -148,26 +150,26 @@ public class JaninoExpression implements Expression {
 		return 0;
 	}
 
-	public double asDouble(Map<String, Object> bindings)
+	public double asDouble(ExpressionContext context)
 			throws ExpressionEvaluationException {
-		Object o = eval(bindings);
+		Object o = eval(context);
 		if (o instanceof Number) {
 			return ((Number) o).doubleValue();
 		}
 		return 0;
 	}
 
-	public long asLong(Map<String, Object> bindings)
+	public long asLong(ExpressionContext context)
 			throws ExpressionEvaluationException {
-		Object o = eval(bindings);
+		Object o = eval(context);
 		if (o instanceof Number) {
 			return ((Number) o).longValue();
 		}
 		return 0;
 	}
 
-	public String asString(Map<String, Object> bindings)
+	public String asString(ExpressionContext context)
 			throws ExpressionEvaluationException {
-		return eval(bindings).toString();
+		return eval(context).toString();
 	}
 }

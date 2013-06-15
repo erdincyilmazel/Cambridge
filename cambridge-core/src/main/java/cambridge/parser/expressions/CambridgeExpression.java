@@ -2,8 +2,7 @@ package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
 import cambridge.model.Expression;
-
-import java.util.Map;
+import cambridge.runtime.ExpressionContext;
 
 /**
  * @author Erdinc YILMAZEL
@@ -45,5 +44,5 @@ public interface CambridgeExpression extends Expression {
       Not,
    }
 
-   public Type getType(Map<String, Object> globals) throws ExpressionEvaluationException;
+   public Type getType(ExpressionContext context) throws ExpressionEvaluationException;
 }

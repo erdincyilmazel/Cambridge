@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.ExpressionContext;
 
 /**
  * @author Erdinc Yilmazel
@@ -16,35 +15,35 @@ public class LongLiteral implements CambridgeExpression {
       this.value = value;
    }
 
-   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public Type getType(ExpressionContext context) throws ExpressionEvaluationException {
       return Type.Long;
    }
 
-   public Long eval(Map<String, Object> bindings) {
+   public Long eval(ExpressionContext context) {
       return value;
    }
 
-   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException {
       return value != 0;
    }
 
-   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public int asInt(ExpressionContext context) throws ExpressionEvaluationException {
       return (int) value;
    }
 
-   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public float asFloat(ExpressionContext context) throws ExpressionEvaluationException {
       return (float) value;
    }
 
-   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public double asDouble(ExpressionContext context) throws ExpressionEvaluationException {
       return (double) value;
    }
 
-   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public long asLong(ExpressionContext context) throws ExpressionEvaluationException {
       return value;
    }
 
-   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public String asString(ExpressionContext context) throws ExpressionEvaluationException {
       return "" + value;
    }
 

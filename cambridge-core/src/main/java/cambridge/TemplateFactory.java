@@ -1,9 +1,9 @@
 package cambridge;
 
 import cambridge.model.FragmentList;
+import cambridge.runtime.ExpressionContext;
 
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -23,5 +23,5 @@ public abstract class TemplateFactory {
 
    public abstract Template createTemplate(Locale locale);
 
-   public abstract Template createTemplate(Map<String, Object> bindings);
+   public abstract Template createTemplate(ExpressionContext context);
 }

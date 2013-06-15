@@ -6,12 +6,11 @@ import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.parser.expressions.MapExpressionContext;
+import cambridge.runtime.ExpressionContext;
 import org.junit.Test;
 
 import java.io.StringWriter;
-import java.util.Map;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
@@ -27,10 +26,10 @@ public class WithBehaviorTest {
    public void testWithBehavior() throws Exception {
       TemplateTokenizer tokenizer = new TemplateTokenizer(ConditionalAttributeBehaviorTest.class.getResourceAsStream("withbehavior.html"));
       TemplateParser parser = new TemplateParser(tokenizer);
-      Map<String, Object> bindings = new DefaultTemplateBindings();
+      ExpressionContext context = new MapExpressionContext();
 
       User user = new User("test", "test@test.com");
-      bindings.put("user", user);
+      context.set("user", user);
 
       TemplateDocument t = parser.parse();
       assertNotNull(t);
@@ -39,7 +38,7 @@ public class WithBehaviorTest {
       StringWriter builder = new StringWriter();
 
       for (Fragment f : fragments) {
-         f.eval(bindings, builder);
+         f.eval(context, builder);
       }
 
       assertEquals(out, builder.toString());

@@ -20,8 +20,8 @@ public class DefaultTemplateBindings extends HashMap<String, Object> {
       put(LocaleVariable, Locale.getDefault());
    }
 
-   public static Locale getLocaleFromBindings(Map<String, Object> bindings) {
-      Locale locale = (Locale) bindings.get(LocaleVariable);
+   public static Locale getLocaleFromBindings(ExpressionContext context) {
+      Locale locale = (Locale) context.get(LocaleVariable);
       if (locale == null) {
          locale = Locale.getDefault();
       }

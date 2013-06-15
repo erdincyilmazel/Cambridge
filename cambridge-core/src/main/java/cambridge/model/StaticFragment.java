@@ -1,8 +1,9 @@
 package cambridge.model;
 
+import cambridge.runtime.ExpressionContext;
+
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -36,7 +37,7 @@ public class StaticFragment implements AttributeFragment {
       return this;
    }
 
-   public void eval(Map<String, Object> bindings, Writer out) throws IOException {
+   public void eval(ExpressionContext context, Writer out) throws IOException {
       out.write(packedContents);
    }
 

@@ -2,7 +2,7 @@ package cambridge;
 
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
-import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.runtime.ExpressionContext;
 
 import java.io.BufferedWriter;
 import java.io.IOException;
@@ -21,36 +21,32 @@ public class DynamicTemplate implements Template {
 
    public DynamicTemplate(FragmentList fragments, Locale locale) {
       this.fragments = fragments;
-      bindings = new DefaultTemplateBindings(locale);
+      context = Expressions.getDefaultExpressionLanguage().createNewContext(locale);
    }
 
    public DynamicTemplate(FragmentList fragments) {
       this.fragments = fragments;
-      bindings = new DefaultTemplateBindings();
+      context = Expressions.getDefaultExpressionLanguage().createNewContext();
    }
 
-   public DynamicTemplate(FragmentList fragments, Map<String, Object> bindings) {
+   public DynamicTemplate(FragmentList fragments, ExpressionContext context) {
       this.fragments = fragments;
-      this.bindings = bindings;
+      this.context = context;
    }
 
-   private final Map<String, Object> bindings;
+   private final ExpressionContext context;
 
    public void setProperty(String name, Object property) {
-      bindings.put(name, property);
+      context.set(name, property);
    }
 
    public void setAllProperties(Map<String, Object> properties) {
-      bindings.putAll(properties);
-   }
-
-   public void clearProperties() {
-      bindings.clear();
+      context.setVariables(properties);
    }
 
    public void printTo(Writer out) throws IOException, TemplateEvaluationException {
       for (Fragment f : fragments) {
-         f.eval(bindings, out);
+         f.eval(context, out);
       }
    }
 
@@ -63,7 +59,7 @@ public class DynamicTemplate implements Template {
       }
 
       for (Fragment f : fragments) {
-         f.eval(bindings, writer);
+         f.eval(context, writer);
       }
    }
 

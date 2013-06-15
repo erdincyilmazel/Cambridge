@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.ExpressionContext;
 
 
 /**
@@ -19,7 +18,7 @@ public class BinaryExpression implements CambridgeExpression {
       this.right = right;
    }
 
-   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public Type getType(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
             return Type.Int;
@@ -58,8 +57,8 @@ public class BinaryExpression implements CambridgeExpression {
          case Divide:
          case Minus:
          case Times:
-            Type lt = left.getType(bindings);
-            Type rt = right.getType(bindings);
+            Type lt = left.getType(context);
+            Type rt = right.getType(context);
             if (lt == Type.Double || rt == Type.Double) {
                return Type.Double;
             }
@@ -68,8 +67,8 @@ public class BinaryExpression implements CambridgeExpression {
             }
             return Type.Int;
          case Plus:
-            lt = left.getType(bindings);
-            rt = right.getType(bindings);
+            lt = left.getType(context);
+            rt = right.getType(context);
             if (lt == Type.String || rt == Type.String) {
                return Type.String;
             }
@@ -86,539 +85,539 @@ public class BinaryExpression implements CambridgeExpression {
       return Type.Null;
    }
 
-   public Object eval(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public Object eval(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(bindings) & right.asInt(bindings);
+            return left.asInt(context) & right.asInt(context);
          case ConditionalAnd:
-            return left.asBoolean(bindings) && right.asBoolean(bindings);
+            return left.asBoolean(context) && right.asBoolean(context);
          case ConditionalOr:
-            return left.asBoolean(bindings) || right.asBoolean(bindings);
+            return left.asBoolean(context) || right.asBoolean(context);
          case Equal:
-            return left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings));
+            return left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context));
          case GT:
-            return left.asDouble(bindings) > right.asDouble(bindings);
+            return left.asDouble(context) > right.asDouble(context);
          case GTE:
-            return left.asDouble(bindings) >= right.asDouble(bindings);
+            return left.asDouble(context) >= right.asDouble(context);
          case LT:
-            return left.asDouble(bindings) < right.asDouble(bindings);
+            return left.asDouble(context) < right.asDouble(context);
          case LTE:
-            return left.asDouble(bindings) <= right.asDouble(bindings);
+            return left.asDouble(context) <= right.asDouble(context);
          case Mod:
-            return left.asInt(bindings) % right.asInt(bindings);
+            return left.asInt(context) % right.asInt(context);
          case NotEqual:
-            return !(left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings)));
+            return !(left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context)));
          case Or:
-            return left.asInt(bindings) | right.asInt(bindings);
+            return left.asInt(context) | right.asInt(context);
          case SHIFT_LEFT:
-            return left.asInt(bindings) << right.asInt(bindings);
+            return left.asInt(context) << right.asInt(context);
          case SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case U_SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case XOr:
-            return left.asInt(bindings) ^ right.asInt(bindings);
+            return left.asInt(context) ^ right.asInt(context);
          case Plus:
-            Type t = getType(bindings);
+            Type t = getType(context);
             if (t == Type.String) {
-               return left.asString(bindings) + right.asString(bindings);
+               return left.asString(context) + right.asString(context);
             }
             if (t == Type.Double) {
-               return left.asDouble(bindings) + right.asDouble(bindings);
+               return left.asDouble(context) + right.asDouble(context);
             }
             if (t == Type.Float) {
-               return left.asFloat(bindings) + right.asFloat(bindings);
+               return left.asFloat(context) + right.asFloat(context);
             }
-            return left.asInt(bindings) + right.asInt(bindings);
+            return left.asInt(context) + right.asInt(context);
          case Minus:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return left.asDouble(bindings) - right.asDouble(bindings);
+               return left.asDouble(context) - right.asDouble(context);
             }
             if (t == Type.Float) {
-               return left.asFloat(bindings) - right.asFloat(bindings);
+               return left.asFloat(context) - right.asFloat(context);
             }
-            return left.asInt(bindings) - right.asInt(bindings);
+            return left.asInt(context) - right.asInt(context);
          case Divide:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return left.asDouble(bindings) / right.asDouble(bindings);
+               return left.asDouble(context) / right.asDouble(context);
             }
             if (t == Type.Float) {
-               return left.asFloat(bindings) / right.asFloat(bindings);
+               return left.asFloat(context) / right.asFloat(context);
             }
-            return left.asInt(bindings) / right.asInt(bindings);
+            return left.asInt(context) / right.asInt(context);
          case Times:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return left.asDouble(bindings) * right.asDouble(bindings);
+               return left.asDouble(context) * right.asDouble(context);
             }
             if (t == Type.Float) {
-               return left.asFloat(bindings) * right.asFloat(bindings);
+               return left.asFloat(context) * right.asFloat(context);
             }
-            return left.asInt(bindings) * right.asInt(bindings);
+            return left.asInt(context) * right.asInt(context);
       }
 
       return null;
    }
 
-   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return (left.asInt(bindings) & right.asInt(bindings)) != 0;
+            return (left.asInt(context) & right.asInt(context)) != 0;
          case ConditionalAnd:
-            return left.asBoolean(bindings) && right.asBoolean(bindings);
+            return left.asBoolean(context) && right.asBoolean(context);
          case ConditionalOr:
-            return left.asBoolean(bindings) || right.asBoolean(bindings);
+            return left.asBoolean(context) || right.asBoolean(context);
          case Equal:
-            return areEqual(bindings);
+            return areEqual(context);
          case GT:
-            return left.asDouble(bindings) > right.asDouble(bindings);
+            return left.asDouble(context) > right.asDouble(context);
          case GTE:
-            return left.asDouble(bindings) >= right.asDouble(bindings);
+            return left.asDouble(context) >= right.asDouble(context);
          case LT:
-            return left.asDouble(bindings) < right.asDouble(bindings);
+            return left.asDouble(context) < right.asDouble(context);
          case LTE:
-            return left.asDouble(bindings) <= right.asDouble(bindings);
+            return left.asDouble(context) <= right.asDouble(context);
          case Mod:
-            return (left.asInt(bindings) % right.asInt(bindings)) != 0;
+            return (left.asInt(context) % right.asInt(context)) != 0;
          case NotEqual:
-            return !areEqual(bindings);
+            return !areEqual(context);
          case Or:
-            return (left.asInt(bindings) | right.asInt(bindings)) != 0;
+            return (left.asInt(context) | right.asInt(context)) != 0;
          case SHIFT_LEFT:
-            return (left.asInt(bindings) << right.asInt(bindings)) != 0;
+            return (left.asInt(context) << right.asInt(context)) != 0;
          case SHIFT_RIGHT:
-            return (left.asInt(bindings) >> right.asInt(bindings)) != 0;
+            return (left.asInt(context) >> right.asInt(context)) != 0;
          case U_SHIFT_RIGHT:
-            return (left.asInt(bindings) >> right.asInt(bindings)) != 0;
+            return (left.asInt(context) >> right.asInt(context)) != 0;
          case XOr:
-            return (left.asInt(bindings) ^ right.asInt(bindings)) != 0;
+            return (left.asInt(context) ^ right.asInt(context)) != 0;
          case Plus:
-            Type t = getType(bindings);
+            Type t = getType(context);
             if (t == Type.String) {
-               return !(left.asString(bindings) + right.asString(bindings)).equals("");
+               return !(left.asString(context) + right.asString(context)).equals("");
             }
             if (t == Type.Double) {
-               return (left.asDouble(bindings) + right.asDouble(bindings)) != 0;
+               return (left.asDouble(context) + right.asDouble(context)) != 0;
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) + right.asFloat(bindings)) != 0;
+               return (left.asFloat(context) + right.asFloat(context)) != 0;
             }
-            return (left.asInt(bindings) + right.asInt(bindings)) != 0;
+            return (left.asInt(context) + right.asInt(context)) != 0;
          case Minus:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (left.asDouble(bindings) - right.asDouble(bindings)) != 0;
+               return (left.asDouble(context) - right.asDouble(context)) != 0;
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) - right.asFloat(bindings)) != 0;
+               return (left.asFloat(context) - right.asFloat(context)) != 0;
             }
-            return (left.asInt(bindings) - right.asInt(bindings)) != 0;
+            return (left.asInt(context) - right.asInt(context)) != 0;
          case Divide:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (left.asDouble(bindings) / right.asDouble(bindings)) != 0;
+               return (left.asDouble(context) / right.asDouble(context)) != 0;
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) / right.asFloat(bindings)) != 0;
+               return (left.asFloat(context) / right.asFloat(context)) != 0;
             }
-            return (left.asInt(bindings) / right.asInt(bindings)) != 0;
+            return (left.asInt(context) / right.asInt(context)) != 0;
          case Times:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (left.asDouble(bindings) * right.asDouble(bindings)) != 0;
+               return (left.asDouble(context) * right.asDouble(context)) != 0;
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) * right.asFloat(bindings)) != 0;
+               return (left.asFloat(context) * right.asFloat(context)) != 0;
             }
-            return (left.asInt(bindings) * right.asInt(bindings)) != 0;
+            return (left.asInt(context) * right.asInt(context)) != 0;
       }
 
       return false;
    }
 
-   private boolean areEqual(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      Object l = left.eval(bindings);
-      Object r = right.eval(bindings);
+   private boolean areEqual(ExpressionContext context) throws ExpressionEvaluationException {
+      Object l = left.eval(context);
+      Object r = right.eval(context);
 
       return l == null && r == null || !(l == null || r == null) && l.equals(r);
    }
 
-   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public int asInt(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(bindings) & right.asInt(bindings);
+            return left.asInt(context) & right.asInt(context);
          case ConditionalAnd:
-            return (left.asBoolean(bindings) && right.asBoolean(bindings)) ? 1 : 0;
+            return (left.asBoolean(context) && right.asBoolean(context)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(bindings) || right.asBoolean(bindings)) ? 1 : 0;
+            return (left.asBoolean(context) || right.asBoolean(context)) ? 1 : 0;
          case Equal:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 1 : 0;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 1 : 0;
          case GT:
-            return (left.asDouble(bindings) > right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) > right.asDouble(context)) ? 1 : 0;
          case GTE:
-            return (left.asDouble(bindings) >= right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) >= right.asDouble(context)) ? 1 : 0;
          case LT:
-            return (left.asDouble(bindings) < right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) < right.asDouble(context)) ? 1 : 0;
          case LTE:
-            return (left.asDouble(bindings) <= right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) <= right.asDouble(context)) ? 1 : 0;
          case Mod:
-            return left.asInt(bindings) % right.asInt(bindings);
+            return left.asInt(context) % right.asInt(context);
          case NotEqual:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 0 : 1;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 0 : 1;
          case Or:
-            return left.asInt(bindings) | right.asInt(bindings);
+            return left.asInt(context) | right.asInt(context);
          case SHIFT_LEFT:
-            return left.asInt(bindings) << right.asInt(bindings);
+            return left.asInt(context) << right.asInt(context);
          case SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case U_SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case XOr:
-            return left.asInt(bindings) ^ right.asInt(bindings);
+            return left.asInt(context) ^ right.asInt(context);
          case Plus:
-            Type t = getType(bindings);
+            Type t = getType(context);
             if (t == Type.String) {
-               return Integer.parseInt(left.asString(bindings) + right.asString(bindings));
+               return Integer.parseInt(left.asString(context) + right.asString(context));
             }
             if (t == Type.Double) {
-               return (int) (left.asDouble(bindings) + right.asDouble(bindings));
+               return (int) (left.asDouble(context) + right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (int) (left.asFloat(bindings) + right.asFloat(bindings));
+               return (int) (left.asFloat(context) + right.asFloat(context));
             }
-            return left.asInt(bindings) + right.asInt(bindings);
+            return left.asInt(context) + right.asInt(context);
          case Minus:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (int) (left.asDouble(bindings) - right.asDouble(bindings));
+               return (int) (left.asDouble(context) - right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (int) (left.asFloat(bindings) - right.asFloat(bindings));
+               return (int) (left.asFloat(context) - right.asFloat(context));
             }
-            return left.asInt(bindings) - right.asInt(bindings);
+            return left.asInt(context) - right.asInt(context);
          case Divide:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (int) (left.asDouble(bindings) / right.asDouble(bindings));
+               return (int) (left.asDouble(context) / right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (int) (left.asFloat(bindings) / right.asFloat(bindings));
+               return (int) (left.asFloat(context) / right.asFloat(context));
             }
-            return left.asInt(bindings) / right.asInt(bindings);
+            return left.asInt(context) / right.asInt(context);
          case Times:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (int) (left.asDouble(bindings) * right.asDouble(bindings));
+               return (int) (left.asDouble(context) * right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (int) (left.asFloat(bindings) * right.asFloat(bindings));
+               return (int) (left.asFloat(context) * right.asFloat(context));
             }
-            return left.asInt(bindings) * right.asInt(bindings);
+            return left.asInt(context) * right.asInt(context);
       }
 
       return 0;
    }
 
-   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public float asFloat(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(bindings) & right.asInt(bindings);
+            return left.asInt(context) & right.asInt(context);
          case ConditionalAnd:
-            return (left.asBoolean(bindings) && right.asBoolean(bindings)) ? 1 : 0;
+            return (left.asBoolean(context) && right.asBoolean(context)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(bindings) || right.asBoolean(bindings)) ? 1 : 0;
+            return (left.asBoolean(context) || right.asBoolean(context)) ? 1 : 0;
          case Equal:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 1 : 0;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 1 : 0;
          case GT:
-            return (left.asDouble(bindings) > right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) > right.asDouble(context)) ? 1 : 0;
          case GTE:
-            return (left.asDouble(bindings) >= right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) >= right.asDouble(context)) ? 1 : 0;
          case LT:
-            return (left.asDouble(bindings) < right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) < right.asDouble(context)) ? 1 : 0;
          case LTE:
-            return (left.asDouble(bindings) <= right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) <= right.asDouble(context)) ? 1 : 0;
          case Mod:
-            return left.asInt(bindings) % right.asInt(bindings);
+            return left.asInt(context) % right.asInt(context);
          case NotEqual:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 0 : 1;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 0 : 1;
          case Or:
-            return left.asInt(bindings) | right.asInt(bindings);
+            return left.asInt(context) | right.asInt(context);
          case SHIFT_LEFT:
-            return left.asInt(bindings) << right.asInt(bindings);
+            return left.asInt(context) << right.asInt(context);
          case SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case U_SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case XOr:
-            return left.asInt(bindings) ^ right.asInt(bindings);
+            return left.asInt(context) ^ right.asInt(context);
          case Plus:
-            Type t = getType(bindings);
+            Type t = getType(context);
             if (t == Type.String) {
-               return Integer.parseInt(left.asString(bindings) + right.asString(bindings));
+               return Integer.parseInt(left.asString(context) + right.asString(context));
             }
             if (t == Type.Double) {
-               return (float) (left.asDouble(bindings) + right.asDouble(bindings));
+               return (float) (left.asDouble(context) + right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) + right.asFloat(bindings));
+               return (left.asFloat(context) + right.asFloat(context));
             }
-            return left.asInt(bindings) + right.asInt(bindings);
+            return left.asInt(context) + right.asInt(context);
          case Minus:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (float) (left.asDouble(bindings) - right.asDouble(bindings));
+               return (float) (left.asDouble(context) - right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) - right.asFloat(bindings));
+               return (left.asFloat(context) - right.asFloat(context));
             }
-            return left.asInt(bindings) - right.asInt(bindings);
+            return left.asInt(context) - right.asInt(context);
          case Divide:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (float) (left.asDouble(bindings) / right.asDouble(bindings));
+               return (float) (left.asDouble(context) / right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) / right.asFloat(bindings));
+               return (left.asFloat(context) / right.asFloat(context));
             }
-            return left.asInt(bindings) / right.asInt(bindings);
+            return left.asInt(context) / right.asInt(context);
          case Times:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (float) (left.asDouble(bindings) * right.asDouble(bindings));
+               return (float) (left.asDouble(context) * right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) * right.asFloat(bindings));
+               return (left.asFloat(context) * right.asFloat(context));
             }
-            return left.asInt(bindings) * right.asInt(bindings);
+            return left.asInt(context) * right.asInt(context);
       }
 
       return 0;
    }
 
-   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public double asDouble(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(bindings) & right.asInt(bindings);
+            return left.asInt(context) & right.asInt(context);
          case ConditionalAnd:
-            return (left.asBoolean(bindings) && right.asBoolean(bindings)) ? 1 : 0;
+            return (left.asBoolean(context) && right.asBoolean(context)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(bindings) || right.asBoolean(bindings)) ? 1 : 0;
+            return (left.asBoolean(context) || right.asBoolean(context)) ? 1 : 0;
          case Equal:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 1 : 0;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 1 : 0;
          case GT:
-            return (left.asDouble(bindings) > right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) > right.asDouble(context)) ? 1 : 0;
          case GTE:
-            return (left.asDouble(bindings) >= right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) >= right.asDouble(context)) ? 1 : 0;
          case LT:
-            return (left.asDouble(bindings) < right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) < right.asDouble(context)) ? 1 : 0;
          case LTE:
-            return (left.asDouble(bindings) <= right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) <= right.asDouble(context)) ? 1 : 0;
          case Mod:
-            return left.asInt(bindings) % right.asInt(bindings);
+            return left.asInt(context) % right.asInt(context);
          case NotEqual:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 0 : 1;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 0 : 1;
          case Or:
-            return left.asInt(bindings) | right.asInt(bindings);
+            return left.asInt(context) | right.asInt(context);
          case SHIFT_LEFT:
-            return left.asInt(bindings) << right.asInt(bindings);
+            return left.asInt(context) << right.asInt(context);
          case SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case U_SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case XOr:
-            return left.asInt(bindings) ^ right.asInt(bindings);
+            return left.asInt(context) ^ right.asInt(context);
          case Plus:
-            Type t = getType(bindings);
+            Type t = getType(context);
             if (t == Type.String) {
-               return Integer.parseInt(left.asString(bindings) + right.asString(bindings));
+               return Integer.parseInt(left.asString(context) + right.asString(context));
             }
             if (t == Type.Double) {
-               return (left.asDouble(bindings) + right.asDouble(bindings));
+               return (left.asDouble(context) + right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) + right.asFloat(bindings));
+               return (left.asFloat(context) + right.asFloat(context));
             }
-            return left.asInt(bindings) + right.asInt(bindings);
+            return left.asInt(context) + right.asInt(context);
          case Minus:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (left.asDouble(bindings) - right.asDouble(bindings));
+               return (left.asDouble(context) - right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) - right.asFloat(bindings));
+               return (left.asFloat(context) - right.asFloat(context));
             }
-            return left.asInt(bindings) - right.asInt(bindings);
+            return left.asInt(context) - right.asInt(context);
          case Divide:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (left.asDouble(bindings) / right.asDouble(bindings));
+               return (left.asDouble(context) / right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) / right.asFloat(bindings));
+               return (left.asFloat(context) / right.asFloat(context));
             }
-            return left.asInt(bindings) / right.asInt(bindings);
+            return left.asInt(context) / right.asInt(context);
          case Times:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (left.asDouble(bindings) * right.asDouble(bindings));
+               return (left.asDouble(context) * right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (left.asFloat(bindings) * right.asFloat(bindings));
+               return (left.asFloat(context) * right.asFloat(context));
             }
-            return left.asInt(bindings) * right.asInt(bindings);
+            return left.asInt(context) * right.asInt(context);
       }
 
       return 0;
    }
 
-   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public long asLong(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return left.asInt(bindings) & right.asInt(bindings);
+            return left.asInt(context) & right.asInt(context);
          case ConditionalAnd:
-            return (left.asBoolean(bindings) && right.asBoolean(bindings)) ? 1 : 0;
+            return (left.asBoolean(context) && right.asBoolean(context)) ? 1 : 0;
          case ConditionalOr:
-            return (left.asBoolean(bindings) || right.asBoolean(bindings)) ? 1 : 0;
+            return (left.asBoolean(context) || right.asBoolean(context)) ? 1 : 0;
          case Equal:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 1 : 0;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 1 : 0;
          case GT:
-            return (left.asDouble(bindings) > right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) > right.asDouble(context)) ? 1 : 0;
          case GTE:
-            return (left.asDouble(bindings) >= right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) >= right.asDouble(context)) ? 1 : 0;
          case LT:
-            return (left.asDouble(bindings) < right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) < right.asDouble(context)) ? 1 : 0;
          case LTE:
-            return (left.asDouble(bindings) <= right.asDouble(bindings)) ? 1 : 0;
+            return (left.asDouble(context) <= right.asDouble(context)) ? 1 : 0;
          case Mod:
-            return left.asInt(bindings) % right.asInt(bindings);
+            return left.asInt(context) % right.asInt(context);
          case NotEqual:
-            return (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))) ? 0 : 1;
+            return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 0 : 1;
          case Or:
-            return left.asInt(bindings) | right.asInt(bindings);
+            return left.asInt(context) | right.asInt(context);
          case SHIFT_LEFT:
-            return left.asInt(bindings) << right.asInt(bindings);
+            return left.asInt(context) << right.asInt(context);
          case SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case U_SHIFT_RIGHT:
-            return left.asInt(bindings) >> right.asInt(bindings);
+            return left.asInt(context) >> right.asInt(context);
          case XOr:
-            return left.asInt(bindings) ^ right.asInt(bindings);
+            return left.asInt(context) ^ right.asInt(context);
          case Plus:
-            Type t = getType(bindings);
+            Type t = getType(context);
             if (t == Type.String) {
-               return Integer.parseInt(left.asString(bindings) + right.asString(bindings));
+               return Integer.parseInt(left.asString(context) + right.asString(context));
             }
             if (t == Type.Double) {
-               return (long) (left.asDouble(bindings) + right.asDouble(bindings));
+               return (long) (left.asDouble(context) + right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (long) (left.asFloat(bindings) + right.asFloat(bindings));
+               return (long) (left.asFloat(context) + right.asFloat(context));
             }
-            return left.asInt(bindings) + right.asInt(bindings);
+            return left.asInt(context) + right.asInt(context);
          case Minus:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (long) (left.asDouble(bindings) - right.asDouble(bindings));
+               return (long) (left.asDouble(context) - right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (long) (left.asFloat(bindings) - right.asFloat(bindings));
+               return (long) (left.asFloat(context) - right.asFloat(context));
             }
-            return left.asInt(bindings) - right.asInt(bindings);
+            return left.asInt(context) - right.asInt(context);
          case Divide:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (long) (left.asDouble(bindings) / right.asDouble(bindings));
+               return (long) (left.asDouble(context) / right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (long) (left.asFloat(bindings) / right.asFloat(bindings));
+               return (long) (left.asFloat(context) / right.asFloat(context));
             }
-            return left.asInt(bindings) / right.asInt(bindings);
+            return left.asInt(context) / right.asInt(context);
          case Times:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return (long) (left.asDouble(bindings) * right.asDouble(bindings));
+               return (long) (left.asDouble(context) * right.asDouble(context));
             }
             if (t == Type.Float) {
-               return (long) (left.asFloat(bindings) * right.asFloat(bindings));
+               return (long) (left.asFloat(context) * right.asFloat(context));
             }
-            return left.asInt(bindings) * right.asInt(bindings);
+            return left.asInt(context) * right.asInt(context);
       }
       return 0;
    }
 
-   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public String asString(ExpressionContext context) throws ExpressionEvaluationException {
       switch (operator) {
          case And:
-            return "" + (left.asInt(bindings) & right.asInt(bindings));
+            return "" + (left.asInt(context) & right.asInt(context));
          case ConditionalAnd:
-            return "" + (left.asBoolean(bindings) && right.asBoolean(bindings));
+            return "" + (left.asBoolean(context) && right.asBoolean(context));
          case ConditionalOr:
-            return "" + (left.asBoolean(bindings) || right.asBoolean(bindings));
+            return "" + (left.asBoolean(context) || right.asBoolean(context));
          case Equal:
-            return "" + (left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings)));
+            return "" + (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context)));
          case GT:
-            return "" + (left.asDouble(bindings) > right.asDouble(bindings));
+            return "" + (left.asDouble(context) > right.asDouble(context));
          case GTE:
-            return "" + (left.asDouble(bindings) >= right.asDouble(bindings));
+            return "" + (left.asDouble(context) >= right.asDouble(context));
          case LT:
-            return "" + (left.asDouble(bindings) < right.asDouble(bindings));
+            return "" + (left.asDouble(context) < right.asDouble(context));
          case LTE:
-            return "" + (left.asDouble(bindings) <= right.asDouble(bindings));
+            return "" + (left.asDouble(context) <= right.asDouble(context));
          case Mod:
-            return "" + (left.asInt(bindings) % right.asInt(bindings));
+            return "" + (left.asInt(context) % right.asInt(context));
          case NotEqual:
-            return "" + (!(left == null && right == null || !(left == null || right == null) && left.eval(bindings).equals(right.eval(bindings))));
+            return "" + (!(left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))));
          case Or:
-            return "" + (left.asInt(bindings) | right.asInt(bindings));
+            return "" + (left.asInt(context) | right.asInt(context));
          case SHIFT_LEFT:
-            return "" + (left.asInt(bindings) << right.asInt(bindings));
+            return "" + (left.asInt(context) << right.asInt(context));
          case SHIFT_RIGHT:
-            return "" + (left.asInt(bindings) >> right.asInt(bindings));
+            return "" + (left.asInt(context) >> right.asInt(context));
          case U_SHIFT_RIGHT:
-            return "" + (left.asInt(bindings) >> right.asInt(bindings));
+            return "" + (left.asInt(context) >> right.asInt(context));
          case XOr:
-            return "" + (left.asInt(bindings) ^ right.asInt(bindings));
+            return "" + (left.asInt(context) ^ right.asInt(context));
          case Plus:
-            Type t = getType(bindings);
+            Type t = getType(context);
             if (t == Type.String) {
-               return left.asString(bindings) + right.asString(bindings);
+               return left.asString(context) + right.asString(context);
             }
             if (t == Type.Double) {
-               return "" + (left.asDouble(bindings) + right.asDouble(bindings));
+               return "" + (left.asDouble(context) + right.asDouble(context));
             }
             if (t == Type.Float) {
-               return "" + (left.asFloat(bindings) + right.asFloat(bindings));
+               return "" + (left.asFloat(context) + right.asFloat(context));
             }
-            return "" + (left.asInt(bindings) + right.asInt(bindings));
+            return "" + (left.asInt(context) + right.asInt(context));
          case Minus:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return "" + (left.asDouble(bindings) - right.asDouble(bindings));
+               return "" + (left.asDouble(context) - right.asDouble(context));
             }
             if (t == Type.Float) {
-               return "" + (left.asFloat(bindings) - right.asFloat(bindings));
+               return "" + (left.asFloat(context) - right.asFloat(context));
             }
-            return "" + (left.asInt(bindings) - right.asInt(bindings));
+            return "" + (left.asInt(context) - right.asInt(context));
          case Divide:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return "" + (left.asDouble(bindings) / right.asDouble(bindings));
+               return "" + (left.asDouble(context) / right.asDouble(context));
             }
             if (t == Type.Float) {
-               return "" + (left.asFloat(bindings) / right.asFloat(bindings));
+               return "" + (left.asFloat(context) / right.asFloat(context));
             }
-            return "" + (left.asInt(bindings) / right.asInt(bindings));
+            return "" + (left.asInt(context) / right.asInt(context));
          case Times:
-            t = getType(bindings);
+            t = getType(context);
             if (t == Type.Double) {
-               return "" + (left.asDouble(bindings) * right.asDouble(bindings));
+               return "" + (left.asDouble(context) * right.asDouble(context));
             }
             if (t == Type.Float) {
-               return "" + (left.asFloat(bindings) * right.asFloat(bindings));
+               return "" + (left.asFloat(context) * right.asFloat(context));
             }
-            return "" + (left.asInt(bindings) * right.asInt(bindings));
+            return "" + (left.asInt(context) * right.asInt(context));
       }
 
       return null;

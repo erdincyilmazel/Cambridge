@@ -3,10 +3,10 @@ package cambridge.model;
 import cambridge.BehaviorInstantiationException;
 import cambridge.ExpressionEvaluationException;
 import cambridge.TemplateEvaluationException;
+import cambridge.runtime.ExpressionContext;
 
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -45,9 +45,9 @@ public class SetDirective extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+   public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
       try {
-         bindings.put(varName, expression.eval(bindings));
+         context.set(varName, expression.eval(context));
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException(e, "Could not execute the expression: " + expression.toString() + " on line: " + getBeginLine() + ", column: " + getBeginColumn(), getBeginLine(), getBeginColumn());
       }

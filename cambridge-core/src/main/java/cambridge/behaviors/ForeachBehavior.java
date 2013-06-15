@@ -11,6 +11,7 @@ import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.Expression;
 import cambridge.model.TagNode;
+import cambridge.runtime.ExpressionContext;
 import cambridge.runtime.Iter;
 
 import java.io.IOException;
@@ -55,30 +56,30 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     @SuppressWarnings("unchecked")
     @Override
-    public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
+    public void doExecute(ExpressionContext context, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
         try {
-            Object o = iterable.eval(bindings);
+            Object o = iterable.eval(context);
             if (o == null) {
                 return;
                 //throw new TemplateEvaluationException("The provided expression value for foreach attribute is null", tag.getBeginLine(), tag.getBeginColumn(), tag.getTagName());
             }
 
             if (o instanceof Object[]) {
-                iterateArray(bindings, tag, out, (Object[]) o);
+                iterateArray(context, tag, out, (Object[]) o);
             } else if (o instanceof Iterable) {
-                iterateIterable(bindings, tag, out, (Iterable<Object>) o);
+                iterateIterable(context, tag, out, (Iterable<Object>) o);
             } else if (o instanceof int[]) {
-                iterateInt(bindings, tag, out, (int[]) o);
+                iterateInt(context, tag, out, (int[]) o);
             } else if (o instanceof float[]) {
-                iterateFloat(bindings, tag, out, (float[]) o);
+                iterateFloat(context, tag, out, (float[]) o);
             } else if (o instanceof double[]) {
-                iterateDouble(bindings, tag, out, (double[]) o);
+                iterateDouble(context, tag, out, (double[]) o);
             } else if (o instanceof byte[]) {
-                iterateByte(bindings, tag, out, (byte[]) o);
+                iterateByte(context, tag, out, (byte[]) o);
             } else if (o instanceof char[]) {
-                iterateChar(bindings, tag, out, (char[]) o);
+                iterateChar(context, tag, out, (char[]) o);
             } else if (o instanceof boolean[]) {
-                iterateBoolean(bindings, tag, out, (boolean[]) o);
+                iterateBoolean(context, tag, out, (boolean[]) o);
             } else {
                 throw new TemplateEvaluationException(null, "The provided expression value of class " +
                         o.getClass().getName() + " for foreach attribute is not iterable, on line: "
@@ -90,9 +91,9 @@ public class ForeachBehavior extends LoopingTagBehavior {
         }
     }
 
-    private void iterateIterable(Map<String, Object> bindings, TagNode tag, Writer out, Iterable<Object> o) throws IOException, TemplateEvaluationException {
+    private void iterateIterable(ExpressionContext context, TagNode tag, Writer out, Iterable<Object> o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        bindings.put(getIterObjectName(), iter);
+        context.set(getIterObjectName(), iter);
         Iterator<?> it = o.iterator();
         while (it.hasNext()) {
         	Object o1 = it.next();
@@ -101,99 +102,99 @@ public class ForeachBehavior extends LoopingTagBehavior {
         		iter.setLast();
             }
 
-            bindings.put(getCurrentObjectName(), o1);
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), o1);
+            tag.execute(context, out);
             iter.next();
         }
     }
 
-    private void iterateArray(Map<String, Object> bindings, TagNode tag, Writer out, Object[] o) throws IOException, TemplateEvaluationException {
+    private void iterateArray(ExpressionContext context, TagNode tag, Writer out, Object[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        bindings.put(getIterObjectName(), iter);
+        context.set(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            bindings.put(getCurrentObjectName(), o[i]);
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), o[i]);
+            tag.execute(context, out);
             iter.next();
         }
     }
 
-    private void iterateInt(Map<String, Object> bindings, TagNode tag, Writer out, int[] o) throws IOException, TemplateEvaluationException {
+    private void iterateInt(ExpressionContext context, TagNode tag, Writer out, int[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        bindings.put(getIterObjectName(), iter);
+        context.set(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            bindings.put(getCurrentObjectName(), o[i]);
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), o[i]);
+            tag.execute(context, out);
             iter.next();
         }
     }
 
-    private void iterateFloat(Map<String, Object> bindings, TagNode tag, Writer out, float[] o) throws IOException, TemplateEvaluationException {
+    private void iterateFloat(ExpressionContext context, TagNode tag, Writer out, float[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        bindings.put(getIterObjectName(), iter);
+        context.set(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            bindings.put(getCurrentObjectName(), o[i]);
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), o[i]);
+            tag.execute(context, out);
             iter.next();
         }
     }
 
-    private void iterateDouble(Map<String, Object> bindings, TagNode tag, Writer out, double[] o) throws IOException, TemplateEvaluationException {
+    private void iterateDouble(ExpressionContext context, TagNode tag, Writer out, double[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        bindings.put(getIterObjectName(), iter);
+        context.set(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            bindings.put(getCurrentObjectName(), o[i]);
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), o[i]);
+            tag.execute(context, out);
             iter.next();
         }
     }
 
-    private void iterateByte(Map<String, Object> bindings, TagNode tag, Writer out, byte[] o) throws IOException, TemplateEvaluationException {
+    private void iterateByte(ExpressionContext context, TagNode tag, Writer out, byte[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        bindings.put(getIterObjectName(), iter);
+        context.set(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            bindings.put(getCurrentObjectName(), o[i]);
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), o[i]);
+            tag.execute(context, out);
             iter.next();
         }
     }
 
-    private void iterateChar(Map<String, Object> bindings, TagNode tag, Writer out, char[] o) throws IOException, TemplateEvaluationException {
+    private void iterateChar(ExpressionContext context, TagNode tag, Writer out, char[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        bindings.put(getIterObjectName(), iter);
+        context.set(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            bindings.put(getCurrentObjectName(), o[i]);
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), o[i]);
+            tag.execute(context, out);
             iter.next();
         }
     }
 
-    private void iterateBoolean(Map<String, Object> bindings, TagNode tag, Writer out, boolean[] o) throws IOException, TemplateEvaluationException {
+    private void iterateBoolean(ExpressionContext context, TagNode tag, Writer out, boolean[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        bindings.put(getIterObjectName(), iter);
+        context.set(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            bindings.put(getCurrentObjectName(), o[i]);
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), o[i]);
+            tag.execute(context, out);
             iter.next();
         }
     }

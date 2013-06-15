@@ -3,8 +3,8 @@ package cambridge.behaviors;
 import cambridge.ExpressionEvaluationException;
 import cambridge.TagBehavior;
 import cambridge.model.Expression;
+import cambridge.runtime.ExpressionContext;
 
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -32,8 +32,8 @@ public abstract class ConditionalTagBehavior implements TagBehavior {
         this(null, line, col);
     }
 
-    public boolean conditionMet(Map<String, Object> bindings) throws ExpressionEvaluationException {
-        return expression == null || expression.asBoolean(bindings);
+    public boolean conditionMet(ExpressionContext context) throws ExpressionEvaluationException {
+        return expression == null || expression.asBoolean(context);
     }
 
     public abstract ConditionType getType();

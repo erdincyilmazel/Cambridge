@@ -5,14 +5,14 @@ import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.parser.expressions.MapExpressionContext;
+import cambridge.runtime.ExpressionContext;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.ArrayList;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -23,20 +23,20 @@ import static org.junit.Assert.assertNotNull;
  * Time: 10:55:06 AM
  */
 public class ParserTest {
-   private static Map<String, Object> bindings;
+   private static ExpressionContext bindings;
 
    @BeforeClass
    public static void init() {
-      bindings = new DefaultTemplateBindings();
-      bindings.put("var", "simple");
-      bindings.put("id", "test");
-      bindings.put("exp", "class=\"x\"");
+      bindings = new MapExpressionContext();
+      bindings.set("var", "simple");
+      bindings.set("id", "test");
+      bindings.set("exp", "class=\"x\"");
       ArrayList<Integer> list = new ArrayList<Integer>();
       list.add(1);
       list.add(2);
       list.add(3);
-      bindings.put("list", list);
-      bindings.put("condition", true);
+      bindings.set("list", list);
+      bindings.set("condition", true);
    }
 
    private String full = "<!DOCTYPE html>\n" +

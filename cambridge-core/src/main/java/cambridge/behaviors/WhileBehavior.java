@@ -12,6 +12,7 @@ import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.Expression;
 import cambridge.model.TagNode;
+import cambridge.runtime.ExpressionContext;
 import cambridge.runtime.Iter;
 
 import java.io.IOException;
@@ -33,12 +34,12 @@ public class WhileBehavior extends LoopingTagBehavior {
     }
 
     @Override
-    public void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
+    public void doExecute(ExpressionContext context, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
         try {
             Iter iter = new Iter();
-            while (expression.asBoolean(bindings)) {
-                bindings.put(Expressions.ITER_OBJECT, iter);
-                tag.execute(bindings, out);
+            while (expression.asBoolean(context)) {
+                context.set(Expressions.ITER_OBJECT, iter);
+                tag.execute(context, out);
                 iter.next();
             }
         } catch (ExpressionEvaluationException e) {

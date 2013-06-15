@@ -2,9 +2,9 @@ package cambridge.parser.expressions;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.util.Map;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.runtime.ExpressionContext;
 
 /**
  * Author: Erdinc Yilmazel
@@ -22,7 +22,7 @@ public class StaticMethodCaller extends FunctionRunner {
     }
 
     @Override
-    public Object eval(Map<String, Object> bindings, CambridgeExpression[] params) throws ExpressionEvaluationException {
+    public Object eval(ExpressionContext context, CambridgeExpression[] params) throws ExpressionEvaluationException {
         Class<?>[] parameterTypes = method.getParameterTypes();
         if (parameterTypes != null && (params == null || parameterTypes.length != params.length)) {
             throw new ExpressionEvaluationException("Invalid number of parameters provided for calling static method " + method.toString());
@@ -38,7 +38,7 @@ public class StaticMethodCaller extends FunctionRunner {
             for (int i = 0, paramsLength = params.length; i < paramsLength; i++) {
                 CambridgeExpression e = params[i];
 
-                args[i] = e.eval(bindings);
+                args[i] = e.eval(context);
                 if (method.isVarArgs() && i == params.length - 1 && parameterTypes != null && !(parameterTypes[i].isAssignableFrom(args[i].getClass()))) {
                     args[i] = new Object[] {args[i]};
                 }

@@ -1,5 +1,6 @@
 package cambridge.jexl;
 
+import cambridge.runtime.ExpressionContext;
 import org.apache.commons.jexl2.DebugInfo;
 import org.apache.commons.jexl2.JexlEngine;
 import org.apache.commons.jexl2.JexlException;
@@ -8,6 +9,8 @@ import cambridge.ExpressionLanguage;
 import cambridge.ExpressionParsingException;
 import cambridge.Expressions;
 import cambridge.model.Expression;
+
+import java.util.Locale;
 
 /**
  * @author Jon Scott Stevens
@@ -42,5 +45,17 @@ public class JexlExpressionLanguage implements ExpressionLanguage {
 
     public String wrapExpressionAsList(String expr) {
         return "[" + expr + "]";
+    }
+
+    @Override
+    public ExpressionContext createNewContext(Locale locale)
+    {
+        return new JexlExpressionContext(locale);
+    }
+
+    @Override
+    public ExpressionContext createNewContext()
+    {
+        return new JexlExpressionContext();
     }
 }

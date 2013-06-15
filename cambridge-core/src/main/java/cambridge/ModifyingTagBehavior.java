@@ -1,6 +1,7 @@
 package cambridge;
 
 import cambridge.model.ModifyableTag;
+import cambridge.runtime.ExpressionContext;
 
 import java.util.Map;
 
@@ -26,5 +27,5 @@ public abstract class ModifyingTagBehavior implements TagBehavior {
         return col;
     }
 
-    public abstract void modify(Map<String, Object> bindings, ModifyableTag tag) throws ExpressionEvaluationException;
+    public abstract void modify(ExpressionContext context, ModifyableTag tag) throws ExpressionEvaluationException;
 }

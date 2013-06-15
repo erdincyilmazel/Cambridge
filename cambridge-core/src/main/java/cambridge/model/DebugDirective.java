@@ -4,6 +4,7 @@ import cambridge.BehaviorInstantiationException;
 import cambridge.ClassPathTemplateLoader;
 import cambridge.Expressions;
 import cambridge.TemplateEvaluationException;
+import cambridge.runtime.ExpressionContext;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -81,9 +82,9 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
       return null;
    }
 
-   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+   public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
       ArrayList<DebugElement> elements = new ArrayList<DebugElement>();
-      Set<Map.Entry<String, Object>> entries = bindings.entrySet();
+      Set<Map.Entry<String, Object>> entries = context.asMap().entrySet();
 
       for (Map.Entry<String, Object> e : entries) {
          String key = e.getKey();
@@ -101,12 +102,12 @@ public class DebugDirective extends TemplateNode implements AttributeFragment {
          }
       }
 
-      bindings.put("___DebugAllValues___", elements);
+      context.set("___DebugAllValues___", elements);
       for (Fragment f : debugTemplate) {
-         f.eval(bindings, out);
+         f.eval(context, out);
       }
 
-      bindings.remove("___DebugAllValues___");
+      context.remove("___DebugAllValues___");
    }
 
    public void pack() {

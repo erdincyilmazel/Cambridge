@@ -8,12 +8,12 @@ import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.parser.expressions.MapExpressionContext;
+import cambridge.runtime.ExpressionContext;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -31,8 +31,8 @@ public class ConditionalAttributeBehaviorTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ConditionalAttributeBehaviorTest.class.getResourceAsStream("conditionalattribute.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         Map<String, Object> bindings = new DefaultTemplateBindings();
-         bindings.put("condition", true);
+         ExpressionContext context = new MapExpressionContext();
+         context.set("condition", true);
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -41,7 +41,7 @@ public class ConditionalAttributeBehaviorTest {
          StringWriter builder = new StringWriter();
 
          for (Fragment f : fragments) {
-            f.eval(bindings, builder);
+            f.eval(context, builder);
          }
 
          assertEquals(output, builder.toString());

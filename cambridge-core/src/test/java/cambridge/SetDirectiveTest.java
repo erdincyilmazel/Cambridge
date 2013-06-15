@@ -5,11 +5,10 @@ import cambridge.model.FragmentList;
 import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.parser.expressions.MapExpressionContext;
 import org.junit.Test;
 
 import java.io.StringWriter;
-import java.util.Map;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,10 +24,10 @@ public class SetDirectiveTest {
       TemplateParser parser = new TemplateParser(tokenizer);
       TemplateDocument doc = parser.parse();
       FragmentList fragmentList = doc.normalize();
-      Map<String, Object> prop = new DefaultTemplateBindings();
+      MapExpressionContext context = new MapExpressionContext();
       StringWriter out = new StringWriter();
       for (Fragment f : fragmentList) {
-         f.eval(prop, out);
+         f.eval(context, out);
       }
 
       assertEquals("Hello World", out.toString());

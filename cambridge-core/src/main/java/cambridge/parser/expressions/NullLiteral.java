@@ -1,8 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
-
-import java.util.Map;
+import cambridge.runtime.ExpressionContext;
 
 
 /**
@@ -16,35 +15,35 @@ public class NullLiteral implements CambridgeExpression {
    private NullLiteral() {
    }
 
-   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public Type getType(ExpressionContext context) throws ExpressionEvaluationException {
       return Type.Null;
    }
 
-   public Object eval(Map<String, Object> bindings) {
+   public Object eval(ExpressionContext context) {
       return null;
    }
 
-   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException {
       return false;
    }
 
-   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public int asInt(ExpressionContext context) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public float asFloat(ExpressionContext context) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public double asDouble(ExpressionContext context) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public long asLong(ExpressionContext context) throws ExpressionEvaluationException {
       return 0;
    }
 
-   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
+   public String asString(ExpressionContext context) throws ExpressionEvaluationException {
       return "null";
    }
 }

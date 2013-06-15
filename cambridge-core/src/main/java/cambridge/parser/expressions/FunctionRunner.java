@@ -1,8 +1,8 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.runtime.ExpressionContext;
 
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -10,5 +10,5 @@ import java.util.Map;
  * Time: 11:53:59 PM
  */
 public abstract class FunctionRunner {
-   public abstract Object eval(Map<String, Object> bindings, CambridgeExpression[] params) throws ExpressionEvaluationException;
+   public abstract Object eval(ExpressionContext context, CambridgeExpression[] params) throws ExpressionEvaluationException;
 }

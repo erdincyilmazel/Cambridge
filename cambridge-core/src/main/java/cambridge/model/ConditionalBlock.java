@@ -2,11 +2,11 @@ package cambridge.model;
 
 import cambridge.ExpressionEvaluationException;
 import cambridge.TemplateEvaluationException;
+import cambridge.runtime.ExpressionContext;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * @author Erdinc Yilmazel
@@ -68,14 +68,14 @@ public class ConditionalBlock implements Fragment {
          || defaultCondition != null;
    }
 
-   public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+   public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
       if (firstCondition == null) {
          return;
       }
 
       try {
-         if (firstCondition.expression.asBoolean(bindings)) {
-            firstCondition.tag.eval(bindings, out);
+         if (firstCondition.expression.asBoolean(context)) {
+            firstCondition.tag.eval(context, out);
             return;
          }
 
@@ -85,15 +85,15 @@ public class ConditionalBlock implements Fragment {
 
          if (alternateConditions != null) {
             for (Condition c : alternateConditions) {
-               if (c.expression.asBoolean(bindings)) {
-                  c.tag.eval(bindings, out);
+               if (c.expression.asBoolean(context)) {
+                  c.tag.eval(context, out);
                   return;
                }
             }
          }
 
          if (defaultCondition != null) {
-            defaultCondition.eval(bindings, out);
+            defaultCondition.eval(context, out);
          }
       } catch (ExpressionEvaluationException e) {
          e.printStackTrace();

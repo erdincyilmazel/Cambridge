@@ -1,6 +1,7 @@
 package cambridge.parser.expressions;
 
 import cambridge.ExpressionEvaluationException;
+import cambridge.runtime.ExpressionContext;
 import cambridge.runtime.PropertyAccessException;
 import cambridge.runtime.PropertyUtils;
 
@@ -29,8 +30,8 @@ public class VarExpression implements CambridgeExpression {
       properties.add(p);
    }
 
-   public Type getType(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      Object o = eval(bindings);
+   public Type getType(ExpressionContext context) throws ExpressionEvaluationException {
+      Object o = eval(context);
       if (o instanceof Boolean) {
          return Type.Boolean;
       }
@@ -52,14 +53,14 @@ public class VarExpression implements CambridgeExpression {
       return o == null ? Type.Null : Type.Object;
    }
 
-   public Object eval(Map<String, Object> p) throws ExpressionEvaluationException {
+   public Object eval(ExpressionContext context) throws ExpressionEvaluationException {
       if (properties == null) {
-         return p.get(varName);
+         return context.get(varName);
       }
 
       PropertyUtils utils = PropertyUtils.instance();
 
-      Object object = p.get(varName);
+      Object object = context.get(varName);
       if (object == null) {
          return null;
       }
@@ -74,11 +75,11 @@ public class VarExpression implements CambridgeExpression {
          } else {
             MapVarProperty m = (MapVarProperty) property;
             if (object instanceof Map) {
-               object = ((Map<?,?>) object).get(m.expression.eval(p));
+               object = ((Map<?,?>) object).get(m.expression.eval(context));
             } else if (object instanceof List) {
-               object = ((List<?>) object).get(m.expression.asInt(p));
+               object = ((List<?>) object).get(m.expression.asInt(context));
             } else if (object instanceof Object[]) {
-               object = ((Object[]) object)[m.expression.asInt(p)];
+               object = ((Object[]) object)[m.expression.asInt(context)];
             }
          }
       }
@@ -86,8 +87,8 @@ public class VarExpression implements CambridgeExpression {
       return object;
    }
 
-   public boolean asBoolean(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      Object o = eval(bindings);
+   public boolean asBoolean(ExpressionContext context) throws ExpressionEvaluationException {
+      Object o = eval(context);
 
       if (o instanceof Boolean) {
          return (Boolean) o;
@@ -102,16 +103,16 @@ public class VarExpression implements CambridgeExpression {
       return o != null;
    }
 
-   public int asInt(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      Object o = eval(bindings);
+   public int asInt(ExpressionContext context) throws ExpressionEvaluationException {
+      Object o = eval(context);
       if (o instanceof Number) {
          return ((Number) o).intValue();
       }
       return 0;
    }
 
-   public float asFloat(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      Object o = eval(bindings);
+   public float asFloat(ExpressionContext context) throws ExpressionEvaluationException {
+      Object o = eval(context);
       if (o instanceof Number) {
          return ((Number) o).floatValue();
       }
@@ -119,23 +120,23 @@ public class VarExpression implements CambridgeExpression {
       return 0;
    }
 
-   public double asDouble(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      Object o = eval(bindings);
+   public double asDouble(ExpressionContext context) throws ExpressionEvaluationException {
+      Object o = eval(context);
       if (o instanceof Number) {
          return ((Number) o).doubleValue();
       }
       return 0;
    }
 
-   public long asLong(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      Object o = eval(bindings);
+   public long asLong(ExpressionContext context) throws ExpressionEvaluationException {
+      Object o = eval(context);
       if (o instanceof Number) {
          return ((Number) o).longValue();
       }
       return 0;
    }
 
-   public String asString(Map<String, Object> bindings) throws ExpressionEvaluationException {
-      return eval(bindings).toString();
+   public String asString(ExpressionContext context) throws ExpressionEvaluationException {
+      return eval(context).toString();
    }
 }

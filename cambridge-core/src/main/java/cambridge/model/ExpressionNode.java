@@ -4,8 +4,8 @@ import cambridge.Cambridge;
 import cambridge.ExpressionEvaluationException;
 import cambridge.ExpressionParsingException;
 import cambridge.TemplateEvaluationException;
-import cambridge.runtime.DefaultTemplateBindings;
 import cambridge.runtime.EscapeFilter;
+import cambridge.runtime.ExpressionContext;
 import cambridge.runtime.Filter;
 
 import java.io.IOException;
@@ -13,7 +13,6 @@ import java.io.PrintStream;
 import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Locale;
-import java.util.Map;
 
 /**
  * ExpressionNodes are nodes within the documents that are
@@ -96,11 +95,11 @@ public class ExpressionNode extends TemplateNode implements AttributeFragment {
         return null;
     }
 
-    public void eval(Map<String, Object> bindings, Writer out) throws IOException, TemplateEvaluationException {
+    public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
         try {
-            Object value = expression.eval(bindings);
+            Object value = expression.eval(context);
             if (value != null) {
-                String str = applyFilters(value, DefaultTemplateBindings.getLocaleFromBindings(bindings));
+                String str = applyFilters(value, context.getLocale());
                 if (raw) {
                     out.write(str);
                 } else {

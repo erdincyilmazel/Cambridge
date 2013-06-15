@@ -10,12 +10,12 @@ import cambridge.model.TagNode;
 import cambridge.model.TemplateDocument;
 import cambridge.parser.TemplateParser;
 import cambridge.parser.TemplateTokenizer;
-import cambridge.runtime.DefaultTemplateBindings;
+import cambridge.parser.expressions.MapExpressionContext;
+import cambridge.runtime.ExpressionContext;
 import org.junit.Test;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -30,8 +30,9 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("basic.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         Map<String, Object> p = new DefaultTemplateBindings();
-         p.put("class", "test");
+
+         ExpressionContext context = new MapExpressionContext();
+         context.set("class", "test");
          TemplateDocument t = parser.parse();
 
          assertNotNull(t);
@@ -60,7 +61,7 @@ public class ComplexAttributeTest {
          assertTrue(fragmentList.get(2) instanceof StaticFragment);
 
          for (Fragment f : fragmentList) {
-            f.eval(p, builder);
+            f.eval(context, builder);
          }
 
          assertEquals("<div class=\"test\">xxx</div>", builder.toString());
@@ -81,9 +82,9 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("complex.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         Map<String, Object> p = new DefaultTemplateBindings();
-         p.put("a", "AAA");
-         p.put("b", "BBB");
+         ExpressionContext context = new MapExpressionContext();
+         context.set("a", "AAA");
+         context.set("b", "BBB");
          TemplateDocument t = parser.parse();
 
          assertNotNull(t);
@@ -123,7 +124,7 @@ public class ComplexAttributeTest {
          assertTrue(fragmentList.get(4) instanceof StaticFragment);
 
          for (Fragment f : fragmentList) {
-            f.eval(p, builder);
+            f.eval(context, builder);
          }
 
          assertEquals("<div id=\"AAA and BBB\"></div>", builder.toString());
@@ -144,8 +145,9 @@ public class ComplexAttributeTest {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("dynamic.html"));
          TemplateParser parser = new TemplateParser(tokenizer);
-         Map<String, Object> p = new DefaultTemplateBindings();
-         p.put("style", "style");
+         ExpressionContext context = new MapExpressionContext();
+
+         context.set("style", "style");
 
          TemplateDocument t = parser.parse();
 
@@ -173,7 +175,7 @@ public class ComplexAttributeTest {
          assertTrue(fragmentList.get(0) instanceof TagNode);
 
          for (Fragment f : fragmentList) {
-            f.eval(p, builder);
+            f.eval(context, builder);
          }
 
          assertEquals("<div style=\"style\"></div>", builder.toString());

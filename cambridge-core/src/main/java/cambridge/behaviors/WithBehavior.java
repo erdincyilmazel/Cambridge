@@ -11,6 +11,7 @@ import cambridge.model.AttributeKey;
 import cambridge.model.DynamicAttribute;
 import cambridge.model.Expression;
 import cambridge.model.TagNode;
+import cambridge.runtime.ExpressionContext;
 
 import java.io.IOException;
 import java.io.Writer;
@@ -40,10 +41,10 @@ public class WithBehavior extends LoopingTagBehavior {
     }
 
     @Override
-    protected void doExecute(Map<String, Object> bindings, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
+    protected void doExecute(ExpressionContext context, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
         try {
-            bindings.put(getCurrentObjectName(), expression.eval(bindings));
-            tag.execute(bindings, out);
+            context.set(getCurrentObjectName(), expression.eval(context));
+            tag.execute(context, out);
         } catch (ExpressionEvaluationException e) {
             throw new TemplateEvaluationException(e, "Could not execute the expression: " +
                     e.getMessage() + ", on line: " + tag.getBeginLine() + ", column: " +

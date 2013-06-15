@@ -1,7 +1,10 @@
 package cambridge.mvel;
 
 import java.io.Serializable;
+import java.util.Locale;
 
+import cambridge.parser.expressions.MapExpressionContext;
+import cambridge.runtime.ExpressionContext;
 import org.mvel2.MVEL;
 import org.mvel2.ParserConfiguration;
 import org.mvel2.ParserContext;
@@ -36,5 +39,17 @@ public class MvelExpressionLanguage implements ExpressionLanguage {
 
     public String wrapExpressionAsList(String expr) {
         return "[" + expr + "]";
+    }
+
+    @Override
+    public ExpressionContext createNewContext(Locale locale)
+    {
+        return new MapExpressionContext(locale);
+    }
+
+    @Override
+    public ExpressionContext createNewContext()
+    {
+        return new MapExpressionContext();
     }
 }
