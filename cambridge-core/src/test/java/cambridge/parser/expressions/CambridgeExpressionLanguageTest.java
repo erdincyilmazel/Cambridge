@@ -7,6 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -195,7 +196,7 @@ public class CambridgeExpressionLanguageTest
     public void testVariableAccess() throws Exception
     {
         ExpressionContext context = expressionLanguage.createNewContext();
-        context.set("name", "Cambridge");
+        context.put("name", "Cambridge");
         Expression expression = expressionLanguage.parse("name", 1, 1);
 
         Object result = expression.eval(context);
@@ -206,7 +207,7 @@ public class CambridgeExpressionLanguageTest
     public void testBean() throws Exception
     {
         ExpressionContext context = expressionLanguage.createNewContext();
-        context.set("sample", sample);
+        context.put("sample", sample);
         Expression expression = expressionLanguage.parse("sample", 1, 1);
 
         Object result = expression.eval(context);
@@ -216,5 +217,28 @@ public class CambridgeExpressionLanguageTest
         assertEquals("Testing bean name", "Cambridge", expressionLanguage.parse("sample.name", 1, 1).eval(context));
         assertEquals("Testing bean id", 100, expressionLanguage.parse("sample.id", 1, 1).eval(context));
         assertEquals("Testing property chain", "x", expressionLanguage.parse("sample.sample2.x", 1, 1).eval(context));
+    }
+
+    @Test
+    public void testBoolean() throws Exception
+    {
+        String expression = "true || false";
+        ExpressionContext context = expressionLanguage.createNewContext();
+        Expression e = expressionLanguage.parse(expression, 0, 0);
+        //assertEquals("Testing type", CambridgeExpression.Type.Boolean, e.getType(bindings));
+        assertTrue(e.asBoolean(context));
+    }
+
+    @Test
+    public void testList() throws Exception
+    {
+        String expression = "['a', 'b', 213, aa]";
+        ExpressionContext context = expressionLanguage.createNewContext();
+        Expression e = expressionLanguage.parse(expression, 0, 0);
+        assertTrue(e.eval(context) instanceof List);
+        List<?> l = (List<?>) e.eval(context);
+        assertEquals("a", l.get(0));
+        assertEquals("b", l.get(1));
+        assertEquals(213, l.get(2));
     }
 }

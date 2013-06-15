@@ -43,7 +43,7 @@ public class WithBehavior extends LoopingTagBehavior {
     @Override
     protected void doExecute(ExpressionContext context, TagNode tag, Writer out) throws TemplateEvaluationException, IOException {
         try {
-            context.set(getCurrentObjectName(), expression.eval(context));
+            context.put(getCurrentObjectName(), expression.eval(context));
             tag.execute(context, out);
         } catch (ExpressionEvaluationException e) {
             throw new TemplateEvaluationException(e, "Could not execute the expression: " +

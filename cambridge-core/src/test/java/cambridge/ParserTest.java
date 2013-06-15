@@ -28,15 +28,15 @@ public class ParserTest {
    @BeforeClass
    public static void init() {
       bindings = new MapExpressionContext();
-      bindings.set("var", "simple");
-      bindings.set("id", "test");
-      bindings.set("exp", "class=\"x\"");
+      bindings.put("var", "simple");
+      bindings.put("id", "test");
+      bindings.put("exp", "class=\"x\"");
       ArrayList<Integer> list = new ArrayList<Integer>();
       list.add(1);
       list.add(2);
       list.add(3);
-      bindings.set("list", list);
-      bindings.set("condition", true);
+      bindings.put("list", list);
+      bindings.put("condition", true);
    }
 
    private String full = "<!DOCTYPE html>\n" +
@@ -121,7 +121,7 @@ public class ParserTest {
    public void testFull() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("full.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          TemplateDocument t = parser.parse();
          assertNotNull(t);
          FragmentList fragments = t.normalize();
@@ -152,7 +152,7 @@ public class ParserTest {
    public void testSelectBefore() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("full.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          TemplateDocument t = parser.parse();
          FragmentList fragments = t.select("before /html/body/div[3]");
 
@@ -181,7 +181,7 @@ public class ParserTest {
    public void testSelectAfter() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("full.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          TemplateDocument t = parser.parse();
          FragmentList fragments = t.select("after /html/body/div[3]");
 
@@ -209,7 +209,7 @@ public class ParserTest {
    public void testSelectInside() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("full.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          TemplateDocument t = parser.parse();
          FragmentList fragments = t.select("inside /html/body");
 

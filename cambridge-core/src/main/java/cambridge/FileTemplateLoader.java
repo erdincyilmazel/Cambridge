@@ -23,20 +23,20 @@ public class FileTemplateLoader extends AbstractTemplateLoader {
 
    protected final int changeDetectionInterval;
 
-   public TemplateFactory newTemplateFactory(File file) throws TemplateLoadingException {
-      return newTemplateFactory(file, DefaultEncoding, null);
+   public TemplateFactory newTemplateFactory(File file, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(file, DefaultEncoding, null, expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(File file, String encoding) throws TemplateLoadingException {
-      return newTemplateFactory(file, encoding, null);
+   public TemplateFactory newTemplateFactory(File file, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(file, encoding, null, expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(File file, TemplateModifier modifier) throws TemplateLoadingException {
-      return newTemplateFactory(file, DefaultEncoding, modifier);
+   public TemplateFactory newTemplateFactory(File file, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(file, DefaultEncoding, modifier, expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(File file, String encoding, TemplateModifier modifier) throws TemplateLoadingException {
-      TemplateDocument document = parseTemplate(file, encoding);
+   public TemplateFactory newTemplateFactory(File file, String encoding, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      TemplateDocument document = parseTemplate(file, encoding, expressionLanguage);
       if (modifier != null) {
          modifier.modifyTemplate(document);
       }
@@ -69,39 +69,39 @@ public class FileTemplateLoader extends AbstractTemplateLoader {
    }
 
 
-   public TemplateDocument parseTemplate(File file) throws TemplateLoadingException {
-      return parseTemplate(file, DefaultEncoding);
+   public TemplateDocument parseTemplate(File file, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return parseTemplate(file, DefaultEncoding, expressionLanguage);
    }
 
-   public TemplateDocument parseTemplate(File file, String encoding) throws TemplateLoadingException {
+   public TemplateDocument parseTemplate(File file, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       try {
-         return parseTemplate(new FileInputStream(file), encoding);
+         return parseTemplate(new FileInputStream(file), encoding, expressionLanguage);
       } catch (FileNotFoundException e) {
          throw new TemplateLoadingException(e);
       }
    }
 
-   public TemplateFactory newTemplateFactory(String template) throws TemplateLoadingException {
-      return newTemplateFactory(new File(template));
+   public TemplateFactory newTemplateFactory(String template, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(new File(template), expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(String template, String encoding) throws TemplateLoadingException {
-      return newTemplateFactory(new File(template), encoding);
+   public TemplateFactory newTemplateFactory(String template, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(new File(template), encoding, expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(String template, TemplateModifier modifier) throws TemplateLoadingException {
-      return newTemplateFactory(new File(template), modifier);
+   public TemplateFactory newTemplateFactory(String template, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(new File(template), modifier, expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier) throws TemplateLoadingException {
-      return newTemplateFactory(new File(template), encoding, modifier);
+   public TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(new File(template), encoding, modifier, expressionLanguage);
    }
 
-   public TemplateDocument parseTemplate(String templateFile) throws TemplateLoadingException {
-      return parseTemplate(new File(templateFile));
+   public TemplateDocument parseTemplate(String templateFile, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return parseTemplate(new File(templateFile), expressionLanguage);
    }
 
-   public TemplateDocument parseTemplate(String templateFile, String encoding) throws TemplateLoadingException {
-      return parseTemplate(new File(templateFile), encoding);
+   public TemplateDocument parseTemplate(String templateFile, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return parseTemplate(new File(templateFile), encoding, expressionLanguage);
    }
 }

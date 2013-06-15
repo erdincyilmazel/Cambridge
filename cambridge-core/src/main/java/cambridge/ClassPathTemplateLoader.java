@@ -49,9 +49,9 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
     * @return Returns the newly created TemplateFactory
     * @throws TemplateLoadingException
     */
-   public TemplateFactory newTemplateFactory(String template) throws TemplateLoadingException {
+   public TemplateFactory newTemplateFactory(String template, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       InputStream in = classLoader.getResourceAsStream(template);
-      TemplateDocument doc = parseTemplate(in);
+      TemplateDocument doc = parseTemplate(in, expressionLanguage);
       try {
          FragmentList fragments = doc.normalize();
          return new ImmutableTemplateFactory(this, fragments);
@@ -72,9 +72,9 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
     * @return Returns the newly created TemplateFactory
     * @throws TemplateLoadingException
     */
-   public TemplateFactory newTemplateFactory(String template, String encoding) throws TemplateLoadingException {
+   public TemplateFactory newTemplateFactory(String template, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       InputStream in = classLoader.getResourceAsStream(template);
-      TemplateDocument doc = parseTemplate(in, encoding);
+      TemplateDocument doc = parseTemplate(in, encoding, expressionLanguage);
       try {
          FragmentList fragments = doc.normalize();
          return new ImmutableTemplateFactory(this, fragments);
@@ -97,9 +97,9 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
     * @return Returns the newly created TemplateFactory
     * @throws TemplateLoadingException
     */
-   public TemplateFactory newTemplateFactory(String template, TemplateModifier modifier) throws TemplateLoadingException {
+   public TemplateFactory newTemplateFactory(String template, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       InputStream in = classLoader.getResourceAsStream(template);
-      TemplateDocument doc = parseTemplate(in);
+      TemplateDocument doc = parseTemplate(in, expressionLanguage);
       modifier.modifyTemplate(doc);
       try {
          FragmentList fragments = doc.normalize();
@@ -124,9 +124,9 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
     * @return Returns the newly created TemplateFactory
     * @throws TemplateLoadingException
     */
-   public TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier) throws TemplateLoadingException {
+   public TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       InputStream in = classLoader.getResourceAsStream(template);
-      TemplateDocument doc = parseTemplate(in, encoding);
+      TemplateDocument doc = parseTemplate(in, encoding, expressionLanguage);
       modifier.modifyTemplate(doc);
       try {
          FragmentList fragments = doc.normalize();
@@ -146,9 +146,9 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
     * @return Returns the parsed template as a TemplateDocument object
     * @throws TemplateLoadingException Thrown if the template could not be parsed or loaded
     */
-   public TemplateDocument parseTemplate(String templatePath) throws TemplateLoadingException {
+   public TemplateDocument parseTemplate(String templatePath, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       InputStream in = classLoader.getResourceAsStream(templatePath);
-      return parseTemplate(in);
+      return parseTemplate(in, expressionLanguage);
    }
 
    /**
@@ -162,8 +162,8 @@ public class ClassPathTemplateLoader extends AbstractTemplateLoader {
     * @return Returns the parsed template as a TemplateDocument object
     * @throws TemplateLoadingException Thrown if the template could not be parsed or loaded
     */
-   public TemplateDocument parseTemplate(String templatePath, String encoding) throws TemplateLoadingException {
+   public TemplateDocument parseTemplate(String templatePath, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       InputStream in = classLoader.getResourceAsStream(templatePath);
-      return parseTemplate(in, encoding);
+      return parseTemplate(in, encoding, expressionLanguage);
    }
 }

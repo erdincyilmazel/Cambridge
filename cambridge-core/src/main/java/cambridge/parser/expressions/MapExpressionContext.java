@@ -31,12 +31,6 @@ public class MapExpressionContext extends HashMap<String, Object> implements Exp
     }
 
     @Override
-    public void set(String name, Object value)
-    {
-        super.put(name, value);
-    }
-
-    @Override
     public Object remove(String name)
     {
         return super.remove(name);

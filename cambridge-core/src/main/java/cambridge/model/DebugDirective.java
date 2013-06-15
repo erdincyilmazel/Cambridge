@@ -14,102 +14,131 @@ import java.util.Set;
 
 /**
  * @author Erdinc Yilmazelyilmazel
- * Date: 1/7/11
- * Time: 4:44 PM
+ *         Date: 1/7/11
+ *         Time: 4:44 PM
  */
-public class DebugDirective extends TemplateNode implements AttributeFragment {
+public class DebugDirective extends TemplateNode implements AttributeFragment
+{
 
-   private static FragmentList debugTemplate;
+    private static FragmentList debugTemplate;
 
-   static {
-      ClassPathTemplateLoader templateLoader = new ClassPathTemplateLoader(DebugDirective.class);
-      TemplateDocument templateDocument = templateLoader.parseTemplate("cambridge/debug.html");
-      try {
-         debugTemplate = templateDocument.normalize();
-      } catch (BehaviorInstantiationException e) {
-         e.printStackTrace();
-      }
-   }
+    static
+    {
+        ClassPathTemplateLoader templateLoader = new ClassPathTemplateLoader(DebugDirective.class);
+        TemplateDocument templateDocument = templateLoader.parseTemplate("cambridge/debug.html", Expressions.cambridgeExpressionLanguage);
+        try
+        {
+            debugTemplate = templateDocument.normalize();
+        }
+        catch (BehaviorInstantiationException e)
+        {
+            e.printStackTrace();
+        }
+    }
 
-   public static class DebugElement {
-      final String key;
-      final Object value;
-      final String type;
+    public static class DebugElement
+    {
+        final String key;
+        final Object value;
+        final String type;
 
-      DebugElement(String key, Object value, String type) {
-         this.key = key;
-         this.value = value;
-         this.type = type;
-      }
+        DebugElement(String key, Object value, String type)
+        {
+            this.key = key;
+            this.value = value;
+            this.type = type;
+        }
 
-      public String getKey() {
-         return key;
-      }
+        public String getKey()
+        {
+            return key;
+        }
 
-      public Object getValue() {
-         return value;
-      }
+        public Object getValue()
+        {
+            return value;
+        }
 
-      public String getType() {
-         return type;
-      }
-   }
+        public String getType()
+        {
+            return type;
+        }
+    }
 
-   public DebugDirective() {
+    public DebugDirective()
+    {
 
-   }
+    }
 
-   @Override
-   void normalize(TemplateDocument doc, FragmentList fList) throws BehaviorInstantiationException {
-      fList.addFragment(this);
-   }
+    @Override
+    void normalize(TemplateDocument doc, FragmentList fList) throws BehaviorInstantiationException
+    {
+        fList.addFragment(this);
+    }
 
-   @Override
-   boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException {
-      if (reference == this) {
-         if (inclusive) {
+    @Override
+    boolean normalizeUntil(TemplateDocument doc, TemplateNode reference, FragmentList f, boolean inclusive) throws BehaviorInstantiationException
+    {
+        if (reference == this)
+        {
+            if (inclusive)
+            {
+                normalize(doc, f);
+            }
+            return true;
+        }
+        else
+        {
             normalize(doc, f);
-         }
-         return true;
-      } else {
-         normalize(doc, f);
-         return false;
-      }
-   }
+            return false;
+        }
+    }
 
-   @Override
-   public Tag getElementById(String id) {
-      return null;
-   }
+    @Override
+    public Tag getElementById(String id)
+    {
+        return null;
+    }
 
-   public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
-      ArrayList<DebugElement> elements = new ArrayList<DebugElement>();
-      Set<Map.Entry<String, Object>> entries = context.asMap().entrySet();
+    public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException
+    {
+        ArrayList<DebugElement> elements = new ArrayList<DebugElement>();
+        Set<Map.Entry<String, Object>> entries = context.asMap().entrySet();
 
-      for (Map.Entry<String, Object> e : entries) {
-         String key = e.getKey();
-         Object value = e.getValue();
-         if (Expressions.CURRENT_OBJECT.equals(key) || Expressions.PARENT_OBJECT.equals(key) || Expressions.ITER_OBJECT.equals(key)) {
-            if (value != null) {
-               elements.add(new DebugElement(key, value, value.getClass().getName()));
+        for (Map.Entry<String, Object> e : entries)
+        {
+            String key = e.getKey();
+            Object value = e.getValue();
+            if (Expressions.CURRENT_OBJECT.equals(key) || Expressions.PARENT_OBJECT.equals(key) || Expressions.ITER_OBJECT.equals(key))
+            {
+                if (value != null)
+                {
+                    elements.add(new DebugElement(key, value, value.getClass().getName()));
+                }
             }
-         } else {
-            if (value != null) {
-               elements.add(new DebugElement(key, value, value.getClass().getName()));
-            } else {
-               elements.add(new DebugElement(key, "", "<NULL>"));
+            else
+            {
+                if (value != null)
+                {
+                    elements.add(new DebugElement(key, value, value.getClass().getName()));
+                }
+                else
+                {
+                    elements.add(new DebugElement(key, "", "<NULL>"));
+                }
             }
-         }
-      }
+        }
 
-      context.set("___DebugAllValues___", elements);
-      for (Fragment f : debugTemplate) {
-         f.eval(context, out);
-      }
+        context.put("___DebugAllValues___", elements);
+        for (Fragment f : debugTemplate)
+        {
+            f.eval(context, out);
+        }
 
-      context.remove("___DebugAllValues___");
-   }
+        context.remove("___DebugAllValues___");
+    }
 
-   public void pack() {
-   }
+    public void pack()
+    {
+    }
 }

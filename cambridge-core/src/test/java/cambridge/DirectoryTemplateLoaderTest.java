@@ -24,11 +24,11 @@ public class DirectoryTemplateLoaderTest {
          TemplateFactory f = loader.newTemplateFactory("kitchensink.html", new TemplateModifier() {
             public void modifyTemplate(TemplateDocument doc) {
 
-               FragmentList list = new FragmentList();
+               FragmentList list = new FragmentList(Expressions.cambridgeExpressionLanguage);
                list.add(new StaticFragment("This is a test"));
 
                try {
-                  doc.getElementById("email").addChild(new IncludeNode(loader, "a.html", "#s"));
+                  doc.getElementById("email").addChild(new IncludeNode(loader, "a.html", Expressions.cambridgeExpressionLanguage, "#s"));
                } catch (TemplateLoadingException e) {
                   e.printStackTrace();
                } catch (BehaviorInstantiationException e) {
@@ -37,7 +37,7 @@ public class DirectoryTemplateLoaderTest {
 
                //doc.getElementById("email").addChild(new TextNode("Erdinc"));
             }
-         });
+         }, Expressions.cambridgeExpressionLanguage);
          Template t = f.createTemplate();
 
          t.printTo(new OutputStreamWriter(System.out));

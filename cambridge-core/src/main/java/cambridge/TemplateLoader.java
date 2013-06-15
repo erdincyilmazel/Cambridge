@@ -29,7 +29,7 @@ public interface TemplateLoader {
     * @return A template factory which holds a parsed/normalized template structure.
     * @throws TemplateLoadingException Thrown if template could not be loaded or parsed.
     */
-   TemplateFactory newTemplateFactory(String templatePath) throws TemplateLoadingException;
+   TemplateFactory newTemplateFactory(String templatePath, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Creates a TemplateFactory for the file in the given path. The template parser
@@ -46,7 +46,7 @@ public interface TemplateLoader {
     * @return A template factory which holds a parsed/normalized template structure.
     * @throws TemplateLoadingException Thrown if template could not be loaded or parsed.
     */
-   TemplateFactory newTemplateFactory(String templatePath, String encoding) throws TemplateLoadingException;
+   TemplateFactory newTemplateFactory(String templatePath, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Creates a TemplateFactory for the file in the given path. After the template file is
@@ -78,7 +78,7 @@ public interface TemplateLoader {
     * @see TemplateModifier
     * @throws TemplateLoadingException Thrown if template could not be loaded or parsed.
     */
-   TemplateFactory newTemplateFactory(String templatePath, TemplateModifier modifier) throws TemplateLoadingException;
+   TemplateFactory newTemplateFactory(String templatePath, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Creates a TemplateFactory for the file in the given path. The template parser
@@ -112,7 +112,7 @@ public interface TemplateLoader {
     * @see TemplateModifier
     * @throws TemplateLoadingException Thrown if template could not be loaded or parsed.
     */
-   TemplateFactory newTemplateFactory(String templatePath, String encoding, TemplateModifier modifier) throws TemplateLoadingException;
+   TemplateFactory newTemplateFactory(String templatePath, String encoding, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Creates a TemplateFactory after parsing the supplied template text.</p>
@@ -121,7 +121,7 @@ public interface TemplateLoader {
     * @return A template factory which holds a parsed/normalized template structure.
     * @throws TemplateLoadingException Thrown if the template could not be parsed
     */
-   TemplateFactory parseAndCreateTemplateFactory(String templateSource) throws TemplateLoadingException;
+   TemplateFactory parseAndCreateTemplateFactory(String templateSource, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Parses the template reading from the supplied input stream and returns the
@@ -133,7 +133,7 @@ public interface TemplateLoader {
     * @return Returns the parsed template as a TemplateDocument object
     * @throws TemplateLoadingException Thrown if the template could not be parsed
     */
-   TemplateDocument parseTemplate(InputStream in) throws TemplateLoadingException;
+   TemplateDocument parseTemplate(InputStream in, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Parses the template reading from the supplied input stream and returns the
@@ -146,7 +146,7 @@ public interface TemplateLoader {
     * @return Returns the parsed template as a TemplateDocument object
     * @throws TemplateLoadingException Thrown if the template could not be parsed
     */
-   TemplateDocument parseTemplate(InputStream in, String encoding) throws TemplateLoadingException;
+   TemplateDocument parseTemplate(InputStream in, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Parses the template in the specified template path and returns the TemplateDocument
@@ -158,7 +158,7 @@ public interface TemplateLoader {
     * @return Returns the parsed template as a TemplateDocument object
     * @throws TemplateLoadingException Thrown if the template could not be parsed or loaded
     */
-   TemplateDocument parseTemplate(String templatePath) throws TemplateLoadingException;
+   TemplateDocument parseTemplate(String templatePath, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Parses the template in the specified template path and returns the TemplateDocument
@@ -171,7 +171,7 @@ public interface TemplateLoader {
     * @return Returns the parsed template as a TemplateDocument object
     * @throws TemplateLoadingException Thrown if the template could not be parsed or loaded
     */
-   TemplateDocument parseTemplate(String templatePath, String encoding) throws TemplateLoadingException;
+   TemplateDocument parseTemplate(String templatePath, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 
    /**
     * <p>Parses the supplied template source code and returns a TemplateDocument
@@ -180,5 +180,5 @@ public interface TemplateLoader {
     * @return Returns the parsed template as a TemplateDocument object
     * @throws TemplateLoadingException Thrown if the template could not be parsed or loaded
     */
-   TemplateDocument parseAndCreateTemplateDocument(String templateSource) throws TemplateLoadingException;
+   TemplateDocument parseAndCreateTemplateDocument(String templateSource, ExpressionLanguage expressionLanguage) throws TemplateLoadingException;
 }

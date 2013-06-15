@@ -21,7 +21,7 @@ public class SetDirectiveTest {
    @Test
    public void testSetDirective() throws Exception {
       TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("set.html"));
-      TemplateParser parser = new TemplateParser(tokenizer);
+      TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
       TemplateDocument doc = parser.parse();
       FragmentList fragmentList = doc.normalize();
       MapExpressionContext context = new MapExpressionContext();

@@ -41,6 +41,15 @@ public interface ExpressionLanguage
      */
     public String wrapExpressionAsList(String expr);
 
+    /**
+     * Create a new context object for the locale provided
+     * @param locale The locale that the template should be rendered in
+     * @return Returns the newly created expression context
+     */
     public ExpressionContext createNewContext(Locale locale);
+
+    /**
+     * @return Creates an empty expression context and returns it
+     */
     public ExpressionContext createNewContext();
 }

@@ -42,8 +42,8 @@ public class RepeatBehavior extends LoopingTagBehavior {
             		iter.setLast();
                 }
 
-                context.set(Expressions.CURRENT_OBJECT, i);
-                context.set(Expressions.ITER_OBJECT, iter);
+                context.put(Expressions.CURRENT_OBJECT, i);
+                context.put(Expressions.ITER_OBJECT, iter);
                 tag.execute(context, out);
                 iter.next();
             }

@@ -54,20 +54,20 @@ public class FormTag extends DynamicTag {
 
             if (t != null) {
                s = new Super(t, ts, iter);
-               bindings.set(Expressions.PARENT_OBJECT, s);
+               bindings.put(Expressions.PARENT_OBJECT, s);
             }
 
-            bindings.set(Expressions.CURRENT_OBJECT, form);
+            bindings.put(Expressions.CURRENT_OBJECT, form);
             super.execute(bindings, out);
 
             if (t != null) {
-               bindings.set(Expressions.CURRENT_OBJECT, s.get());
-               bindings.set(Expressions.PARENT_OBJECT, s.getSuper());
-               bindings.set(Expressions.ITER_OBJECT, s.getIter());
+               bindings.put(Expressions.CURRENT_OBJECT, s.get());
+               bindings.put(Expressions.PARENT_OBJECT, s.getSuper());
+               bindings.put(Expressions.ITER_OBJECT, s.getIter());
             } else {
-               bindings.set(Expressions.CURRENT_OBJECT, t);
-               bindings.set(Expressions.PARENT_OBJECT, ts);
-               bindings.set(Expressions.ITER_OBJECT, iter);
+               bindings.put(Expressions.CURRENT_OBJECT, t);
+               bindings.put(Expressions.PARENT_OBJECT, ts);
+               bindings.put(Expressions.ITER_OBJECT, iter);
             }
 
          }

@@ -21,7 +21,7 @@ public class ClassPathTemplateLoaderTest {
 
    @Test
    public void testLoad() {
-      TemplateFactory factory = loader.newTemplateFactory("cambridge/basic.html");
+      TemplateFactory factory = loader.newTemplateFactory("cambridge/basic.html", Expressions.cambridgeExpressionLanguage);
       assertNotNull(factory);
       Template t = factory.createTemplate();
       assertEquals("<div class=\"\">xxx</div>", t.asString());

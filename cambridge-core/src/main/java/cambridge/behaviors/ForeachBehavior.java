@@ -93,7 +93,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     private void iterateIterable(ExpressionContext context, TagNode tag, Writer out, Iterable<Object> o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        context.set(getIterObjectName(), iter);
+        context.put(getIterObjectName(), iter);
         Iterator<?> it = o.iterator();
         while (it.hasNext()) {
         	Object o1 = it.next();
@@ -102,7 +102,7 @@ public class ForeachBehavior extends LoopingTagBehavior {
         		iter.setLast();
             }
 
-            context.set(getCurrentObjectName(), o1);
+            context.put(getCurrentObjectName(), o1);
             tag.execute(context, out);
             iter.next();
         }
@@ -110,12 +110,12 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     private void iterateArray(ExpressionContext context, TagNode tag, Writer out, Object[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        context.set(getIterObjectName(), iter);
+        context.put(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            context.set(getCurrentObjectName(), o[i]);
+            context.put(getCurrentObjectName(), o[i]);
             tag.execute(context, out);
             iter.next();
         }
@@ -123,12 +123,12 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     private void iterateInt(ExpressionContext context, TagNode tag, Writer out, int[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        context.set(getIterObjectName(), iter);
+        context.put(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            context.set(getCurrentObjectName(), o[i]);
+            context.put(getCurrentObjectName(), o[i]);
             tag.execute(context, out);
             iter.next();
         }
@@ -136,12 +136,12 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     private void iterateFloat(ExpressionContext context, TagNode tag, Writer out, float[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        context.set(getIterObjectName(), iter);
+        context.put(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            context.set(getCurrentObjectName(), o[i]);
+            context.put(getCurrentObjectName(), o[i]);
             tag.execute(context, out);
             iter.next();
         }
@@ -149,12 +149,12 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     private void iterateDouble(ExpressionContext context, TagNode tag, Writer out, double[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        context.set(getIterObjectName(), iter);
+        context.put(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            context.set(getCurrentObjectName(), o[i]);
+            context.put(getCurrentObjectName(), o[i]);
             tag.execute(context, out);
             iter.next();
         }
@@ -162,12 +162,12 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     private void iterateByte(ExpressionContext context, TagNode tag, Writer out, byte[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        context.set(getIterObjectName(), iter);
+        context.put(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            context.set(getCurrentObjectName(), o[i]);
+            context.put(getCurrentObjectName(), o[i]);
             tag.execute(context, out);
             iter.next();
         }
@@ -175,12 +175,12 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     private void iterateChar(ExpressionContext context, TagNode tag, Writer out, char[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        context.set(getIterObjectName(), iter);
+        context.put(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            context.set(getCurrentObjectName(), o[i]);
+            context.put(getCurrentObjectName(), o[i]);
             tag.execute(context, out);
             iter.next();
         }
@@ -188,12 +188,12 @@ public class ForeachBehavior extends LoopingTagBehavior {
 
     private void iterateBoolean(ExpressionContext context, TagNode tag, Writer out, boolean[] o) throws IOException, TemplateEvaluationException {
         Iter iter = new Iter();
-        context.set(getIterObjectName(), iter);
+        context.put(getIterObjectName(), iter);
         for (int i=0; i<o.length; i++) {
         	if (i == o.length-1)
         		iter.setLast();
 
-            context.set(getCurrentObjectName(), o[i]);
+            context.put(getCurrentObjectName(), o[i]);
             tag.execute(context, out);
             iter.next();
         }

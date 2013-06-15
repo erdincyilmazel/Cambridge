@@ -7,21 +7,21 @@ import java.util.Locale;
 
 /**
  * @author Erdinc Yilmazel
- * Date: Nov 3, 2009
- * Time: 12:37:29 AM
+ *         Date: Nov 3, 2009
+ *         Time: 12:37:29 AM
  */
-public abstract class TemplateFactory {
-   protected FragmentList fragments;
-   protected final TemplateLoader loader;
+public abstract class TemplateFactory
+{
+    protected FragmentList fragments;
+    protected final TemplateLoader loader;
 
-   public TemplateFactory(TemplateLoader loader, FragmentList fragments) {
-      this.loader = loader;
-      this.fragments = fragments;
-   }
+    public TemplateFactory(TemplateLoader loader, FragmentList fragments)
+    {
+        this.loader = loader;
+        this.fragments = fragments;
+    }
 
-   public abstract Template createTemplate();
+    public abstract Template createTemplate();
 
-   public abstract Template createTemplate(Locale locale);
-
-   public abstract Template createTemplate(ExpressionContext context);
+    public abstract Template createTemplate(Locale locale);
 }

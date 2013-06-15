@@ -19,4 +19,10 @@ public class JexlExpressionContext extends MapExpressionContext implements JexlC
     {
         super(locale);
     }
+
+    @Override
+    public void set(String name, Object value)
+    {
+        super.put(name, value);
+    }
 }

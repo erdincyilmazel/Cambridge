@@ -3,6 +3,7 @@ package cambridge.forms;
 import cambridge.Cambridge;
 import cambridge.DynamicTagCreator;
 import cambridge.DynamicTagProvider;
+import cambridge.Expressions;
 import cambridge.FileTemplateLoader;
 import cambridge.Template;
 import cambridge.TemplateFactory;
@@ -22,7 +23,7 @@ public class FormTagProvider implements DynamicTagProvider {
     public FormTag getInstance() {
         DynamicTagCreator creator = new DynamicTagCreator();
         try {
-            return creator.createTag(FormTag.class.getResourceAsStream("form.html"), FormTag.class);
+            return creator.createTag(FormTag.class.getResourceAsStream("form.html"), FormTag.class, Expressions.cambridgeExpressionLanguage);
         } catch (TemplateLoadingException e) {
             e.printStackTrace();
             return null;
@@ -37,7 +38,7 @@ public class FormTagProvider implements DynamicTagProvider {
         Cambridge.getInstance().bindTag(Cambridge.DefaultNamespaceURI, "form").toProvider(new FormTagProvider());
 
         FileTemplateLoader loader = new FileTemplateLoader();
-        TemplateFactory templateFactory = loader.parseAndCreateTemplateFactory(template);
+        TemplateFactory templateFactory = loader.parseAndCreateTemplateFactory(template, Expressions.cambridgeExpressionLanguage);
 
         Template t = templateFactory.createTemplate();
 

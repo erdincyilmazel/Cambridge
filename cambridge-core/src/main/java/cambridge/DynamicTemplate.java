@@ -8,68 +8,76 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.Locale;
 import java.util.Map;
 
 /**
  * Default Template implementation. The built in TemplateFactory classes creates an
  * instance of DynamicTemplate whenever needed.
  */
-public class DynamicTemplate implements Template {
+public class DynamicTemplate implements Template
+{
+    private final FragmentList fragments;
+    private final ExpressionContext context;
 
-   private final FragmentList fragments;
+    public DynamicTemplate(FragmentList fragments, ExpressionContext context)
+    {
+        this.fragments = fragments;
+        this.context = context;
+    }
 
-   public DynamicTemplate(FragmentList fragments, Locale locale) {
-      this.fragments = fragments;
-      context = Expressions.getDefaultExpressionLanguage().createNewContext(locale);
-   }
+    public void setProperty(String name, Object property)
+    {
+        context.put(name, property);
+    }
 
-   public DynamicTemplate(FragmentList fragments) {
-      this.fragments = fragments;
-      context = Expressions.getDefaultExpressionLanguage().createNewContext();
-   }
+    public void setAllProperties(Map<String, Object> properties)
+    {
+        context.setVariables(properties);
+    }
 
-   public DynamicTemplate(FragmentList fragments, ExpressionContext context) {
-      this.fragments = fragments;
-      this.context = context;
-   }
+    public void printTo(Writer out) throws IOException, TemplateEvaluationException
+    {
+        for (Fragment f : fragments)
+        {
+            f.eval(context, out);
+        }
+    }
 
-   private final ExpressionContext context;
+    public void printBuffered(Writer out) throws IOException, TemplateEvaluationException
+    {
+        BufferedWriter writer;
+        if (out instanceof BufferedWriter)
+        {
+            writer = (BufferedWriter) out;
+        }
+        else
+        {
+            writer = new BufferedWriter(out);
+        }
 
-   public void setProperty(String name, Object property) {
-      context.set(name, property);
-   }
+        for (Fragment f : fragments)
+        {
+            f.eval(context, writer);
+        }
+    }
 
-   public void setAllProperties(Map<String, Object> properties) {
-      context.setVariables(properties);
-   }
+    public String asString() throws TemplateEvaluationException
+    {
+        StringWriter writer = new StringWriter();
+        try
+        {
+            printTo(writer);
+            return writer.toString();
+        }
+        catch (IOException e)
+        {
+            return "";
+        }
+    }
 
-   public void printTo(Writer out) throws IOException, TemplateEvaluationException {
-      for (Fragment f : fragments) {
-         f.eval(context, out);
-      }
-   }
-
-   public void printBuffered(Writer out) throws IOException, TemplateEvaluationException {
-      BufferedWriter writer;
-      if (out instanceof BufferedWriter) {
-         writer = (BufferedWriter) out;
-      } else {
-         writer = new BufferedWriter(out);
-      }
-
-      for (Fragment f : fragments) {
-         f.eval(context, writer);
-      }
-   }
-
-   public String asString() throws TemplateEvaluationException {
-      StringWriter writer = new StringWriter();
-      try {
-         printTo(writer);
-         return writer.toString();
-      } catch (IOException e) {
-         return "";
-      }
-   }
+    @Override
+    public ExpressionContext getContext()
+    {
+        return context;
+    }
 }

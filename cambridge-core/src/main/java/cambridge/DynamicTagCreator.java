@@ -36,8 +36,8 @@ public class DynamicTagCreator {
     * @return Returns the newly created tag node object which contains the template contents.
     * @throws TemplateLoadingException Might be thrown if there is a problem in parsing the provided template.
     */
-   public <T extends TagNode> T createTag(InputStream in, Class<T> cl) throws TemplateLoadingException {
-      TemplateDocument doc = loader.parseTemplate(in);
+   public <T extends TagNode> T createTag(InputStream in, Class<T> cl, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      TemplateDocument doc = loader.parseTemplate(in, expressionLanguage);
       ArrayList<TemplateNode> nodes = doc.getChildren();
 
       try {
@@ -63,8 +63,8 @@ public class DynamicTagCreator {
     * @return Returns the newly created tag node object which contains the template contents.
     * @throws TemplateLoadingException Might be thrown if there is a problem in parsing the provided template.
     */
-   public <T extends TagNode> T createTag(File tagTemplate, Class<T> cl) throws TemplateLoadingException {
-      TemplateDocument doc = loader.parseTemplate(tagTemplate);
+   public <T extends TagNode> T createTag(File tagTemplate, Class<T> cl, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      TemplateDocument doc = loader.parseTemplate(tagTemplate, expressionLanguage);
       ArrayList<TemplateNode> nodes = doc.getChildren();
 
       try {

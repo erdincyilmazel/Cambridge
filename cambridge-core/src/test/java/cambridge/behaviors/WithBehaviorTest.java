@@ -1,5 +1,6 @@
 package cambridge.behaviors;
 
+import cambridge.Expressions;
 import cambridge.User;
 import cambridge.model.Fragment;
 import cambridge.model.FragmentList;
@@ -25,11 +26,11 @@ public class WithBehaviorTest {
    @Test
    public void testWithBehavior() throws Exception {
       TemplateTokenizer tokenizer = new TemplateTokenizer(ConditionalAttributeBehaviorTest.class.getResourceAsStream("withbehavior.html"));
-      TemplateParser parser = new TemplateParser(tokenizer);
+      TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
       ExpressionContext context = new MapExpressionContext();
 
       User user = new User("test", "test@test.com");
-      context.set("user", user);
+      context.put("user", user);
 
       TemplateDocument t = parser.parse();
       assertNotNull(t);

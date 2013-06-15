@@ -108,7 +108,7 @@ public class CambridgeConfigurer implements CambridgeConfig, InitializingBean, S
             return templateFactory;
         }
 
-        templateFactory = templateLoader.newTemplateFactory(template);
+        templateFactory = templateLoader.newTemplateFactory(template, spel);
 
         cachedTemplates.putIfAbsent(template, templateFactory);
         return templateFactory;

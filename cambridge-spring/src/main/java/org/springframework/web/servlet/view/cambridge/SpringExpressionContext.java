@@ -16,7 +16,6 @@ public class SpringExpressionContext extends StandardEvaluationContext implement
 
     public SpringExpressionContext()
     {
-
     }
 
     public SpringExpressionContext(Locale locale)
@@ -31,9 +30,10 @@ public class SpringExpressionContext extends StandardEvaluationContext implement
     }
 
     @Override
-    public void set(String name, Object value)
+    public Object put(String name, Object value)
     {
         setVariable(name, value);
+        return value;
     }
 
     @Override

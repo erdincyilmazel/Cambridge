@@ -47,7 +47,7 @@ public class SetDirective extends TemplateNode implements AttributeFragment {
 
    public void eval(ExpressionContext context, Writer out) throws IOException, TemplateEvaluationException {
       try {
-         context.set(varName, expression.eval(context));
+         context.put(varName, expression.eval(context));
       } catch (ExpressionEvaluationException e) {
          throw new TemplateEvaluationException(e, "Could not execute the expression: " + expression.toString() + " on line: " + getBeginLine() + ", column: " + getBeginColumn(), getBeginLine(), getBeginColumn());
       }

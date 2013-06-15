@@ -29,10 +29,10 @@ public class ComplexAttributeTest {
    public void testBasic() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("basic.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
 
          ExpressionContext context = new MapExpressionContext();
-         context.set("class", "test");
+         context.put("class", "test");
          TemplateDocument t = parser.parse();
 
          assertNotNull(t);
@@ -81,10 +81,10 @@ public class ComplexAttributeTest {
    public void testComplex() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("complex.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          ExpressionContext context = new MapExpressionContext();
-         context.set("a", "AAA");
-         context.set("b", "BBB");
+         context.put("a", "AAA");
+         context.put("b", "BBB");
          TemplateDocument t = parser.parse();
 
          assertNotNull(t);
@@ -144,10 +144,10 @@ public class ComplexAttributeTest {
    public void testDymnamic() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ParserTest.class.getResourceAsStream("dynamic.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          ExpressionContext context = new MapExpressionContext();
 
-         context.set("style", "style");
+         context.put("style", "style");
 
          TemplateDocument t = parser.parse();
 

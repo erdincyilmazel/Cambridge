@@ -28,7 +28,7 @@ public class SpringExpressionLanguageTest
     public void testParseVariable() throws Exception
     {
         ExpressionContext context = language.createNewContext();
-        context.set("name", "Cambridge");
+        context.put("name", "Cambridge");
         Expression expression = language.parse("#name", 1, 1);
 
         String name = expression.asString(context);

@@ -31,19 +31,19 @@ public abstract class LoopingTagBehavior implements TagBehavior {
 
         if (t != null) {
             s = new Super(t, ts, iter);
-            context.set(getParentObjectName(), s);
+            context.put(getParentObjectName(), s);
         }
 
         doExecute(context, tag, out);
 
         if (t != null) {
-            context.set(getCurrentObjectName(), s.get());
-            context.set(getParentObjectName(), s.getSuper());
-            context.set(getIterObjectName(), s.getIter());
+            context.put(getCurrentObjectName(), s.get());
+            context.put(getParentObjectName(), s.getSuper());
+            context.put(getIterObjectName(), s.getIter());
         } else {
-            context.set(getCurrentObjectName(), t);
-            context.set(getParentObjectName(), ts);
-            context.set(getIterObjectName(), iter);
+            context.put(getCurrentObjectName(), t);
+            context.put(getParentObjectName(), ts);
+            context.put(getIterObjectName(), iter);
         }
     }
 

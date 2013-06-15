@@ -75,8 +75,8 @@ public class EditTester {
     public static void main(String[] args) {
         try {
             final DirectoryTemplateLoader loader = new DirectoryTemplateLoader(new File("."));
-            loader.parseTemplate("kitchensink.html");
-            final TemplateFactory f = loader.newTemplateFactory("kitchensink.html");
+            loader.parseTemplate("kitchensink.html", Expressions.cambridgeExpressionLanguage);
+            final TemplateFactory f = loader.newTemplateFactory("kitchensink.html", Expressions.cambridgeExpressionLanguage);
 
             Template template = f.createTemplate();
 

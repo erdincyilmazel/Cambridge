@@ -1,6 +1,7 @@
 package simplewebapp.servlets;
 
 import cambridge.DirectoryTemplateLoader;
+import cambridge.Expressions;
 import cambridge.Template;
 import cambridge.TemplateFactory;
 import cambridge.TemplateLoader;
@@ -41,7 +42,7 @@ public class UsersServlet extends HttpServlet {
       ServletContext ctx = config.getServletContext();
       File templateDir = new File(ctx.getRealPath("/WEB-INF/templates"));
       TemplateLoader loader = new DirectoryTemplateLoader(templateDir, "UTF-8");
-      tf = loader.newTemplateFactory("users.html");
+      tf = loader.newTemplateFactory("users.html", Expressions.cambridgeExpressionLanguage);
    }
 
 

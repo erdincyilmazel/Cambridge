@@ -1,6 +1,7 @@
 package cambridge.behaviors;
 
 import cambridge.BehaviorInstantiationException;
+import cambridge.Expressions;
 import cambridge.TemplateEvaluationException;
 import cambridge.TemplateParsingException;
 import cambridge.model.Fragment;
@@ -30,9 +31,9 @@ public class ConditionalAttributeBehaviorTest {
    public void test() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(ConditionalAttributeBehaviorTest.class.getResourceAsStream("conditionalattribute.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          ExpressionContext context = new MapExpressionContext();
-         context.set("condition", true);
+         context.put("condition", true);
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);

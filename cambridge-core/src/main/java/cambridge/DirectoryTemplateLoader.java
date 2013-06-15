@@ -35,34 +35,34 @@ public class DirectoryTemplateLoader extends FileTemplateLoader {
       encoding = defaultEncoding;
    }
 
-   public TemplateFactory newTemplateFactory(String template) throws TemplateLoadingException {
-      return newTemplateFactory(template, encoding);
+   public TemplateFactory newTemplateFactory(String template, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(template, encoding, expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(String template, String encoding) throws TemplateLoadingException {
+   public TemplateFactory newTemplateFactory(String template, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       File templateFile = new File(templateDirectory.getAbsolutePath() + fileSeperator + template);
-      return newTemplateFactory(templateFile, encoding);
+      return newTemplateFactory(templateFile, encoding, expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(String template, TemplateModifier modifier) throws TemplateLoadingException {
-      return newTemplateFactory(template, encoding, modifier);
+   public TemplateFactory newTemplateFactory(String template, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
+      return newTemplateFactory(template, encoding, modifier, expressionLanguage);
    }
 
-   public TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier) throws TemplateLoadingException {
+   public TemplateFactory newTemplateFactory(String template, String encoding, TemplateModifier modifier, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       File templateFile = new File(templateDirectory.getAbsolutePath() + fileSeperator + template);
-      return newTemplateFactory(templateFile, encoding, modifier);
+      return newTemplateFactory(templateFile, encoding, modifier, expressionLanguage);
    }
 
    @Override
-   public TemplateDocument parseTemplate(String templateName) throws TemplateLoadingException {
+   public TemplateDocument parseTemplate(String templateName, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       File templateFile = new File(templateDirectory.getAbsolutePath() + fileSeperator + templateName);
-      return parseTemplate(templateFile);
+      return parseTemplate(templateFile, expressionLanguage);
    }
 
    @Override
-   public TemplateDocument parseTemplate(String templateName, String encoding) throws TemplateLoadingException {
+   public TemplateDocument parseTemplate(String templateName, String encoding, ExpressionLanguage expressionLanguage) throws TemplateLoadingException {
       File templateFile = new File(templateDirectory.getAbsolutePath() + fileSeperator + templateName);
-      return parseTemplate(templateFile, encoding);
+      return parseTemplate(templateFile, encoding, expressionLanguage);
    }
 
    /**

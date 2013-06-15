@@ -1,6 +1,7 @@
 package simplewebapp.servlets;
 
 import cambridge.*;
+import cambridge.model.Expression;
 import cambridge.model.Tag;
 import cambridge.model.TemplateDocument;
 
@@ -39,12 +40,13 @@ public class IndexServlet extends HttpServlet {
          public void modifyTemplate(TemplateDocument doc) {
             Tag li = doc.getElementsByTagName("li").get(1);
             try {
-               li.addExpression(Expressions.parse("message"));
+                Expression expression = Expressions.cambridgeExpressionLanguage.parse("message", 1, 1);
+                li.addExpression(expression);
             } catch (ExpressionParsingException e) {
                e.printStackTrace();
             }
          }
-      });
+      }, Expressions.cambridgeExpressionLanguage);
    }
 
 }

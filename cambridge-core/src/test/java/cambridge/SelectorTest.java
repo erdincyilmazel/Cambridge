@@ -34,7 +34,7 @@ public class SelectorTest {
                assertEquals("span", t.getTagName());
                assertEquals("text", t.getTextContents());
             }
-         });
+         }, Expressions.cambridgeExpressionLanguage);
 
          Template t = f.createTemplate();
          t.printTo(new OutputStreamWriter(System.out));

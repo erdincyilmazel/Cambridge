@@ -70,13 +70,13 @@ public class TemplateParser {
 
     private TemplateLoader templateLoader;
 
-    public TemplateParser(TemplateTokenizer tokenizer) {
+    public TemplateParser(TemplateTokenizer tokenizer, ExpressionLanguage expressionLanguage) {
         this.tokenizer = tokenizer;
-        this.expressionLanguage = Expressions.getDefaultExpressionLanguage();
+        this.expressionLanguage = expressionLanguage;
     }
 
-    public TemplateParser(TemplateTokenizer tokenizer, TemplateLoader loader) {
-        this(tokenizer);
+    public TemplateParser(TemplateTokenizer tokenizer, TemplateLoader loader, ExpressionLanguage expressionLanguage) {
+        this(tokenizer, expressionLanguage);
         this.templateLoader = loader;
     }
 
@@ -163,7 +163,7 @@ public class TemplateParser {
     }
 
     public TemplateDocument parse() throws IOException, TemplateParsingException {
-        template = new TemplateDocument();
+        template = new TemplateDocument(expressionLanguage);
         fillBuffer();
         nextToken();
 
@@ -631,7 +631,7 @@ public class TemplateParser {
 
         try {
             template.addInclude(fileName);
-            return new IncludeNode(templateLoader, fileName, selector);
+            return new IncludeNode(templateLoader, fileName, expressionLanguage, selector);
         } catch (TemplateLoadingException e) {
             throw new TemplateParsingException("Could not load the include", e, currentToken.getLineNo(), currentToken.getColumn());
         } catch (BehaviorInstantiationException e) {
@@ -670,7 +670,7 @@ public class TemplateParser {
 
         try {
             template.addInclude(fileName);
-            return new ExtendsDirective(templateLoader, fileName, selector);
+            return new ExtendsDirective(templateLoader, fileName, selector, expressionLanguage);
         } catch (TemplateLoadingException e) {
             throw new TemplateParsingException("Could not load the extended template", e, currentToken.getLineNo(), currentToken.getColumn());
         } catch (BehaviorInstantiationException e) {

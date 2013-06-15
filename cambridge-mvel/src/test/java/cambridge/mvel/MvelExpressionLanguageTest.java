@@ -186,16 +186,16 @@ public class MvelExpressionLanguageTest
     public void testComplexArithmetic() throws ExpressionEvaluationException
     {
         ExpressionContext context = expressionLanguage.createNewContext();
-        assertEquals("Testing simple arithmetic", 20494, expressionLanguage.parse("(891 * 23 + 12 / 8)", 1, 1).eval(context));
+        assertEquals("Testing simple arithmetic", 20494, expressionLanguage.parse("(891 * 23 + 12 / 8)", 1, 1).asInt(context));
         assertEquals("Testing simple arithmetic", 20494.5, expressionLanguage.parse("(891 * 23 + 12.0 / 8)", 1, 1).eval(context));
-        assertEquals("Testing simple arithmetic", 4.5, expressionLanguage.parse("(891 * 23 + 12 / 8) % 10", 1, 1).eval(context));
+        assertEquals("Testing simple arithmetic", 4.5, expressionLanguage.parse("(891 * 23 + 12.0 / 8) % 10", 1, 1).eval(context));
     }
 
     @Test
     public void testVariableAccess() throws Exception
     {
         ExpressionContext context = expressionLanguage.createNewContext();
-        context.set("name", "Cambridge");
+        context.put("name", "Cambridge");
         Expression expression = expressionLanguage.parse("name", 1, 1);
 
         Object result = expression.eval(context);
@@ -206,7 +206,7 @@ public class MvelExpressionLanguageTest
     public void testBean() throws Exception
     {
         ExpressionContext context = expressionLanguage.createNewContext();
-        context.set("sample", sample);
+        context.put("sample", sample);
         Expression expression = expressionLanguage.parse("sample", 1, 1);
 
         Object result = expression.eval(context);

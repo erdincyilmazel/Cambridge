@@ -101,20 +101,20 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          children.remove(index);
       }
    }
-
-   public void addInclude(TemplateLoader loader, String template, String selector) {
-      IncludeNode node = null;
-      try {
-         node = new IncludeNode(loader, template, selector);
-      } catch (BehaviorInstantiationException e) {
-         throw new TemplateLoadingException("Could not include " + template, e);
-      }
-      addChild(node);
-   }
-
-   public void addInclude(TemplateLoader loader, String template) {
-      addInclude(loader, template, null);
-   }
+//
+//   public void addInclude(TemplateLoader loader, String template, String selector) {
+//      IncludeNode node = null;
+//      try {
+//         node = new IncludeNode(loader, template, selector, );
+//      } catch (BehaviorInstantiationException e) {
+//         throw new TemplateLoadingException("Could not include " + template, e);
+//      }
+//      addChild(node);
+//   }
+//
+//   public void addInclude(TemplateLoader loader, String template) {
+//      addInclude(loader, template, null);
+//   }
 
    public void insertChild(TemplateNode node) {
       children.add(0, node);
@@ -375,7 +375,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
             if (children == null) {
                f.addFragment(this);
             } else {
-               fragments = new FragmentList();
+               fragments = new FragmentList(doc.getExpressionLanguage());
                for (TemplateNode t : children) {
                   if (t.normalizeUntil(doc, reference, fragments, inclusive)) {
                      fragments.pack();
@@ -507,7 +507,7 @@ public class TagNode extends TemplateNode implements Fragment, Tag, ModifyableTa
          if (children == null) {
             f.addFragment(this);
          } else {
-            fragments = new FragmentList();
+            fragments = new FragmentList(doc.getExpressionLanguage());
             for (TemplateNode t : children) {
                t.normalize(doc, fragments);
             }

@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.io.StringWriter;
 
+import cambridge.Expressions;
 import cambridge.parser.expressions.MapExpressionContext;
 import cambridge.runtime.ExpressionContext;
 import org.junit.Test;
@@ -31,9 +32,9 @@ public class IfElseTest {
    public void testFirst() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(IfElseTest.class.getResourceAsStream("ifelse.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          ExpressionContext context = new MapExpressionContext();
-         context.set("var1", true);
+         context.put("var1", true);
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -56,9 +57,9 @@ public class IfElseTest {
    public void testSecond() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(IfElseTest.class.getResourceAsStream("ifelse.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          ExpressionContext context = new MapExpressionContext();
-         context.set("var2", true);
+         context.put("var2", true);
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -81,9 +82,9 @@ public class IfElseTest {
    public void testThird() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(IfElseTest.class.getResourceAsStream("ifelse.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          ExpressionContext context = new MapExpressionContext();
-         context.set("var3", true);
+         context.put("var3", true);
 
          TemplateDocument t = parser.parse();
          assertNotNull(t);
@@ -106,7 +107,7 @@ public class IfElseTest {
    public void testFinal() {
       try {
          TemplateTokenizer tokenizer = new TemplateTokenizer(IfElseTest.class.getResourceAsStream("ifelse.html"));
-         TemplateParser parser = new TemplateParser(tokenizer);
+         TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
          ExpressionContext context = new MapExpressionContext();
 
          TemplateDocument t = parser.parse();

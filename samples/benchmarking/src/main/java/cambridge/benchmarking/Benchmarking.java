@@ -2,6 +2,7 @@ package cambridge.benchmarking;
 
 
 import cambridge.DirectoryTemplateLoader;
+import cambridge.Expressions;
 import cambridge.Template;
 import cambridge.TemplateFactory;
 import cambridge.mvel.MvelExpressionLanguage;
@@ -50,7 +51,7 @@ public class Benchmarking {
       DirectoryTemplateLoader templateLoader = new DirectoryTemplateLoader(
          new File("src/main/cambridgetemplates/" + expressionLanguage), "utf-8", -1);
 
-      TemplateFactory tf = templateLoader.newTemplateFactory("skeleton.html");
+      TemplateFactory tf = templateLoader.newTemplateFactory("skeleton.html", Expressions.cambridgeExpressionLanguage);
 
       for (int i = 0; i < loop; i++) {
          Template template = tf.createTemplate();

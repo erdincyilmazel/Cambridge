@@ -38,7 +38,7 @@ public class WhileBehavior extends LoopingTagBehavior {
         try {
             Iter iter = new Iter();
             while (expression.asBoolean(context)) {
-                context.set(Expressions.ITER_OBJECT, iter);
+                context.put(Expressions.ITER_OBJECT, iter);
                 tag.execute(context, out);
                 iter.next();
             }

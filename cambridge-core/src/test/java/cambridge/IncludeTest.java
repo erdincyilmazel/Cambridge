@@ -27,7 +27,7 @@ public class IncludeTest {
             public void modifyTemplate(TemplateDocument doc) {
                try {
                   TemplateTokenizer tokenizer = new TemplateTokenizer(new InputStreamReader(new FileInputStream("b.html"), "UTF-8"));
-                  TemplateParser parser = new TemplateParser(tokenizer);
+                  TemplateParser parser = new TemplateParser(tokenizer, Expressions.cambridgeExpressionLanguage);
                   TemplateDocument document = parser.parse();
 
                   Tag tag = document.getElementsByTagName("body").get(0);
@@ -41,7 +41,7 @@ public class IncludeTest {
                   e.printStackTrace();
                }
             }
-         });
+         }, Expressions.cambridgeExpressionLanguage);
 
          Template t = f.createTemplate();
 

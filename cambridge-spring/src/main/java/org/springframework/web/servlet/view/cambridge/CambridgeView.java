@@ -51,7 +51,7 @@ public class CambridgeView extends AbstractTemplateView
         SpringExpressionLanguage expressionLanguage = cambridgeConfig.getExpressionLanguage();
         ExpressionContext context = expressionLanguage.createNewContext(locale);
         context.setVariables(model);
-        Template template = templateFactory.createTemplate(context);
+        Template template = templateFactory.createTemplate(locale);
 
         template.printTo(response.getWriter());
     }
