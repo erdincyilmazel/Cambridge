@@ -188,7 +188,7 @@ public class CambridgeExpressionLanguageTest
         ExpressionContext context = expressionLanguage.createNewContext();
         assertEquals("Testing simple arithmetic", 20494, expressionLanguage.parse("(891 * 23 + 12 / 8)", 1, 1).eval(context));
         assertEquals("Testing simple arithmetic", 20494.5, expressionLanguage.parse("(891 * 23 + 12.0 / 8)", 1, 1).eval(context));
-        assertEquals("Testing simple arithmetic", 4, expressionLanguage.parse("(891 * 23 + 12 / 8) % 10", 1, 1).eval(context));
+        assertEquals("Testing simple arithmetic", 4.5, expressionLanguage.parse("(891 * 23 + 12.0 / 8) % 10", 1, 1).eval(context));
     }
 
     @Test

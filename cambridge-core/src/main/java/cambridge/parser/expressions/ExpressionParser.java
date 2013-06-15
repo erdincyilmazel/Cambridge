@@ -427,7 +427,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(CambridgeExpression.Operator.ConditionalOr, value, r);
+                     value = new BooleanExpression(CambridgeExpression.Operator.ConditionalOr, value, r);
 
                   }
                   break;
@@ -491,7 +491,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(CambridgeExpression.Operator.ConditionalAnd, value, r);
+                     value = new BooleanExpression(CambridgeExpression.Operator.ConditionalAnd, value, r);
 
                   }
                   break;
@@ -555,7 +555,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(CambridgeExpression.Operator.Or, value, r);
+                     value = new BooleanExpression(CambridgeExpression.Operator.Or, value, r);
 
                   }
                   break;
@@ -619,7 +619,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(CambridgeExpression.Operator.XOr, value, r);
+                     value = new BooleanExpression(CambridgeExpression.Operator.XOr, value, r);
 
                   }
                   break;
@@ -683,7 +683,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(CambridgeExpression.Operator.And, value, r);
+                     value = new BooleanExpression(CambridgeExpression.Operator.And, value, r);
 
                   }
                   break;
@@ -781,7 +781,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(op, value, r);
+                     value = new BooleanExpression(op, value, r);
 
                   }
                   break;
@@ -851,7 +851,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(op, value, r);
+                     value = new BooleanExpression(op, value, r);
 
                   }
                   break;
@@ -1024,7 +1024,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(op, value, r);
+                     value = new BooleanExpression(op, value, r);
 
                   }
                   break;
@@ -1203,7 +1203,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(op, value, r);
+                     value = new BooleanExpression(op, value, r);
 
                   }
                   break;
@@ -1326,7 +1326,7 @@ public class ExpressionParser extends Parser {
 
                      state._fsp--;
 
-                     value = new BinaryExpression(op, value, r);
+                     value = new BooleanExpression(op, value, r);
 
                   }
                   break;

@@ -7,12 +7,12 @@ import cambridge.runtime.ExpressionContext;
 /**
  * An CambridgeExpression with two operands
  */
-public class BinaryExpression implements CambridgeExpression {
+public class BooleanExpression implements CambridgeExpression {
    private final Operator operator;
    private final CambridgeExpression left;
    private final CambridgeExpression right;
 
-   public BinaryExpression(Operator operator, CambridgeExpression left, CambridgeExpression right) {
+   public BooleanExpression(Operator operator, CambridgeExpression left, CambridgeExpression right) {
       this.operator = operator;
       this.left = left;
       this.right = right;
@@ -37,7 +37,7 @@ public class BinaryExpression implements CambridgeExpression {
          case LTE:
             return Type.Boolean;
          case Mod:
-            return Type.Int;
+            return Type.Double;
          case Not:
             return Type.Boolean;
          case NotEqual:
@@ -104,7 +104,7 @@ public class BinaryExpression implements CambridgeExpression {
          case LTE:
             return left.asDouble(context) <= right.asDouble(context);
          case Mod:
-            return left.asInt(context) % right.asInt(context);
+            return left.asDouble(context) % right.asDouble(context);
          case NotEqual:
             return !(left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context)));
          case Or:
@@ -180,7 +180,7 @@ public class BinaryExpression implements CambridgeExpression {
          case LTE:
             return left.asDouble(context) <= right.asDouble(context);
          case Mod:
-            return (left.asInt(context) % right.asInt(context)) != 0;
+            return (left.asDouble(context) % right.asDouble(context)) != 0;
          case NotEqual:
             return !areEqual(context);
          case Or:
@@ -263,7 +263,7 @@ public class BinaryExpression implements CambridgeExpression {
          case LTE:
             return (left.asDouble(context) <= right.asDouble(context)) ? 1 : 0;
          case Mod:
-            return left.asInt(context) % right.asInt(context);
+            return (int) (left.asDouble(context) % right.asDouble(context));
          case NotEqual:
             return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 0 : 1;
          case Or:
@@ -339,7 +339,7 @@ public class BinaryExpression implements CambridgeExpression {
          case LTE:
             return (left.asDouble(context) <= right.asDouble(context)) ? 1 : 0;
          case Mod:
-            return left.asInt(context) % right.asInt(context);
+            return (float) (left.asDouble(context) % right.asDouble(context));
          case NotEqual:
             return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 0 : 1;
          case Or:
@@ -415,7 +415,7 @@ public class BinaryExpression implements CambridgeExpression {
          case LTE:
             return (left.asDouble(context) <= right.asDouble(context)) ? 1 : 0;
          case Mod:
-            return left.asInt(context) % right.asInt(context);
+            return left.asDouble(context) % right.asDouble(context);
          case NotEqual:
             return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 0 : 1;
          case Or:
@@ -491,7 +491,7 @@ public class BinaryExpression implements CambridgeExpression {
          case LTE:
             return (left.asDouble(context) <= right.asDouble(context)) ? 1 : 0;
          case Mod:
-            return left.asInt(context) % right.asInt(context);
+            return (long) (left.asDouble(context) % right.asDouble(context));
          case NotEqual:
             return (left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))) ? 0 : 1;
          case Or:
@@ -566,7 +566,7 @@ public class BinaryExpression implements CambridgeExpression {
          case LTE:
             return "" + (left.asDouble(context) <= right.asDouble(context));
          case Mod:
-            return "" + (left.asInt(context) % right.asInt(context));
+            return "" + (left.asDouble(context) % right.asDouble(context));
          case NotEqual:
             return "" + (!(left == null && right == null || !(left == null || right == null) && left.eval(context).equals(right.eval(context))));
          case Or:

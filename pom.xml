@@ -8,7 +8,7 @@
    <name>Cambridge Template Engine</name>
    <version>${cambridgeVersion}</version>
    <properties>
-       <cambridgeVersion>0.9</cambridgeVersion>
+       <cambridgeVersion>0.9-SNAPSHOT</cambridgeVersion>
    </properties>
    <modules>
       <module>cambridge-core</module>
