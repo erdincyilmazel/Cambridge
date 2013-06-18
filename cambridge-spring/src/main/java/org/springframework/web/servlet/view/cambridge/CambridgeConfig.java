@@ -1,5 +1,6 @@
 package org.springframework.web.servlet.view.cambridge;
 
+import cambridge.ExpressionLanguage;
 import cambridge.TemplateFactory;
 import cambridge.TemplateLoader;
 
@@ -15,5 +16,5 @@ public interface CambridgeConfig
 
     public String getTemplateExtension();
 
-    public SpringExpressionLanguage getExpressionLanguage();
+    public ExpressionLanguage getExpressionLanguage();
 }

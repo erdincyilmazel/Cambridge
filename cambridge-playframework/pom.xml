@@ -11,7 +11,7 @@
         <version>${cambridgeVersion}</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
-    <version>${parent.version}</version>
+    <version>${project.parent.version}</version>
     <dependencies>
         <dependency>
             <groupId>junit</groupId>

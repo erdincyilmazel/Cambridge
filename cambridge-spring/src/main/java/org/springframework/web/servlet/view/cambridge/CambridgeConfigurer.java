@@ -1,6 +1,7 @@
 package org.springframework.web.servlet.view.cambridge;
 
 import cambridge.DirectoryTemplateLoader;
+import cambridge.ExpressionLanguage;
 import cambridge.Expressions;
 import cambridge.TemplateFactory;
 import cambridge.TemplateLoader;
@@ -21,19 +22,18 @@ public class CambridgeConfigurer implements CambridgeConfig, InitializingBean, S
     private String templatePath;
     private int changeDetectionInterval = 5000;
     private String templateExtension = "html";
-    private String expressionLanguage = "cambridge";
+    private String expressionLanguage = "spel";
     private ServletContext servletContext;
     private TemplateLoader templateLoader;
     private ConcurrentHashMap<String, TemplateFactory> cachedTemplates = new ConcurrentHashMap<String, TemplateFactory>();
-    private SpringExpressionLanguage spel;
+    private ExpressionLanguage exp;
 
     @Override
     public void afterPropertiesSet() throws Exception
     {
-//        Expressions.registerExpressionLanguage(expressionLanguage, SpringExpressionLanguage.class);
-        spel = new SpringExpressionLanguage();
-        Expressions.setDefaultExpressionLanguage("spel", spel);
+        Expressions.registerExpressionLanguage(expressionLanguage, SpringExpressionLanguage.class);
         templateLoader = new DirectoryTemplateLoader(new File(servletContext.getRealPath(templatePath)), templateEncoding, changeDetectionInterval);
+        exp = Expressions.getExpressionLanguageByName(expressionLanguage);
     }
 
     @Override
@@ -87,17 +87,15 @@ public class CambridgeConfigurer implements CambridgeConfig, InitializingBean, S
         return templateLoader;
     }
 
-    public SpringExpressionLanguage getExpressionLanguage()
+    public ExpressionLanguage getExpressionLanguage()
     {
-        return spel;
+        return exp;
     }
 
     public void setExpressionLanguage(String expressionLanguage)
     {
         this.expressionLanguage = expressionLanguage;
     }
-
-
 
     @Override
     public TemplateFactory getTemplateFactory(String template)
@@ -108,7 +106,7 @@ public class CambridgeConfigurer implements CambridgeConfig, InitializingBean, S
             return templateFactory;
         }
 
-        templateFactory = templateLoader.newTemplateFactory(template, spel);
+        templateFactory = templateLoader.newTemplateFactory(template, exp);
 
         cachedTemplates.putIfAbsent(template, templateFactory);
         return templateFactory;

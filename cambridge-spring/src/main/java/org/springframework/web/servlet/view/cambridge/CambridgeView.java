@@ -1,5 +1,6 @@
 package org.springframework.web.servlet.view.cambridge;
 
+import cambridge.ExpressionLanguage;
 import cambridge.Template;
 import cambridge.TemplateFactory;
 import cambridge.runtime.ExpressionContext;
@@ -48,7 +49,7 @@ public class CambridgeView extends AbstractTemplateView
         Locale locale = RequestContextUtils.getLocale(request);
 
         TemplateFactory templateFactory = cambridgeConfig.getTemplateFactory(url);
-        SpringExpressionLanguage expressionLanguage = cambridgeConfig.getExpressionLanguage();
+        ExpressionLanguage expressionLanguage = cambridgeConfig.getExpressionLanguage();
         ExpressionContext context = expressionLanguage.createNewContext(locale);
         context.setVariables(model);
         Template template = templateFactory.createTemplate(locale);
