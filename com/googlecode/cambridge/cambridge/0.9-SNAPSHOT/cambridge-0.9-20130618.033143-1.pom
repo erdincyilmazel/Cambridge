@@ -6,7 +6,7 @@
     <artifactId>cambridge</artifactId>
     <packaging>pom</packaging>
     <name>Cambridge Template Engine</name>
-    <version>${cambridgeVersion}</version>
+    <version>0.9-SNAPSHOT</version>
     <properties>
         <cambridgeVersion>0.9-SNAPSHOT</cambridgeVersion>
         <github.global.server>github</github.global.server>
