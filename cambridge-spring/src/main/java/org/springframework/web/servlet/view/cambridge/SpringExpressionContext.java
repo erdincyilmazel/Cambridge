@@ -3,6 +3,7 @@ package org.springframework.web.servlet.view.cambridge;
 import cambridge.runtime.ExpressionContext;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
+import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
 
@@ -59,6 +60,6 @@ public class SpringExpressionContext extends StandardEvaluationContext implement
     @Override
     public Map<String, Object> asMap()
     {
-        return null;
+        return Collections.emptyMap();
     }
 }

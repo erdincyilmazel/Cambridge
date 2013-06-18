@@ -78,10 +78,10 @@ class FileTemplateFactory extends TemplateFactory
 
     private synchronized void reload()
     {
-        reloading = true;
         FileTemplateLoader l = (FileTemplateLoader) loader;
         try
         {
+            reloading = true;
             TemplateDocument doc = l.parseTemplate(templateFile, encoding, expressionLanguage);
             if (modifier != null)
             {
@@ -106,6 +106,9 @@ class FileTemplateFactory extends TemplateFactory
             e.printStackTrace();
             throw new TemplateReloadingException(e);
         }
-        reloading = false;
+        finally
+        {
+            reloading = false;
+        }
     }
 }
