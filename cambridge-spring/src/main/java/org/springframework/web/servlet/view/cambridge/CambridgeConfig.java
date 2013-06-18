@@ -16,5 +16,13 @@ public interface CambridgeConfig
 
     public String getTemplateExtension();
 
-    public ExpressionLanguage getExpressionLanguage();
+    public String getExpressionLanguage();
+
+    public ExpressionLanguage getExpressionLanguageImplementation();
+
+    public String getTemplateEncoding();
+
+    public int getChangeDetectionInterval();
+
+    public String getTemplatePath();
 }

@@ -87,14 +87,20 @@ public class CambridgeConfigurer implements CambridgeConfig, InitializingBean, S
         return templateLoader;
     }
 
-    public ExpressionLanguage getExpressionLanguage()
+    public String getExpressionLanguage()
     {
-        return exp;
+        return expressionLanguage;
     }
 
     public void setExpressionLanguage(String expressionLanguage)
     {
         this.expressionLanguage = expressionLanguage;
+    }
+
+    @Override
+    public ExpressionLanguage getExpressionLanguageImplementation()
+    {
+        return exp;
     }
 
     @Override
