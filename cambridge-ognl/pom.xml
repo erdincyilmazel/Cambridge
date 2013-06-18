@@ -8,7 +8,7 @@
     <parent>
         <artifactId>cambridge</artifactId>
         <groupId>com.googlecode.cambridge</groupId>
-        <version>${cambridgeVersion}</version>
+        <version>0.9-SNAPSHOT</version>
         <relativePath>../pom.xml</relativePath>
     </parent>
     <version>${project.parent.version}</version>
