@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata>
   <groupId>com.googlecode.cambridge</groupId>
-  <artifactId>cambridge</artifactId>
+  <artifactId>cambridge-core</artifactId>
   <versioning>
     <versions>
       <version>0.9-SNAPSHOT</version>
     </versions>
-    <lastUpdated>20130618034231</lastUpdated>
+    <lastUpdated>20130618034237</lastUpdated>
   </versioning>
 </metadata>
