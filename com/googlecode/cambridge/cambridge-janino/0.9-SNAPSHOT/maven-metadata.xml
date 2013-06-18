@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata modelVersion="1.1.0">
   <groupId>com.googlecode.cambridge</groupId>
-  <artifactId>cambridge-jaxrs</artifactId>
+  <artifactId>cambridge-janino</artifactId>
   <version>0.9-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20130618.032210</timestamp>
+      <timestamp>20130618.032212</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20130618032210</lastUpdated>
+    <lastUpdated>20130618032212</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.9-20130618.032210-1</value>
-        <updated>20130618032210</updated>
+        <value>0.9-20130618.032212-1</value>
+        <updated>20130618032212</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.9-20130618.032210-1</value>
-        <updated>20130618032210</updated>
+        <value>0.9-20130618.032212-1</value>
+        <updated>20130618032212</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
