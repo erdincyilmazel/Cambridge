@@ -2,12 +2,9 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <artifactId>cambridge-spring</artifactId>
-    <properties>
-        <spring-framework.version>3.2.3.RELEASE</spring-framework.version>
-    </properties>
+    <artifactId>cambridge-struts</artifactId>
     <packaging>jar</packaging>
-    <name>Cambridge Template Spring Integration</name>
+    <name>Cambridge Template Struts Integration</name>
     <parent>
         <artifactId>cambridge</artifactId>
         <groupId>com.googlecode.cambridge</groupId>
@@ -16,22 +13,6 @@
     </parent>
     <version>${project.parent.version}</version>
     <dependencies>
-        <dependency>
-            <groupId>javax.servlet</groupId>
-            <artifactId>servlet-api</artifactId>
-            <version>2.5</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring-framework.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-webmvc</artifactId>
-            <version>${spring-framework.version}</version>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>

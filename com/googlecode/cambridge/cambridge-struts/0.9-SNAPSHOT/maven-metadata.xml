@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata modelVersion="1.1.0">
   <groupId>com.googlecode.cambridge</groupId>
-  <artifactId>cambridge-spring</artifactId>
+  <artifactId>cambridge-struts</artifactId>
   <version>0.9-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20130618.032217</timestamp>
+      <timestamp>20130618.032218</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20130618032217</lastUpdated>
+    <lastUpdated>20130618032218</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
         <extension>jar</extension>
-        <value>0.9-20130618.032217-1</value>
-        <updated>20130618032217</updated>
+        <value>0.9-20130618.032218-1</value>
+        <updated>20130618032218</updated>
       </snapshotVersion>
       <snapshotVersion>
         <extension>pom</extension>
-        <value>0.9-20130618.032217-1</value>
-        <updated>20130618032217</updated>
+        <value>0.9-20130618.032218-1</value>
+        <updated>20130618032218</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
