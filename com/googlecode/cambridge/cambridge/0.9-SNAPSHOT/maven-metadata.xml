@@ -1,24 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <metadata modelVersion="1.1.0">
   <groupId>com.googlecode.cambridge</groupId>
-  <artifactId>benchmarking</artifactId>
+  <artifactId>cambridge</artifactId>
   <version>0.9-SNAPSHOT</version>
   <versioning>
     <snapshot>
-      <timestamp>20130618.033213</timestamp>
+      <timestamp>20130618.034119</timestamp>
       <buildNumber>1</buildNumber>
     </snapshot>
-    <lastUpdated>20130618033213</lastUpdated>
+    <lastUpdated>20130618034119</lastUpdated>
     <snapshotVersions>
       <snapshotVersion>
-        <extension>jar</extension>
-        <value>0.9-20130618.033213-1</value>
-        <updated>20130618033213</updated>
-      </snapshotVersion>
-      <snapshotVersion>
         <extension>pom</extension>
-        <value>0.9-20130618.033213-1</value>
-        <updated>20130618033213</updated>
+        <value>0.9-20130618.034119-1</value>
+        <updated>20130618034119</updated>
       </snapshotVersion>
     </snapshotVersions>
   </versioning>
