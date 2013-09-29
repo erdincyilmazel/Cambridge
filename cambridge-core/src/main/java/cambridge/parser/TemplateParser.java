@@ -444,13 +444,19 @@ public class TemplateParser {
                     }
 
                     if (element == null) {
-                        throw new TemplateParsingException("Error parsing template file. Unterminated tag?", currentToken.getLineNo(), currentToken.getColumn());
+                        if (tok != null)
+                        {
+                            element = new SimpleAttribute(tok.getAttributeName(), tok.getNameSpace(), tok.getLineNo(), tok.getLineNo());
+                        }
+                        else
+                        {
+                            throw new TemplateParsingException("Error parsing template file. Unterminated tag?", currentToken.getLineNo(), currentToken.getColumn());
+                        }
                     }
 
                     element.setAttributeName(tok.getAttributeName());
                     element.setAttributeNameSpace(tok.getNameSpace());
                     element.setTextContent(textContent.toString());
-
 
                     int s = node.getTagParts().size();
                     if (s > 0) {
