@@ -444,12 +444,9 @@ public class TemplateParser {
                     }
 
                     if (element == null) {
-                        if (tok != null)
-                        {
+                        if (tok != null) {
                             element = new SimpleAttribute(tok.getAttributeName(), tok.getNameSpace(), tok.getLineNo(), tok.getLineNo());
-                        }
-                        else
-                        {
+                        } else {
                             throw new TemplateParsingException("Error parsing template file. Unterminated tag?", currentToken.getLineNo(), currentToken.getColumn());
                         }
                     }
