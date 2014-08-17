@@ -3,6 +3,7 @@ package org.springframework.web.servlet.view.cambridge;
 import cambridge.runtime.ExpressionContext;
 import org.springframework.expression.spel.support.StandardEvaluationContext;
 
+import java.lang.reflect.Field;
 import java.util.Collections;
 import java.util.Locale;
 import java.util.Map;
@@ -60,6 +61,20 @@ public class SpringExpressionContext extends StandardEvaluationContext implement
     @Override
     public Map<String, Object> asMap()
     {
+        try
+        {
+            Field variables = StandardEvaluationContext.class.getDeclaredField("variables");
+            variables.setAccessible(true);
+            return (Map<String, Object>) variables.get(this);
+        }
+        catch (NoSuchFieldException e)
+        {
+            e.printStackTrace();
+        }
+        catch (IllegalAccessException e)
+        {
+            e.printStackTrace();
+        }
         return Collections.emptyMap();
     }
 }

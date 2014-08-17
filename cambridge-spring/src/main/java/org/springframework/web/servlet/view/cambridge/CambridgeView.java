@@ -49,11 +49,9 @@ public class CambridgeView extends AbstractTemplateView
         Locale locale = RequestContextUtils.getLocale(request);
 
         TemplateFactory templateFactory = cambridgeConfig.getTemplateFactory(url);
-        ExpressionLanguage expressionLanguage = cambridgeConfig.getExpressionLanguageImplementation();
-        ExpressionContext context = expressionLanguage.createNewContext(locale);
-        context.setVariables(model);
         Template template = templateFactory.createTemplate(locale);
-
+        ExpressionContext context = template.getContext();
+        context.setVariables(model);
         template.printTo(response.getWriter());
     }
 
