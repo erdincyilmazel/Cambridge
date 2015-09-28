@@ -53,7 +53,7 @@ your templates much easier with project wide skeleton templates that you can re-
 ### Extensibility
 Cambridge is designed from ground up with modularity and extensibility in mind. The internal API which is used to build
 all the built-in behaviors, functions, filters and custom tags is very available to anyone using Cambridge so you can
-easily add new features to Cambrige. Cambridge also allows you to plug-in your expression language of choice such as MVEL, OGNL or JEXL
+easily add new features to Cambridge. Cambridge also allows you to plug-in your expression language of choice such as MVEL, OGNL or JEXL
 if you want more features then what the built-in expression language provides.
 
 ### Performance
