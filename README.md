@@ -25,7 +25,7 @@ Pure markup syntax, performance, extensibility and simplicity are the key featur
 If you're wondering what the html code above is doing, here is what it tells Cambridge to do.
 Lets start with the `a:if` attribute in the first line. It basically says, the div #loginBox should only be rendered
 if the loggedIn property in our data model is false. That is how you would do if blocks in Cambridge. It uses the scope
-of your html tag for defining where the if logic should be applied. The next tag which immediatelly follows the div with
+of your html tag for defining where the if logic should be applied. The next tag which immediately follows the div with
 id #loginBox has another attribute named `a:else` which says this div should be rendered if the condition in the first tag
 was not met.
 
