@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cambridge-spring</artifactId>
     <properties>
-        <spring-framework.version>4.0.5.RELEASE</spring-framework.version>
+        <spring-framework.version>5.2.0.RELEASE</spring-framework.version>
     </properties>
     <packaging>jar</packaging>
     <name>Cambridge Template Spring Integration</name>
